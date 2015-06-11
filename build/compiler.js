@@ -262,7 +262,7 @@ function webJS(inPath, outPath) {
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
   var lintPaths = arguments[4] === undefined ? [] : arguments[4];
 
-  buildJS(compileJS, inPath, outPath, callback, onCompile, lintPaths);
+  buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
 function nodeJS(inPath, outPath) {
@@ -270,7 +270,7 @@ function nodeJS(inPath, outPath) {
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
   var lintPaths = arguments[4] === undefined ? [] : arguments[4];
 
-  buildJS(packageJS, inPath, outPath, callback, onCompile, lintPaths);
+  buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
 function webSASS(inPath, outPath) {
