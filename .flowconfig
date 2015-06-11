@@ -1,0 +1,9 @@
+[ignore]
+.*/invalidPackageJson/*
+.*/test/*
+
+[include]
+
+[libs]
+
+[options]
