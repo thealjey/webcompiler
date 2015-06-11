@@ -1,6 +1,6 @@
 {
   "name": "webcompiler",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Lint, typecheck, compile and package JavaScript (ES6 + Flow static types + JSX), for the browser as well as the NodeJS; lint, compile, autoprefix and minify SASS.",
   "main": "build/compiler.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "autoprefixer-core": "^5.2.0",
     "babel": "^5.5.6",
     "babel-eslint": "^3.1.15",
+    "babel-runtime": "^5.5.6",
     "clean-css": "^3.3.1",
     "eslint": "^0.22.1",
     "eslint-plugin-react": "^2.5.0",
