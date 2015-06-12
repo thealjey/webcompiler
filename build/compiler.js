@@ -53,6 +53,8 @@ var _cleanCss2 = _interopRequireDefault(_cleanCss);
 
 var _NativeProcess = require('./NativeProcess');
 
+var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
+
 var eslint = new _eslint.CLIEngine({
   envs: ['node', 'browser'],
   rules: {
@@ -62,11 +64,11 @@ var eslint = new _eslint.CLIEngine({
   }
 }),
     consoleError = console.error.bind(console),
-    scsslint = new _NativeProcess.NativeProcess('scss-lint'),
+    scsslint = new _NativeProcess2['default']('scss-lint'),
     webpackCache = {},
     i = 0;
 
-var flow = new _NativeProcess.NativeProcess('flow');
+var flow = new _NativeProcess2['default']('flow');
 
 exports.flow = flow;
 _Object$assign(eslint.options.baseConfig, {

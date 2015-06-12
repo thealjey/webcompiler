@@ -1,11 +1,27 @@
 # webcompiler
 *Lint, type-check, compile and package JavaScript (ES6 + Flow static types + JSX), for the browser as well as the
-NodeJS; lint, compile, autoprefix and minify SASS.*
+NodeJS; lint, compile, auto-prefix and minify SASS.*
 
 ### Prerequisites
 
-1. [Facebook Flow](http://flowtype.org/)
+1. [Facebook Flow](http://flowtype.org/) (0.12+)
 2. [SCSS-Lint](https://github.com/brigade/scss-lint)
+
+Important! Create a .flowconfig file at the root of your project with the following contents:
+
+```
+[ignore]
+.*/invalidPackageJson/*
+.*/test/*
+
+[include]
+
+[libs]
+
+[options]
+suppress_comment=.*@noflow.*
+
+```
 
 ### Installation
 

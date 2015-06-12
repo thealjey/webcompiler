@@ -19,6 +19,7 @@ var NativeProcess = (function () {
     if (this.proc) {
       this.proc.kill();
     }
+
     this.proc = (0, _child_process.spawn)(this.task, args, { stdio: 'inherit' });
     this.proc.on('close', function (code) {
       if (!code) {
@@ -30,4 +31,5 @@ var NativeProcess = (function () {
   return NativeProcess;
 })();
 
-exports.NativeProcess = NativeProcess;
+exports['default'] = NativeProcess;
+module.exports = exports['default'];
