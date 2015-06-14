@@ -21,6 +21,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _zlib = require('zlib');
+
+var _zlib2 = _interopRequireDefault(_zlib);
+
 var _uglifyJs = require('uglify-js');
 
 var _uglifyJs2 = _interopRequireDefault(_uglifyJs);
@@ -98,16 +102,21 @@ function uglifyJS(inPath, outPath, outFile, callback) {
 
     output: { space_colon: false }
   });
-  _fs2['default'].writeFile(outPath, result.code, function (e) {
+  _zlib2['default'].gzip(result.code, function (e, code) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(map, result.map, function (mapErr) {
-      if (mapErr) {
-        return consoleError(mapErr);
+    _fs2['default'].writeFile(outPath, code, function (scriptErr) {
+      if (scriptErr) {
+        return consoleError(scriptErr);
       }
-      console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
-      callback();
+      _fs2['default'].writeFile(map, result.map, function (mapErr) {
+        if (mapErr) {
+          return consoleError(mapErr);
+        }
+        console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
+        callback();
+      });
     });
   });
 }
@@ -212,16 +221,21 @@ function minifyCSS(inPath, outPath, callback, result) {
     sourceMap: JSON.stringify(result.map),
     sourceMapInlineSources: true
   }).minify(result.css);
-  _fs2['default'].writeFile(outPath, result.styles + sourceMappingURL, function (e) {
+  _zlib2['default'].gzip(result.styles + sourceMappingURL, function (e, code) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(outPath + '.map', result.sourceMap, function (mapErr) {
-      if (mapErr) {
-        return consoleError(mapErr);
+    _fs2['default'].writeFile(outPath, code, function (styleErr) {
+      if (styleErr) {
+        return consoleError(styleErr);
       }
-      console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
-      callback();
+      _fs2['default'].writeFile(outPath + '.map', result.sourceMap, function (mapErr) {
+        if (mapErr) {
+          return consoleError(mapErr);
+        }
+        console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
+        callback();
+      });
     });
   });
 }
@@ -260,25 +274,34 @@ function buildJS(fn, inPath, outPath) {
 }
 
 function webJS(inPath, outPath) {
+  for (var _len = arguments.length, lintPaths = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
+    lintPaths[_key - 4] = arguments[_key];
+  }
+
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
-  var lintPaths = arguments[4] === undefined ? [] : arguments[4];
 
   buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
 function nodeJS(inPath, outPath) {
+  for (var _len2 = arguments.length, lintPaths = Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 < _len2; _key2++) {
+    lintPaths[_key2 - 4] = arguments[_key2];
+  }
+
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
-  var lintPaths = arguments[4] === undefined ? [] : arguments[4];
 
   buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
 function webSASS(inPath, outPath) {
+  for (var _len3 = arguments.length, lintPaths = Array(_len3 > 4 ? _len3 - 4 : 0), _key3 = 4; _key3 < _len3; _key3++) {
+    lintPaths[_key3 - 4] = arguments[_key3];
+  }
+
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
-  var lintPaths = arguments[4] === undefined ? [] : arguments[4];
 
   getPathParams(inPath, outPath, function (a, b, c) {
     var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b, minifyCSS.bind(null, a, b, onCompile))), c);

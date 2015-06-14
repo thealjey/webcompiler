@@ -29,17 +29,17 @@ suppress_comment=.*@noflow.*
 
 ### Exposes 3 main functions
 
-1. `webJS` - lints, type-checks, compiles, packages and minifies JavaScript for the browser
+1. `webJS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser
 (production ready + Source Maps)
 2. `nodeJS` - lints, type-checks and compiles JavaScript for NodeJS
-3. `webSASS` - lints, compiles, packages, adds vendor prefixes and minifies SASS for the browser
+3. `webSASS` - lints, compiles, packages, adds vendor prefixes, minifies and gzips SASS for the browser
 (production ready + Source Maps)
 
 ### With the same signature
 
 ```
 (inPath: string, outPath: string, onCompile: Function = Function.prototype,
- callback: Function = Function.prototype, lintPaths: Array<string> = []): void;
+ callback: Function = Function.prototype, ...lintPaths: Array<string>): void;
 ```
 
 ### Arguments
@@ -50,8 +50,8 @@ suppress_comment=.*@noflow.*
 4. `callback` - an optional function that is executed after the first successful compilation,
 can accept one argument - an optimized compiler function that can be used for continuous compilation of the same
 resource (a good candidate for use with a [watcher](https://github.com/thealjey/simple-recursive-watch))
-5. `lintPaths` - an optional array of paths to files as well as directories that you want the linter to check
-(the source file being compiled is included automatically)
+5. `...lintPaths` - the rest of the arguments, if any, are the paths to files as well as directories that you want the
+linter to check (the source file being compiled is included automatically)
 
 ### Example usage
 
@@ -65,8 +65,14 @@ webJS('lib/app.js', 'public/script.js', function () {
 }, function (compiler) {
   // automatically invoke the same compiler if any of the JavaScript files change
   watch('lib', 'js', compiler);
-}, ['lib']);
+}, 'lib');
 ```
+
+### Important!
+
+The resulting JavaScript and CSS files from `webJS` and `webSASS` are gzip compressed for performance
+(see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
+**"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
 
 ### Additional info
 
