@@ -63,8 +63,8 @@ var eslint = new _eslint.CLIEngine({
   envs: ['node', 'browser'],
   rules: {
     quotes: [2, 'single', 'avoid-escape'],
-    strict: false,
-    yoda: ['always']
+    strict: 0,
+    yoda: [2, 'always']
   }
 }),
     consoleError = console.error.bind(console),
