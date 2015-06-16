@@ -1,6 +1,7 @@
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
+.*/docs/*
 
 [include]
 

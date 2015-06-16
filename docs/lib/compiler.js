@@ -1,40 +1,89 @@
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.lintJS = lintJS;
+exports.packageJS = packageJS;
+exports.webJS = webJS;
+exports.nodeJS = nodeJS;
+exports.webSASS = webSASS;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /* @flow */
 /** @module compiler */
 
-import {CLIEngine} from 'eslint';
-import webpack from 'webpack';
-import fs from 'fs';
-import path from 'path';
-import zlib from 'zlib';
-import UglifyJS from 'uglify-js';
-import {transformFile} from 'babel';
-import mkdirp from 'mkdirp';
-import sass from 'node-sass';
-import importer from 'node-sass-import-once';
-import autoprefixer from 'autoprefixer-core';
-import postcss from 'postcss';
-import CleanCSS from 'clean-css';
-import NativeProcess from './NativeProcess';
+var _eslint = require('eslint');
 
-var eslint = new CLIEngine({
-      envs: ['node', 'browser'],
-      rules: require(path.resolve(__dirname, '..', 'conf', 'eslint.json'))
-    }),
+var _webpack = require('webpack');
+
+var _webpack2 = _interopRequireDefault(_webpack);
+
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _zlib = require('zlib');
+
+var _zlib2 = _interopRequireDefault(_zlib);
+
+var _uglifyJs = require('uglify-js');
+
+var _uglifyJs2 = _interopRequireDefault(_uglifyJs);
+
+var _babel = require('babel');
+
+var _mkdirp = require('mkdirp');
+
+var _mkdirp2 = _interopRequireDefault(_mkdirp);
+
+var _nodeSass = require('node-sass');
+
+var _nodeSass2 = _interopRequireDefault(_nodeSass);
+
+var _nodeSassImportOnce = require('node-sass-import-once');
+
+var _nodeSassImportOnce2 = _interopRequireDefault(_nodeSassImportOnce);
+
+var _autoprefixerCore = require('autoprefixer-core');
+
+var _autoprefixerCore2 = _interopRequireDefault(_autoprefixerCore);
+
+var _postcss = require('postcss');
+
+var _postcss2 = _interopRequireDefault(_postcss);
+
+var _cleanCss = require('clean-css');
+
+var _cleanCss2 = _interopRequireDefault(_cleanCss);
+
+var _NativeProcess = require('./NativeProcess');
+
+var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
+
+var eslint = new _eslint.CLIEngine({
+  envs: ['node', 'browser'],
+  rules: require(_path2.default.resolve(__dirname, '..', 'conf', 'eslint.json'))
+}),
     consoleError = console.error.bind(console),
 
-    /**
-     * @memberOf module:compiler
-     * @type {NativeProcess}
-     */
-    flow = new NativeProcess('flow'),
-    scsslint = new NativeProcess('scss-lint'),
-    webpackCache = {}, i = 0;
+/**
+ * @memberOf module:compiler
+ * @type {NativeProcess}
+ */
+flow = new _NativeProcess2.default('flow'),
+    scsslint = new _NativeProcess2.default('scss-lint'),
+    webpackCache = {},
+    i = 0;
 
-export {flow};
+exports.flow = flow;
 
 Object.assign(eslint.options.baseConfig, {
   parser: 'babel-eslint',
-  ecmaFeatures: {jsx: true},
+  ecmaFeatures: { jsx: true },
   plugins: ['react']
 });
 
@@ -45,7 +94,8 @@ Object.assign(eslint.options.baseConfig, {
  * @param {Array<string>} lintPaths - an array of paths to files as well as directories for the linter to check
  * @param {Function} callback  - a callback function
  */
-export function lintJS(lintPaths: Array<string>, callback: Function) {
+
+function lintJS(lintPaths, callback) {
   var report = eslint.executeOnFiles(lintPaths);
 
   if (!report.errorCount && !report.warningCount) {
@@ -53,9 +103,7 @@ export function lintJS(lintPaths: Array<string>, callback: Function) {
   } else {
     report.results.forEach(function loopThroughResults(f) {
       f.messages.forEach(function logEslintWarnings(e) {
-        console.log(
-          '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          e.message, e.ruleId ? (' (' + e.ruleId + ')') : '', f.filePath, e.line, e.column);
+        console.log('\u001b[41mESLint error\u001b[0m "\u001b[33m%s%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.ruleId ? ' (' + e.ruleId + ')' : '', f.filePath, e.line, e.column);
       });
     });
   }
@@ -70,32 +118,32 @@ export function lintJS(lintPaths: Array<string>, callback: Function) {
  * @param {string}   outFile  - the base name of the outPath
  * @param {Function} callback - a callback function
  */
-function uglifyJS(inPath: string, outPath: string, outFile: string, callback: Function) {
-  var map = `${outPath}.map`,
-      result = UglifyJS.minify(outPath, {
-        mangle: false,
-        inSourceMap: map,
-        outSourceMap: `${outFile}.map`,
+function uglifyJS(inPath, outPath, outFile, callback) {
+  var map = '' + outPath + '.map',
+      result = _uglifyJs2.default.minify(outPath, {
+    mangle: false,
+    inSourceMap: map,
+    outSourceMap: '' + outFile + '.map',
 
-        /*eslint-disable camelcase*/
-        output: {space_colon: false}
+    /*eslint-disable camelcase*/
+    output: { space_colon: false }
 
-        /*eslint-enable camelcase*/
-      });
+    /*eslint-enable camelcase*/
+  });
 
-  zlib.gzip(result.code, function jsGzipMinifiedHandler(e, code) {
+  _zlib2.default.gzip(result.code, function jsGzipMinifiedHandler(e, code) {
     if (e) {
       return consoleError(e);
     }
-    fs.writeFile(outPath, code, function jsWriteCompressedScriptHandler(scriptErr) {
+    _fs2.default.writeFile(outPath, code, function jsWriteCompressedScriptHandler(scriptErr) {
       if (scriptErr) {
         return consoleError(scriptErr);
       }
-      fs.writeFile(map, result.map, function jsWriteMapHandler(mapErr) {
+      _fs2.default.writeFile(map, result.map, function jsWriteMapHandler(mapErr) {
         if (mapErr) {
           return consoleError(mapErr);
         }
-        console.log('\x1b[32m%s: Compiled %s\x1b[0m', ++i, inPath);
+        console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
         callback();
       });
     });
@@ -112,8 +160,8 @@ function uglifyJS(inPath: string, outPath: string, outFile: string, callback: Fu
  * @param {string}   outDir   - the path to the compiled output directory
  * @param {string}   outFile  - the base name of the outPath
  */
-function compileJS(inPath: string, outPath: string, callback: Function, outDir: string, outFile: string) {
-  webpack({
+function compileJS(inPath, outPath, callback, outDir, outFile) {
+  (0, _webpack2.default)({
     cache: webpackCache,
     debug: true,
     devtool: 'source-map',
@@ -159,16 +207,17 @@ function compileJS(inPath: string, outPath: string, callback: Function, outDir: 
  * @param {string}   outPath  - the path to the compiled output file
  * @param {Function} callback - a callback function
  */
-export function packageJS(inPath: string, outPath: string, callback: any = Function.prototype) {
-  transformFile(inPath, {loose: 'all', optional: ['runtime'], comments: false}, function processCompiledJS(e, result) {
+
+function packageJS(inPath, outPath, callback = Function.prototype) {
+  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'], comments: false }, function processCompiledJS(e, result) {
     if (e) {
       return consoleError(e);
     }
-    fs.writeFile(outPath, result.code, function jsWriteScriptHandler(saveErr) {
+    _fs2.default.writeFile(outPath, result.code, function jsWriteScriptHandler(saveErr) {
       if (saveErr) {
         return consoleError(saveErr);
       }
-      console.log('\x1b[32m%s: Compiled %s\x1b[0m', ++i, inPath);
+      console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
       callback();
     });
   });
@@ -182,27 +231,23 @@ export function packageJS(inPath: string, outPath: string, callback: any = Funct
  * @param {string}   outPath  - the path to the compiled output file
  * @param {Function} callback - a callback function with one argument - an object with the two properties: css and map
  */
-function compileSASS(inPath: string, outPath: string, callback: Function) {
-  sass.render({
+function compileSASS(inPath, outPath, callback) {
+  _nodeSass2.default.render({
     file: inPath,
-    importer,
+    importer: _nodeSassImportOnce2.default,
     importOnce: {
       index: true,
       css: false,
       bower: false
     },
-    includePaths: [
-      'node_modules/bootstrap-sass/assets/stylesheets',
-      'node_modules'
-    ],
+    includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
     outFile: outPath,
     precision: 8,
     sourceMap: true,
     sourceMapContents: true
   }, function processCompiledSASS(e, result) {
     if (e) {
-      return console.log('\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-                         e.message, e.file, e.line, e.column);
+      return console.log('\u001b[41mSASS error\u001b[0m "\u001b[33m%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.file, e.line, e.column);
     }
     callback(result);
   });
@@ -216,11 +261,11 @@ function compileSASS(inPath: string, outPath: string, callback: Function) {
  * @param {Function} callback - a callback function with one argument - an object with the two properties: css and map
  * @param {Object}   result   - an object with the two properties: css and map
  */
-function autoprefixSASS(outPath: string, callback: Function, result: Object) {
-  postcss([autoprefixer]).process(result.css, {
+function autoprefixSASS(outPath, callback, result) {
+  (0, _postcss2.default)([_autoprefixerCore2.default]).process(result.css, {
     from: outPath,
     to: outPath,
-    map: {prev: result.map.toString()}
+    map: { prev: result.map.toString() }
   }).then(function processPrefixed(prefixed) {
     var warnings = prefixed.warnings();
 
@@ -242,28 +287,28 @@ function autoprefixSASS(outPath: string, callback: Function, result: Object) {
  * @param {Function} callback - a callback function
  * @param {Object}   result   - an object with the two properties: css and map
  */
-function minifyCSS(inPath: string, outPath: string, callback: Function, result: Object) {
+function minifyCSS(inPath, outPath, callback, result) {
   var sourceMappingURL = result.css.match(/\n.+$/)[0];
 
-  result = new CleanCSS({
+  result = new _cleanCss2.default({
     keepSpecialComments: 0,
     roundingPrecision: -1,
     sourceMap: JSON.stringify(result.map),
     sourceMapInlineSources: true
   }).minify(result.css);
-  zlib.gzip(result.styles + sourceMappingURL, function jsGzipHandler(e, code) {
+  _zlib2.default.gzip(result.styles + sourceMappingURL, function jsGzipHandler(e, code) {
     if (e) {
       return consoleError(e);
     }
-    fs.writeFile(outPath, code, function jsWriteCompressedScriptHandler(styleErr) {
+    _fs2.default.writeFile(outPath, code, function jsWriteCompressedScriptHandler(styleErr) {
       if (styleErr) {
         return consoleError(styleErr);
       }
-      fs.writeFile(outPath + '.map', result.sourceMap, function cssWriteMapHandler(mapErr) {
+      _fs2.default.writeFile(outPath + '.map', result.sourceMap, function cssWriteMapHandler(mapErr) {
         if (mapErr) {
           return consoleError(mapErr);
         }
-        console.log('\x1b[32m%s: Compiled %s\x1b[0m', ++i, inPath);
+        console.log('\u001b[32m%s: Compiled %s\u001b[0m', ++i, inPath);
         callback();
       });
     });
@@ -282,19 +327,21 @@ function minifyCSS(inPath: string, outPath: string, callback: Function, result: 
  * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
  *                                      linter to check (the source file being compiled is included automatically)
  */
-function getPathParams(inPath: string, outPath: string, callback: Function, lintPaths: Array<string> = []) {
+function getPathParams(inPath, outPath, callback, lintPaths = []) {
   var out = [];
 
-  inPath = fs.realpathSync(inPath);
-  lintPaths = lintPaths.map(p => fs.realpathSync(p));
+  inPath = _fs2.default.realpathSync(inPath);
+  lintPaths = lintPaths.map(function (p) {
+    return _fs2.default.realpathSync(p);
+  });
   lintPaths.push(inPath);
   try {
-    outPath = fs.realpathSync(outPath);
+    outPath = _fs2.default.realpathSync(outPath);
     out = outPath.match(/^(.*?)\/?([^\/]+)$/);
     callback(inPath, outPath, lintPaths, out[1], out[2]);
   } catch (e) {
     out = outPath.match(/^(.*?)\/?([^\/]+)$/);
-    mkdirp(out[1], function outDirCreateHandler() {
+    (0, _mkdirp2.default)(out[1], function outDirCreateHandler() {
       callback(inPath, outPath, lintPaths, out[1], out[2]);
     });
   }
@@ -315,8 +362,7 @@ function getPathParams(inPath: string, outPath: string, callback: Function, lint
  * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
  *                                      linter to check (the source file being compiled is included automatically)
  */
-function buildJS(fn: Function, inPath: string, outPath: string, onCompile: any = Function.prototype,
-                 callback: any = Function.prototype, lintPaths: Array<string> = []) {
+function buildJS(fn, inPath, outPath, onCompile = Function.prototype, callback = Function.prototype, lintPaths = []) {
   getPathParams(inPath, outPath, function jsParamHandler(a, b, c, outDir, outFile) {
     var func = lintJS.bind(null, c, flow.run.bind(flow, fn.bind(null, a, b, onCompile, outDir, outFile)));
 
@@ -342,8 +388,8 @@ function buildJS(fn: Function, inPath: string, outPath: string, onCompile: any =
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
-export function webJS(inPath: string, outPath: string, onCompile: any = Function.prototype,
-                      callback: any = Function.prototype, ...lintPaths: Array<string>) {
+
+function webJS(inPath, outPath, onCompile = Function.prototype, callback = Function.prototype, ...lintPaths) {
   buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
@@ -362,8 +408,8 @@ export function webJS(inPath: string, outPath: string, onCompile: any = Function
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
-export function nodeJS(inPath: string, outPath: string, onCompile: any = Function.prototype,
-                       callback: any = Function.prototype, ...lintPaths: Array<string>) {
+
+function nodeJS(inPath, outPath, onCompile = Function.prototype, callback = Function.prototype, ...lintPaths) {
   buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
@@ -382,11 +428,10 @@ export function nodeJS(inPath: string, outPath: string, onCompile: any = Functio
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
-export function webSASS(inPath: string, outPath: string, onCompile: any = Function.prototype,
-                        callback: any = Function.prototype, ...lintPaths: Array<string>) {
+
+function webSASS(inPath, outPath, onCompile = Function.prototype, callback = Function.prototype, ...lintPaths) {
   getPathParams(inPath, outPath, function sassParamHandler(a, b, c) {
-    var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b,
-                                 minifyCSS.bind(null, a, b, onCompile))), c);
+    var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b, minifyCSS.bind(null, a, b, onCompile))), c);
 
     func();
     callback(func);

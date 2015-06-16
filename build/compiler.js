@@ -21,6 +21,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _zlib = require('zlib');
 
 var _zlib2 = _interopRequireDefault(_zlib);
@@ -61,20 +65,16 @@ var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
 
 var eslint = new _eslint.CLIEngine({
   envs: ['node', 'browser'],
-  rules: {
-    quotes: [2, 'single', 'avoid-escape'],
-    strict: 0,
-    yoda: [2, 'always']
-  }
+  rules: require(_path2['default'].resolve(__dirname, '..', 'conf', 'eslint.json'))
 }),
     consoleError = console.error.bind(console),
+    flow = new _NativeProcess2['default']('flow'),
     scsslint = new _NativeProcess2['default']('scss-lint'),
     webpackCache = {},
     i = 0;
 
-var flow = new _NativeProcess2['default']('flow');
-
 exports.flow = flow;
+
 _Object$assign(eslint.options.baseConfig, {
   parser: 'babel-eslint',
   ecmaFeatures: { jsx: true },
@@ -83,14 +83,16 @@ _Object$assign(eslint.options.baseConfig, {
 
 function lintJS(lintPaths, callback) {
   var report = eslint.executeOnFiles(lintPaths);
+
   if (!report.errorCount && !report.warningCount) {
-    return callback();
-  }
-  report.results.forEach(function (f) {
-    f.messages.forEach(function (e) {
-      console.log('\u001b[41mESLint error\u001b[0m "\u001b[33m%s%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.ruleId ? ' (' + e.ruleId + ')' : '', f.filePath, e.line, e.column);
+    callback();
+  } else {
+    report.results.forEach(function loopThroughResults(f) {
+      f.messages.forEach(function logEslintWarnings(e) {
+        console.log('\u001b[41mESLint error\u001b[0m "\u001b[33m%s%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.ruleId ? ' (' + e.ruleId + ')' : '', f.filePath, e.line, e.column);
+      });
     });
-  });
+  }
 }
 
 function uglifyJS(inPath, outPath, outFile, callback) {
@@ -101,16 +103,18 @@ function uglifyJS(inPath, outPath, outFile, callback) {
     outSourceMap: '' + outFile + '.map',
 
     output: { space_colon: false }
+
   });
-  _zlib2['default'].gzip(result.code, function (e, code) {
+
+  _zlib2['default'].gzip(result.code, function jsGzipMinifiedHandler(e, code) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(outPath, code, function (scriptErr) {
+    _fs2['default'].writeFile(outPath, code, function jsWriteCompressedScriptHandler(scriptErr) {
       if (scriptErr) {
         return consoleError(scriptErr);
       }
-      _fs2['default'].writeFile(map, result.map, function (mapErr) {
+      _fs2['default'].writeFile(map, result.map, function jsWriteMapHandler(mapErr) {
         if (mapErr) {
           return consoleError(mapErr);
         }
@@ -143,11 +147,13 @@ function compileJS(inPath, outPath, callback, outDir, outFile) {
         }
       }]
     }
-  }, function (e, stats) {
+  }, function processPackagedJS(e, stats) {
+    var jsonStats;
+
     if (e) {
       return consoleError(e);
     }
-    var jsonStats = stats.toJson();
+    jsonStats = stats.toJson();
     if (0 < jsonStats.errors.length) {
       return jsonStats.errors.forEach(consoleError);
     }
@@ -161,11 +167,11 @@ function compileJS(inPath, outPath, callback, outDir, outFile) {
 function packageJS(inPath, outPath) {
   var callback = arguments[2] === undefined ? Function.prototype : arguments[2];
 
-  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'], comments: false }, function (e, result) {
+  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'], comments: false }, function processCompiledJS(e, result) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(outPath, result.code, function (saveErr) {
+    _fs2['default'].writeFile(outPath, result.code, function jsWriteScriptHandler(saveErr) {
       if (saveErr) {
         return consoleError(saveErr);
       }
@@ -189,7 +195,7 @@ function compileSASS(inPath, outPath, callback) {
     precision: 8,
     sourceMap: true,
     sourceMapContents: true
-  }, function (e, result) {
+  }, function processCompiledSASS(e, result) {
     if (e) {
       return console.log('\u001b[41mSASS error\u001b[0m "\u001b[33m%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.file, e.line, e.column);
     }
@@ -202,10 +208,11 @@ function autoprefixSASS(outPath, callback, result) {
     from: outPath,
     to: outPath,
     map: { prev: result.map.toString() }
-  }).then(function (prefixed) {
+  }).then(function processPrefixed(prefixed) {
     var warnings = prefixed.warnings();
+
     if (warnings.length) {
-      return warnings.forEach(function (warn) {
+      return warnings.forEach(function logAutoprefixerWarnings(warn) {
         console.warn(warn.toString());
       });
     }
@@ -215,21 +222,22 @@ function autoprefixSASS(outPath, callback, result) {
 
 function minifyCSS(inPath, outPath, callback, result) {
   var sourceMappingURL = result.css.match(/\n.+$/)[0];
+
   result = new _cleanCss2['default']({
     keepSpecialComments: 0,
     roundingPrecision: -1,
     sourceMap: JSON.stringify(result.map),
     sourceMapInlineSources: true
   }).minify(result.css);
-  _zlib2['default'].gzip(result.styles + sourceMappingURL, function (e, code) {
+  _zlib2['default'].gzip(result.styles + sourceMappingURL, function jsGzipHandler(e, code) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(outPath, code, function (styleErr) {
+    _fs2['default'].writeFile(outPath, code, function jsWriteCompressedScriptHandler(styleErr) {
       if (styleErr) {
         return consoleError(styleErr);
       }
-      _fs2['default'].writeFile(outPath + '.map', result.sourceMap, function (mapErr) {
+      _fs2['default'].writeFile(outPath + '.map', result.sourceMap, function cssWriteMapHandler(mapErr) {
         if (mapErr) {
           return consoleError(mapErr);
         }
@@ -244,9 +252,10 @@ function getPathParams(inPath, outPath, callback) {
   var lintPaths = arguments[3] === undefined ? [] : arguments[3];
 
   var out = [];
+
   inPath = _fs2['default'].realpathSync(inPath);
-  lintPaths = lintPaths.map(function (path) {
-    return _fs2['default'].realpathSync(path);
+  lintPaths = lintPaths.map(function (p) {
+    return _fs2['default'].realpathSync(p);
   });
   lintPaths.push(inPath);
   try {
@@ -255,7 +264,7 @@ function getPathParams(inPath, outPath, callback) {
     callback(inPath, outPath, lintPaths, out[1], out[2]);
   } catch (e) {
     out = outPath.match(/^(.*?)\/?([^\/]+)$/);
-    (0, _mkdirp2['default'])(out[1], function () {
+    (0, _mkdirp2['default'])(out[1], function outDirCreateHandler() {
       callback(inPath, outPath, lintPaths, out[1], out[2]);
     });
   }
@@ -266,8 +275,9 @@ function buildJS(fn, inPath, outPath) {
   var callback = arguments[4] === undefined ? Function.prototype : arguments[4];
   var lintPaths = arguments[5] === undefined ? [] : arguments[5];
 
-  getPathParams(inPath, outPath, function (a, b, c, outDir, outFile) {
+  getPathParams(inPath, outPath, function jsParamHandler(a, b, c, outDir, outFile) {
     var func = lintJS.bind(null, c, flow.run.bind(flow, fn.bind(null, a, b, onCompile, outDir, outFile)));
+
     func();
     callback(func);
   }, lintPaths);
@@ -303,8 +313,9 @@ function webSASS(inPath, outPath) {
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
 
-  getPathParams(inPath, outPath, function (a, b, c) {
+  getPathParams(inPath, outPath, function sassParamHandler(a, b, c) {
     var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b, minifyCSS.bind(null, a, b, onCompile))), c);
+
     func();
     callback(func);
   }, lintPaths);

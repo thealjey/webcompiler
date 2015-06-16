@@ -1,11 +1,12 @@
 {
   "name": "webcompiler",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Lint, type-check, compile and package JavaScript (ES6 + Flow static types + JSX), for the browser as well as the NodeJS; lint, compile, auto-prefix and minify SASS.",
   "main": "build/compiler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel-node bin/compile"
+    "compile": "babel-node bin/compile",
+    "document": "./bin/document.sh"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,7 @@
     "babel": "^5.5.8",
     "babel-eslint": "^3.1.15",
     "babel-runtime": "^5.5.8",
-    "clean-css": "^3.3.2",
+    "clean-css": "^3.3.3",
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "mkdirp": "^0.5.1",
@@ -49,5 +50,8 @@
   "peerDependencies": {
     "babel-loader": "5.x",
     "babel-runtime": "5.x"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.3.2"
   }
 }

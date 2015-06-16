@@ -13,6 +13,7 @@ Important! Create a .flowconfig file at the root of your project with the follow
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
+.*/docs/*
 
 [include]
 
@@ -25,7 +26,9 @@ suppress_comment=.*@noflow.*
 
 ### Installation
 
-`npm i webcompiler --save`
+```
+npm i webcompiler --save
+```
 
 ### Exposes 3 main functions
 

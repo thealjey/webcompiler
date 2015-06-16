@@ -21,7 +21,7 @@ var NativeProcess = (function () {
     }
 
     this.proc = (0, _child_process.spawn)(this.task, args, { stdio: 'inherit' });
-    this.proc.on('close', function (code) {
+    this.proc.on('close', function processCloseHandler(code) {
       if (!code) {
         callback();
       }
