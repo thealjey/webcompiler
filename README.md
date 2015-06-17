@@ -13,7 +13,6 @@ Important! Create a .flowconfig file at the root of your project with the follow
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
-.*/build/*
 
 [include]
 

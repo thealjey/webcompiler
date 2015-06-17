@@ -1,4 +1,4 @@
-/* @flow */
+
 /** @module compiler */
 
 'use strict';
@@ -217,7 +217,7 @@ function packageJS(inPath, outPath) {
     if (e) {
       return consoleError(e);
     }
-    _fs2['default'].writeFile(outPath, result.code, function jsWriteScriptHandler(saveErr) {
+    _fs2['default'].writeFile(outPath, result.code.replace(/\/\*\s*@flow\s*\*\//, ''), function jsWriteScriptHandler(saveErr) {
       if (saveErr) {
         return consoleError(saveErr);
       }
