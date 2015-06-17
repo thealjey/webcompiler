@@ -1,4 +1,4 @@
-### v0.3.1
+### v0.3.2
 
 * JavaScript for Node now preserves all comments, including JSDoc's, perfect for automatic API documentation generation
 * Updated **".flowconfig"** (see README)

@@ -1,12 +1,11 @@
 {
   "name": "webcompiler",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "build/compiler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel-node bin/compile",
-    "document": "./bin/document.sh"
+    "compile": "babel-node bin/compile"
   },
   "repository": {
     "type": "git",
