@@ -361,10 +361,10 @@ function getPathParams(inPath, outPath, callback) {
  * @param {string}   inPath           - the source file path
  * @param {string}   outPath          - the path to the compiled output file
  * @param {Function} [onCompile]      - an optional function to execute after each successful compilation
- * @param {Function} [callback]       - an optional function that is executed after the first successful compilation,
- *                                      can accept one argument - an optimized compiler function that can be used for
+ * @param {Function} [callback]       - an optional callback function that receives one argument (regardless of the
+ *                                      success of the operation), - an optimized compiler function that can be used for
  *                                      continuous compilation of the same resource (a good candidate for use with a
- *                                      watcher)
+ *                                      [watcher](https://github.com/thealjey/simple-recursive-watch))
  * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
  *                                      linter to check (the source file being compiled is included automatically)
  */
@@ -390,10 +390,10 @@ function buildJS(fn, inPath, outPath) {
  * @param {string}   inPath            - the source file path
  * @param {string}   outPath           - the path to the compiled output file
  * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
- * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
- *                                       can accept one argument - an optimized compiler function that can be used for
- *                                       continuous compilation of the same resource (a good candidate for use with a
- *                                       watcher)
+ * @param {Function} [callback]        - an optional callback function that receives one argument (regardless of the
+ *                                       success of the operation), - an optimized compiler function that can be used
+ *                                       for continuous compilation of the same resource (a good candidate for use with
+ *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
  * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
@@ -417,10 +417,10 @@ function webJS(inPath, outPath) {
  * @param {string}   inPath            - the source file path
  * @param {string}   outPath           - the path to the compiled output file
  * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
- * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
- *                                       can accept one argument - an optimized compiler function that can be used for
- *                                       continuous compilation of the same resource (a good candidate for use with a
- *                                       watcher)
+ * @param {Function} [callback]        - an optional callback function that receives one argument (regardless of the
+ *                                       success of the operation), - an optimized compiler function that can be used
+ *                                       for continuous compilation of the same resource (a good candidate for use with
+ *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
  * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
@@ -444,10 +444,10 @@ function nodeJS(inPath, outPath) {
  * @param {string}   inPath            - the source file path
  * @param {string}   outPath           - the path to the compiled output file
  * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
- * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
- *                                       can accept one argument - an optimized compiler function that can be used for
- *                                       continuous compilation of the same resource (a good candidate for use with a
- *                                       watcher)
+ * @param {Function} [callback]        - an optional callback function that receives one argument (regardless of the
+ *                                       success of the operation), - an optimized compiler function that can be used
+ *                                       for continuous compilation of the same resource (a good candidate for use with
+ *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
  * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)

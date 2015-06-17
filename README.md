@@ -51,8 +51,8 @@ npm i webcompiler --save
 2. `outPath` - the path to the compiled output file
 3. `onCompile` - an optional function to execute after each successful compilation
 4. `callback` - an optional callback function that receives one argument (regardless of the success of the operation), -
-an optimized compiler function that can be used for continuous compilation of the same
-resource (a good candidate for use with a [watcher](https://github.com/thealjey/simple-recursive-watch))
+an optimized compiler function that can be used for continuous compilation of the same resource (a good candidate for
+use with a [watcher](https://github.com/thealjey/simple-recursive-watch))
 5. `...lintPaths` - the rest of the arguments, if any, are the paths to files as well as directories that you want the
 linter to check (the source file being compiled is included automatically)
 
