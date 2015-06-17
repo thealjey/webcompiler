@@ -1,7 +1,0 @@
-{
-  "opts": {
-    "destination": "docs",
-    "package": "package.json",
-    "readme": "README.md"
-  }
-}

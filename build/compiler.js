@@ -1,3 +1,6 @@
+/* @flow */
+/** @module compiler */
+
 'use strict';
 
 var _Object$assign = require('babel-runtime/core-js/object/assign')['default'];
@@ -68,7 +71,12 @@ var eslint = new _eslint.CLIEngine({
   rules: require(_path2['default'].resolve(__dirname, '..', 'conf', 'eslint.json'))
 }),
     consoleError = console.error.bind(console),
-    flow = new _NativeProcess2['default']('flow'),
+
+/**
+ * @memberOf module:compiler
+ * @type {NativeProcess}
+ */
+flow = new _NativeProcess2['default']('flow'),
     scsslint = new _NativeProcess2['default']('scss-lint'),
     webpackCache = {},
     i = 0;
@@ -80,6 +88,14 @@ _Object$assign(eslint.options.baseConfig, {
   ecmaFeatures: { jsx: true },
   plugins: ['react']
 });
+
+/**
+ * Lints JavaScript at specified paths
+ *
+ * @memberOf module:compiler
+ * @param {Array<string>} lintPaths - an array of paths to files as well as directories for the linter to check
+ * @param {Function} callback  - a callback function
+ */
 
 function lintJS(lintPaths, callback) {
   var report = eslint.executeOnFiles(lintPaths);
@@ -95,6 +111,15 @@ function lintJS(lintPaths, callback) {
   }
 }
 
+/**
+ * Compresses JavaScript
+ *
+ * @private
+ * @param {string}   inPath   - the source file path
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {string}   outFile  - the base name of the outPath
+ * @param {Function} callback - a callback function
+ */
 function uglifyJS(inPath, outPath, outFile, callback) {
   var map = '' + outPath + '.map',
       result = _uglifyJs2['default'].minify(outPath, {
@@ -102,8 +127,10 @@ function uglifyJS(inPath, outPath, outFile, callback) {
     inSourceMap: map,
     outSourceMap: '' + outFile + '.map',
 
+    /*eslint-disable camelcase*/
     output: { space_colon: false }
 
+    /*eslint-enable camelcase*/
   });
 
   _zlib2['default'].gzip(result.code, function jsGzipMinifiedHandler(e, code) {
@@ -125,6 +152,16 @@ function uglifyJS(inPath, outPath, outFile, callback) {
   });
 }
 
+/**
+ * Compiles, bundles and compresses JavaScript
+ *
+ * @private
+ * @param {string}   inPath   - the source file path
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {Function} callback - a callback function
+ * @param {string}   outDir   - the path to the compiled output directory
+ * @param {string}   outFile  - the base name of the outPath
+ */
 function compileJS(inPath, outPath, callback, outDir, outFile) {
   (0, _webpack2['default'])({
     cache: webpackCache,
@@ -164,10 +201,19 @@ function compileJS(inPath, outPath, callback, outDir, outFile) {
   });
 }
 
+/**
+ * Compiles JavaScript
+ *
+ * @memberOf module:compiler
+ * @param {string}   inPath   - the source file path
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {Function} callback - a callback function
+ */
+
 function packageJS(inPath, outPath) {
   var callback = arguments[2] === undefined ? Function.prototype : arguments[2];
 
-  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'], comments: false }, function processCompiledJS(e, result) {
+  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'] }, function processCompiledJS(e, result) {
     if (e) {
       return consoleError(e);
     }
@@ -181,6 +227,14 @@ function packageJS(inPath, outPath) {
   });
 }
 
+/**
+ * Compiles SASS
+ *
+ * @private
+ * @param {string}   inPath   - the source file path
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {Function} callback - a callback function with one argument - an object with the two properties: css and map
+ */
 function compileSASS(inPath, outPath, callback) {
   _nodeSass2['default'].render({
     file: inPath,
@@ -203,6 +257,14 @@ function compileSASS(inPath, outPath, callback) {
   });
 }
 
+/**
+ * Adds vendor prefixes to CSS
+ *
+ * @private
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {Function} callback - a callback function with one argument - an object with the two properties: css and map
+ * @param {Object}   result   - an object with the two properties: css and map
+ */
 function autoprefixSASS(outPath, callback, result) {
   (0, _postcss2['default'])([_autoprefixerCore2['default']]).process(result.css, {
     from: outPath,
@@ -220,6 +282,15 @@ function autoprefixSASS(outPath, callback, result) {
   });
 }
 
+/**
+ * Minifies CSS
+ *
+ * @private
+ * @param {string}   inPath   - the source file path
+ * @param {string}   outPath  - the path to the compiled output file
+ * @param {Function} callback - a callback function
+ * @param {Object}   result   - an object with the two properties: css and map
+ */
 function minifyCSS(inPath, outPath, callback, result) {
   var sourceMappingURL = result.css.match(/\n.+$/)[0];
 
@@ -248,6 +319,18 @@ function minifyCSS(inPath, outPath, callback, result) {
   });
 }
 
+/**
+ * Returns a complete system path for the input file, the output file, all of the paths that need to be linted and the
+ * output directory and a file name
+ *
+ * @private
+ * @param {string}   inPath           - the source file path
+ * @param {string}   outPath          - the path to the compiled output file
+ * @param {Function} callback         - a callback function with the following arguments: inPath, outPath, lintPaths,
+ *                                      outDir and outFile
+ * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
+ *                                      linter to check (the source file being compiled is included automatically)
+ */
 function getPathParams(inPath, outPath, callback) {
   var lintPaths = arguments[3] === undefined ? [] : arguments[3];
 
@@ -270,6 +353,21 @@ function getPathParams(inPath, outPath, callback) {
   }
 }
 
+/**
+ * Builds a JavaScript file using the provided compiler function
+ *
+ * @private
+ * @param {Function} fn               - the compiler function to use
+ * @param {string}   inPath           - the source file path
+ * @param {string}   outPath          - the path to the compiled output file
+ * @param {Function} [onCompile]      - an optional function to execute after each successful compilation
+ * @param {Function} [callback]       - an optional function that is executed after the first successful compilation,
+ *                                      can accept one argument - an optimized compiler function that can be used for
+ *                                      continuous compilation of the same resource (a good candidate for use with a
+ *                                      watcher)
+ * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
+ *                                      linter to check (the source file being compiled is included automatically)
+ */
 function buildJS(fn, inPath, outPath) {
   var onCompile = arguments[3] === undefined ? Function.prototype : arguments[3];
   var callback = arguments[4] === undefined ? Function.prototype : arguments[4];
@@ -283,6 +381,24 @@ function buildJS(fn, inPath, outPath) {
   }, lintPaths);
 }
 
+/* The following functions are recommended for the external library use */
+
+/**
+ * Lints, type-checks, compiles, packages and minifies JavaScript for the browser (production ready + Source Maps)
+ *
+ * @memberOf module:compiler
+ * @param {string}   inPath            - the source file path
+ * @param {string}   outPath           - the path to the compiled output file
+ * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
+ * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
+ *                                       can accept one argument - an optimized compiler function that can be used for
+ *                                       continuous compilation of the same resource (a good candidate for use with a
+ *                                       watcher)
+ * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ *                                       directories that you want the linter to check (the source file being compiled
+ *                                       is included automatically)
+ */
+
 function webJS(inPath, outPath) {
   for (var _len = arguments.length, lintPaths = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
     lintPaths[_key - 4] = arguments[_key];
@@ -294,6 +410,22 @@ function webJS(inPath, outPath) {
   buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
 
+/**
+ * Lints, type-checks and compiles JavaScript for NodeJS
+ *
+ * @memberOf module:compiler
+ * @param {string}   inPath            - the source file path
+ * @param {string}   outPath           - the path to the compiled output file
+ * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
+ * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
+ *                                       can accept one argument - an optimized compiler function that can be used for
+ *                                       continuous compilation of the same resource (a good candidate for use with a
+ *                                       watcher)
+ * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ *                                       directories that you want the linter to check (the source file being compiled
+ *                                       is included automatically)
+ */
+
 function nodeJS(inPath, outPath) {
   for (var _len2 = arguments.length, lintPaths = Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 < _len2; _key2++) {
     lintPaths[_key2 - 4] = arguments[_key2];
@@ -304,6 +436,22 @@ function nodeJS(inPath, outPath) {
 
   buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
+
+/**
+ * Lints, compiles, packages, adds vendor prefixes and minifies SASS for the browser (production ready + Source Maps)
+ *
+ * @memberOf module:compiler
+ * @param {string}   inPath            - the source file path
+ * @param {string}   outPath           - the path to the compiled output file
+ * @param {Function} [onCompile]       - an optional function to execute after each successful compilation
+ * @param {Function} [callback]        - an optional function that is executed after the first successful compilation,
+ *                                       can accept one argument - an optimized compiler function that can be used for
+ *                                       continuous compilation of the same resource (a good candidate for use with a
+ *                                       watcher)
+ * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ *                                       directories that you want the linter to check (the source file being compiled
+ *                                       is included automatically)
+ */
 
 function webSASS(inPath, outPath) {
   for (var _len3 = arguments.length, lintPaths = Array(_len3 > 4 ? _len3 - 4 : 0), _key3 = 4; _key3 < _len3; _key3++) {

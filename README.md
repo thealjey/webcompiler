@@ -1,6 +1,6 @@
 # webcompiler
-*Lint, type-check, compile and package JavaScript (ES6 + Flow static types + JSX), for the browser as well as the
-NodeJS; lint, compile, auto-prefix and minify SASS.*
+*Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as
+NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 
 ### Prerequisites
 
@@ -13,7 +13,7 @@ Important! Create a .flowconfig file at the root of your project with the follow
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
-.*/docs/*
+.*/build/*
 
 [include]
 

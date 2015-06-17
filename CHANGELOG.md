@@ -1,3 +1,9 @@
+### v0.3.1
+
+* JavaScript for Node now preserves all comments, including JSDoc's, perfect for automatic API documentation generation
+* Updated **".flowconfig"** (see README)
+* `NativeProcess#run` now accepts an additional config object
+
 ### v0.3.0
 
 * Introduced much stricter JavaScript linting rules

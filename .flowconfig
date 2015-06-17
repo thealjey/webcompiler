@@ -1,7 +1,7 @@
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
-.*/docs/*
+.*/build/*
 
 [include]
 
