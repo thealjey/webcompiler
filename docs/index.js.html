@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: compiler.js</title>
+    <title>JSDoc: Source: index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: compiler.js</h1>
+    <h1 class="page-title">Source: index.js</h1>
 
     
 
@@ -26,21 +26,21 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>/* @flow */
 /** @module compiler */
 
 'use strict';
 
-var _Object$assign = require('babel-runtime/core-js/object/assign')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 exports.lintJS = lintJS;
 exports.packageJS = packageJS;
 exports.webJS = webJS;
 exports.nodeJS = nodeJS;
 exports.webSASS = webSASS;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { 'default': obj }; }
 
 var _eslint = require('eslint');
 
@@ -94,9 +94,18 @@ var _NativeProcess = require('./NativeProcess');
 
 var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
 
+var _jsNodeCompileDir = require('./jsNodeCompileDir');
+
+var _jsNodeCompileDir2 = _interopRequireDefault(_jsNodeCompileDir);
+
+var _JSLint = require('./JSLint');
+
+var _JSLint2 = _interopRequireDefault(_JSLint);
+
 var eslint = new _eslint.CLIEngine({
   envs: ['node', 'browser'],
-  rules: require(_path2['default'].resolve(__dirname, '..', 'conf', 'eslint.json'))
+  rules: require(_path2['default'].resolve(__dirname, '..', 'config', 'eslint.json')),
+  ignorePattern: '**/__tests__'
 }),
     consoleError = console.error.bind(console),
 
@@ -110,11 +119,14 @@ flow = new _NativeProcess2['default']('flow'),
     i = 0;
 
 exports.flow = flow;
+exports.NativeProcess = _NativeProcess2['default'];
+exports.jsNodeCompileDir = _jsNodeCompileDir2['default'];
+exports.JSLint = _JSLint2['default'];
 
-_Object$assign(eslint.options.baseConfig, {
+Object.assign(eslint.options.baseConfig, {
   parser: 'babel-eslint',
   ecmaFeatures: { jsx: true },
-  plugins: ['react']
+  plugins: ['babel', 'react']
 });
 
 /**
@@ -149,11 +161,11 @@ function lintJS(lintPaths, callback) {
  * @param {Function} callback - a callback function
  */
 function uglifyJS(inPath, outPath, outFile, callback) {
-  var map = '' + outPath + '.map',
+  var map = outPath + '.map',
       result = _uglifyJs2['default'].minify(outPath, {
     mangle: false,
     inSourceMap: map,
-    outSourceMap: '' + outFile + '.map',
+    outSourceMap: outFile + '.map',
 
     /*eslint-disable camelcase*/
     output: { space_colon: false }
@@ -428,12 +440,12 @@ function buildJS(fn, inPath, outPath) {
  */
 
 function webJS(inPath, outPath) {
+  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
+  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
   for (var _len = arguments.length, lintPaths = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key &lt; _len; _key++) {
     lintPaths[_key - 4] = arguments[_key];
   }
-
-  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
-  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
 
   buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
@@ -455,12 +467,12 @@ function webJS(inPath, outPath) {
  */
 
 function nodeJS(inPath, outPath) {
+  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
+  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
   for (var _len2 = arguments.length, lintPaths = Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 &lt; _len2; _key2++) {
     lintPaths[_key2 - 4] = arguments[_key2];
   }
-
-  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
-  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
 
   buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
@@ -482,12 +494,12 @@ function nodeJS(inPath, outPath) {
  */
 
 function webSASS(inPath, outPath) {
+  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
+  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
   for (var _len3 = arguments.length, lintPaths = Array(_len3 > 4 ? _len3 - 4 : 0), _key3 = 4; _key3 &lt; _len3; _key3++) {
     lintPaths[_key3 - 4] = arguments[_key3];
   }
-
-  var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
-  var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
 
   getPathParams(inPath, outPath, function sassParamHandler(a, b, c) {
     var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b, minifyCSS.bind(null, a, b, onCompile))), c);
@@ -505,13 +517,13 @@ function webSASS(inPath, outPath) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compiler.html">compiler</a></li></ul><h3>Classes</h3><ul><li><a href="NativeProcess.html">NativeProcess</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compiler.html">compiler</a></li></ul><h3>Classes</h3><ul><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASSCompile.html">SASSCompile</a></li><li><a href="SASSLint.html">SASSLint</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cssAutoprefix">cssAutoprefix</a></li><li><a href="global.html#cssMin">cssMin</a></li><li><a href="global.html#jsMin">jsMin</a></li><li><a href="global.html#jsNodeCompileDir">jsNodeCompileDir</a></li><li><a href="global.html#jsNodeCompileFile">jsNodeCompileFile</a></li><li><a href="global.html#jsWebCompile">jsWebCompile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jun 17 2015 18:23:10 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Jul 07 2015 00:36:49 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

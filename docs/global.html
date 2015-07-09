@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="cssAutoprefix"><span class="type-signature"></span>cssAutoprefix<span class="signature">(data, styleFile, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Adds vendor prefixes to css automatically
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an object containing "code" and "map" strings</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>styleFile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a full system path to a css file (source and destination files are
+                                                 considered the same, since it's is usually a result of some prior
+                                                 compilation anyway, nothing is ever written to disk)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function, accepts 2 arguments: an array of error messages
+                                                 or null and an object containing "code" and "map" strings</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cssAutoprefix.js.html">cssAutoprefix.js</a>, <a href="cssAutoprefix.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {cssAutoprefix} from 'webcompiler';
+
+cssAutoprefix({code: 'some css rules', map: 'source map contents'}, '/path/to/a/file.css', function (e, result) {
+  if (e) {
+    return e.forEach(function (err) {
+      console.error(err);
+    });
+  }
+  // result -> {code: string, map: string}
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cssMin"><span class="type-signature"></span>cssMin<span class="signature">(data)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Minifies CSS
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an object containing a "code" and a "map" strings</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cssMin.js.html">cssMin.js</a>, <a href="cssMin.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    an object containing the minified "code" and a "map" string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {cssMin} from 'webcompiler';
+
+var minified = cssMin({code: 'some css rules', map: 'source map contents'});
+// minified -> {code: string, map: string}</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="jsMin"><span class="type-signature"></span>jsMin<span class="signature">(scriptFile, mapFile<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Minifies JavaScript
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>scriptFile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">an absolute system path to a script file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mapFile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">an absolute system path to a map file, defaults to
+                                                   scriptFile + ".map"</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsMin.js.html">jsMin.js</a>, <a href="jsMin.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    an object containing the minified "code" and a "map" string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {jsMin} from 'webcompiler';
+
+var minified = jsMin('/path/to/a/script/file.js');
+// minified -> {code: string, map: string}</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="jsNodeCompileDir"><span class="type-signature"></span>jsNodeCompileDir<span class="signature">(inPath, outPath, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Compiles entire directory contents for the NodeJS environment.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the absolute system path to the input directory</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the absolute system path to the output directory</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function, accepts 2 arguments: an error string or null and the
+                             response string from the babel compiler</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsNodeCompileDir.js.html">jsNodeCompileDir.js</a>, <a href="jsNodeCompileDir.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {jsNodeCompileDir} from 'webcompiler';
+
+jsNodeCompileDir('/path/to/the/input/directory', '/path/to/the/output/directory', function (e) {
+  if (e) {
+    return console.error(e);
+  }
+  // compiled successfully
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="jsNodeCompileFile"><span class="type-signature"></span>jsNodeCompileFile<span class="signature">(scriptFile, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Compiles a JavaScript file for the NodeJS environment, attempting to remove the Facebook Flow pragma if one exists
+while retaining all of the other comments.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>scriptFile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a full system path to a JavaScript file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function which accepts 2 arguments: an error object or null and the
+                               resulting program string</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsNodeCompileFile.js.html">jsNodeCompileFile.js</a>, <a href="jsNodeCompileFile.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {jsNodeCompileFile} from 'webcompiler';
+
+jsNodeCompileFile('/path/to/a/script/file.js', function (e, code) {
+  if (e) {
+    return console.error(e);
+  }
+  // use the compiled "code" here
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="jsWebCompile"><span class="type-signature"></span>jsWebCompile<span class="signature">(inPath, outPath, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Compiles JavaScript for the browser
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a full system path to the input file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a full system path to the output file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function which accepts 1 argument: an array of error strings or null</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsWebCompile.js.html">jsWebCompile.js</a>, <a href="jsWebCompile.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {jsWebCompile} from 'webcompiler';
+
+jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', function (e) {
+  if (e) {
+    return e.forEach(function (err) {
+      console.error(err);
+    });
+  }
+  // successfully compiled
+});</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="JS.html">JS</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompile.html">SASSCompile</a></li><li><a href="SASSLint.html">SASSLint</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cssAutoprefix">cssAutoprefix</a></li><li><a href="global.html#cssMin">cssMin</a></li><li><a href="global.html#jsMin">jsMin</a></li><li><a href="global.html#jsNodeCompileDir">jsNodeCompileDir</a></li><li><a href="global.html#jsNodeCompileFile">jsNodeCompileFile</a></li><li><a href="global.html#jsWebCompile">jsWebCompile</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Jul 09 2015 11:10:39 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

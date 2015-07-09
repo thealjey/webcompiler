@@ -1,12 +1,14 @@
-
+/* @flow */
 
 'use strict';
 
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var _Object$assign = require('babel-runtime/core-js/object/assign')['default'];
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-exports.__esModule = true;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _child_process = require('child_process');
 
@@ -15,16 +17,13 @@ var _child_process = require('child_process');
  *
  * @class
  * @param {string} task - a process name
+ * @example
+ * import {NativeProcess} from 'webcompiler';
+ *
+ * var mkdir = new NativeProcess('mkdir');
  */
 
 var NativeProcess = (function () {
-
-  /**
-   * Initializes the object
-   *
-   * @param {string} task - a process name
-   */
-
   function NativeProcess(task) {
     _classCallCheck(this, NativeProcess);
 
@@ -39,40 +38,58 @@ var NativeProcess = (function () {
     this.task = task;
   }
 
-  /**
-   * Run a callback if the process did not end with an error, optionally pass an array of arguments
-   *
-   * @memberof NativeProcess
-   * @instance
-   * @method run
-   * @param {Function}      callback - a callback function
-   * @param {Array<string>} [args]   - an optional array of arguments to pass to the process
-   * @param {Object}        [opts]   - an optional object containing configuration options for the process
-   */
-
-  NativeProcess.prototype.run = function run(callback) {
-    var args = arguments[1] === undefined ? [] : arguments[1];
-    var opts = arguments[2] === undefined ? {} : arguments[2];
-
-    if (this.proc) {
-      this.proc.kill();
-    }
+  _createClass(NativeProcess, [{
+    key: 'run',
 
     /**
-     * a ChildProcess instance
+     * Execute the command
      *
      * @memberof NativeProcess
-     * @private
      * @instance
-     * @type {ChildProcess}
+     * @method run
+     * @param {Function}      callback - a callback function, accepts 2 arguments: an error string or null and the
+     *                                   response string
+     * @param {Array<string>} [args]   - an optional array of arguments to pass to the process
+     * @param {Object}        [opts]   - an optional object containing configuration options for the process
+     * @example
+     * mkdir.run(function (e) {
+     *   if (e) {
+     *     return console.error(e);
+     *   }
+     *   // created a directory named "example" in cwd
+     * }, ['example']);
      */
-    this.proc = (0, _child_process.spawn)(this.task, args, _Object$assign({ stdio: 'inherit' }, opts));
-    this.proc.on('close', function processCloseHandler(code) {
-      if (!code) {
-        callback();
+    value: function run(callback) {
+      var args = arguments[1] === undefined ? [] : arguments[1];
+      var opts = arguments[2] === undefined ? {} : arguments[2];
+
+      var stdout = '',
+          stderr = '';
+
+      if (this.proc) {
+        this.proc.kill();
       }
-    });
-  };
+
+      /**
+       * a ChildProcess instance
+       *
+       * @memberof NativeProcess
+       * @private
+       * @instance
+       * @type {ChildProcess}
+       */
+      this.proc = (0, _child_process.spawn)(this.task, args, opts);
+      this.proc.stdout.on('data', function (data) {
+        stdout += data;
+      });
+      this.proc.stderr.on('data', function (data) {
+        stderr += data;
+      });
+      this.proc.on('close', function (code) {
+        callback(code ? stderr : null, stdout);
+      });
+    }
+  }]);
 
   return NativeProcess;
 })();

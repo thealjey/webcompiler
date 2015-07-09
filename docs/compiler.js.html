@@ -1,4 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: compiler.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: compiler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 /** @module compiler */
 
 'use strict';
@@ -68,7 +96,8 @@ var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
 
 var eslint = new _eslint.CLIEngine({
   envs: ['node', 'browser'],
-  rules: require(_path2['default'].resolve(__dirname, '..', 'conf', 'eslint.json'))
+  rules: require(_path2['default'].resolve(__dirname, '..', 'config', 'eslint.json')),
+  ignorePattern: '**/__tests__'
 }),
     consoleError = console.error.bind(console),
 
@@ -86,21 +115,21 @@ exports.flow = flow;
 _Object$assign(eslint.options.baseConfig, {
   parser: 'babel-eslint',
   ecmaFeatures: { jsx: true },
-  plugins: ['react']
+  plugins: ['babel', 'react']
 });
 
 /**
  * Lints JavaScript at specified paths
  *
  * @memberOf module:compiler
- * @param {Array<string>} lintPaths - an array of paths to files as well as directories for the linter to check
+ * @param {Array&lt;string>} lintPaths - an array of paths to files as well as directories for the linter to check
  * @param {Function} callback  - a callback function
  */
 
 function lintJS(lintPaths, callback) {
   var report = eslint.executeOnFiles(lintPaths);
 
-  if (!report.errorCount && !report.warningCount) {
+  if (!report.errorCount &amp;&amp; !report.warningCount) {
     callback();
   } else {
     report.results.forEach(function loopThroughResults(f) {
@@ -121,11 +150,11 @@ function lintJS(lintPaths, callback) {
  * @param {Function} callback - a callback function
  */
 function uglifyJS(inPath, outPath, outFile, callback) {
-  var map = '' + outPath + '.map',
+  var map = outPath + '.map',
       result = _uglifyJs2['default'].minify(outPath, {
     mangle: false,
     inSourceMap: map,
-    outSourceMap: '' + outFile + '.map',
+    outSourceMap: outFile + '.map',
 
     /*eslint-disable camelcase*/
     output: { space_colon: false }
@@ -163,7 +192,7 @@ function uglifyJS(inPath, outPath, outFile, callback) {
  * @param {string}   outFile  - the base name of the outPath
  */
 function compileJS(inPath, outPath, callback, outDir, outFile) {
-  (0, _webpack2['default'])({
+  _webpack2['default']({
     cache: webpackCache,
     debug: true,
     devtool: 'source-map',
@@ -191,10 +220,10 @@ function compileJS(inPath, outPath, callback, outDir, outFile) {
       return consoleError(e);
     }
     jsonStats = stats.toJson();
-    if (0 < jsonStats.errors.length) {
+    if (0 &lt; jsonStats.errors.length) {
       return jsonStats.errors.forEach(consoleError);
     }
-    if (0 < jsonStats.warnings.length) {
+    if (0 &lt; jsonStats.warnings.length) {
       return jsonStats.warnings.forEach(consoleError);
     }
     uglifyJS(inPath, outPath, outFile, callback);
@@ -213,7 +242,7 @@ function compileJS(inPath, outPath, callback, outDir, outFile) {
 function packageJS(inPath, outPath) {
   var callback = arguments[2] === undefined ? Function.prototype : arguments[2];
 
-  (0, _babel.transformFile)(inPath, { loose: 'all', optional: ['runtime'] }, function processCompiledJS(e, result) {
+  _babel.transformFile(inPath, { loose: 'all', optional: ['runtime'] }, function processCompiledJS(e, result) {
     if (e) {
       return consoleError(e);
     }
@@ -266,7 +295,7 @@ function compileSASS(inPath, outPath, callback) {
  * @param {Object}   result   - an object with the two properties: css and map
  */
 function autoprefixSASS(outPath, callback, result) {
-  (0, _postcss2['default'])([_autoprefixerCore2['default']]).process(result.css, {
+  _postcss2['default']([_autoprefixerCore2['default']]).process(result.css, {
     from: outPath,
     to: outPath,
     map: { prev: result.map.toString() }
@@ -328,7 +357,7 @@ function minifyCSS(inPath, outPath, callback, result) {
  * @param {string}   outPath          - the path to the compiled output file
  * @param {Function} callback         - a callback function with the following arguments: inPath, outPath, lintPaths,
  *                                      outDir and outFile
- * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
+ * @param {Array&lt;string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
  *                                      linter to check (the source file being compiled is included automatically)
  */
 function getPathParams(inPath, outPath, callback) {
@@ -347,7 +376,7 @@ function getPathParams(inPath, outPath, callback) {
     callback(inPath, outPath, lintPaths, out[1], out[2]);
   } catch (e) {
     out = outPath.match(/^(.*?)\/?([^\/]+)$/);
-    (0, _mkdirp2['default'])(out[1], function outDirCreateHandler() {
+    _mkdirp2['default'](out[1], function outDirCreateHandler() {
       callback(inPath, outPath, lintPaths, out[1], out[2]);
     });
   }
@@ -365,7 +394,7 @@ function getPathParams(inPath, outPath, callback) {
  *                                      success of the operation), - an optimized compiler function that can be used for
  *                                      continuous compilation of the same resource (a good candidate for use with a
  *                                      [watcher](https://github.com/thealjey/simple-recursive-watch))
- * @param {Array<string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
+ * @param {Array&lt;string>} [lintPaths] - an optional array of paths to files as well as directories that you want the
  *                                      linter to check (the source file being compiled is included automatically)
  */
 function buildJS(fn, inPath, outPath) {
@@ -394,18 +423,18 @@ function buildJS(fn, inPath, outPath) {
  *                                       success of the operation), - an optimized compiler function that can be used
  *                                       for continuous compilation of the same resource (a good candidate for use with
  *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
- * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ * @param {...Array&lt;string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
 
 function webJS(inPath, outPath) {
-  for (var _len = arguments.length, lintPaths = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
-    lintPaths[_key - 4] = arguments[_key];
-  }
-
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
+  for (var _len = arguments.length, lintPaths = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key &lt; _len; _key++) {
+    lintPaths[_key - 4] = arguments[_key];
+  }
 
   buildJS(compileJS, inPath, outPath, onCompile, callback, lintPaths);
 }
@@ -421,18 +450,18 @@ function webJS(inPath, outPath) {
  *                                       success of the operation), - an optimized compiler function that can be used
  *                                       for continuous compilation of the same resource (a good candidate for use with
  *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
- * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ * @param {...Array&lt;string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
 
 function nodeJS(inPath, outPath) {
-  for (var _len2 = arguments.length, lintPaths = Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 < _len2; _key2++) {
-    lintPaths[_key2 - 4] = arguments[_key2];
-  }
-
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
+  for (var _len2 = arguments.length, lintPaths = Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 &lt; _len2; _key2++) {
+    lintPaths[_key2 - 4] = arguments[_key2];
+  }
 
   buildJS(packageJS, inPath, outPath, onCompile, callback, lintPaths);
 }
@@ -448,18 +477,18 @@ function nodeJS(inPath, outPath) {
  *                                       success of the operation), - an optimized compiler function that can be used
  *                                       for continuous compilation of the same resource (a good candidate for use with
  *                                       a [watcher](https://github.com/thealjey/simple-recursive-watch))
- * @param {...Array<string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
+ * @param {...Array&lt;string>} lintPaths - the rest of the arguments, if any, are the paths to files as well as
  *                                       directories that you want the linter to check (the source file being compiled
  *                                       is included automatically)
  */
 
 function webSASS(inPath, outPath) {
-  for (var _len3 = arguments.length, lintPaths = Array(_len3 > 4 ? _len3 - 4 : 0), _key3 = 4; _key3 < _len3; _key3++) {
-    lintPaths[_key3 - 4] = arguments[_key3];
-  }
-
   var onCompile = arguments[2] === undefined ? Function.prototype : arguments[2];
   var callback = arguments[3] === undefined ? Function.prototype : arguments[3];
+
+  for (var _len3 = arguments.length, lintPaths = Array(_len3 > 4 ? _len3 - 4 : 0), _key3 = 4; _key3 &lt; _len3; _key3++) {
+    lintPaths[_key3 - 4] = arguments[_key3];
+  }
 
   getPathParams(inPath, outPath, function sassParamHandler(a, b, c) {
     var func = scsslint.run.bind(scsslint, compileSASS.bind(null, a, b, autoprefixSASS.bind(null, b, minifyCSS.bind(null, a, b, onCompile))), c);
@@ -467,4 +496,26 @@ function webSASS(inPath, outPath) {
     func();
     callback(func);
   }, lintPaths);
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compiler.html">compiler</a></li></ul><h3>Classes</h3><ul><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASSCompile.html">SASSCompile</a></li><li><a href="SASSLint.html">SASSLint</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cssAutoprefix">cssAutoprefix</a></li><li><a href="global.html#cssMin">cssMin</a></li><li><a href="global.html#jsMin">jsMin</a></li><li><a href="global.html#jsNodeCompileDir">jsNodeCompileDir</a></li><li><a href="global.html#jsNodeCompileFile">jsNodeCompileFile</a></li><li><a href="global.html#jsWebCompile">jsWebCompile</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Jul 06 2015 19:13:27 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

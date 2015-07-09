@@ -1,11 +1,12 @@
 {
   "name": "webcompiler",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
-  "main": "build/compiler.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel-node bin/compile"
+    "test": "jasmine",
+    "cover": "babel-istanbul cover --root lib --print detail --include-all-sources --include-babel-polyfill jasmine",
+    "build": "npm run cover && babel-node bin/build"
   },
   "repository": {
     "type": "git",
@@ -35,24 +36,28 @@
   "dependencies": {
     "autoprefixer-core": "^5.2.0",
     "babel": "^5.5.8",
-    "babel-eslint": "^3.1.16",
+    "babel-eslint": "^3.1.23",
     "babel-runtime": "^5.5.8",
-    "clean-css": "^3.3.3",
-    "eslint": "^0.23.0",
-    "eslint-plugin-react": "^2.5.2",
+    "clean-css": "^3.3.5",
+    "eslint": "^0.24.0",
+    "eslint-plugin-babel": "^1.1.0",
+    "eslint-plugin-react": "^2.6.4",
     "mkdirp": "^0.5.1",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.2.0",
     "node-sass-import-once": "^1.2.0",
-    "postcss": "^4.1.11",
+    "postcss": "^4.1.16",
     "uglify-js": "^2.4.23",
-    "webpack": "^1.9.11"
+    "webpack": "^1.10.1"
   },
   "peerDependencies": {
     "babel-loader": "5.x",
     "babel-runtime": "5.x"
   },
   "devDependencies": {
-    "jsdoc": "^3.3.2"
+    "babel-istanbul": "^0.2.10",
+    "jasmine-es6": "0.0.14",
+    "jsdoc": "^3.3.2",
+    "proxyquire": "^1.6.0"
   }
 }

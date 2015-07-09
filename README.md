@@ -4,7 +4,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 
 ### Prerequisites
 
-1. [Facebook Flow](http://flowtype.org/) (0.12+)
+1. [Facebook Flow](http://flowtype.org/)
 2. [SCSS-Lint](https://github.com/brigade/scss-lint)
 
 Important! Create a .flowconfig file at the root of your project with the following contents:
@@ -13,6 +13,7 @@ Important! Create a .flowconfig file at the root of your project with the follow
 [ignore]
 .*/invalidPackageJson/*
 .*/test/*
+.*/build/*
 
 [include]
 
@@ -20,7 +21,6 @@ Important! Create a .flowconfig file at the root of your project with the follow
 
 [options]
 suppress_comment=.*@noflow.*
-
 ```
 
 ### Installation
@@ -29,56 +29,70 @@ suppress_comment=.*@noflow.*
 npm i webcompiler --save
 ```
 
-### Exposes 3 main functions
+### Exposes 2 main classes
 
-1. `webJS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser
-(production ready + Source Maps)
-2. `nodeJS` - lints, type-checks and compiles JavaScript for NodeJS
-3. `webSASS` - lints, compiles, packages, adds vendor prefixes, minifies and gzips SASS for the browser
-(production ready + Source Maps)
-
-### With the same signature
+`JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser
+(production ready + Source Maps) and NodeJS
 
 ```
-(inPath: string, outPath: string, onCompile: Function = Function.prototype,
- callback: Function = Function.prototype, ...lintPaths: Array<string>): void;
+interface JS {
+  constructor(lintRules: Object = {});
+  validate(inPath: string, lintPaths: Array<string>, callback: Function);
+  fe(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  beFile(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  beDir(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+}
+```
+`SASS` - lints, compiles, packages, adds vendor prefixes, minifies and gzips SASS for the browser
+(production ready + Source Maps)
+
+```
+interface SASS {
+  constructor(excludeLinter: Array<string> = [], importOnceOptions: Object = {}, includePaths: Array<string> = []);
+  validate(inPath: string, lintPaths: Array<string>, callback: Function);
+  fe(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+}
 ```
 
 ### Arguments
 
-1. `inPath` - the source file path
-2. `outPath` - the path to the compiled output file
-3. `onCompile` - an optional function to execute after each successful compilation
-4. `callback` - an optional callback function that receives one argument (regardless of the success of the operation), -
-an optimized compiler function that can be used for continuous compilation of the same resource (a good candidate for
-use with a [watcher](https://github.com/thealjey/simple-recursive-watch))
-5. `...lintPaths` - the rest of the arguments, if any, are the paths to files as well as directories that you want the
-linter to check (the source file being compiled is included automatically)
+1. `inPath` - a full system path to the input file/directory
+2. `outPath` - a full system path to the output file/directory
+3. `callback` - a callback function, executed after the successful compilation
+4. `lintPaths` - paths to files/directories to lint (the input file is included automatically)
 
 ### Example usage
 
-```
-import {webJS} from 'webcompiler';
+```javascript
+import {JS} from 'webcompiler';
 import watch from 'simple-recursive-watch';
+import path from 'path';
 
-webJS('lib/app.js', 'public/script.js', function () {
-  // notify LiveReload of the file change
-  lr.changed({body: {files: ['script.js']}});
-}, function (compiler) {
-  // automatically invoke the same compiler if any of the JavaScript files change
-  watch('lib', 'js', compiler);
-}, 'lib');
+var compiler = new JS(),
+    webJS = compiler.fe.bind(compiler,
+      path.join(__dirname, 'lib', 'app.js'),
+      path.join(__dirname, 'public', 'script.js'),
+      function () {
+        // notify LiveReload of the file change
+        lr.changed({body: {files: ['script.js']}});
+      }, 'lib');
+
+// compile at startup
+webJS();
+// automatically invoke the same compiler if any of the JavaScript files change
+watch('lib', 'js', webJS);
 ```
 
 ### Important!
 
-The resulting JavaScript and CSS files from `webJS` and `webSASS` are gzip compressed for performance
+The resulting JavaScript and CSS files from `fe` are gzip compressed for performance
 (see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
 **"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
 
 ### Additional info
 
-1. [ESLint](https://github.com/eslint/eslint), [babel-eslint](https://github.com/babel/babel-eslint) and
+1. [ESLint](https://github.com/eslint/eslint), [babel-eslint](https://github.com/babel/babel-eslint),
+[eslint-plugin-babel](https://github.com/babel/eslint-plugin-babel) and
 [ESLint-plugin-React](https://github.com/yannickcr/eslint-plugin-react) are used to lint the JavaScript
 2. [Facebook Flow](http://flowtype.org/) is used to type-check the JavaScript
 3. [Babel](https://babeljs.io/) is used to compile the JavaScript

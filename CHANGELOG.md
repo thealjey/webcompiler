@@ -1,3 +1,11 @@
+### v1.0.0
+
+* added sane default rules for the SASS linter
+* added a rule for cyclomatic complexity checks of the JavaScript code
+* removed a requirement for naming all functions
+* exposed all of the internal APIs for easier composition and reuse
+* added full test coverage
+
 ### v0.3.5
 
 * JavaScript for Node now preserves all comments, excluding the flow pragma
