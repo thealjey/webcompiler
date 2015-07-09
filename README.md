@@ -9,7 +9,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [![devDependency Status](https://david-dm.org/thealjey/webcompiler/dev-status.svg)](https://david-dm.org/thealjey/webcompiler#info=devDependencies)
 [![peerDependency Status](https://david-dm.org/thealjey/webcompiler/peer-status.svg)](https://david-dm.org/thealjey/webcompiler#info=peerDependencies)
 [![npm version](https://badge.fury.io/js/webcompiler.svg)](http://badge.fury.io/js/webcompiler)
-[![Slack channel](http://img.shields.io/slack/webcompiler.png)](https://webcompiler.slack.com)
+[![Slack channel](https://img.shields.io/badge/slack-webcompiler-blue.svg)](https://webcompiler.slack.com)
 
 ### Prerequisites
 
@@ -83,13 +83,14 @@ import watch from 'simple-recursive-watch';
 import path from 'path';
 
 var compiler = new JS(),
+    libDir = path.join(__dirname, 'lib'),
     webJS = compiler.fe.bind(compiler,
-      path.join(__dirname, 'lib', 'app.js'),
+      path.join(libDir, 'app.js'),
       path.join(__dirname, 'public', 'script.js'),
       function () {
         // notify LiveReload of the file change
         lr.changed({body: {files: ['script.js']}});
-      }, 'lib');
+      }, libDir);
 
 // compile at startup
 webJS();
