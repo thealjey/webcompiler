@@ -38,6 +38,11 @@ suppress_comment=.*@noflow.*
 npm i webcompiler --save
 ```
 
+### API Documentation
+
+To get better acquainted with the available tools feel free to skim through the auto-generated
+[API Docs](https://rawgit.com/thealjey/webcompiler/master/docs/index.html).
+
 ### Exposes 2 main classes
 
 `JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser
