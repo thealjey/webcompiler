@@ -1,3 +1,7 @@
+### v1.0.2
+
+* added a rule to .flowconfig to ignore "spec" directories of the vendor modules
+
 ### v1.0.0
 
 * added sane default rules for the SASS linter

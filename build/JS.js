@@ -1,5 +1,3 @@
-/* @flow */
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -67,7 +65,7 @@ var i = 0;
 
 var JS = (function () {
   function JS() {
-    var lintRules = arguments[0] === undefined ? {} : arguments[0];
+    var lintRules = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     _classCallCheck(this, JS);
 

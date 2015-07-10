@@ -1,5 +1,3 @@
-/* @flow */
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -43,8 +41,8 @@ var options = {
 
 var SASSCompile = (function () {
   function SASSCompile() {
-    var importOnceOptions = arguments[0] === undefined ? {} : arguments[0];
-    var includePaths = arguments[1] === undefined ? [] : arguments[1];
+    var importOnceOptions = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var includePaths = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
     _classCallCheck(this, SASSCompile);
 

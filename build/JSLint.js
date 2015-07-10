@@ -1,5 +1,3 @@
-/* @flow */
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -37,7 +35,7 @@ var baseRules = require(_path2['default'].join(__dirname, '..', 'config', 'eslin
 
 var JSLint = (function () {
   function JSLint() {
-    var rules = arguments[0] === undefined ? {} : arguments[0];
+    var rules = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     _classCallCheck(this, JSLint);
 

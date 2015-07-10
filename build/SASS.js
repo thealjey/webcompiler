@@ -1,5 +1,3 @@
-/* @flow */
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -65,9 +63,9 @@ var i = 0;
 
 var SASS = (function () {
   function SASS() {
-    var excludeLinter = arguments[0] === undefined ? [] : arguments[0];
-    var importOnceOptions = arguments[1] === undefined ? {} : arguments[1];
-    var includePaths = arguments[2] === undefined ? [] : arguments[2];
+    var excludeLinter = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+    var importOnceOptions = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var includePaths = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
     _classCallCheck(this, SASS);
 

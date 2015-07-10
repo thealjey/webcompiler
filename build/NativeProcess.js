@@ -1,5 +1,3 @@
-/* @flow */
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -60,8 +58,8 @@ var NativeProcess = (function () {
      * }, ['example']);
      */
     value: function run(callback) {
-      var args = arguments[1] === undefined ? [] : arguments[1];
-      var opts = arguments[2] === undefined ? {} : arguments[2];
+      var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+      var opts = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
       var stdout = '',
           stderr = '';

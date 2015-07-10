@@ -23,6 +23,7 @@ Important! Create a .flowconfig file at the root of your project with the follow
 .*/invalidPackageJson/*
 .*/test/*
 .*/build/*
+.*/node_modules/.*/spec/*
 
 [include]
 
