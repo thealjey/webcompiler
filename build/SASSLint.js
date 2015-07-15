@@ -16,9 +16,7 @@ var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
 
 var _path = require('path');
 
-var _path2 = _interopRequireDefault(_path);
-
-var config = _path2['default'].join(__dirname, '..', 'config', 'scsslint.yml');
+var config = (0, _path.join)(__dirname, '..', 'config', 'scsslint.yml');
 
 /**
  * A SASS linter

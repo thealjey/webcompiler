@@ -13,8 +13,6 @@ var _webpack2 = _interopRequireDefault(_webpack);
 
 var _path = require('path');
 
-var _path2 = _interopRequireDefault(_path);
-
 var config = {
   cache: {},
   debug: true,
@@ -51,7 +49,7 @@ var config = {
  */
 
 function jsWebCompile(inPath, outPath, callback) {
-  var parsed = _path2['default'].parse(outPath);
+  var parsed = (0, _path.parse)(outPath);
 
   config.entry = inPath;
   config.output.path = parsed.dir;

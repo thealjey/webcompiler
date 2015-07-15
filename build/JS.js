@@ -36,15 +36,9 @@ var _jsMin2 = _interopRequireDefault(_jsMin);
 
 var _zlib = require('zlib');
 
-var _zlib2 = _interopRequireDefault(_zlib);
-
 var _fs = require('fs');
 
-var _fs2 = _interopRequireDefault(_fs);
-
 var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
 
 var _mkdirp = require('mkdirp');
 
@@ -166,15 +160,15 @@ var JS = (function () {
             });
           }
           minified = (0, _jsMin2['default'])(outPath);
-          _zlib2['default'].gzip(minified.code, function (gzipErr, code) {
+          (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
             if (gzipErr) {
               return console.error(gzipErr);
             }
-            _fs2['default'].writeFile(outPath, code, function (scriptErr) {
+            (0, _fs.writeFile)(outPath, code, function (scriptErr) {
               if (scriptErr) {
                 return console.error(scriptErr);
               }
-              _fs2['default'].writeFile(outPath + '.map', minified.map, function (mapErr) {
+              (0, _fs.writeFile)(outPath + '.map', minified.map, function (mapErr) {
                 if (mapErr) {
                   return console.error(mapErr);
                 }
@@ -214,11 +208,11 @@ var JS = (function () {
           if (compileErr) {
             return console.error(compileErr);
           }
-          (0, _mkdirp2['default'])(_path2['default'].dirname(outPath), function (mkdirpErr) {
+          (0, _mkdirp2['default'])((0, _path.dirname)(outPath), function (mkdirpErr) {
             if (mkdirpErr) {
               return console.error(mkdirpErr);
             }
-            _fs2['default'].writeFile(outPath, code, function (scriptErr) {
+            (0, _fs.writeFile)(outPath, code, function (scriptErr) {
               if (scriptErr) {
                 return console.error(scriptErr);
               }

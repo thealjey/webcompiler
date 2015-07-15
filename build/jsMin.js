@@ -13,8 +13,6 @@ var _uglifyJs2 = _interopRequireDefault(_uglifyJs);
 
 var _path = require('path');
 
-var _path2 = _interopRequireDefault(_path);
-
 /*eslint-disable camelcase*/
 var config = { mangle: false, output: { space_colon: false }, inSourceMap: '', outSourceMap: '' };
 
@@ -38,7 +36,7 @@ function jsMin(scriptFile, mapFile) {
   if (!mapFile) {
     mapFile = scriptFile + '.map';
   }
-  config.outSourceMap = _path2['default'].basename(config.inSourceMap = mapFile);
+  config.outSourceMap = (0, _path.basename)(config.inSourceMap = mapFile);
   return _uglifyJs2['default'].minify(scriptFile, config);
 }
 

@@ -9,7 +9,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [![devDependency Status](https://david-dm.org/thealjey/webcompiler/dev-status.svg)](https://david-dm.org/thealjey/webcompiler#info=devDependencies)
 [![peerDependency Status](https://david-dm.org/thealjey/webcompiler/peer-status.svg)](https://david-dm.org/thealjey/webcompiler#info=peerDependencies)
 [![npm version](https://badge.fury.io/js/webcompiler.svg)](http://badge.fury.io/js/webcompiler)
-[![Slack channel](https://img.shields.io/badge/slack-webcompiler-blue.svg)](https://webcompiler.slack.com)
+[![Slack channel](https://img.shields.io/badge/slack-webcompiler-blue.svg)](https://webcompiler.slack.com/messages/general)
 
 ### Prerequisites
 
@@ -80,23 +80,27 @@ interface SASS {
 
 ```javascript
 import {JS} from 'webcompiler';
-import watch from 'simple-recursive-watch';
-import path from 'path';
+import {DirectoryWatcher} from 'simple-recursive-watch';
+import {join} from 'path';
+import tinylr from 'tiny-lr';
 
 var compiler = new JS(),
-    libDir = path.join(__dirname, 'lib'),
+    lr = tinylr(),
+    libDir = join(__dirname, 'lib'),
     webJS = compiler.fe.bind(compiler,
-      path.join(libDir, 'app.js'),
-      path.join(__dirname, 'public', 'script.js'),
+      join(libDir, 'app.js'),
+      join(__dirname, 'public', 'script.js'),
       function () {
         // notify LiveReload of the file change
         lr.changed({body: {files: ['script.js']}});
       }, libDir);
 
+lr.listen(35729);
+
 // compile at startup
 webJS();
 // automatically invoke the same compiler if any of the JavaScript files change
-watch('lib', 'js', webJS);
+DirectoryWatcher.watch(libDir, 'js', webJS);
 ```
 
 ### Important!

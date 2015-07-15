@@ -31,15 +31,9 @@ var _cssMin2 = _interopRequireDefault(_cssMin);
 
 var _zlib = require('zlib');
 
-var _zlib2 = _interopRequireDefault(_zlib);
-
 var _fs = require('fs');
 
-var _fs2 = _interopRequireDefault(_fs);
-
 var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
 
 var _mkdirp = require('mkdirp');
 
@@ -156,19 +150,19 @@ var SASS = (function () {
               });
             }
             minified = (0, _cssMin2['default'])(prefixed);
-            _zlib2['default'].gzip(minified.code, function (gzipErr, code) {
+            (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
               if (gzipErr) {
                 return console.error(gzipErr);
               }
-              (0, _mkdirp2['default'])(_path2['default'].dirname(outPath), function (mkdirpErr) {
+              (0, _mkdirp2['default'])((0, _path.dirname)(outPath), function (mkdirpErr) {
                 if (mkdirpErr) {
                   return console.error(mkdirpErr);
                 }
-                _fs2['default'].writeFile(outPath, code, function (styleErr) {
+                (0, _fs.writeFile)(outPath, code, function (styleErr) {
                   if (styleErr) {
                     return console.error(styleErr);
                   }
-                  _fs2['default'].writeFile(outPath + '.map', minified.map, function (mapErr) {
+                  (0, _fs.writeFile)(outPath + '.map', minified.map, function (mapErr) {
                     if (mapErr) {
                       return console.error(mapErr);
                     }

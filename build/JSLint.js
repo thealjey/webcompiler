@@ -6,18 +6,14 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _eslint = require('eslint');
 
 var _path = require('path');
 
-var _path2 = _interopRequireDefault(_path);
-
 /*eslint-disable no-mixed-requires*/
-var baseRules = require(_path2['default'].join(__dirname, '..', 'config', 'eslint.json')),
+var baseRules = require((0, _path.join)(__dirname, '..', 'config', 'eslint.json')),
     baseConfig = { parser: 'babel-eslint', ecmaFeatures: { jsx: true }, plugins: ['babel', 'react'] };
 
 /*eslint-enable no-mixed-requires*/
@@ -29,6 +25,7 @@ var baseRules = require(_path2['default'].join(__dirname, '..', 'config', 'eslin
  * @param {Object} [rules] - an object that lets you override default linting rules
  * @example
  * import {JSLint} from 'webcompiler';
+ * import {join} from 'path';
  *
  * var linter = new JSLint();
  */
@@ -64,7 +61,7 @@ var JSLint = (function () {
      * @param {Function}      callback - a callback function, accepts 1 argument: an array of error objects or null
      * @example
      * // lint "index.js" as well as the entire contents of the "src" directory
-     * linter.run(['index.js', 'src'], function (e) {
+     * linter.run([join(__dirname, 'index.js'), join(__dirname, 'src')], function (e) {
      *   if (e) {
      *     return e.forEach(function (err) {
      *       console.log(
