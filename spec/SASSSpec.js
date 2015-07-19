@@ -49,7 +49,7 @@ describe('SASS', function () {
       spy = jasmine.createSpy('spy');
     });
 
-    describe('validate', function () {
+    describe('original dependencies', function () {
 
       /* @noflow */
       var SASS, cmp;
@@ -61,7 +61,7 @@ describe('SASS', function () {
         cmp = new SASS();
       });
 
-      describe('linter error', function () {
+      describe('validate linter error', function () {
 
         beforeEach(function () {
           spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
@@ -85,7 +85,7 @@ describe('SASS', function () {
 
       });
 
-      describe('linter success', function () {
+      describe('validate linter success', function () {
 
         beforeEach(function () {
           spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
@@ -96,6 +96,92 @@ describe('SASS', function () {
 
         it('invokes the callback', function () {
           expect(spy).toHaveBeenCalled();
+        });
+
+      });
+
+      describe('webCompile', function () {
+
+        beforeEach(function () {
+          spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
+            callback();
+          });
+        });
+
+        describe('compiler failure', function () {
+
+          beforeEach(function () {
+            spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
+              callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
+            });
+            cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy,
+                           '/lint/this/directory/too');
+          });
+
+          it('calls validate', function () {
+            expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.scss', ['/lint/this/directory/too'],
+                                                      jasmine.any(Function));
+          });
+
+          it('runs the compiler', function () {
+            expect(cmp.compiler.run).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                          jasmine.any(Function));
+          });
+
+          it('prints the error', function () {
+            expect(console.log).toHaveBeenCalledWith(
+              '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
+              'could not compile', 'some file', 12, 8);
+          });
+
+          it('does not call the spy', function () {
+            expect(spy).not.toHaveBeenCalled();
+          });
+
+        });
+
+        describe('compiler success', function () {
+
+          beforeEach(function () {
+            spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
+              callback(null, {code: 'some css rules', map: 'source map contents'});
+            });
+            cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy,
+                           '/lint/this/directory/too');
+          });
+
+          it('does not print anything on screen', function () {
+            expect(console.log).not.toHaveBeenCalled();
+          });
+
+          it('invokes the callback', function () {
+            expect(spy).toHaveBeenCalledWith({code: 'some css rules', map: 'source map contents'});
+          });
+
+        });
+
+      });
+
+      describe('feDev', function () {
+
+        beforeEach(function () {
+          spyOn(cmp, 'webCompile').and.callFake(function (inPath, outPath, callback) {
+            callback({code: 'compiled code', map: 'source map'});
+          });
+          spyOn(cmp, 'fsWrite').and.callFake(function (inPath, outPath, data, callback) {
+            callback();
+          });
+          cmp.feDev('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy, '/lint/this/directory/too');
+        });
+
+        it('calls webCompile', function () {
+          expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                      jasmine.any(Function), '/lint/this/directory/too');
+        });
+
+        it('calls fsWrite', function () {
+          expect(cmp.fsWrite).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                   {code: 'compiled code', map: 'source map'}, spy);
         });
 
       });
@@ -114,69 +200,25 @@ describe('SASS', function () {
         });
         SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin});
         cmp = new SASS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
+        spyOn(cmp, 'webCompile').and.callFake(function (inPath, lintPaths, callback) {
+          callback({code: 'compiled code', map: 'source map'});
         });
+        cmp.feProd('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
+                   '/lint/this/directory/too');
       });
 
-      describe('compiler failure', function () {
-
-        beforeEach(function () {
-          spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-            callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
-          });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                 '/lint/this/directory/too');
-        });
-
-        it('calls validate', function () {
-          expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.scss', ['/lint/this/directory/too'],
-                                                        jasmine.any(Function));
-        });
-
-        it('runs the compiler', function () {
-          expect(cmp.compiler.run).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
-                                                        jasmine.any(Function));
-        });
-
-        it('prints the error', function () {
-          expect(console.log).toHaveBeenCalledWith(
-            '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-            'could not compile', 'some file', 12, 8);
-        });
-
-        it('does not call cssAutoprefix', function () {
-          expect(cssAutoprefix).not.toHaveBeenCalled();
-        });
-
+      it('calls webCompile', function () {
+        expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                    jasmine.any(Function), '/lint/this/directory/too');
       });
 
-      describe('compiler success', function () {
+      it('calls cssAutoprefix', function () {
+        expect(cssAutoprefix).toHaveBeenCalledWith({code: 'compiled code', map: 'source map'},
+                                                   '/path/to/the/output/file.css', jasmine.any(Function));
+      });
 
-        beforeEach(function () {
-          spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-            callback(null, {code: 'some css rules', map: 'source map contents'});
-          });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                 '/lint/this/directory/too');
-        });
-
-        it('calls cssAutoprefix', function () {
-          expect(cssAutoprefix).toHaveBeenCalledWith({code: 'some css rules', map: 'source map contents'},
-                                                     '/path/to/the/output/file.css', jasmine.any(Function));
-        });
-
-        it('loops though errors', function () {
-          expect(errors.forEach).toHaveBeenCalledWith(jasmine.any(Function));
-          expect(console.error).toHaveBeenCalledWith('something');
-          expect(console.error).toHaveBeenCalledWith('bad');
-          expect(console.error).toHaveBeenCalledWith('happened');
-        });
-
-        it('does not call cssMin', function () {
-          expect(cssMin).not.toHaveBeenCalled();
-        });
-
+      it('does not call cssMin', function () {
+        expect(cssMin).not.toHaveBeenCalled();
       });
 
     });
@@ -184,31 +226,30 @@ describe('SASS', function () {
     describe('cssAutoprefix success', function () {
 
       /* @noflow */
-      var cmp, SASS, cssAutoprefix, mkdirp;
+      var cmp, SASS, cssAutoprefix;
 
       beforeEach(function () {
         cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
           callback(null, {code: 'prefixed code', map: 'source map contents'});
         });
-        mkdirp = jasmine.createSpy('mkdirp');
-        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin, mkdirp});
+        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin});
         cmp = new SASS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
+        spyOn(cmp, 'webCompile').and.callFake(function (inPath, lintPaths, callback) {
+          callback({code: 'compiled code', map: 'source map'});
         });
-        spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-          callback(null, {code: 'some css rules', map: 'source map contents'});
+        spyOn(cmp, 'fsWrite').and.callFake(function (inPath, outPath, data, callback) {
+          callback();
         });
       });
 
-      describe('zlib.gzip failure', function () {
+      describe('GZIP failure', function () {
 
         beforeEach(function () {
           spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
             callback('GZIP exception');
           });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                 '/lint/this/directory/too');
+          cmp.feProd('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
+                     '/lint/this/directory/too');
         });
 
         it('calls cssMin', function () {
@@ -223,8 +264,24 @@ describe('SASS', function () {
           expect(console.error).toHaveBeenCalledWith('GZIP exception');
         });
 
-        it('does not call mkdirp', function () {
-          expect(mkdirp).not.toHaveBeenCalled();
+        it('does not call fsWrite', function () {
+          expect(cmp.fsWrite).not.toHaveBeenCalled();
+        });
+
+      });
+
+      describe('GZIP success', function () {
+
+        beforeEach(function () {
+          spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
+            callback(null, 'GZIPed program');
+          });
+          cmp.feProd('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy, '/lint/this/directory/too');
+        });
+
+        it('calls fsWrite', function () {
+          expect(cmp.fsWrite).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                   {code: 'GZIPed program', map: 'source map'}, spy);
         });
 
       });
@@ -232,50 +289,29 @@ describe('SASS', function () {
     });
 
     describe('mkdirp errors', function () {
-
-      /* @noflow */
-      var cmp, SASS, cssAutoprefix, mkdirp;
+      var cmp, SASS, mkdirp;
 
       beforeEach(function () {
-        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
-          callback(null, {code: 'prefixed code', map: 'source map contents'});
-        });
+        spyOn(fs, 'writeFile');
         mkdirp = jasmine.createSpy('mkdirp').and.callFake(function (path, callback) {
           callback('could not create a directory');
         });
-        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin, mkdirp});
+        SASS = proxyquire('../lib/SASS', {mkdirp});
         cmp = new SASS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
-        });
-        spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-          callback(null, {code: 'some css rules', map: 'source map contents'});
-        });
+        cmp.fsWrite('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                    {code: 'compiled code', map: 'source map'}, Function.prototype);
       });
 
-      describe('GZIP success', function () {
+      it('calls mkdirp', function () {
+        expect(mkdirp).toHaveBeenCalledWith('/path/to/the/output', jasmine.any(Function));
+      });
 
-        beforeEach(function () {
-          spyOn(fs, 'writeFile');
-          spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
-            callback(null, 'GZIPed program');
-          });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                 '/lint/this/directory/too');
-        });
+      it('prints the exception on screen', function () {
+        expect(console.error).toHaveBeenCalledWith('could not create a directory');
+      });
 
-        it('calls mkdirp', function () {
-          expect(mkdirp).toHaveBeenCalledWith('/path/to/the/output', jasmine.any(Function));
-        });
-
-        it('prints the exception on screen', function () {
-          expect(console.error).toHaveBeenCalledWith('could not create a directory');
-        });
-
-        it('does not write anything to disk', function () {
-          expect(fs.writeFile).not.toHaveBeenCalled();
-        });
-
+      it('does not write anything to disk', function () {
+        expect(fs.writeFile).not.toHaveBeenCalled();
       });
 
     });
@@ -283,26 +319,14 @@ describe('SASS', function () {
     describe('mkdirp success', function () {
 
       /* @noflow */
-      var cmp, SASS, cssAutoprefix, mkdirp;
+      var cmp, SASS, mkdirp;
 
       beforeEach(function () {
-        spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
-          callback(null, 'GZIPed program');
-        });
-        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
-          callback(null, {code: 'prefixed code', map: 'source map contents'});
-        });
         mkdirp = jasmine.createSpy('mkdirp').and.callFake(function (path, callback) {
           callback();
         });
-        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin, mkdirp});
+        SASS = proxyquire('../lib/SASS', {mkdirp});
         cmp = new SASS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
-        });
-        spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-          callback(null, {code: 'some css rules', map: 'source map contents'});
-        });
       });
 
       describe('styles writeFile failure', function () {
@@ -311,12 +335,12 @@ describe('SASS', function () {
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback('failed to write to disk');
           });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                 '/lint/this/directory/too');
+          cmp.fsWrite('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                      {code: 'compiled code', map: 'source map'}, Function.prototype);
         });
 
         it('writes the styles to disk', function () {
-          expect(fs.writeFile).toHaveBeenCalledWith('/path/to/the/output/file.css', 'GZIPed program',
+          expect(fs.writeFile).toHaveBeenCalledWith('/path/to/the/output/file.css', 'compiled code',
                                                     jasmine.any(Function));
         });
 
@@ -337,7 +361,8 @@ describe('SASS', function () {
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback('/path/to/the/output/file.css' === name ? null : 'failed to write the map to disk');
           });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy, '/lint/this/directory/too');
+          cmp.fsWrite('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                      {code: 'compiled code', map: 'source map'}, spy);
         });
 
         it('writes the map to disk', function () {
@@ -361,7 +386,8 @@ describe('SASS', function () {
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback();
           });
-          cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy, '/lint/this/directory/too');
+          cmp.fsWrite('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                      {code: 'compiled code', map: 'source map'}, spy);
         });
 
         it('logs successful message', function () {

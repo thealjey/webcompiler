@@ -415,7 +415,7 @@ var js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line229">line 229</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -658,7 +658,7 @@ var js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line186">line 186</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line211">line 211</a>
     </li></ul></dd>
     
 
@@ -696,14 +696,14 @@ var js = new JS();</code></pre>
 
     
 
-    <h4 class="name" id="fe"><span class="type-signature"></span>fe<span class="signature">(inPath, outPath, callback, &hellip;lintPaths)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="feDev"><span class="type-signature"></span>feDev<span class="signature">(inPath, outPath, callback, &hellip;lintPaths)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Typechecks, lints, compiles, minifies and GZIPs a JavaScript file for the browser.
+    Typechecks, lints and compiles a JavaScript file for the browser (development mode - faster recompilation).
 </div>
 
 
@@ -928,7 +928,250 @@ var js = new JS();</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>js.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
+    <pre class="prettyprint"><code>js.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
+  // compiled successfully
+}, '/lint/this/directory/too');</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="feProd"><span class="type-signature"></span>feProd<span class="signature">(inPath, outPath, callback, &hellip;lintPaths)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Typechecks, lints, compiles, minifies and GZIPs a JavaScript file for the browser (production mode).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a full system path to the input file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a full system path to the output file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a callback function, executed after the successful compilation</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lintPaths</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">paths to files/directories to lint (the input file is included automatically)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>js.feProd('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
   // compiled successfully
 }, '/lint/this/directory/too');</code></pre>
 
@@ -1140,7 +1383,7 @@ var js = new JS();</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 15 2015 11:51:35 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sun Jul 19 2015 22:19:00 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

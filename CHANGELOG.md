@@ -1,3 +1,8 @@
+### v1.1.0
+
+* classes JS and SASS - renamed method "fe" to "feProd"
+* classes JS and SASS - introduced a new method "feDev", much faster, but not optimized for production
+
 ### v1.0.2
 
 * added a rule to .flowconfig to ignore "spec" directories of the vendor modules

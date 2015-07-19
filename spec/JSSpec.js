@@ -175,13 +175,12 @@ describe('JS', function () {
         jsWebCompile = jasmine.createSpy('jsWebCompile').and.callFake(function (inPath, outPath, callback) {
           callback(errors);
         });
-        JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile, './jsMin': jsMin});
+        JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile});
         cmp = new JS();
         spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
           callback();
         });
-        cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype,
-               '/lint/this/directory/too');
+        cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
       });
 
       it('calls the validate method', function () {
@@ -201,24 +200,50 @@ describe('JS', function () {
         expect(console.error).toHaveBeenCalledWith('happened');
       });
 
-      it('does not call jsMin', function () {
-        expect(jsMin).not.toHaveBeenCalled();
+      it('does not log the successful message', function () {
+        expect(console.log).not.toHaveBeenCalled();
+      });
+
+      it('does not invoke the callback', function () {
+        expect(spy).not.toHaveBeenCalled();
       });
 
     });
 
     describe('jsWebCompile success', function () {
-
-      /* @noflow */
       var cmp, jsWebCompile, JS;
 
       beforeEach(function () {
         jsWebCompile = jasmine.createSpy('jsWebCompile').and.callFake(function (inPath, outPath, callback) {
           callback();
         });
-        JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile, './jsMin': jsMin});
+        JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile});
         cmp = new JS();
         spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
+          callback();
+        });
+        cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+      });
+
+      it('logs successful message', function () {
+        expect(console.log).toHaveBeenCalledWith('\x1b[32m%s. Compiled %s\x1b[0m', 1, '/path/to/the/input/file.js');
+      });
+
+      it('invokes the callback', function () {
+        expect(spy).toHaveBeenCalled();
+      });
+
+    });
+
+    describe('feProd', function () {
+
+      /* @noflow */
+      var cmp, JS;
+
+      beforeEach(function () {
+        JS = proxyquire('../lib/JS', {'./jsMin': jsMin});
+        cmp = new JS();
+        spyOn(cmp, 'feDev').and.callFake(function (inPath, outPath, callback) {
           callback();
         });
       });
@@ -230,8 +255,13 @@ describe('JS', function () {
           spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
             callback('GZIP exception');
           });
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype,
-                 '/lint/this/directory/too');
+          cmp.feProd('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype,
+                     '/lint/this/directory/too');
+        });
+
+        it('calls the feDev method', function () {
+          expect(cmp.feDev).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+                                                 jasmine.any(Function), '/lint/this/directory/too');
         });
 
         it('calls jsMin', function () {
@@ -266,8 +296,8 @@ describe('JS', function () {
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback('failed to write to disk');
             });
-            cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype,
-                   '/lint/this/directory/too');
+            cmp.feProd('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype,
+                       '/lint/this/directory/too');
           });
 
           it('writes the script to disk', function () {
@@ -292,7 +322,7 @@ describe('JS', function () {
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback('/path/to/the/output/file.js' === name ? null : 'failed to write the map to disk');
             });
-            cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+            cmp.feProd('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
           });
 
           it('writes the map to disk', function () {
@@ -316,11 +346,11 @@ describe('JS', function () {
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback();
             });
-            cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+            cmp.feProd('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
           });
 
           it('logs successful message', function () {
-            expect(console.log).toHaveBeenCalledWith('\x1b[32m%s. Compiled %s\x1b[0m', 1,
+            expect(console.log).toHaveBeenCalledWith('\x1b[32m%s. Optimized for production %s\x1b[0m', 1,
                                                      '/path/to/the/input/file.js');
           });
 

@@ -46,26 +46,26 @@ To get better acquainted with the available tools feel free to skim through the 
 
 ### Exposes 2 main classes
 
-`JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser
-(production ready + Source Maps) and NodeJS
+`JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS
 
 ```
 interface JS {
   constructor(lintRules: Object = {});
   validate(inPath: string, lintPaths: Array<string>, callback: Function);
-  fe(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  feDev(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  feProd(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
   beFile(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
   beDir(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
 }
 ```
 `SASS` - lints, compiles, packages, adds vendor prefixes, minifies and gzips SASS for the browser
-(production ready + Source Maps)
 
 ```
 interface SASS {
   constructor(excludeLinter: Array<string> = [], importOnceOptions: Object = {}, includePaths: Array<string> = []);
   validate(inPath: string, lintPaths: Array<string>, callback: Function);
-  fe(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  feDev(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
+  feProd(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
 }
 ```
 
@@ -87,7 +87,7 @@ import tinylr from 'tiny-lr';
 var compiler = new JS(),
     lr = tinylr(),
     libDir = join(__dirname, 'lib'),
-    webJS = compiler.fe.bind(compiler,
+    webJS = compiler.feDev.bind(compiler,
       join(libDir, 'app.js'),
       join(__dirname, 'public', 'script.js'),
       function () {
@@ -105,7 +105,7 @@ DirectoryWatcher.watch(libDir, 'js', webJS);
 
 ### Important!
 
-The resulting JavaScript and CSS files from `fe` are gzip compressed for performance
+The resulting JavaScript and CSS files from `feProd` are gzip compressed for performance
 (see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
 **"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
 
