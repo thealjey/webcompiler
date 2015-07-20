@@ -1,3 +1,7 @@
+### v1.1.1
+
+* class JS - faster source map generation on incremental rebuilds in development mode
+
 ### v1.1.0
 
 * classes JS and SASS - renamed method "fe" to "feProd"

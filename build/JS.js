@@ -126,6 +126,39 @@ var JS = (function () {
       });
     }
   }, {
+    key: 'webCompile',
+
+    /**
+     * Typechecks, lints and compiles a JavaScript file for the browser (development mode - faster recompilation).
+     *
+     * @memberof JS
+     * @private
+     * @instance
+     * @method webCompile
+     * @param {string}        inPath    - a full system path to the input file
+     * @param {string}        outPath   - a full system path to the output file
+     * @param {Function}      callback  - a callback function, executed after the successful compilation
+     * @param {Array<string>} lintPaths - paths to files/directories to lint (the input file is included automatically)
+     * @param {boolean}       devMode   - if true provides faster source map rebuilds, good for rapid development
+     * @example
+     * js.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
+     *   // compiled successfully
+     * }, ['/lint/this/directory/too'], true);
+     */
+    value: function webCompile(inPath, outPath, callback, lintPaths, devMode) {
+      this.validate(inPath, lintPaths, function () {
+        (0, _jsWebCompile2['default'])(inPath, outPath, function (compileErr) {
+          if (compileErr) {
+            return compileErr.forEach(function (err) {
+              console.error(err);
+            });
+          }
+          console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+          callback();
+        }, devMode);
+      });
+    }
+  }, {
     key: 'feDev',
 
     /**
@@ -148,17 +181,7 @@ var JS = (function () {
         lintPaths[_key - 3] = arguments[_key];
       }
 
-      this.validate(inPath, lintPaths, function () {
-        (0, _jsWebCompile2['default'])(inPath, outPath, function (compileErr) {
-          if (compileErr) {
-            return compileErr.forEach(function (err) {
-              console.error(err);
-            });
-          }
-          console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
-          callback();
-        });
-      });
+      this.webCompile(inPath, outPath, callback, lintPaths, true);
     }
   }, {
     key: 'feProd',
@@ -183,7 +206,7 @@ var JS = (function () {
         lintPaths[_key2 - 3] = arguments[_key2];
       }
 
-      this.feDev.apply(this, [inPath, outPath, function () {
+      this.webCompile(inPath, outPath, function () {
         var minified = (0, _jsMin2['default'])(outPath);
 
         (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
@@ -203,7 +226,7 @@ var JS = (function () {
             });
           });
         });
-      }].concat(lintPaths));
+      }, lintPaths, false);
     }
   }, {
     key: 'beFile',

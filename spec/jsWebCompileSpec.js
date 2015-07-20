@@ -10,25 +10,53 @@ describe('jsWebCompile', function () {
     spy = jasmine.createSpy('spy');
   });
 
-  it('should pass correct options to webpack', function () {
-    var jsWebCompile = proxyquire('../lib/jsWebCompile', {webpack: spy});
+  describe('should pass correct options to webpack', function () {
 
-    jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype);
-    expect(spy).toHaveBeenCalledWith({
-      cache: {},
-      debug: true,
-      devtool: 'source-map',
-      entry: '/path/to/the/input/file.js',
-      output: {path: '/path/to/the/output', filename: 'file.js'},
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          query: {optional: 'runtime', loose: 'all', cacheDirectory: true}
-        }]
-      }
-    }, jasmine.any(Function));
+    /* @noflow */
+    var jsWebCompile;
+
+    beforeEach(function () {
+      jsWebCompile = proxyquire('../lib/jsWebCompile', {webpack: spy});
+    });
+
+    it('configures for production', function () {
+      jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype);
+      expect(spy).toHaveBeenCalledWith({
+        cache: {},
+        debug: true,
+        devtool: 'source-map',
+        entry: '/path/to/the/input/file.js',
+        output: {path: '/path/to/the/output', filename: 'file.js'},
+        module: {
+          loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {optional: 'runtime', loose: 'all', cacheDirectory: true}
+          }]
+        }
+      }, jasmine.any(Function));
+    });
+
+    it('configures for development', function () {
+      jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype, true);
+      expect(spy).toHaveBeenCalledWith({
+        cache: {},
+        debug: true,
+        devtool: 'eval-source-map',
+        entry: '/path/to/the/input/file.js',
+        output: {path: '/path/to/the/output', filename: 'file.js'},
+        module: {
+          loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {optional: 'runtime', loose: 'all', cacheDirectory: true}
+          }]
+        }
+      }, jasmine.any(Function));
+    });
+
   });
 
   it('on exception', function () {

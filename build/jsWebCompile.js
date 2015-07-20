@@ -16,7 +16,7 @@ var _path = require('path');
 var config = {
   cache: {},
   debug: true,
-  devtool: 'source-map',
+  devtool: '',
   entry: '',
   output: { path: '', filename: '' },
   module: {
@@ -32,9 +32,10 @@ var config = {
 /**
  * Compiles JavaScript for the browser
  *
- * @param {string}   inPath   - a full system path to the input file
- * @param {string}   outPath  - a full system path to the output file
- * @param {Function} callback - a callback function which accepts 1 argument: an array of error strings or null
+ * @param {string}   inPath    - a full system path to the input file
+ * @param {string}   outPath   - a full system path to the output file
+ * @param {Function} callback  - a callback function which accepts 1 argument: an array of error strings or null
+ * @param {boolean}  [devMode] - if true provides faster source map rebuilds, good for rapid development
  * @example
  * import {jsWebCompile} from 'webcompiler';
  *
@@ -49,11 +50,14 @@ var config = {
  */
 
 function jsWebCompile(inPath, outPath, callback) {
+  var devMode = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
+
   var parsed = (0, _path.parse)(outPath);
 
   config.entry = inPath;
   config.output.path = parsed.dir;
   config.output.filename = parsed.base;
+  config.devtool = (devMode ? 'eval-' : '') + 'source-map';
   (0, _webpack2['default'])(config, function (e, stats) {
     var jsonStats, errors;
 

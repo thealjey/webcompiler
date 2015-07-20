@@ -49,7 +49,7 @@ describe('JS', function () {
       spy = jasmine.createSpy('spy');
     });
 
-    describe('validate', function () {
+    describe('original dependencies', function () {
 
       /* @noflow */
       var JS, cmp;
@@ -163,6 +163,20 @@ describe('JS', function () {
 
       });
 
+      describe('feDev', function () {
+
+        beforeEach(function () {
+          spyOn(cmp, 'webCompile');
+          cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+        });
+
+        it('calls webCompile', function () {
+          expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy,
+                                                      ['/lint/this/directory/too'], true);
+        });
+
+      });
+
     });
 
     describe('jsWebCompile errors', function () {
@@ -180,7 +194,8 @@ describe('JS', function () {
         spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
           callback();
         });
-        cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+        cmp.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, ['/lint/this/directory/too'],
+                       true);
       });
 
       it('calls the validate method', function () {
@@ -190,7 +205,7 @@ describe('JS', function () {
 
       it('invokes jsWebCompile', function () {
         expect(jsWebCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-                                                  jasmine.any(Function));
+                                                  jasmine.any(Function), true);
       });
 
       it('loops though errors', function () {
@@ -222,7 +237,8 @@ describe('JS', function () {
         spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
           callback();
         });
-        cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+        cmp.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too',
+                       true);
       });
 
       it('logs successful message', function () {
@@ -243,7 +259,7 @@ describe('JS', function () {
       beforeEach(function () {
         JS = proxyquire('../lib/JS', {'./jsMin': jsMin});
         cmp = new JS();
-        spyOn(cmp, 'feDev').and.callFake(function (inPath, outPath, callback) {
+        spyOn(cmp, 'webCompile').and.callFake(function (inPath, outPath, callback) {
           callback();
         });
       });
@@ -259,9 +275,9 @@ describe('JS', function () {
                      '/lint/this/directory/too');
         });
 
-        it('calls the feDev method', function () {
-          expect(cmp.feDev).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-                                                 jasmine.any(Function), '/lint/this/directory/too');
+        it('calls the webCompile method', function () {
+          expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+                                                      jasmine.any(Function), ['/lint/this/directory/too'], false);
         });
 
         it('calls jsMin', function () {
