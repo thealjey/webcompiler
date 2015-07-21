@@ -108,13 +108,9 @@ var JS = (function () {
         if (flowErr) {
           return console.error(flowErr);
         }
-
-        /*eslint-disable quotes*/
-        if ('No errors!\n' !== stdout) {
+        if (!/No errors/.test(stdout)) {
           return console.error(stdout);
         }
-
-        /*eslint-enable quotes*/
         _this.linter.run(lintPaths.concat([inPath]), function (linterErr) {
           if (linterErr) {
             return linterErr.forEach(function (e) {
@@ -129,59 +125,51 @@ var JS = (function () {
     key: 'webCompile',
 
     /**
-     * Typechecks, lints and compiles a JavaScript file for the browser (development mode - faster recompilation).
+     * Compiles a JavaScript file for the browser (development mode - faster recompilation).
      *
      * @memberof JS
      * @private
      * @instance
      * @method webCompile
-     * @param {string}        inPath    - a full system path to the input file
-     * @param {string}        outPath   - a full system path to the output file
-     * @param {Function}      callback  - a callback function, executed after the successful compilation
-     * @param {Array<string>} lintPaths - paths to files/directories to lint (the input file is included automatically)
-     * @param {boolean}       devMode   - if true provides faster source map rebuilds, good for rapid development
+     * @param {string}   inPath   - a full system path to the input file
+     * @param {string}   outPath  - a full system path to the output file
+     * @param {Function} callback - a callback function, executed after the successful compilation
+     * @param {boolean}  devMode  - if true provides faster source map rebuilds, good for rapid development
      * @example
      * js.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
      *   // compiled successfully
-     * }, ['/lint/this/directory/too'], true);
+     * }, true);
      */
-    value: function webCompile(inPath, outPath, callback, lintPaths, devMode) {
-      this.validate(inPath, lintPaths, function () {
-        (0, _jsWebCompile2['default'])(inPath, outPath, function (compileErr) {
-          if (compileErr) {
-            return compileErr.forEach(function (err) {
-              console.error(err);
-            });
-          }
-          console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
-          callback();
-        }, devMode);
-      });
+    value: function webCompile(inPath, outPath, callback, devMode) {
+      (0, _jsWebCompile2['default'])(inPath, outPath, function (compileErr) {
+        if (compileErr) {
+          return compileErr.forEach(function (err) {
+            console.error(err);
+          });
+        }
+        console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+        callback();
+      }, devMode);
     }
   }, {
     key: 'feDev',
 
     /**
-     * Typechecks, lints and compiles a JavaScript file for the browser (development mode - faster recompilation).
+     * Compiles a JavaScript file for the browser (development mode - faster recompilation).
      *
      * @memberof JS
      * @instance
      * @method feDev
-     * @param {string}    inPath    - a full system path to the input file
-     * @param {string}    outPath   - a full system path to the output file
-     * @param {Function}  callback  - a callback function, executed after the successful compilation
-     * @param {...string} lintPaths - paths to files/directories to lint (the input file is included automatically)
+     * @param {string}   inPath   - a full system path to the input file
+     * @param {string}   outPath  - a full system path to the output file
+     * @param {Function} callback - a callback function, executed after the successful compilation
      * @example
      * js.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', function () {
      *   // compiled successfully
-     * }, '/lint/this/directory/too');
+     * });
      */
     value: function feDev(inPath, outPath, callback) {
-      for (var _len = arguments.length, lintPaths = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-        lintPaths[_key - 3] = arguments[_key];
-      }
-
-      this.webCompile(inPath, outPath, callback, lintPaths, true);
+      this.webCompile(inPath, outPath, callback, true);
     }
   }, {
     key: 'feProd',
@@ -202,31 +190,35 @@ var JS = (function () {
      * }, '/lint/this/directory/too');
      */
     value: function feProd(inPath, outPath, callback) {
-      for (var _len2 = arguments.length, lintPaths = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
-        lintPaths[_key2 - 3] = arguments[_key2];
+      var _this2 = this;
+
+      for (var _len = arguments.length, lintPaths = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+        lintPaths[_key - 3] = arguments[_key];
       }
 
-      this.webCompile(inPath, outPath, function () {
-        var minified = (0, _jsMin2['default'])(outPath);
+      this.validate(inPath, lintPaths, function () {
+        _this2.webCompile(inPath, outPath, function () {
+          var minified = (0, _jsMin2['default'])(outPath);
 
-        (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
-          if (gzipErr) {
-            return console.error(gzipErr);
-          }
-          (0, _fs.writeFile)(outPath, code, function (scriptErr) {
-            if (scriptErr) {
-              return console.error(scriptErr);
+          (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
+            if (gzipErr) {
+              return console.error(gzipErr);
             }
-            (0, _fs.writeFile)(outPath + '.map', minified.map, function (mapErr) {
-              if (mapErr) {
-                return console.error(mapErr);
+            (0, _fs.writeFile)(outPath, code, function (scriptErr) {
+              if (scriptErr) {
+                return console.error(scriptErr);
               }
-              console.log('\u001b[32m%s. Optimized for production %s\u001b[0m', ++i, inPath);
-              callback();
+              (0, _fs.writeFile)(outPath + '.map', minified.map, function (mapErr) {
+                if (mapErr) {
+                  return console.error(mapErr);
+                }
+                console.log('\u001b[32m%s. Optimized for production %s\u001b[0m', ++i, inPath);
+                callback();
+              });
             });
           });
-        });
-      }, lintPaths, false);
+        }, false);
+      });
     }
   }, {
     key: 'beFile',
@@ -247,8 +239,8 @@ var JS = (function () {
      * }, '/lint/this/directory/too');
      */
     value: function beFile(inPath, outPath, callback) {
-      for (var _len3 = arguments.length, lintPaths = Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
-        lintPaths[_key3 - 3] = arguments[_key3];
+      for (var _len2 = arguments.length, lintPaths = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+        lintPaths[_key2 - 3] = arguments[_key2];
       }
 
       this.validate(inPath, lintPaths, function () {
@@ -290,8 +282,8 @@ var JS = (function () {
      * }, '/lint/this/directory/too');
      */
     value: function beDir(inPath, outPath, callback) {
-      for (var _len4 = arguments.length, lintPaths = Array(_len4 > 3 ? _len4 - 3 : 0), _key4 = 3; _key4 < _len4; _key4++) {
-        lintPaths[_key4 - 3] = arguments[_key4];
+      for (var _len3 = arguments.length, lintPaths = Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
+        lintPaths[_key3 - 3] = arguments[_key3];
       }
 
       this.validate(inPath, lintPaths, function () {

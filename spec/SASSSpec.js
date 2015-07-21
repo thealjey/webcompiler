@@ -100,68 +100,6 @@ describe('SASS', function () {
 
       });
 
-      describe('webCompile', function () {
-
-        beforeEach(function () {
-          spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-            callback();
-          });
-        });
-
-        describe('compiler failure', function () {
-
-          beforeEach(function () {
-            spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-              callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
-            });
-            cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy,
-                           '/lint/this/directory/too');
-          });
-
-          it('calls validate', function () {
-            expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.scss', ['/lint/this/directory/too'],
-                                                      jasmine.any(Function));
-          });
-
-          it('runs the compiler', function () {
-            expect(cmp.compiler.run).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
-                                                          jasmine.any(Function));
-          });
-
-          it('prints the error', function () {
-            expect(console.log).toHaveBeenCalledWith(
-              '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-              'could not compile', 'some file', 12, 8);
-          });
-
-          it('does not call the spy', function () {
-            expect(spy).not.toHaveBeenCalled();
-          });
-
-        });
-
-        describe('compiler success', function () {
-
-          beforeEach(function () {
-            spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-              callback(null, {code: 'some css rules', map: 'source map contents'});
-            });
-            cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy,
-                           '/lint/this/directory/too');
-          });
-
-          it('does not print anything on screen', function () {
-            expect(console.log).not.toHaveBeenCalled();
-          });
-
-          it('invokes the callback', function () {
-            expect(spy).toHaveBeenCalledWith({code: 'some css rules', map: 'source map contents'});
-          });
-
-        });
-
-      });
-
       describe('feDev', function () {
 
         beforeEach(function () {
@@ -171,12 +109,12 @@ describe('SASS', function () {
           spyOn(cmp, 'fsWrite').and.callFake(function (inPath, outPath, data, callback) {
             callback();
           });
-          cmp.feDev('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy, '/lint/this/directory/too');
+          cmp.feDev('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy);
         });
 
         it('calls webCompile', function () {
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
-                                                      jasmine.any(Function), '/lint/this/directory/too');
+                                                      jasmine.any(Function));
         });
 
         it('calls fsWrite', function () {
@@ -188,57 +126,20 @@ describe('SASS', function () {
 
     });
 
-    describe('cssAutoprefix errors', function () {
+    describe('feProd', function () {
 
       /* @noflow */
-      var cmp, SASS, cssAutoprefix, errors = ['something', 'bad', 'happened'];
+      var cmp, SASS;
 
       beforeEach(function () {
-        spyOn(errors, 'forEach').and.callThrough();
-        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
-          callback(errors);
-        });
-        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin});
+        SASS = proxyquire('../lib/SASS', {'./cssMin': cssMin});
         cmp = new SASS();
-        spyOn(cmp, 'webCompile').and.callFake(function (inPath, lintPaths, callback) {
-          callback({code: 'compiled code', map: 'source map'});
-        });
-        cmp.feProd('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype,
-                   '/lint/this/directory/too');
-      });
-
-      it('calls webCompile', function () {
-        expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
-                                                    jasmine.any(Function), '/lint/this/directory/too');
-      });
-
-      it('calls cssAutoprefix', function () {
-        expect(cssAutoprefix).toHaveBeenCalledWith({code: 'compiled code', map: 'source map'},
-                                                   '/path/to/the/output/file.css', jasmine.any(Function));
-      });
-
-      it('does not call cssMin', function () {
-        expect(cssMin).not.toHaveBeenCalled();
-      });
-
-    });
-
-    describe('cssAutoprefix success', function () {
-
-      /* @noflow */
-      var cmp, SASS, cssAutoprefix;
-
-      beforeEach(function () {
-        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
-          callback(null, {code: 'prefixed code', map: 'source map contents'});
-        });
-        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix, './cssMin': cssMin});
-        cmp = new SASS();
-        spyOn(cmp, 'webCompile').and.callFake(function (inPath, lintPaths, callback) {
-          callback({code: 'compiled code', map: 'source map'});
-        });
-        spyOn(cmp, 'fsWrite').and.callFake(function (inPath, outPath, data, callback) {
+        spyOn(cmp, 'fsWrite');
+        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
           callback();
+        });
+        spyOn(cmp, 'webCompile').and.callFake(function (inPath, outPath, callback) {
+          callback({code: 'compiled css', map: 'source map content'});
         });
       });
 
@@ -252,8 +153,18 @@ describe('SASS', function () {
                      '/lint/this/directory/too');
         });
 
+        it('calls the validate method', function () {
+          expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.scss', ['/lint/this/directory/too'],
+                                                    jasmine.any(Function));
+        });
+
+        it('calls the webCompile method', function () {
+          expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                      jasmine.any(Function));
+        });
+
         it('calls cssMin', function () {
-          expect(cssMin).toHaveBeenCalledWith({code: 'prefixed code', map: 'source map contents'});
+          expect(cssMin).toHaveBeenCalledWith({code: 'compiled css', map: 'source map content'});
         });
 
         it('calls zlib.gzip', function () {
@@ -284,6 +195,100 @@ describe('SASS', function () {
                                                    {code: 'GZIPed program', map: 'source map'}, spy);
         });
 
+      });
+
+    });
+
+    describe('cssAutoprefix errors', function () {
+
+      /* @noflow */
+      var cmp, SASS, cssAutoprefix, errors = ['something', 'bad', 'happened'];
+
+      beforeEach(function () {
+        spyOn(errors, 'forEach').and.callThrough();
+        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
+          callback(errors);
+        });
+        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix});
+        cmp = new SASS();
+      });
+
+      describe('compiler failure', function () {
+
+        beforeEach(function () {
+          spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
+            callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
+          });
+          cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype);
+        });
+
+        it('runs the compiler', function () {
+          expect(cmp.compiler.run).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                                        jasmine.any(Function));
+        });
+
+        it('prints the error', function () {
+          expect(console.log).toHaveBeenCalledWith(
+            '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
+            'could not compile', 'some file', 12, 8);
+        });
+
+        it('does not call cssAutoprefix', function () {
+          expect(cssAutoprefix).not.toHaveBeenCalled();
+        });
+
+      });
+
+      describe('compiler success', function () {
+
+        beforeEach(function () {
+          spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
+            callback(null, {code: 'some css rules', map: 'source map contents'});
+          });
+          cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy);
+        });
+
+        it('does not print anything on screen', function () {
+          expect(console.log).not.toHaveBeenCalled();
+        });
+
+        it('calls cssAutoprefix', function () {
+          expect(cssAutoprefix).toHaveBeenCalledWith({code: 'some css rules', map: 'source map contents'},
+                                                     '/path/to/the/output/file.css', jasmine.any(Function));
+        });
+
+        it('loops though errors', function () {
+          expect(errors.forEach).toHaveBeenCalledWith(jasmine.any(Function));
+          expect(console.error).toHaveBeenCalledWith('something');
+          expect(console.error).toHaveBeenCalledWith('bad');
+          expect(console.error).toHaveBeenCalledWith('happened');
+        });
+
+        it('does not invoke the callback', function () {
+          expect(spy).not.toHaveBeenCalled();
+        });
+
+      });
+
+    });
+
+    describe('cssAutoprefix success', function () {
+      var cmp, SASS, cssAutoprefix;
+
+      beforeEach(function () {
+        cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
+          callback(null, {code: 'prefixed code', map: 'source map contents'});
+        });
+        SASS = proxyquire('../lib/SASS', {'./cssAutoprefix': cssAutoprefix});
+        cmp = new SASS();
+        spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
+          callback(null, {code: 'some css rules', map: 'source map contents'});
+        });
+        cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy);
+      });
+
+      it('invokes the callback', function () {
+        expect(spy).toHaveBeenCalledWith({code: 'prefixed code', map: 'source map contents'});
       });
 
     });

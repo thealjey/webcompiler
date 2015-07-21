@@ -1,3 +1,10 @@
+### v1.2.0
+
+* classes JS and SASS - made "feDev" faster by removing all the validations, the point of this method is to provide as
+  fast as possible recompilations for rapid development
+* class SASS - "feDev" also adds the browser vendor prefixes, which degrades the compilation speed slightly, but allows
+  the developer to immediately see the end result without worrying about browser incompatibilities
+
 ### v1.1.1
 
 * class JS - faster source map generation on incremental rebuilds in development mode

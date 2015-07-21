@@ -113,7 +113,7 @@ var SASS = (function () {
     key: 'webCompile',
 
     /**
-     * Lints and compiles an SCSS file for the browser.
+     * Compiles and auto-prefixes an SCSS file for the browser.
      *
      * @memberof SASS
      * @private
@@ -122,25 +122,23 @@ var SASS = (function () {
      * @param {string}    inPath    - a full system path to the input file
      * @param {string}    outPath   - a full system path to the output file
      * @param {Function}  callback  - a callback function, executed after the successful compilation
-     * @param {...string} lintPaths - paths to files/directories to lint (the input file is included automatically)
      * @example
      * sass.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function (result) {
      *   // result -> {code: string, map: string}
-     * }, '/lint/this/directory/too');
+     * });
      */
     value: function webCompile(inPath, outPath, callback) {
-      var _this = this;
-
-      for (var _len = arguments.length, lintPaths = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-        lintPaths[_key - 3] = arguments[_key];
-      }
-
-      this.validate(inPath, lintPaths, function () {
-        _this.compiler.run(inPath, outPath, function (compileErr, result) {
-          if (compileErr) {
-            return console.log('\u001b[41mSASS error\u001b[0m "\u001b[33m%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', compileErr.message, compileErr.file, compileErr.line, compileErr.column);
+      this.compiler.run(inPath, outPath, function (compileErr, result) {
+        if (compileErr) {
+          return console.log('\u001b[41mSASS error\u001b[0m "\u001b[33m%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', compileErr.message, compileErr.file, compileErr.line, compileErr.column);
+        }
+        (0, _cssAutoprefix2['default'])(result, outPath, function (prefixErr, prefixed) {
+          if (prefixErr) {
+            return prefixErr.forEach(function (err) {
+              console.error(err);
+            });
           }
-          callback(result);
+          callback(prefixed);
         });
       });
     }
@@ -186,7 +184,7 @@ var SASS = (function () {
     key: 'feDev',
 
     /**
-     * Lints and compiles an SCSS file for the browser (development mode - faster recompilation).
+     * Compiles and auto-prefixes an SCSS file for the browser (development mode - faster recompilation).
      *
      * @memberof SASS
      * @instance
@@ -194,28 +192,23 @@ var SASS = (function () {
      * @param {string}    inPath    - a full system path to the input file
      * @param {string}    outPath   - a full system path to the output file
      * @param {Function}  callback  - a callback function, executed after the successful compilation
-     * @param {...string} lintPaths - paths to files/directories to lint (the input file is included automatically)
      * @example
      * sass.feDev('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function () {
      *   // compiled successfully
-     * }, '/lint/this/directory/too');
+     * });
      */
     value: function feDev(inPath, outPath, callback) {
-      var _this2 = this;
+      var _this = this;
 
-      for (var _len2 = arguments.length, lintPaths = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
-        lintPaths[_key2 - 3] = arguments[_key2];
-      }
-
-      this.webCompile.apply(this, [inPath, outPath, function (result) {
-        _this2.fsWrite(inPath, outPath, result, callback);
-      }].concat(lintPaths));
+      this.webCompile(inPath, outPath, function (result) {
+        _this.fsWrite(inPath, outPath, result, callback);
+      });
     }
   }, {
     key: 'feProd',
 
     /**
-     * Lints, compiles, adds browser vendor prefixes, minifies and GZIPs an SCSS file for the browser (production mode).
+     * Lints, compiles, auto-prefixes, minifies and GZIPs an SCSS file for the browser (production mode).
      *
      * @memberof SASS
      * @instance
@@ -230,32 +223,24 @@ var SASS = (function () {
      * }, '/lint/this/directory/too');
      */
     value: function feProd(inPath, outPath, callback) {
-      var _this3 = this;
+      var _this2 = this;
 
-      for (var _len3 = arguments.length, lintPaths = Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
-        lintPaths[_key3 - 3] = arguments[_key3];
+      for (var _len = arguments.length, lintPaths = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+        lintPaths[_key - 3] = arguments[_key];
       }
 
-      this.webCompile.apply(this, [inPath, outPath, function (result) {
-        (0, _cssAutoprefix2['default'])(result, outPath, function (prefixErr, prefixed) {
+      this.validate(inPath, lintPaths, function () {
+        _this2.webCompile(inPath, outPath, function (result) {
+          var minified = (0, _cssMin2['default'])(result);
 
-          /* @noflow */
-          var minified;
-
-          if (prefixErr) {
-            return prefixErr.forEach(function (err) {
-              console.error(err);
-            });
-          }
-          minified = (0, _cssMin2['default'])(prefixed);
           (0, _zlib.gzip)(minified.code, function (gzipErr, code) {
             if (gzipErr) {
               return console.error(gzipErr);
             }
-            _this3.fsWrite(inPath, outPath, { code: code, map: minified.map }, callback);
+            _this2.fsWrite(inPath, outPath, { code: code, map: minified.map }, callback);
           });
         });
-      }].concat(lintPaths));
+      });
     }
   }]);
 

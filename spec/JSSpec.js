@@ -61,50 +61,52 @@ describe('JS', function () {
         cmp = new JS();
       });
 
-      describe('flow exception', function () {
+      describe('flow errors', function () {
 
         beforeEach(function () {
           spyOn(cmp.linter, 'run');
-          spyOn(cmp.flow, 'run').and.callFake(function (callback) {
-            callback('something bad happened');
+        });
+
+        describe('flow exception', function () {
+
+          beforeEach(function () {
+            spyOn(cmp.flow, 'run').and.callFake(function (callback) {
+              callback('something bad happened');
+            });
+            cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], Function.prototype);
           });
-          cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], Function.prototype);
-        });
 
-        it('runs the typechecker', function () {
-          expect(cmp.flow.run).toHaveBeenCalledWith(jasmine.any(Function));
-        });
-
-        it('prints the exception on screen', function () {
-          expect(console.error).toHaveBeenCalledWith('something bad happened');
-        });
-
-        it('does not run the linter', function () {
-          expect(cmp.linter.run).not.toHaveBeenCalled();
-        });
-
-      });
-
-      describe('flow failure to typecheck', function () {
-
-        beforeEach(function () {
-          spyOn(cmp.linter, 'run');
-          spyOn(cmp.flow, 'run').and.callFake(function (callback) {
-            callback(null, 'invalid code');
+          it('runs the typechecker', function () {
+            expect(cmp.flow.run).toHaveBeenCalledWith(jasmine.any(Function));
           });
-          cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], Function.prototype);
+
+          it('prints the exception on screen', function () {
+            expect(console.error).toHaveBeenCalledWith('something bad happened');
+          });
+
+          it('does not run the linter', function () {
+            expect(cmp.linter.run).not.toHaveBeenCalled();
+          });
+
         });
 
-        it('runs the typechecker', function () {
-          expect(cmp.flow.run).toHaveBeenCalledWith(jasmine.any(Function));
-        });
+        describe('flow failure to typecheck', function () {
 
-        it('prints the exception on screen', function () {
-          expect(console.error).toHaveBeenCalledWith('invalid code');
-        });
+          beforeEach(function () {
+            spyOn(cmp.flow, 'run').and.callFake(function (callback) {
+              callback(null, 'invalid code');
+            });
+            cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], Function.prototype);
+          });
 
-        it('does not run the linter', function () {
-          expect(cmp.linter.run).not.toHaveBeenCalled();
+          it('prints the exception on screen', function () {
+            expect(console.error).toHaveBeenCalledWith('invalid code');
+          });
+
+          it('does not run the linter', function () {
+            expect(cmp.linter.run).not.toHaveBeenCalled();
+          });
+
         });
 
       });
@@ -113,11 +115,7 @@ describe('JS', function () {
 
         beforeEach(function () {
           spyOn(cmp.flow, 'run').and.callFake(function (callback) {
-
-            /*eslint-disable quotes*/
-            callback(null, "No errors!\n");
-
-            /*eslint-enable quotes*/
+            callback(null, 'No errors!');
           });
         });
 
@@ -153,12 +151,19 @@ describe('JS', function () {
 
         });
 
-        it('invokes the callback on linter success', function () {
-          spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
-            callback();
+        describe('linter success', function () {
+
+          beforeEach(function () {
+            spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
+              callback();
+            });
+            cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], spy);
           });
-          cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], spy);
-          expect(spy).toHaveBeenCalled();
+
+          it('invokes the callback', function () {
+            expect(spy).toHaveBeenCalled();
+          });
+
         });
 
       });
@@ -167,12 +172,12 @@ describe('JS', function () {
 
         beforeEach(function () {
           spyOn(cmp, 'webCompile');
-          cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too');
+          cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy);
         });
 
         it('calls webCompile', function () {
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy,
-                                                      ['/lint/this/directory/too'], true);
+                                                      true);
         });
 
       });
@@ -180,8 +185,6 @@ describe('JS', function () {
     });
 
     describe('jsWebCompile errors', function () {
-
-      /* @noflow */
       var cmp, jsWebCompile, JS, errors = ['something', 'bad', 'happened'];
 
       beforeEach(function () {
@@ -191,16 +194,7 @@ describe('JS', function () {
         });
         JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile});
         cmp = new JS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
-        });
-        cmp.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, ['/lint/this/directory/too'],
-                       true);
-      });
-
-      it('calls the validate method', function () {
-        expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.js', ['/lint/this/directory/too'],
-                                                  jasmine.any(Function));
+        cmp.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, true);
       });
 
       it('invokes jsWebCompile', function () {
@@ -234,9 +228,6 @@ describe('JS', function () {
         });
         JS = proxyquire('../lib/JS', {'./jsWebCompile': jsWebCompile});
         cmp = new JS();
-        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
-          callback();
-        });
         cmp.webCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy, '/lint/this/directory/too',
                        true);
       });
@@ -259,6 +250,9 @@ describe('JS', function () {
       beforeEach(function () {
         JS = proxyquire('../lib/JS', {'./jsMin': jsMin});
         cmp = new JS();
+        spyOn(cmp, 'validate').and.callFake(function (inPath, lintPaths, callback) {
+          callback();
+        });
         spyOn(cmp, 'webCompile').and.callFake(function (inPath, outPath, callback) {
           callback();
         });
@@ -275,9 +269,14 @@ describe('JS', function () {
                      '/lint/this/directory/too');
         });
 
+        it('calls the validate method', function () {
+          expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.js', ['/lint/this/directory/too'],
+                                                    jasmine.any(Function));
+        });
+
         it('calls the webCompile method', function () {
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-                                                      jasmine.any(Function), ['/lint/this/directory/too'], false);
+                                                      jasmine.any(Function), false);
         });
 
         it('calls jsMin', function () {
