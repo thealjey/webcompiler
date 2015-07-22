@@ -25,6 +25,7 @@ var config = (0, _path.join)(__dirname, '..', 'config', 'scsslint.yml');
  * @param {...string} excludeLinter - names of linters to exclude
  * @example
  * import {SASSLint} from 'webcompiler';
+ * import {join} from 'path';
  *
  * var linter = new SASSLint();
  */
@@ -71,7 +72,7 @@ var SASSLint = (function () {
      * @param {Function}      callback - a callback function, accepts 1 argument: an error message or null
      * @example
      * // lint "style.scss" as well as the entire contents of the "sass" directory
-     * linter.run(['style.scss', 'sass'], function (e) {
+     * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], function (e) {
      *   if (e) {
      *     return console.error(e);
      *   }

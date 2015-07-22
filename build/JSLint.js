@@ -66,7 +66,7 @@ var JSLint = (function () {
      *     return e.forEach(function (err) {
      *       console.log(
      *         '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-     *         err.message, err.ruleId ? (' (' + err.ruleId + ')') : '', err.filePath, err.line, err.column);
+     *         err.message, err.ruleId ? ` (${err.ruleId})` : '', err.filePath, err.line, err.column);
      *     });
      *   }
      *   // there were no linting errors
