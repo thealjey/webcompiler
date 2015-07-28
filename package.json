@@ -1,11 +1,11 @@
 {
   "name": "webcompiler",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "build/index.js",
   "scripts": {
     "test": "babel-istanbul cover --root lib --print detail --include-all-sources --include-babel-polyfill jasmine",
-    "build": "npm run test && babel-node bin/build"
+    "build": "npm test && babel-node bin/build"
   },
   "repository": {
     "type": "git",
@@ -33,21 +33,21 @@
   },
   "homepage": "https://github.com/thealjey/webcompiler#readme",
   "dependencies": {
-    "autoprefixer-core": "^5.2.0",
-    "babel": "^5.8.3",
-    "babel-eslint": "^3.1.26",
-    "babel-runtime": "^5.8.3",
+    "autoprefixer-core": "^5.2.1",
+    "babel": "^5.8.12",
+    "babel-eslint": "^4.0.5",
+    "babel-runtime": "^5.8.12",
     "clean-css": "^3.3.6",
     "eslint": "^0.24.1",
     "eslint-plugin-babel": "^1.2.0",
-    "eslint-plugin-react": "^3.0.0",
+    "eslint-plugin-react": "^3.1.0",
     "mkdirp": "^0.5.1",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.2.0",
     "node-sass-import-once": "^1.2.0",
     "postcss": "^4.1.16",
-    "uglify-js": "^2.4.23",
-    "webpack": "^1.10.1"
+    "uglify-js": "^2.4.24",
+    "webpack": "^1.10.5"
   },
   "peerDependencies": {
     "babel-loader": "5.x",

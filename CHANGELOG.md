@@ -1,3 +1,7 @@
+### v1.2.2
+
+* updated to the latest babel-eslint
+
 ### v1.2.0
 
 * classes JS and SASS - made "feDev" faster by removing all the validations, the point of this method is to provide as
