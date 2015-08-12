@@ -29,7 +29,6 @@ rules:
   react/wrap-multilines: 2
 
   # eslint
-  no-extra-parens: 2
   no-inner-declarations: [ 2, both ]
   valid-jsdoc: [ 2, { prefer: { returns: return }, requireReturn: false } ]
   no-unexpected-multiline: 2
