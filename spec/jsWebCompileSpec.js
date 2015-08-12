@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, jasmine*/
 
 import proxyquire from 'proxyquire';
 

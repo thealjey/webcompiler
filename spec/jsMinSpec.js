@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, spyOn*/
 
 import jsMin from '../lib/jsMin';
 import UglifyJS from 'uglify-js';
@@ -15,11 +14,12 @@ describe('jsMin', function () {
     expect(UglifyJS.minify).toHaveBeenCalledWith('/path/to/a/file.js', {
       mangle: false,
 
-      /*eslint-disable camelcase*/
+      /* eslint-disable camelcase */
       output: {space_colon: false},
 
-      /*eslint-enable camelcase*/
-      inSourceMap: '/path/to/a/file.js.map', outSourceMap: 'file.js.map'
+      /* eslint-enable camelcase */
+      inSourceMap: '/path/to/a/file.js.map',
+      outSourceMap: 'file.js.map'
     });
   });
 
@@ -28,11 +28,12 @@ describe('jsMin', function () {
     expect(UglifyJS.minify).toHaveBeenCalledWith('/path/to/a/file.js', {
       mangle: false,
 
-      /*eslint-disable camelcase*/
+      /* eslint-disable camelcase */
       output: {space_colon: false},
 
-      /*eslint-enable camelcase*/
-      inSourceMap: '/path/to/a/map/file.map', outSourceMap: 'file.map'
+      /* eslint-enable camelcase */
+      inSourceMap: '/path/to/a/map/file.map',
+      outSourceMap: 'file.map'
     });
   });
 

@@ -59,26 +59,26 @@ var SASSLint = (function () {
     this.proc = new _NativeProcess2['default']('scss-lint');
   }
 
+  /**
+   * Execute the linter
+   *
+   * @memberof SASSLint
+   * @instance
+   * @method run
+   * @param {Array<string>} paths    - an array of paths to files/directories to lint
+   * @param {Function}      callback - a callback function, accepts 1 argument: an error message or null
+   * @example
+   * // lint "style.scss" as well as the entire contents of the "sass" directory
+   * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], function (e) {
+   *   if (e) {
+   *     return console.error(e);
+   *   }
+   *   // there were no linting errors
+   * });
+   */
+
   _createClass(SASSLint, [{
     key: 'run',
-
-    /**
-     * Execute the linter
-     *
-     * @memberof SASSLint
-     * @instance
-     * @method run
-     * @param {Array<string>} paths    - an array of paths to files/directories to lint
-     * @param {Function}      callback - a callback function, accepts 1 argument: an error message or null
-     * @example
-     * // lint "style.scss" as well as the entire contents of the "sass" directory
-     * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], function (e) {
-     *   if (e) {
-     *     return console.error(e);
-     *   }
-     *   // there were no linting errors
-     * });
-     */
     value: function run(paths, callback) {
       var args = paths.concat(['-c', config]);
 

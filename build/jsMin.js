@@ -13,17 +13,16 @@ var _uglifyJs2 = _interopRequireDefault(_uglifyJs);
 
 var _path = require('path');
 
-/*eslint-disable camelcase*/
+/* eslint-disable camelcase */
 var config = { mangle: false, output: { space_colon: false }, inSourceMap: '', outSourceMap: '' };
 
-/*eslint-enable camelcase*/
+/* eslint-enable camelcase */
 
 /**
  * Minifies JavaScript
  *
- * @param  {string}                      scriptFile - an absolute system path to a script file
- * @param  {string}                      [mapFile]  - an absolute system path to a map file, defaults to
- *                                                    scriptFile + ".map"
+ * @param {string} scriptFile - an absolute system path to a script file
+ * @param {string} [mapFile]  - an absolute system path to a map file, defaults to scriptFile + ".map"
  * @return {{code: string, map: string}} an object containing the minified "code" and a "map" string
  * @example
  * import {jsMin} from 'webcompiler';

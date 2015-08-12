@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, it, expect, jasmine*/
 
 import proxyquire from 'proxyquire';
 
@@ -9,7 +8,7 @@ class NativeProcess {
 
   run: Function;
 
-  constructor(name) {
+  constructor(name: string) {
     task = name;
   }
 

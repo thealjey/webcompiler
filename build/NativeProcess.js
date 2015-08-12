@@ -36,27 +36,27 @@ var NativeProcess = (function () {
     this.task = task;
   }
 
+  /**
+   * Execute the command
+   *
+   * @memberof NativeProcess
+   * @instance
+   * @method run
+   * @param {Function}      callback - a callback function, accepts 2 arguments: an error string or null and the
+   *                                   response string
+   * @param {Array<string>} [args]   - an optional array of arguments to pass to the process
+   * @param {Object}        [opts]   - an optional object containing configuration options for the process
+   * @example
+   * mkdir.run(function (e) {
+   *   if (e) {
+   *     return console.error(e);
+   *   }
+   *   // created a directory named "example" in cwd
+   * }, ['example']);
+   */
+
   _createClass(NativeProcess, [{
     key: 'run',
-
-    /**
-     * Execute the command
-     *
-     * @memberof NativeProcess
-     * @instance
-     * @method run
-     * @param {Function}      callback - a callback function, accepts 2 arguments: an error string or null and the
-     *                                   response string
-     * @param {Array<string>} [args]   - an optional array of arguments to pass to the process
-     * @param {Object}        [opts]   - an optional object containing configuration options for the process
-     * @example
-     * mkdir.run(function (e) {
-     *   if (e) {
-     *     return console.error(e);
-     *   }
-     *   // created a directory named "example" in cwd
-     * }, ['example']);
-     */
     value: function run(callback) {
       var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
       var opts = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];

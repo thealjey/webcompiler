@@ -18,8 +18,8 @@ var babel = new _NativeProcess2['default']('babel');
  *
  * @param {string}   inPath   - the absolute system path to the input directory
  * @param {string}   outPath  - the absolute system path to the output directory
- * @param {Function} callback - a callback function, accepts 2 arguments: an error string or null and the
- *                              response string from the babel compiler
+ * @param {Function} callback - a callback function, accepts 2 arguments: an error string or null and the response
+ *                              string from the babel compiler
  * @example
  * import {jsNodeCompileDir} from 'webcompiler';
  *

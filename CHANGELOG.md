@@ -1,3 +1,8 @@
+### v1.3.0
+
+* upgraded to ESLint 1.0!
+* much improved default JavaScript linter rules
+
 ### v1.2.2
 
 * updated to the latest babel-eslint

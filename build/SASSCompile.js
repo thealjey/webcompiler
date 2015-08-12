@@ -67,30 +67,30 @@ var SASSCompile = (function () {
     this.includePaths = options.includePaths.concat(includePaths);
   }
 
+  /**
+   * Run the compiler
+   *
+   * @memberof SASSCompile
+   * @instance
+   * @method run
+   * @param {string}   inPath   - a full system path to the input file
+   * @param {string}   outPath  - a full system path to the output file (used when building a map file, nothing is ever
+   *                              written to disk)
+   * @param {Function} callback - a callback function which accepts 2 arguments: an error object or null and an object
+   *                              containing the compiled "code" and a "map" string
+   * @example
+   * compiler.run('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function (e) {
+   *   if (e) {
+   *     return console.log(
+   *       '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
+   *       e.message, e.file, e.line, e.column);
+   *   }
+   *   // compiled successfully
+   * });
+   */
+
   _createClass(SASSCompile, [{
     key: 'run',
-
-    /**
-     * Run the compiler
-     *
-     * @memberof SASSCompile
-     * @instance
-     * @method run
-     * @param {string}   inPath   - a full system path to the input file
-     * @param {string}   outPath  - a full system path to the output file (used when building a map file, nothing is ever
-     *                              written to disk)
-     * @param {Function} callback - a callback function which accepts 2 arguments: an error object or null and an object
-     *                              containing the compiled "code" and a "map" string
-     * @example
-     * compiler.run('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function (e) {
-     *   if (e) {
-     *     return console.log(
-     *       '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-     *       e.message, e.file, e.line, e.column);
-     *   }
-     *   // compiled successfully
-     * });
-     */
     value: function run(inPath, outPath, callback) {
       (0, _nodeSass.render)(Object.assign({}, options, {
         file: inPath,

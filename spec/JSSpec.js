@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, jasmine, spyOn*/
 
 import proxyquire from 'proxyquire';
 import NativeProcess from '../lib/NativeProcess';
@@ -210,7 +209,8 @@ describe('JS', function () {
       });
 
       it('does not log the successful message', function () {
-        expect(console.log).not.toHaveBeenCalled();
+        expect(console.log).toHaveBeenCalledWith('JavaScript compilation errors: %s', 3);
+        expect(console.log).not.toHaveBeenCalledWith('\x1b[32m%s. Compiled %s\x1b[0m', 1, '/path/to/the/input/file.js');
       });
 
       it('does not invoke the callback', function () {

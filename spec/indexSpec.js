@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, it, expect*/
 
 import {
   NativeProcess as TestNativeProcess,

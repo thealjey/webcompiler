@@ -84,23 +84,23 @@ var JS = (function () {
     this.linter = new _JSLint2['default'](lintRules);
   }
 
+  /**
+   * Performs static analysis and linting
+   *
+   * @memberof JS
+   * @instance
+   * @method validate
+   * @param {string}        inPath    - a full system path to the input file/directory
+   * @param {Array<string>} lintPaths - an array of paths to lint
+   * @param {Function}      callback  - a callback function, invoked only when successfully validated
+   * @example
+   * js.validate('/path/to/the/input/file.js', ['/lint/this/directory/too'], function () {
+   *   // successfully validated
+   * });
+   */
+
   _createClass(JS, [{
     key: 'validate',
-
-    /**
-     * Performs static analysis and linting
-     *
-     * @memberof JS
-     * @instance
-     * @method validate
-     * @param {string}        inPath    - a full system path to the input file/directory
-     * @param {Array<string>} lintPaths - an array of paths to lint
-     * @param {Function}      callback  - a callback function, invoked only when successfully validated
-     * @example
-     * js.validate('/path/to/the/input/file.js', ['/lint/this/directory/too'], function () {
-     *   // successfully validated
-     * });
-     */
     value: function validate(inPath, lintPaths, callback) {
       var _this = this;
 
@@ -112,17 +112,16 @@ var JS = (function () {
           return console.error(stdout);
         }
         _this.linter.run(lintPaths.concat([inPath]), function (linterErr) {
-          if (linterErr) {
-            return linterErr.forEach(function (e) {
-              console.log('\u001b[41mESLint error\u001b[0m "\u001b[33m%s%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', e.message, e.ruleId ? ' (' + e.ruleId + ')' : '', e.filePath, e.line, e.column);
-            });
+          if (!linterErr) {
+            return callback();
           }
-          callback();
+          linterErr.forEach(function (e) {
+            console.log('\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m', e.message, e.ruleId ? ' (' + e.ruleId + ')' : '', e.filePath, e.line, e.column);
+          });
+          console.log('JavaScript linting errors: %s', linterErr.length);
         });
       });
     }
-  }, {
-    key: 'webCompile',
 
     /**
      * Compiles a JavaScript file for the browser (development mode - faster recompilation).
@@ -140,19 +139,20 @@ var JS = (function () {
      *   // compiled successfully
      * }, true);
      */
+  }, {
+    key: 'webCompile',
     value: function webCompile(inPath, outPath, callback, devMode) {
       (0, _jsWebCompile2['default'])(inPath, outPath, function (compileErr) {
         if (compileErr) {
-          return compileErr.forEach(function (err) {
+          compileErr.forEach(function (err) {
             console.error(err);
           });
+          return console.log('JavaScript compilation errors: %s', compileErr.length);
         }
-        console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+        console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
         callback();
       }, devMode);
     }
-  }, {
-    key: 'feDev',
 
     /**
      * Compiles a JavaScript file for the browser (development mode - faster recompilation).
@@ -168,11 +168,11 @@ var JS = (function () {
      *   // compiled successfully
      * });
      */
+  }, {
+    key: 'feDev',
     value: function feDev(inPath, outPath, callback) {
       this.webCompile(inPath, outPath, callback, true);
     }
-  }, {
-    key: 'feProd',
 
     /**
      * Typechecks, lints, compiles, minifies and GZIPs a JavaScript file for the browser (production mode).
@@ -189,6 +189,8 @@ var JS = (function () {
      *   // compiled successfully
      * }, '/lint/this/directory/too');
      */
+  }, {
+    key: 'feProd',
     value: function feProd(inPath, outPath, callback) {
       var _this2 = this;
 
@@ -212,7 +214,7 @@ var JS = (function () {
                 if (mapErr) {
                   return console.error(mapErr);
                 }
-                console.log('\u001b[32m%s. Optimized for production %s\u001b[0m', ++i, inPath);
+                console.log('\x1b[32m%s. Optimized for production %s\x1b[0m', ++i, inPath);
                 callback();
               });
             });
@@ -220,8 +222,6 @@ var JS = (function () {
         }, false);
       });
     }
-  }, {
-    key: 'beFile',
 
     /**
      * Typechecks, lints and compiles a JavaScript file for the NodeJS.
@@ -238,6 +238,8 @@ var JS = (function () {
      *   // compiled successfully
      * }, '/lint/this/directory/too');
      */
+  }, {
+    key: 'beFile',
     value: function beFile(inPath, outPath, callback) {
       for (var _len2 = arguments.length, lintPaths = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
         lintPaths[_key2 - 3] = arguments[_key2];
@@ -256,15 +258,13 @@ var JS = (function () {
               if (scriptErr) {
                 return console.error(scriptErr);
               }
-              console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+              console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
               callback();
             });
           });
         });
       });
     }
-  }, {
-    key: 'beDir',
 
     /**
      * Typechecks, lints and compiles all JavaScript files inside the inPath for the NodeJS.
@@ -281,6 +281,8 @@ var JS = (function () {
      *   // compiled successfully
      * }, '/lint/this/directory/too');
      */
+  }, {
+    key: 'beDir',
     value: function beDir(inPath, outPath, callback) {
       for (var _len3 = arguments.length, lintPaths = Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
         lintPaths[_key3 - 3] = arguments[_key3];
@@ -291,7 +293,7 @@ var JS = (function () {
           if (compileErr) {
             return console.error(compileErr);
           }
-          console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+          console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
           callback();
         });
       });

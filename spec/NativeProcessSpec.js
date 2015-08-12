@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, spyOn, jasmine*/
 
 import NativeProcess from '../lib/NativeProcess';
 import proc from 'child_process';
@@ -43,7 +42,7 @@ describe('NativeProcess', function () {
     np.run(callback);
     stdoutOn.calls.argsFor(0)[1]('sample');
 
-    /*eslint-disable quotes*/
+    /* eslint-disable quotes */
     stdoutOn.calls.argsFor(0)[1]("\n");
     stdoutOn.calls.argsFor(0)[1]('response');
     stderrOn.calls.argsFor(0)[1]('something');
@@ -54,7 +53,7 @@ describe('NativeProcess', function () {
     on.calls.argsFor(0)[1](0);
     expect(callback).toHaveBeenCalledWith(null, "sample\nresponse");
 
-    /*eslint-enable quotes*/
+    /* eslint-enable quotes */
   });
 
 });

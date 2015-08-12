@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, it, expect, jasmine*/
 
 import proxyquire from 'proxyquire';
 import autoprefixer from 'autoprefixer-core';

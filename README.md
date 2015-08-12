@@ -11,6 +11,12 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [![npm version](https://badge.fury.io/js/webcompiler.svg)](http://badge.fury.io/js/webcompiler)
 [![Slack channel](https://img.shields.io/badge/slack-webcompiler-blue.svg)](https://webcompiler.slack.com/messages/general)
 
+### Warning!
+
+iojs-v3.0.0 is not yet supported!
+See [#1053](https://github.com/sass/node-sass/issues/1053) and [#1054](https://github.com/sass/node-sass/pull/1054) for
+more info.
+
 ### Prerequisites
 
 1. [Facebook Flow](http://flowtype.org/)
@@ -21,8 +27,8 @@ Important! Create a .flowconfig file at the root of your project with the follow
 ```
 [ignore]
 .*/invalidPackageJson/*
-.*/test/*
 .*/build/*
+.*/node_modules/.*/test/*
 .*/node_modules/.*/spec/*
 
 [include]

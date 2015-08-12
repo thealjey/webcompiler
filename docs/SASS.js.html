@@ -112,23 +112,23 @@ var SASS = (function () {
     this.compiler = new _SASSCompile2['default'](importOnceOptions, includePaths);
   }
 
+  /**
+   * Performs linting
+   *
+   * @memberof SASS
+   * @instance
+   * @method validate
+   * @param {string}        inPath    - a full system path to the input file/directory
+   * @param {Array&lt;string>} lintPaths - an array of paths to lint
+   * @param {Function}      callback  - a callback function, invoked only when successfully validated
+   * @example
+   * sass.validate('/path/to/the/input/file.scss', ['/lint/this/directory/too'], function () {
+   *   // successfully validated
+   * });
+   */
+
   _createClass(SASS, [{
     key: 'validate',
-
-    /**
-     * Performs linting
-     *
-     * @memberof SASS
-     * @instance
-     * @method validate
-     * @param {string}        inPath    - a full system path to the input file/directory
-     * @param {Array&lt;string>} lintPaths - an array of paths to lint
-     * @param {Function}      callback  - a callback function, invoked only when successfully validated
-     * @example
-     * sass.validate('/path/to/the/input/file.scss', ['/lint/this/directory/too'], function () {
-     *   // successfully validated
-     * });
-     */
     value: function validate(inPath, lintPaths, callback) {
       this.linter.run(lintPaths.concat([inPath]), function (linterErr) {
         if (linterErr) {
@@ -137,8 +137,6 @@ var SASS = (function () {
         callback();
       });
     }
-  }, {
-    key: 'webCompile',
 
     /**
      * Compiles and auto-prefixes an SCSS file for the browser.
@@ -147,31 +145,32 @@ var SASS = (function () {
      * @private
      * @instance
      * @method webCompile
-     * @param {string}    inPath    - a full system path to the input file
-     * @param {string}    outPath   - a full system path to the output file
-     * @param {Function}  callback  - a callback function, executed after the successful compilation
+     * @param {string}   inPath   - a full system path to the input file
+     * @param {string}   outPath  - a full system path to the output file
+     * @param {Function} callback - a callback function, executed after the successful compilation
      * @example
      * sass.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function (result) {
      *   // result -> {code: string, map: string}
      * });
      */
+  }, {
+    key: 'webCompile',
     value: function webCompile(inPath, outPath, callback) {
       this.compiler.run(inPath, outPath, function (compileErr, result) {
         if (compileErr) {
-          return console.log('\u001b[41mSASS error\u001b[0m "\u001b[33m%s\u001b[0m" in \u001b[36m%s\u001b[0m on \u001b[35m%s:%s\u001b[0m', compileErr.message, compileErr.file, compileErr.line, compileErr.column);
+          return console.log('\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m', compileErr.message, compileErr.file, compileErr.line, compileErr.column);
         }
         (0, _cssAutoprefix2['default'])(result, outPath, function (prefixErr, prefixed) {
-          if (prefixErr) {
-            return prefixErr.forEach(function (err) {
-              console.error(err);
-            });
+          if (!prefixErr) {
+            return callback(prefixed);
           }
-          callback(prefixed);
+          prefixErr.forEach(function (err) {
+            console.error(err);
+          });
+          console.log('CSS auto-prefix errors: %s', prefixErr.length);
         });
       });
     }
-  }, {
-    key: 'fsWrite',
 
     /**
      * Writes files to disk.
@@ -180,15 +179,17 @@ var SASS = (function () {
      * @private
      * @instance
      * @method fsWrite
-     * @param {string}                      inPath    - a full system path to the input file
-     * @param {string}                      outPath   - a full system path to the output file
-     * @param {{code: string, map: string}} data      - an object with a code and a map strings
-     * @param {Function}                    callback  - a callback function, executed after the write operation
+     * @param {string}                      inPath   - a full system path to the input file
+     * @param {string}                      outPath  - a full system path to the output file
+     * @param {{code: string, map: string}} data     - an object with a code and a map strings
+     * @param {Function}                    callback - a callback function, executed after the write operation
      * @example
      * sass.fsWrite('/path/to/the/input/file.scss', '/path/to/the/output/file.css', data, function () {
      *   // file system write was successful
      * });
      */
+  }, {
+    key: 'fsWrite',
     value: function fsWrite(inPath, outPath, data, callback) {
       (0, _mkdirp2['default'])((0, _path.dirname)(outPath), function (mkdirpErr) {
         if (mkdirpErr) {
@@ -202,14 +203,12 @@ var SASS = (function () {
             if (mapErr) {
               return console.error(mapErr);
             }
-            console.log('\u001b[32m%s. Compiled %s\u001b[0m', ++i, inPath);
+            console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
             callback();
           });
         });
       });
     }
-  }, {
-    key: 'feDev',
 
     /**
      * Compiles and auto-prefixes an SCSS file for the browser (development mode - faster recompilation).
@@ -217,14 +216,16 @@ var SASS = (function () {
      * @memberof SASS
      * @instance
      * @method feDev
-     * @param {string}    inPath    - a full system path to the input file
-     * @param {string}    outPath   - a full system path to the output file
-     * @param {Function}  callback  - a callback function, executed after the successful compilation
+     * @param {string}   inPath   - a full system path to the input file
+     * @param {string}   outPath  - a full system path to the output file
+     * @param {Function} callback - a callback function, executed after the successful compilation
      * @example
      * sass.feDev('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function () {
      *   // compiled successfully
      * });
      */
+  }, {
+    key: 'feDev',
     value: function feDev(inPath, outPath, callback) {
       var _this = this;
 
@@ -232,8 +233,6 @@ var SASS = (function () {
         _this.fsWrite(inPath, outPath, result, callback);
       });
     }
-  }, {
-    key: 'feProd',
 
     /**
      * Lints, compiles, auto-prefixes, minifies and GZIPs an SCSS file for the browser (production mode).
@@ -250,6 +249,8 @@ var SASS = (function () {
      *   // compiled successfully
      * }, '/lint/this/directory/too');
      */
+  }, {
+    key: 'feProd',
     value: function feProd(inPath, outPath, callback) {
       var _this2 = this;
 
@@ -292,7 +293,7 @@ module.exports = exports['default'];</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 29 2015 02:42:34 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Aug 12 2015 15:40:24 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

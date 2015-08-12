@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, it, expect, beforeEach, jasmine, spyOn*/
 
 import JSLint from '../lib/JSLint';
 import {CLIEngine} from 'eslint';

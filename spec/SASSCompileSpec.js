@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, spyOn, jasmine*/
 
 import SASSCompile from '../lib/SASSCompile';
 import sass from 'node-sass';

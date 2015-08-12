@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, spyOn*/
 
 import SASSLint from '../lib/SASSLint';
 import NativeProcess from '../lib/NativeProcess';

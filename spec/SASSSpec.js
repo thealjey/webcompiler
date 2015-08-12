@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, it, expect, jasmine, spyOn*/
 
 import proxyquire from 'proxyquire';
 import SASSLint from '../lib/SASSLint';
@@ -248,10 +247,6 @@ describe('SASS', function () {
           cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', spy);
         });
 
-        it('does not print anything on screen', function () {
-          expect(console.log).not.toHaveBeenCalled();
-        });
-
         it('calls cssAutoprefix', function () {
           expect(cssAutoprefix).toHaveBeenCalledWith({code: 'some css rules', map: 'source map contents'},
                                                      '/path/to/the/output/file.css', jasmine.any(Function));
@@ -262,6 +257,7 @@ describe('SASS', function () {
           expect(console.error).toHaveBeenCalledWith('something');
           expect(console.error).toHaveBeenCalledWith('bad');
           expect(console.error).toHaveBeenCalledWith('happened');
+          expect(console.log).toHaveBeenCalledWith('CSS auto-prefix errors: %s', 3);
         });
 
         it('does not invoke the callback', function () {

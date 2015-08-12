@@ -1,7 +1,7 @@
 [ignore]
 .*/invalidPackageJson/*
-.*/test/*
 .*/build/*
+.*/node_modules/.*/test/*
 .*/node_modules/.*/spec/*
 
 [include]
