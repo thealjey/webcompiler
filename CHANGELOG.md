@@ -1,3 +1,7 @@
+### v1.3.2
+
+* increased the maximum allowed number of arguments a JavaScript function can have to 10
+
 ### v1.3.0
 
 * upgraded to ESLint 1.0!

@@ -140,5 +140,5 @@ rules:
   require-yield: 2
   max-depth: [ 2, 4 ]
   max-len: [ 2, 120, 2 ]
-  max-params: [ 2, 4 ]
+  max-params: [ 2, 10 ]
   no-console: 0
