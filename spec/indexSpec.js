@@ -4,6 +4,7 @@ import {
   NativeProcess as TestNativeProcess,
   JS as TestJS,
   SASS as TestSASS,
+  DevServer as TestDevServer,
   JSLint as TestJSLint,
   jsNodeCompileFile as testJSNodeCompileFile,
   jsNodeCompileDir as testJSNodeCompileDir,
@@ -18,6 +19,7 @@ import {
 import NativeProcess from '../lib/NativeProcess';
 import JS from '../lib/JS';
 import SASS from '../lib/SASS';
+import DevServer from '../lib/DevServer';
 import JSLint from '../lib/JSLint';
 import jsNodeCompileFile from '../lib/jsNodeCompileFile';
 import jsNodeCompileDir from '../lib/jsNodeCompileDir';
@@ -40,6 +42,10 @@ describe('index', function () {
 
   it('re-exports SASS', function () {
     expect(TestSASS).toBe(SASS);
+  });
+
+  it('re-exports DevServer', function () {
+    expect(TestDevServer).toBe(DevServer);
   });
 
   it('re-exports JSLint', function () {

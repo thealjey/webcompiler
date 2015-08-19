@@ -33,6 +33,7 @@ rules:
   valid-jsdoc: [ 2, { prefer: { returns: return }, requireReturn: false } ]
   no-unexpected-multiline: 2
   accessor-pairs: 2
+  block-spacing: 2
   complexity: [ 2, 11 ]
   consistent-return: 2
   curly: [ 2, all ]
@@ -43,6 +44,7 @@ rules:
   no-alert: 2
   no-caller: 2
   no-div-regex: 2
+  no-dupe-class-members: 2
   no-else-return: 2
   no-empty-label: 2
   no-eq-null: 2
@@ -137,6 +139,7 @@ rules:
   no-const-assign: 2
   no-this-before-super: 2
   prefer-spread: 2
+  prefer-template: 2
   require-yield: 2
   max-depth: [ 2, 4 ]
   max-len: [ 2, 120, 2 ]

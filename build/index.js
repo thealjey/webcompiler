@@ -18,6 +18,10 @@ var _SASS = require('./SASS');
 
 var _SASS2 = _interopRequireDefault(_SASS);
 
+var _DevServer = require('./DevServer');
+
+var _DevServer2 = _interopRequireDefault(_DevServer);
+
 var _JSLint = require('./JSLint');
 
 var _JSLint2 = _interopRequireDefault(_JSLint);
@@ -57,6 +61,7 @@ var _cssMin2 = _interopRequireDefault(_cssMin);
 exports.NativeProcess = _NativeProcess2['default'];
 exports.JS = _JS2['default'];
 exports.SASS = _SASS2['default'];
+exports.DevServer = _DevServer2['default'];
 exports.JSLint = _JSLint2['default'];
 exports.jsNodeCompileFile = _jsNodeCompileFile2['default'];
 exports.jsNodeCompileDir = _jsNodeCompileDir2['default'];

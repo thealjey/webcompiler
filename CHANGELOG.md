@@ -1,3 +1,9 @@
+### v1.4.0
+
+* added a development server component designed specifically for very rapid and comfortable application development,
+  built on top of the webpack development server + optionally, react hot loader
+* updated ESLint to v1.2.0
+
 ### v1.3.2
 
 * increased the maximum allowed number of arguments a JavaScript function can have to 10
