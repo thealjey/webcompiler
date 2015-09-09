@@ -127,6 +127,6 @@ The resulting JavaScript and CSS files from `feProd` are gzip compressed for per
 6. [SCSS-Lint](https://github.com/brigade/scss-lint) is used to lint SASS
 7. [node-sass](https://github.com/sass/node-sass) and [Import Once](https://github.com/at-import/node-sass-import-once)
 are used to compile SASS
-8. [PostCSS](https://github.com/postcss/postcss) and [Autoprefixer Core](https://github.com/postcss/autoprefixer-core)
+8. [PostCSS](https://github.com/postcss/postcss) and [Autoprefixer](https://github.com/postcss/autoprefixer)
 are used to automatically add the browser vendor prefixes to the generated CSS
 9. [Clean-css](https://github.com/jakubpawlowicz/clean-css) is used to compress the CSS
