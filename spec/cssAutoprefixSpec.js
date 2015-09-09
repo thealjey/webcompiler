@@ -1,7 +1,7 @@
 /* @flow */
 
 import proxyquire from 'proxyquire';
-import autoprefixer from 'autoprefixer-core';
+import autoprefixer from 'autoprefixer';
 
 describe('cssAutoprefix', function () {
 

@@ -1,6 +1,6 @@
 {
   "name": "webcompiler",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "build/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/thealjey/webcompiler#readme",
   "dependencies": {
-    "autoprefixer-core": "^5.2.1",
+    "autoprefixer": "^6.0.2",
     "babel": "^5.8.21",
     "babel-core": "^5.8.22",
     "babel-eslint": "^4.0.10",

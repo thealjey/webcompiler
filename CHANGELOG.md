@@ -1,3 +1,7 @@
+### v1.4.1
+
+* moved away from the now deprecated "autoprefixer-core" to "autoprefixer"
+
 ### v1.4.0
 
 * added a development server component designed specifically for very rapid and comfortable application development,

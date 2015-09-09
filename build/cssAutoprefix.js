@@ -11,9 +11,9 @@ var _postcss = require('postcss');
 
 var _postcss2 = _interopRequireDefault(_postcss);
 
-var _autoprefixerCore = require('autoprefixer-core');
+var _autoprefixer = require('autoprefixer');
 
-var _autoprefixerCore2 = _interopRequireDefault(_autoprefixerCore);
+var _autoprefixer2 = _interopRequireDefault(_autoprefixer);
 
 /**
  * Adds vendor prefixes to css automatically
@@ -38,7 +38,7 @@ var _autoprefixerCore2 = _interopRequireDefault(_autoprefixerCore);
  */
 
 function cssAutoprefix(data, styleFile, callback) {
-  (0, _postcss2['default'])([_autoprefixerCore2['default']]).process(data.code, {
+  (0, _postcss2['default'])([_autoprefixer2['default']]).process(data.code, {
     from: styleFile,
     to: styleFile,
     map: { prev: data.map }
