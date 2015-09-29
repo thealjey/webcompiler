@@ -77,12 +77,16 @@ var NativeProcess = (function () {
        * @type {ChildProcess}
        */
       this.proc = (0, _child_process.spawn)(this.task, args, opts);
-      this.proc.stdout.on('data', function (data) {
-        stdout += data;
-      });
-      this.proc.stderr.on('data', function (data) {
-        stderr += data;
-      });
+      if (this.proc.stdout) {
+        this.proc.stdout.on('data', function (data) {
+          stdout += data;
+        });
+      }
+      if (this.proc.stderr) {
+        this.proc.stderr.on('data', function (data) {
+          stderr += data;
+        });
+      }
       this.proc.on('close', function (code) {
         callback(code ? stderr : null, stdout);
       });

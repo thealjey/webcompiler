@@ -14,46 +14,111 @@ describe('NativeProcess', function () {
     stdoutOn = jasmine.createSpy('on');
     stderrOn = jasmine.createSpy('on');
     kill = jasmine.createSpy('kill');
-    spyOn(proc, 'spawn').and.returnValue({on, kill, stdout: {on: stdoutOn}, stderr: {on: stderrOn}});
   });
 
-  it('calls into child_process.spawn with the correct params', function () {
-    np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
-    expect(proc.spawn).toHaveBeenCalledWith('script', ['sample', 'arguments'], {something: 'here'});
+  describe('no std', function () {
+
+    beforeEach(function () {
+      spyOn(proc, 'spawn').and.returnValue({on, kill});
+    });
+
+    it('kills the process leftover from the previous run', function () {
+      np.run(Function.prototype);
+      expect(kill).not.toHaveBeenCalled();
+      np.run(Function.prototype);
+      expect(kill).toHaveBeenCalled();
+    });
+
+    describe('sample arguments', function () {
+
+      beforeEach(function () {
+        np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
+      });
+
+      it('calls into child_process.spawn with the correct params', function () {
+        expect(proc.spawn).toHaveBeenCalledWith('script', ['sample', 'arguments'], {something: 'here'});
+      });
+
+      it('doesn\'t call stdoutOn', function () {
+        expect(stdoutOn).not.toHaveBeenCalled();
+      });
+
+      it('doesn\'t call stderrOn', function () {
+        expect(stderrOn).not.toHaveBeenCalled();
+      });
+
+      it('registers a close listener', function () {
+        expect(on).toHaveBeenCalledWith('close', jasmine.any(Function));
+      });
+
+    });
+
+    it('returns process response', function () {
+      var callback = jasmine.createSpy('callback');
+
+      np.run(callback);
+      on.calls.argsFor(0)[1](1);
+      expect(callback).toHaveBeenCalledWith('', '');
+      on.calls.argsFor(0)[1](0);
+      expect(callback).toHaveBeenCalledWith(null, '');
+    });
+
   });
 
-  it('kills the process leftover from the previous run', function () {
-    np.run(Function.prototype);
-    expect(kill).not.toHaveBeenCalled();
-    np.run(Function.prototype);
-    expect(kill).toHaveBeenCalled();
+  describe('no stderr', function () {
+
+    beforeEach(function () {
+      spyOn(proc, 'spawn').and.returnValue({on, kill, stdout: {on: stdoutOn}});
+    });
+
+    it('calls stdoutOn', function () {
+      np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
+      expect(stdoutOn).toHaveBeenCalledWith('data', jasmine.any(Function));
+    });
+
+    it('returns process response', function () {
+      var callback = jasmine.createSpy('callback');
+
+      np.run(callback);
+      stdoutOn.calls.argsFor(0)[1]('sample');
+
+      /* eslint-disable quotes */
+      stdoutOn.calls.argsFor(0)[1]("\n");
+      stdoutOn.calls.argsFor(0)[1]('response');
+      on.calls.argsFor(0)[1](1);
+      expect(callback).toHaveBeenCalledWith('', "sample\nresponse");
+      on.calls.argsFor(0)[1](0);
+      expect(callback).toHaveBeenCalledWith(null, "sample\nresponse");
+
+      /* eslint-enable quotes */
+    });
+
   });
 
-  it('registers listeners', function () {
-    np.run(Function.prototype);
-    expect(stdoutOn).toHaveBeenCalledWith('data', jasmine.any(Function));
-    expect(stderrOn).toHaveBeenCalledWith('data', jasmine.any(Function));
-    expect(on).toHaveBeenCalledWith('close', jasmine.any(Function));
-  });
+  describe('no stdout', function () {
 
-  it('returns process response', function () {
-    var callback = jasmine.createSpy('callback');
+    beforeEach(function () {
+      spyOn(proc, 'spawn').and.returnValue({on, kill, stderr: {on: stderrOn}});
+    });
 
-    np.run(callback);
-    stdoutOn.calls.argsFor(0)[1]('sample');
+    it('calls stderrOn', function () {
+      np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
+      expect(stderrOn).toHaveBeenCalledWith('data', jasmine.any(Function));
+    });
 
-    /* eslint-disable quotes */
-    stdoutOn.calls.argsFor(0)[1]("\n");
-    stdoutOn.calls.argsFor(0)[1]('response');
-    stderrOn.calls.argsFor(0)[1]('something');
-    stderrOn.calls.argsFor(0)[1](' bad ');
-    stderrOn.calls.argsFor(0)[1]('happened');
-    on.calls.argsFor(0)[1](1);
-    expect(callback).toHaveBeenCalledWith('something bad happened', "sample\nresponse");
-    on.calls.argsFor(0)[1](0);
-    expect(callback).toHaveBeenCalledWith(null, "sample\nresponse");
+    it('returns process response', function () {
+      var callback = jasmine.createSpy('callback');
 
-    /* eslint-enable quotes */
+      np.run(callback);
+      stderrOn.calls.argsFor(0)[1]('something');
+      stderrOn.calls.argsFor(0)[1](' bad ');
+      stderrOn.calls.argsFor(0)[1]('happened');
+      on.calls.argsFor(0)[1](1);
+      expect(callback).toHaveBeenCalledWith('something bad happened', '');
+      on.calls.argsFor(0)[1](0);
+      expect(callback).toHaveBeenCalledWith(null, '');
+    });
+
   });
 
 });
