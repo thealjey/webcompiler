@@ -10,6 +10,7 @@ var rootDir = join(__dirname, '..'),
     docsDir = join(rootDir, 'docs'),
     specDir = join(rootDir, 'spec'),
     readme = join(rootDir, 'README.md'),
+    jsdocConfig = join(rootDir, 'config', 'jsdoc.json'),
     js = new JS(),
     jsdoc = new NativeProcess(join(rootDir, 'node_modules', '.bin', 'jsdoc'));
 
@@ -19,5 +20,5 @@ js.beDir(libDir, buildDir, function () {
       return console.error(e);
     }
     console.log('\x1b[32mGenerated API documentation!\x1b[0m');
-  }, [buildDir, '-d', docsDir, '-R', readme]);
+  }, [buildDir, '-d', docsDir, '-R', readme, '-c', jsdocConfig]);
 }, specDir, __filename);
