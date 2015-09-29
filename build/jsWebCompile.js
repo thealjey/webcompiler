@@ -32,10 +32,10 @@ var config = {
 /**
  * Compiles JavaScript for the browser
  *
- * @param {string}   inPath    - a full system path to the input file
- * @param {string}   outPath   - a full system path to the output file
- * @param {Function} callback  - a callback function which accepts 1 argument: an array of error strings or null
- * @param {boolean}  [devMode] - if true provides faster source map rebuilds, good for rapid development
+ * @param {string}   inPath          - a full system path to the input file
+ * @param {string}   outPath         - a full system path to the output file
+ * @param {Function} callback        - a callback function which accepts 1 argument: an array of error strings or null
+ * @param {boolean}  [devMode=false] - if true provides faster source map rebuilds, good for rapid development
  * @example
  * import {jsWebCompile} from 'webcompiler';
  *

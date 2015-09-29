@@ -41,11 +41,11 @@ var _path = require('path');
  * Please install and enable the LiveReload browser extension for the CSS reloading to work.
  *
  * @class
- * @param {string}  script  - a full system path to a JavaScript file
- * @param {string}  style   - a full system path to a SASS file
- * @param {string}  devDir  - a full system path to a directory in which to put any compiled development resources
- * @param {number}  [port]  - a port at which to start the dev server, defaults to 3000
- * @param {boolean} [react] - false to disable the react hot loader plugin, defaults to true
+ * @param {string}  script       - a full system path to a JavaScript file
+ * @param {string}  style        - a full system path to a SASS file
+ * @param {string}  devDir       - a full system path to a directory in which to put any compiled development resources
+ * @param {number}  [port=3000]  - a port at which to start the dev server
+ * @param {boolean} [react=true] - false to disable the react hot loader plugin
  * @example
  * import {DevServer} from 'webcompiler';
  * import {join} from 'path';

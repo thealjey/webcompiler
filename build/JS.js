@@ -50,7 +50,7 @@ var i = 0;
  * A JavaScript compiler
  *
  * @class
- * @param {Object} [rules] - an object that lets you override default linting rules
+ * @param {Object} [rules={}] - an object that lets you override default linting rules
  * @example
  * import {JS} from 'webcompiler';
  *

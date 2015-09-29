@@ -42,10 +42,10 @@ var NativeProcess = (function () {
    * @memberof NativeProcess
    * @instance
    * @method run
-   * @param {Function}      callback - a callback function, accepts 2 arguments: an error string or null and the
-   *                                   response string
-   * @param {Array<string>} [args]   - an optional array of arguments to pass to the process
-   * @param {Object}        [opts]   - an optional object containing configuration options for the process
+   * @param {Function}      callback  - a callback function, accepts 2 arguments: an error string or null and the
+   *                                    response string
+   * @param {Array<string>} [args=[]] - an optional array of arguments to pass to the process
+   * @param {Object}        [opts={}] - an optional object containing configuration options for the process
    * @example
    * mkdir.run(function (e) {
    *   if (e) {

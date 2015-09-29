@@ -42,7 +42,7 @@
 
     
 
-    <h4 class="name" id="SASSCompile"><span class="type-signature"></span>new SASSCompile<span class="signature">(importOnceOptions<span class="signature-attributes">opt</span>, &hellip;includePaths)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SASSCompile"><span class="type-signature"></span>new SASSCompile<span class="signature">(importOnceOptions<span class="signature-attributes">opt</span>, includePaths<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -76,6 +76,8 @@
         <th>Attributes</th>
         
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -112,8 +114,15 @@
             
 
             
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
 
-            <td class="description last">an object that lets you override default importOnce resolver configuration</td>
+            <td class="description last">an object that lets you override default importOnce resolver
+                                                configuration</td>
         </tr>
 
     
@@ -126,7 +135,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;string></span>
 
 
             
@@ -135,15 +144,21 @@
             
                 <td class="attributes">
                 
-
+                    &lt;optional><br>
                 
 
                 
-                    &lt;repeatable><br>
+
                 
                 </td>
             
 
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
             
 
             <td class="description last">an array of additional include paths</td>
