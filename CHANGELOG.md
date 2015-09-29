@@ -1,3 +1,19 @@
+v1.5.0 - Tue, 29 Sep 2015 21:41:16 GMT
+--------------------------------------
+
+- [d4ad959](../../commit/d4ad959) [changed] inherit eslint-config-airbnb with some refined best practices
+- [6a0a6eb](../../commit/6a0a6eb) [fixed] updated 3rd party dependencies
+- [d6a7c07](../../commit/d6a7c07) [fixed] updated to Flow v0.16.0
+- [1ecb8ab](../../commit/1ecb8ab) [fixed] jsdoc for optinal arguments contains the default value
+- [111d8a9](../../commit/111d8a9) [fixed] updated to NodeJS v4.1.1
+- [235dd29](../../commit/235dd29) [added] a port number argument into the DevServer constructor
+- [0715999](../../commit/0715999) [fixed] only execute tests after a successful build
+- [a25ba24](../../commit/a25ba24) [fixed] NativeProcess does not crash when inheriting stdio
+- [a4b43a3](../../commit/a4b43a3) [fixed] do not include a "generated on" timestamp in the footer of the documentation files
+- [735d9fa](../../commit/735d9fa) [fixed] made flow ignore all folders except for "lib" and "node_modules"
+
+
+
 ### v1.4.1
 
 * moved away from the now deprecated "autoprefixer-core" to "autoprefixer"

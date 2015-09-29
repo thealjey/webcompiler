@@ -1,6 +1,6 @@
 {
   "name": "webcompiler",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "build/index.js",
   "scripts": {
