@@ -3,6 +3,10 @@
 .*/build/*
 .*/node_modules/.*/test/*
 .*/node_modules/.*/spec/*
+config/*
+coverage/*
+docs/*
+interfaces/*
 
 [include]
 
