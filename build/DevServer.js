@@ -44,6 +44,7 @@ var _path = require('path');
  * @param {string}  script  - a full system path to a JavaScript file
  * @param {string}  style   - a full system path to a SASS file
  * @param {string}  devDir  - a full system path to a directory in which to put any compiled development resources
+ * @param {number}  [port]  - a port at which to start the dev server, defaults to 3000
  * @param {boolean} [react] - false to disable the react hot loader plugin, defaults to true
  * @example
  * import {DevServer} from 'webcompiler';
@@ -61,7 +62,8 @@ var DevServer = (function () {
   function DevServer(script, style, devDir) {
     var _this = this;
 
-    var react = arguments.length <= 3 || arguments[3] === undefined ? true : arguments[3];
+    var port = arguments.length <= 3 || arguments[3] === undefined ? 3000 : arguments[3];
+    var react = arguments.length <= 4 || arguments[4] === undefined ? true : arguments[4];
 
     _classCallCheck(this, DevServer);
 
@@ -72,6 +74,16 @@ var DevServer = (function () {
       loaders.push('react-hot');
     }
     loaders.push('babel');
+
+    /**
+     * a port at which to start the dev server
+     *
+     * @memberof DevServer
+     * @private
+     * @instance
+     * @type {number}
+     */
+    this.port = port;
 
     /**
      * a LiveReload server
@@ -107,7 +119,7 @@ var DevServer = (function () {
       cache: {},
       debug: true,
       devtool: 'eval-source-map',
-      entry: ['webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server', script],
+      entry: ['webpack-dev-server/client?http://localhost:' + this.port, 'webpack/hot/only-dev-server', script],
       output: {
         path: devDir,
         filename: 'script.js',
@@ -170,11 +182,13 @@ var DevServer = (function () {
   }, {
     key: 'watchJS',
     value: function watchJS() {
-      this.server.listen(3000, '0.0.0.0', function (e) {
+      var port = this.port;
+
+      this.server.listen(port, '0.0.0.0', function (e) {
         if (e) {
           return console.error(e);
         }
-        console.log('Started the development server at localhost:3000');
+        console.log('Started the development server at localhost:' + port);
       });
     }
 

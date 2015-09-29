@@ -75,7 +75,11 @@ describe('DevServer', function () {
 
     beforeEach(function () {
       cmp = new DevServer('/path/to/a/script/file.js', '/path/to/a/style/file.scss',
-                          '/path/to/the/development/directory', false);
+                          '/path/to/the/development/directory', 8000, false);
+    });
+
+    it('assigns a port number', function () {
+      expect(cmp.port).toBe(8000);
     });
 
     it('constructs a LiveReload server instance', function () {
@@ -101,7 +105,7 @@ describe('DevServer', function () {
         debug: true,
         devtool: 'eval-source-map',
         entry: [
-          'webpack-dev-server/client?http://localhost:3000',
+          'webpack-dev-server/client?http://localhost:8000',
           'webpack/hot/only-dev-server',
           '/path/to/a/script/file.js'
         ],
