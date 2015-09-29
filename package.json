@@ -5,7 +5,9 @@
   "main": "build/index.js",
   "scripts": {
     "test": "babel-istanbul cover --root lib --print detail --include-all-sources --include-babel-polyfill jasmine",
-    "build": "babel-node bin/build"
+    "lint": "eslint ./",
+    "build": "babel-node bin/build",
+    "release": "release"
   },
   "repository": {
     "type": "git",
@@ -33,25 +35,26 @@
   },
   "homepage": "https://github.com/thealjey/webcompiler#readme",
   "dependencies": {
-    "autoprefixer": "^6.0.2",
-    "babel": "^5.8.21",
-    "babel-core": "^5.8.22",
-    "babel-eslint": "^4.0.10",
+    "autoprefixer": "^6.0.3",
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
     "babel-loader": "^5.3.2",
-    "babel-runtime": "^5.8.20",
-    "clean-css": "^3.3.9",
-    "eslint": "^1.2.0",
+    "babel-runtime": "^5.8.25",
+    "clean-css": "^3.4.5",
+    "eslint": "^1.5.1",
+    "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-babel": "^2.1.1",
-    "eslint-plugin-react": "^3.2.3",
+    "eslint-plugin-lodash": "^0.1.4",
+    "eslint-plugin-react": "^3.5.0",
     "mkdirp": "^0.5.1",
-    "node-libs-browser": "^0.5.2",
-    "node-sass": "^3.2.0",
+    "node-sass": "^3.3.3",
     "node-sass-import-once": "^1.2.0",
-    "postcss": "^5.0.0",
-    "simple-recursive-watch": "^2.0.2",
-    "tiny-lr": "^0.1.6",
+    "postcss": "^5.0.8",
+    "simple-recursive-watch": "^2.0.3",
+    "tiny-lr": "^0.2.0",
     "uglify-js": "^2.4.24",
-    "webpack": "^1.11.0"
+    "webpack": "^1.12.2"
   },
   "peerDependencies": {
     "babel-loader": "5.x",
@@ -60,10 +63,12 @@
     "webpack-dev-server": "1.x"
   },
   "devDependencies": {
-    "babel-istanbul": "^0.3.17",
-    "coveralls": "^2.11.3",
-    "jasmine-es6": "^0.0.17",
-    "jsdoc": "^3.3.2",
-    "proxyquire": "^1.6.0"
+    "babel-istanbul": "^0.3.20",
+    "coveralls": "^2.11.4",
+    "jasmine-es6": "^0.0.18",
+    "jsdoc": "^3.3.3",
+    "mt-changelog": "^0.6.2",
+    "proxyquire": "^1.7.2",
+    "release-script": "^0.5.3"
   }
 }
