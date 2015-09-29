@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "babel-istanbul cover --root lib --print detail --include-all-sources --include-babel-polyfill jasmine",
-    "build": "npm test && babel-node bin/build"
+    "build": "babel-node bin/build"
   },
   "repository": {
     "type": "git",

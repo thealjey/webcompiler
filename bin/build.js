@@ -12,13 +12,15 @@ var rootDir = join(__dirname, '..'),
     readme = join(rootDir, 'README.md'),
     jsdocConfig = join(rootDir, 'config', 'jsdoc.json'),
     js = new JS(),
-    jsdoc = new NativeProcess(join(rootDir, 'node_modules', '.bin', 'jsdoc'));
+    jsdoc = new NativeProcess(join(rootDir, 'node_modules', '.bin', 'jsdoc')),
+    npm = new NativeProcess('npm');
 
 js.beDir(libDir, buildDir, function () {
-  jsdoc.run(function (e) {
-    if (e) {
-      return console.error(e);
+  jsdoc.run(function (jsdocErr) {
+    if (jsdocErr) {
+      return console.error(jsdocErr);
     }
     console.log('\x1b[32mGenerated API documentation!\x1b[0m');
+    npm.run(Function.prototype, ['test'], {stdio: 'inherit'});
   }, [buildDir, '-d', docsDir, '-R', readme, '-c', jsdocConfig]);
 }, specDir, __filename);
