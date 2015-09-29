@@ -54,7 +54,7 @@ var i = 0;
  * @example
  * import {JS} from 'webcompiler';
  *
- * var js = new JS();
+ * let js = new JS();
  */
 
 var JS = (function () {

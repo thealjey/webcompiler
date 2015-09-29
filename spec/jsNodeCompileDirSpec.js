@@ -2,7 +2,7 @@
 
 import proxyquire from 'proxyquire';
 
-var task;
+let task;
 
 class NativeProcess {
 
@@ -17,9 +17,9 @@ class NativeProcess {
 describe('jsNodeCompileDir', function () {
 
   it('invokes NativeProcess.run with the proper parameters', function () {
-    var spy = jasmine.createSpy('spy'),
-        jsNodeCompileDir,
-        callback = function () {};
+    const spy = jasmine.createSpy('spy'), callback = function () {};
+
+    let jsNodeCompileDir;
 
     NativeProcess.prototype.run = spy;
     jsNodeCompileDir = proxyquire('../lib/jsNodeCompileDir', {'./NativeProcess': NativeProcess});

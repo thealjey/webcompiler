@@ -438,7 +438,7 @@ cssAutoprefix({code: 'some css rules', map: 'source map contents'}, '/path/to/a/
     
     <pre class="prettyprint"><code>import {cssMin} from 'webcompiler';
 
-var minified = cssMin({code: 'some css rules', map: 'source map contents'});
+let minified = cssMin({code: 'some css rules', map: 'source map contents'});
 // minified -> {code: string, map: string}</code></pre>
 
 
@@ -637,7 +637,7 @@ var minified = cssMin({code: 'some css rules', map: 'source map contents'});
     
     <pre class="prettyprint"><code>import {jsMin} from 'webcompiler';
 
-var minified = jsMin('/path/to/a/script/file.js');
+let minified = jsMin('/path/to/a/script/file.js');
 // minified -> {code: string, map: string}</code></pre>
 
 

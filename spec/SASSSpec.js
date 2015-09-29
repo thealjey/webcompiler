@@ -7,7 +7,7 @@ import zlib from 'zlib';
 import fs from 'fs';
 
 describe('SASS', function () {
-  var cssMin;
+  let cssMin;
 
   beforeEach(function () {
     cssMin = jasmine.createSpy('cssMin').and.returnValue({code: 'minified code', map: 'source map'});
@@ -16,7 +16,7 @@ describe('SASS', function () {
   describe('overrides', function () {
 
     /* @noflow */
-    var cmp, SASS;
+    let cmp, SASS;
 
     beforeEach(function () {
       SASS = require('../lib/SASS');
@@ -40,7 +40,7 @@ describe('SASS', function () {
   });
 
   describe('no overrides', function () {
-    var spy;
+    let spy;
 
     beforeEach(function () {
       spyOn(console, 'log');
@@ -51,7 +51,7 @@ describe('SASS', function () {
     describe('original dependencies', function () {
 
       /* @noflow */
-      var SASS, cmp;
+      let SASS, cmp;
 
       beforeEach(function () {
         SASS = require('../lib/SASS');
@@ -128,7 +128,7 @@ describe('SASS', function () {
     describe('feProd', function () {
 
       /* @noflow */
-      var cmp, SASS;
+      let cmp, SASS;
 
       beforeEach(function () {
         SASS = proxyquire('../lib/SASS', {'./cssMin': cssMin});
@@ -199,9 +199,10 @@ describe('SASS', function () {
     });
 
     describe('cssAutoprefix errors', function () {
+      const errors = ['something', 'bad', 'happened'];
 
       /* @noflow */
-      var cmp, SASS, cssAutoprefix, errors = ['something', 'bad', 'happened'];
+      let cmp, SASS, cssAutoprefix;
 
       beforeEach(function () {
         spyOn(errors, 'forEach').and.callThrough();
@@ -269,7 +270,7 @@ describe('SASS', function () {
     });
 
     describe('cssAutoprefix success', function () {
-      var cmp, SASS, cssAutoprefix;
+      let cmp, SASS, cssAutoprefix;
 
       beforeEach(function () {
         cssAutoprefix = jasmine.createSpy('cssAutoprefix').and.callFake(function (result, outPath, callback) {
@@ -290,7 +291,7 @@ describe('SASS', function () {
     });
 
     describe('mkdirp errors', function () {
-      var cmp, SASS, mkdirp;
+      let cmp, SASS, mkdirp;
 
       beforeEach(function () {
         spyOn(fs, 'writeFile');
@@ -320,7 +321,7 @@ describe('SASS', function () {
     describe('mkdirp success', function () {
 
       /* @noflow */
-      var cmp, SASS, mkdirp;
+      let cmp, SASS, mkdirp;
 
       beforeEach(function () {
         mkdirp = jasmine.createSpy('mkdirp').and.callFake(function (path, callback) {

@@ -3,7 +3,7 @@
 import proxyquire from 'proxyquire';
 
 describe('jsWebCompile', function () {
-  var spy;
+  let spy;
 
   beforeEach(function () {
     spy = jasmine.createSpy('spy');
@@ -12,7 +12,7 @@ describe('jsWebCompile', function () {
   describe('should pass correct options to webpack', function () {
 
     /* @noflow */
-    var jsWebCompile;
+    let jsWebCompile;
 
     beforeEach(function () {
       jsWebCompile = proxyquire('../lib/jsWebCompile', {webpack: spy});
@@ -59,7 +59,7 @@ describe('jsWebCompile', function () {
   });
 
   it('on exception', function () {
-    var webpack = function (options, callback) {
+    const webpack = function (options, callback) {
           callback('something bad happened');
         },
         jsWebCompile = proxyquire('../lib/jsWebCompile', {webpack});
@@ -69,7 +69,7 @@ describe('jsWebCompile', function () {
   });
 
   it('on compilation errors', function () {
-    var webpack = function (options, callback) {
+    const webpack = function (options, callback) {
           callback(null, {
             toJson() {
               return {
@@ -86,7 +86,7 @@ describe('jsWebCompile', function () {
   });
 
   it('on compilation success', function () {
-    var webpack = function (options, callback) {
+    const webpack = function (options, callback) {
           callback(null, {
             toJson() {
               return {

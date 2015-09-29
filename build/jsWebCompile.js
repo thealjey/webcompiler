@@ -59,7 +59,8 @@ function jsWebCompile(inPath, outPath, callback) {
   config.output.filename = parsed.base;
   config.devtool = (devMode ? 'eval-' : '') + 'source-map';
   (0, _webpack2['default'])(config, function (e, stats) {
-    var jsonStats, errors;
+    var jsonStats = undefined,
+        errors = undefined;
 
     if (e) {
       return callback([e]);

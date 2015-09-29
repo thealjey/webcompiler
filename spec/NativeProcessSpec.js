@@ -6,7 +6,7 @@ import proc from 'child_process';
 describe('NativeProcess', function () {
 
   /* @noflow */
-  var np, on, stdoutOn, stderrOn, kill;
+  let np, on, stdoutOn, stderrOn, kill;
 
   beforeEach(function () {
     np = new NativeProcess('script');
@@ -107,7 +107,7 @@ describe('NativeProcess', function () {
     });
 
     it('returns process response', function () {
-      var callback = jasmine.createSpy('callback');
+      const callback = jasmine.createSpy('callback');
 
       np.run(callback);
       stderrOn.calls.argsFor(0)[1]('something');

@@ -50,7 +50,7 @@ var _path = require('path');
  * import {DevServer} from 'webcompiler';
  * import {join} from 'path';
  *
- * var rootDir = join(__dirname, '..'),
+ * let rootDir = join(__dirname, '..'),
  *     devDir = join(rootDir, 'development'),
  *     server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
  *

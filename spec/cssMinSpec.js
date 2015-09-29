@@ -2,7 +2,7 @@
 
 import proxyquire from 'proxyquire';
 
-var options;
+let options;
 
 class CleanCSS {
 
@@ -17,8 +17,10 @@ class CleanCSS {
 describe('cssMin', function () {
 
   it('uses CleanCSS', function () {
-    var spy = jasmine.createSpy('spy').and.returnValue({styles: 'some styles', sourceMap: 'some sourceMap'}),
-        cssMin = proxyquire('../lib/cssMin', {'clean-css': CleanCSS}), result;
+    const spy = jasmine.createSpy('spy').and.returnValue({styles: 'some styles', sourceMap: 'some sourceMap'}),
+        cssMin = proxyquire('../lib/cssMin', {'clean-css': CleanCSS});
+
+    let result;
 
     CleanCSS.prototype.minify = spy;
 

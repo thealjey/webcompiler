@@ -19,7 +19,7 @@ var _cleanCss2 = _interopRequireDefault(_cleanCss);
  * @example
  * import {cssMin} from 'webcompiler';
  *
- * var minified = cssMin({code: 'some css rules', map: 'source map contents'});
+ * let minified = cssMin({code: 'some css rules', map: 'source map contents'});
  * // minified -> {code: string, map: string}
  */
 

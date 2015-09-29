@@ -9,7 +9,7 @@ describe('SASSCompile', function () {
   describe('no overrides', function () {
 
     it('holds default options', function () {
-      var cmp = new SASSCompile();
+      const cmp = new SASSCompile();
 
       expect(cmp.importOnce).toEqual({index: true, css: false, bower: false});
       expect(cmp.includePaths).toEqual(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules']);
@@ -20,7 +20,7 @@ describe('SASSCompile', function () {
   describe('overrides', function () {
 
     /* @noflow */
-    var cmp;
+    let cmp;
 
     beforeEach(function () {
       cmp = new SASSCompile({something: 'here'}, ['/path/to/some/directory']);
@@ -50,7 +50,7 @@ describe('SASSCompile', function () {
       });
 
       describe('run callback', function () {
-        var spy;
+        let spy;
 
         beforeEach(function () {
           spy = jasmine.createSpy('spy');

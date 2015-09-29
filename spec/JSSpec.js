@@ -7,7 +7,7 @@ import zlib from 'zlib';
 import fs from 'fs';
 
 describe('JS', function () {
-  var jsMin;
+  let jsMin;
 
   beforeEach(function () {
     jsMin = jasmine.createSpy('jsMin').and.returnValue({code: 'minified code', map: 'source map'});
@@ -16,7 +16,7 @@ describe('JS', function () {
   describe('overrides', function () {
 
     /* @noflow */
-    var cmp, JS;
+    let cmp, JS;
 
     beforeEach(function () {
       JS = require('../lib/JS');
@@ -40,7 +40,7 @@ describe('JS', function () {
   });
 
   describe('no overrides', function () {
-    var spy;
+    let spy;
 
     beforeEach(function () {
       spyOn(console, 'log');
@@ -51,7 +51,7 @@ describe('JS', function () {
     describe('original dependencies', function () {
 
       /* @noflow */
-      var JS, cmp;
+      let JS, cmp;
 
       beforeEach(function () {
         JS = require('../lib/JS');
@@ -184,7 +184,9 @@ describe('JS', function () {
     });
 
     describe('jsWebCompile errors', function () {
-      var cmp, jsWebCompile, JS, errors = ['something', 'bad', 'happened'];
+      const errors = ['something', 'bad', 'happened'];
+
+      let cmp, jsWebCompile, JS;
 
       beforeEach(function () {
         spyOn(errors, 'forEach').and.callThrough();
@@ -220,7 +222,7 @@ describe('JS', function () {
     });
 
     describe('jsWebCompile success', function () {
-      var cmp, jsWebCompile, JS;
+      let cmp, jsWebCompile, JS;
 
       beforeEach(function () {
         jsWebCompile = jasmine.createSpy('jsWebCompile').and.callFake(function (inPath, outPath, callback) {
@@ -245,7 +247,7 @@ describe('JS', function () {
     describe('feProd', function () {
 
       /* @noflow */
-      var cmp, JS;
+      let cmp, JS;
 
       beforeEach(function () {
         JS = proxyquire('../lib/JS', {'./jsMin': jsMin});
@@ -382,7 +384,7 @@ describe('JS', function () {
     describe('jsNodeCompileFile errors', function () {
 
       /* @noflow */
-      var cmp, JS, jsNodeCompileFile, mkdirp;
+      let cmp, JS, jsNodeCompileFile, mkdirp;
 
       beforeEach(function () {
         mkdirp = jasmine.createSpy('mkdirp');
@@ -418,7 +420,7 @@ describe('JS', function () {
     });
 
     describe('jsNodeCompileFile success', function () {
-      var jsNodeCompileFile;
+      let jsNodeCompileFile;
 
       beforeEach(function () {
         jsNodeCompileFile = jasmine.createSpy('jsNodeCompileFile').and.callFake(function (inPath, callback) {
@@ -427,7 +429,7 @@ describe('JS', function () {
       });
 
       describe('mkdirp failure', function () {
-        var cmp, JS, mkdirp;
+        let cmp, JS, mkdirp;
 
         beforeEach(function () {
           spyOn(fs, 'writeFile');
@@ -460,7 +462,7 @@ describe('JS', function () {
       describe('mkdirp success', function () {
 
         /* @noflow */
-        var cmp, JS, mkdirp;
+        let cmp, JS, mkdirp;
 
         beforeEach(function () {
           mkdirp = jasmine.createSpy('mkdirp').and.callFake(function (path, callback) {
@@ -523,7 +525,7 @@ describe('JS', function () {
     describe('jsNodeCompileDir errors', function () {
 
       /* @noflow */
-      var cmp, JS, jsNodeCompileDir;
+      let cmp, JS, jsNodeCompileDir;
 
       beforeEach(function () {
         jsNodeCompileDir = jasmine.createSpy('jsNodeCompileDir').and.callFake(function (inPath, outPath, callback) {
@@ -558,7 +560,7 @@ describe('JS', function () {
     });
 
     describe('jsNodeCompileDir success', function () {
-      var cmp, JS, jsNodeCompileDir;
+      let cmp, JS, jsNodeCompileDir;
 
       beforeEach(function () {
         jsNodeCompileDir = jasmine.createSpy('jsNodeCompileDir').and.callFake(function (inPath, outPath, callback) {

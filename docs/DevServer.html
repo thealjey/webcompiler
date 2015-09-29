@@ -335,7 +335,7 @@ Please install and enable the LiveReload browser extension for the CSS reloading
     <pre class="prettyprint"><code>import {DevServer} from 'webcompiler';
 import {join} from 'path';
 
-var rootDir = join(__dirname, '..'),
+let rootDir = join(__dirname, '..'),
     devDir = join(rootDir, 'development'),
     server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
 

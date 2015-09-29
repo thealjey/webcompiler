@@ -18,7 +18,7 @@ var _child_process = require('child_process');
  * @example
  * import {NativeProcess} from 'webcompiler';
  *
- * var mkdir = new NativeProcess('mkdir');
+ * let mkdir = new NativeProcess('mkdir');
  */
 
 var NativeProcess = (function () {

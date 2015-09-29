@@ -4,14 +4,14 @@ import SASSLint from '../lib/SASSLint';
 import NativeProcess from '../lib/NativeProcess';
 import path from 'path';
 
-var config = path.join(__dirname, '..', 'config', 'scsslint.yml');
+const config = path.join(__dirname, '..', 'config', 'scsslint.yml');
 
 describe('SASSLint', function () {
 
   describe('no excludes', function () {
 
     /* @noflow */
-    var cmp;
+    let cmp;
 
     beforeEach(function () {
       cmp = new SASSLint();
@@ -39,7 +39,7 @@ describe('SASSLint', function () {
   describe('exclude some linters', function () {
 
     /* @noflow */
-    var cmp;
+    let cmp;
 
     beforeEach(function () {
       cmp = new SASSLint('QualifyingElement', 'PlaceholderInExtend');

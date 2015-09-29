@@ -4,7 +4,7 @@ import {join} from 'path';
 import JS from '../lib/JS';
 import NativeProcess from '../lib/NativeProcess';
 
-var rootDir = join(__dirname, '..'),
+const rootDir = join(__dirname, '..'),
     buildDir = join(rootDir, 'build'),
     libDir = join(rootDir, 'lib'),
     docsDir = join(rootDir, 'docs'),

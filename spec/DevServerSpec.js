@@ -52,7 +52,7 @@ class NoErrorsPlugin {}
 describe('DevServer', function () {
 
   /* @noflow */
-  var DevServer, cmp, tinylr, webpack, srv, send;
+  let DevServer, cmp, tinylr, webpack, srv, send;
 
   beforeEach(function () {
     srv = new Server();

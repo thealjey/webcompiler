@@ -6,7 +6,7 @@ import {CLIEngine} from 'eslint';
 describe('JSLint', function () {
 
   /* @noflow */
-  var cmp;
+  let cmp;
 
   it('should contain the linter object', function () {
     cmp = new JSLint();
@@ -33,7 +33,7 @@ describe('JSLint', function () {
     });
 
     describe('return proper response', function () {
-      var callback;
+      let callback;
 
       beforeEach(function () {
         callback = jasmine.createSpy('callback');

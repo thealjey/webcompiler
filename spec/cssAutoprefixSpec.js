@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer';
 describe('cssAutoprefix', function () {
 
   it('invokes postcss properly', function () {
-    var thenSpy = jasmine.createSpy('thenSpy'),
+    const thenSpy = jasmine.createSpy('thenSpy'),
         processSpy = jasmine.createSpy('processSpy').and.returnValue({then: thenSpy}),
         spy = jasmine.createSpy('spy').and.returnValue({process: processSpy}),
         cssAutoprefix = proxyquire('../lib/cssAutoprefix', {postcss: spy});
@@ -22,7 +22,7 @@ describe('cssAutoprefix', function () {
   });
 
   it('handles errors properly', function () {
-    var thenSpy = jasmine.createSpy('thenSpy').and.callFake(function (callback) {
+    const thenSpy = jasmine.createSpy('thenSpy').and.callFake(function (callback) {
           callback({
             warnings() {
               return ['something bad happened'];
@@ -39,7 +39,7 @@ describe('cssAutoprefix', function () {
   });
 
   it('handles success properly', function () {
-    var thenSpy = jasmine.createSpy('thenSpy').and.callFake(function (callback) {
+    const thenSpy = jasmine.createSpy('thenSpy').and.callFake(function (callback) {
           callback({
             warnings() {
               return [];

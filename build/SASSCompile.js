@@ -37,7 +37,7 @@ var options = {
  * @example
  * import {SASSCompile} from 'webcompiler';
  *
- * var compiler = new SASSCompile();
+ * let compiler = new SASSCompile();
  */
 
 var SASSCompile = (function () {

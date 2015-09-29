@@ -27,7 +27,7 @@ var config = (0, _path.join)(__dirname, '..', 'config', 'scsslint.yml');
  * import {SASSLint} from 'webcompiler';
  * import {join} from 'path';
  *
- * var linter = new SASSLint();
+ * let linter = new SASSLint();
  */
 
 var SASSLint = (function () {

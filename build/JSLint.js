@@ -21,7 +21,7 @@ var _path = require('path');
  * import {JSLint} from 'webcompiler';
  * import {join} from 'path';
  *
- * var linter = new JSLint();
+ * let linter = new JSLint();
  */
 
 var JSLint = (function () {

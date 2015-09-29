@@ -52,7 +52,7 @@ var i = 0;
  * @example
  * import {SASS} from 'webcompiler';
  *
- * var sass = new SASS();
+ * let sass = new SASS();
  */
 
 var SASS = (function () {

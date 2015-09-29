@@ -27,7 +27,7 @@ var config = { mangle: false, output: { space_colon: false }, inSourceMap: '', o
  * @example
  * import {jsMin} from 'webcompiler';
  *
- * var minified = jsMin('/path/to/a/script/file.js');
+ * let minified = jsMin('/path/to/a/script/file.js');
  * // minified -> {code: string, map: string}
  */
 
