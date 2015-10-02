@@ -54,7 +54,7 @@ describe('NativeProcess', function () {
     });
 
     it('returns process response', function () {
-      var callback = jasmine.createSpy('callback');
+      const callback = jasmine.createSpy('callback');
 
       np.run(callback);
       on.calls.argsFor(0)[1](1);
@@ -77,7 +77,7 @@ describe('NativeProcess', function () {
     });
 
     it('returns process response', function () {
-      var callback = jasmine.createSpy('callback');
+      const callback = jasmine.createSpy('callback');
 
       np.run(callback);
       stdoutOn.calls.argsFor(0)[1]('sample');
