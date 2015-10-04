@@ -117,4 +117,4 @@ rules:
   max-params: [ 2, 10 ]
   no-console: 0
   id-length: 0
-	no-negated-condition: 2
+  no-negated-condition: 2
