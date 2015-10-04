@@ -1,3 +1,10 @@
+v1.5.2 - Sun, 04 Oct 2015 17:41:38 GMT
+--------------------------------------
+
+- [0c90d71](../../commit/0c90d71) [fixed] updated eslint to v1.6.0 and enabled the no-negated-condition rule
+
+
+
 v1.5.1 - Fri, 02 Oct 2015 01:02:36 GMT
 --------------------------------------
 
