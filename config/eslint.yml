@@ -1,6 +1,6 @@
 ---
 extends: eslint-config-airbnb
-plugins: [ babel, react, lodash ]
+plugins: [ babel, lodash ]
 env: { es6: true, jasmine: true }
 ecmaFeatures: { experimentalObjectRestSpread: true }
 rules:
@@ -15,23 +15,13 @@ rules:
   # object-shorthand: 2
 
   # eslint-plugin-react
-  react/jsx-boolean-value: 2
   react/jsx-closing-bracket-location: 2
   react/jsx-curly-spacing: 2
   react/jsx-indent-props: [ 2, 2 ]
   react/jsx-no-duplicate-props: 2
-  react/jsx-no-undef: 2
-  react/jsx-uses-react: 2
-  react/jsx-uses-vars: 2
   react/no-danger: 2
-  react/no-did-mount-set-state: 2
-  react/no-did-update-set-state: 2
   react/no-direct-mutation-state: 2
-  react/prop-types: 2
-  react/react-in-jsx-scope: 2
-  react/self-closing-comp: 2
-  react/wrap-multilines: 2
-  react/jsx-quotes: 0
+  react/sort-comp: 0
 
   # lodash
   lodash/import: 2
@@ -48,18 +38,12 @@ rules:
   padded-blocks: 0
   no-fallthrough: 0
   no-floating-decimal: 0
-  no-alert: 2
   no-div-regex: 2
   no-dupe-class-members: 2
-  no-empty-label: 2
   no-invalid-this: 2
-  no-iterator: 2
-  no-labels: 2
-  no-multi-spaces: 2
   no-process-env: 2
   no-redeclare: [ 2, { builtinGlobals: true } ]
   no-return-assign: [ 2, always ]
-  no-unused-expressions: 2
   no-useless-call: 2
   no-void: 2
   no-warning-comments: [ 2, { terms: [ todo, fixme, xxx ], location: start } ]
@@ -70,7 +54,7 @@ rules:
   no-undef-init: 2
   no-use-before-define: [ 2, nofunc ]
   callback-return: 2
-  handle-callback-err: [ 2, "^e(rr(or)?)?$" ]
+  handle-callback-err: [ 2, "^err(or)?$" ]
   no-mixed-requires: [ 2, false ]
   no-new-require: 2
   no-param-reassign: 0
@@ -111,10 +95,10 @@ rules:
   prefer-template: 2
   require-yield: 2
   func-names: 0
-  jsx-quotes: [ 2, prefer-double ]
   max-depth: [ 2, 4 ]
   max-len: [ 2, 120, 2 ]
   max-params: [ 2, 10 ]
   no-console: 0
   id-length: 0
   no-negated-condition: 2
+  no-mixed-spaces-and-tabs: [ 2, false ]
