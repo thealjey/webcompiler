@@ -53,7 +53,6 @@ rules:
   no-label-var: 2
   no-undef-init: 2
   no-use-before-define: [ 2, nofunc ]
-  callback-return: 2
   handle-callback-err: [ 2, "^err(or)?$" ]
   no-mixed-requires: [ 2, false ]
   no-new-require: 2

@@ -335,11 +335,11 @@ Please install and enable the LiveReload browser extension for the CSS reloading
     <pre class="prettyprint"><code>import {DevServer} from 'webcompiler';
 import {join} from 'path';
 
-let rootDir = join(__dirname, '..'),
+const rootDir = join(__dirname, '..'),
     devDir = join(rootDir, 'development'),
     server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
 
-server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
+server.run(rootDir);
 // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )</code></pre>
 
 
@@ -367,7 +367,7 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
 
     
 
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(watchDir, &hellip;exclude)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(watchDir)</span><span class="type-signature"></span></h4>
 
     
 
@@ -398,8 +398,6 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -425,51 +423,10 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
             <td class="description last">the directory in which to watch for the changes in the SASS files</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>exclude</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last">file/directory names to exclude from watching for the changes in the SASS files</td>
         </tr>
 
     
@@ -532,7 +489,7 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>server.run('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');</code></pre>
+    <pre class="prettyprint"><code>server.run('/path/to/some/directory');</code></pre>
 
 
 
@@ -623,7 +580,7 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
 
     
 
-    <h4 class="name" id="watchSASS"><span class="type-signature"></span>watchSASS<span class="signature">(watchDir, &hellip;exclude)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="watchSASS"><span class="type-signature"></span>watchSASS<span class="signature">(watchDir)</span><span class="type-signature"></span></h4>
 
     
 
@@ -654,8 +611,6 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -681,51 +636,10 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
             <td class="description last">the directory in which to watch for the changes in the SASS files</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>exclude</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last">file/directory names to exclude from watching for the changes in the SASS files</td>
         </tr>
 
     
@@ -788,7 +702,7 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>server.watchSASS('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');</code></pre>
+    <pre class="prettyprint"><code>server.watchSASS('/path/to/some/directory');</code></pre>
 
 
 
@@ -808,7 +722,7 @@ server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DevServer.html">DevServer</a></li><li><a href="JS.html">JS</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompile.html">SASSCompile</a></li><li><a href="SASSLint.html">SASSLint</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cssAutoprefix">cssAutoprefix</a></li><li><a href="global.html#cssMin">cssMin</a></li><li><a href="global.html#jsMin">jsMin</a></li><li><a href="global.html#jsNodeCompileDir">jsNodeCompileDir</a></li><li><a href="global.html#jsNodeCompileFile">jsNodeCompileFile</a></li><li><a href="global.html#jsWebCompile">jsWebCompile</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DevServer.html">DevServer</a></li><li><a href="JS.html">JS</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompile.html">SASSCompile</a></li><li><a href="SASSLint.html">SASSLint</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cssAutoprefix">cssAutoprefix</a></li><li><a href="global.html#cssMin">cssMin</a></li><li><a href="global.html#jsMin">jsMin</a></li><li><a href="global.html#jsNodeCompileDir">jsNodeCompileDir</a></li><li><a href="global.html#jsNodeCompileFile">jsNodeCompileFile</a></li><li><a href="global.html#jsWebCompile">jsWebCompile</a></li><li><a href="global.html#watch">watch</a></li></ul>
 </nav>
 
 <br class="clear">

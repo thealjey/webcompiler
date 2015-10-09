@@ -18,8 +18,6 @@ describe('SASSCompile', function () {
   });
 
   describe('overrides', function () {
-
-    /* @noflow */
     let cmp;
 
     beforeEach(function () {
@@ -27,6 +25,9 @@ describe('SASSCompile', function () {
     });
 
     it('holds overridden options', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.importOnce).toEqual({index: true, css: false, bower: false, something: 'here'});
       expect(cmp.includePaths).toEqual(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
                                         '/path/to/some/directory']);
@@ -35,6 +36,9 @@ describe('SASSCompile', function () {
     describe('run invocation', function () {
 
       it('invokes sass.render', function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(sass, 'render');
         cmp.run('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype);
         expect(sass.render).toHaveBeenCalledWith({
@@ -57,6 +61,9 @@ describe('SASSCompile', function () {
         });
 
         it('properly handles errors', function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(sass, 'render').and.callFake(function (options, callback) {
             callback('something bad happened');
           });
@@ -65,6 +72,9 @@ describe('SASSCompile', function () {
         });
 
         it('properly handles successful result', function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(sass, 'render').and.callFake(function (options, callback) {
             callback(null, {css: 'body{color:red}', map: {toString: () => 'some map content'}});
           });

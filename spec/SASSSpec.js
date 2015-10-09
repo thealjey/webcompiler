@@ -14,8 +14,6 @@ describe('SASS', function () {
   });
 
   describe('overrides', function () {
-
-    /* @noflow */
     let cmp, SASS;
 
     beforeEach(function () {
@@ -26,11 +24,17 @@ describe('SASS', function () {
     });
 
     it('configures SASSLint', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.linter).toEqual(jasmine.any(SASSLint));
       expect(cmp.linter.excludeLinter).toBe('QualifyingElement,PlaceholderInExtend');
     });
 
     it('configures SASSCompile', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.compiler).toEqual(jasmine.any(SASSCompile));
       expect(cmp.compiler.importOnce).toEqual({index: true, css: false, bower: true});
       expect(cmp.compiler.includePaths).toEqual(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
@@ -49,8 +53,6 @@ describe('SASS', function () {
     });
 
     describe('original dependencies', function () {
-
-      /* @noflow */
       let SASS, cmp;
 
       beforeEach(function () {
@@ -63,6 +65,9 @@ describe('SASS', function () {
       describe('validate linter error', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
             callback('something bad happened');
           });
@@ -70,6 +75,9 @@ describe('SASS', function () {
         });
 
         it('runs the linter', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.linter.run).toHaveBeenCalledWith(['/lint/this/directory/too', '/path/to/a/file.scss'],
                                                         jasmine.any(Function));
         });
@@ -87,6 +95,9 @@ describe('SASS', function () {
       describe('validate linter success', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
             callback();
           });
@@ -102,6 +113,9 @@ describe('SASS', function () {
       describe('feDev', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp, 'webCompile').and.callFake(function (inPath, outPath, callback) {
             callback({code: 'compiled code', map: 'source map'});
           });
@@ -112,11 +126,17 @@ describe('SASS', function () {
         });
 
         it('calls webCompile', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                                       jasmine.any(Function));
         });
 
         it('calls fsWrite', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.fsWrite).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                                    {code: 'compiled code', map: 'source map'}, spy);
         });
@@ -126,8 +146,6 @@ describe('SASS', function () {
     });
 
     describe('feProd', function () {
-
-      /* @noflow */
       let cmp, SASS;
 
       beforeEach(function () {
@@ -145,6 +163,9 @@ describe('SASS', function () {
       describe('GZIP failure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
             callback('GZIP exception');
           });
@@ -153,11 +174,17 @@ describe('SASS', function () {
         });
 
         it('calls the validate method', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.scss', ['/lint/this/directory/too'],
                                                     jasmine.any(Function));
         });
 
         it('calls the webCompile method', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                                       jasmine.any(Function));
         });
@@ -175,6 +202,9 @@ describe('SASS', function () {
         });
 
         it('does not call fsWrite', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.fsWrite).not.toHaveBeenCalled();
         });
 
@@ -183,6 +213,9 @@ describe('SASS', function () {
       describe('GZIP success', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
             callback(null, 'GZIPed program');
           });
@@ -190,6 +223,9 @@ describe('SASS', function () {
         });
 
         it('calls fsWrite', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.fsWrite).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                                    {code: 'GZIPed program', map: 'source map'}, spy);
         });
@@ -201,7 +237,6 @@ describe('SASS', function () {
     describe('cssAutoprefix errors', function () {
       const errors = ['something', 'bad', 'happened'];
 
-      /* @noflow */
       let cmp, SASS, cssAutoprefix;
 
       beforeEach(function () {
@@ -216,6 +251,9 @@ describe('SASS', function () {
       describe('compiler failure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
             callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
           });
@@ -223,6 +261,9 @@ describe('SASS', function () {
         });
 
         it('runs the compiler', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.compiler.run).toHaveBeenCalledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                                         jasmine.any(Function));
         });
@@ -242,6 +283,9 @@ describe('SASS', function () {
       describe('compiler success', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
             callback(null, {code: 'some css rules', map: 'source map contents'});
           });
@@ -319,8 +363,6 @@ describe('SASS', function () {
     });
 
     describe('mkdirp success', function () {
-
-      /* @noflow */
       let cmp, SASS, mkdirp;
 
       beforeEach(function () {
@@ -334,6 +376,9 @@ describe('SASS', function () {
       describe('styles writeFile failure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback('failed to write to disk');
           });
@@ -360,6 +405,9 @@ describe('SASS', function () {
       describe('map writeFile failure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback('/path/to/the/output/file.css' === name ? null : 'failed to write the map to disk');
           });
@@ -385,6 +433,9 @@ describe('SASS', function () {
       describe('writeFile success', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
             callback();
           });

@@ -14,8 +14,6 @@ describe('JS', function () {
   });
 
   describe('overrides', function () {
-
-    /* @noflow */
     let cmp, JS;
 
     beforeEach(function () {
@@ -26,11 +24,17 @@ describe('JS', function () {
     });
 
     it('configures Flow', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.flow).toEqual(jasmine.any(NativeProcess));
       expect(cmp.flow.task).toBe('flow');
     });
 
     it('configures ESLint', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.linter).toEqual(jasmine.any(JSLint));
       expect(cmp.linter.linter.options.rules).toEqual(jasmine.objectContaining({
         complexity: [2, 4]
@@ -49,8 +53,6 @@ describe('JS', function () {
     });
 
     describe('original dependencies', function () {
-
-      /* @noflow */
       let JS, cmp;
 
       beforeEach(function () {
@@ -63,12 +65,18 @@ describe('JS', function () {
       describe('flow errors', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.linter, 'run');
         });
 
         describe('flow exception', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(cmp.flow, 'run').and.callFake(function (callback) {
               callback('something bad happened');
             });
@@ -76,6 +84,9 @@ describe('JS', function () {
           });
 
           it('runs the typechecker', function () {
+            if (!cmp) {
+              return;
+            }
             expect(cmp.flow.run).toHaveBeenCalledWith(jasmine.any(Function));
           });
 
@@ -84,6 +95,9 @@ describe('JS', function () {
           });
 
           it('does not run the linter', function () {
+            if (!cmp) {
+              return;
+            }
             expect(cmp.linter.run).not.toHaveBeenCalled();
           });
 
@@ -92,6 +106,9 @@ describe('JS', function () {
         describe('flow failure to typecheck', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(cmp.flow, 'run').and.callFake(function (callback) {
               callback(null, 'invalid code');
             });
@@ -103,6 +120,9 @@ describe('JS', function () {
           });
 
           it('does not run the linter', function () {
+            if (!cmp) {
+              return;
+            }
             expect(cmp.linter.run).not.toHaveBeenCalled();
           });
 
@@ -113,6 +133,9 @@ describe('JS', function () {
       describe('flow success', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp.flow, 'run').and.callFake(function (callback) {
             callback(null, 'No errors!');
           });
@@ -121,6 +144,9 @@ describe('JS', function () {
         describe('linter failure', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
               callback([
                 {message: 'error message', ruleId: 'rule id', filePath: 'some file', line: 3, column: 2},
@@ -131,6 +157,9 @@ describe('JS', function () {
           });
 
           it('runs the linter', function () {
+            if (!cmp) {
+              return;
+            }
             expect(cmp.linter.run).toHaveBeenCalledWith(['/lint/this/directory/too', '/path/to/a/file.js'],
                                                         jasmine.any(Function));
           });
@@ -153,6 +182,9 @@ describe('JS', function () {
         describe('linter success', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
               callback();
             });
@@ -170,11 +202,17 @@ describe('JS', function () {
       describe('feDev', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(cmp, 'webCompile');
           cmp.feDev('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy);
         });
 
         it('calls webCompile', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js', spy,
                                                       true);
         });
@@ -245,8 +283,6 @@ describe('JS', function () {
     });
 
     describe('feProd', function () {
-
-      /* @noflow */
       let cmp, JS;
 
       beforeEach(function () {
@@ -263,6 +299,9 @@ describe('JS', function () {
       describe('GZIP failure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           spyOn(fs, 'writeFile');
           spyOn(zlib, 'gzip').and.callFake(function (input, callback) {
             callback('GZIP exception');
@@ -272,11 +311,17 @@ describe('JS', function () {
         });
 
         it('calls the validate method', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.js', ['/lint/this/directory/too'],
                                                     jasmine.any(Function));
         });
 
         it('calls the webCompile method', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.webCompile).toHaveBeenCalledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
                                                       jasmine.any(Function), false);
         });
@@ -310,6 +355,9 @@ describe('JS', function () {
         describe('script writeFile failure', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback('failed to write to disk');
             });
@@ -336,6 +384,9 @@ describe('JS', function () {
         describe('map writeFile failure', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback('/path/to/the/output/file.js' === name ? null : 'failed to write the map to disk');
             });
@@ -360,6 +411,9 @@ describe('JS', function () {
         describe('writeFile success', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback();
             });
@@ -382,8 +436,6 @@ describe('JS', function () {
     });
 
     describe('jsNodeCompileFile errors', function () {
-
-      /* @noflow */
       let cmp, JS, jsNodeCompileFile, mkdirp;
 
       beforeEach(function () {
@@ -401,6 +453,9 @@ describe('JS', function () {
       });
 
       it('calls the validate method', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.js', ['/lint/this/directory/too'],
                                                   jasmine.any(Function));
       });
@@ -460,8 +515,6 @@ describe('JS', function () {
       });
 
       describe('mkdirp success', function () {
-
-        /* @noflow */
         let cmp, JS, mkdirp;
 
         beforeEach(function () {
@@ -478,6 +531,9 @@ describe('JS', function () {
         describe('writeFile failure', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback('failed to write to disk');
             });
@@ -502,6 +558,9 @@ describe('JS', function () {
         describe('writeFile success', function () {
 
           beforeEach(function () {
+            if (!cmp) {
+              return;
+            }
             spyOn(fs, 'writeFile').and.callFake(function (name, content, callback) {
               callback();
             });
@@ -523,8 +582,6 @@ describe('JS', function () {
     });
 
     describe('jsNodeCompileDir errors', function () {
-
-      /* @noflow */
       let cmp, JS, jsNodeCompileDir;
 
       beforeEach(function () {
@@ -540,6 +597,9 @@ describe('JS', function () {
       });
 
       it('calls the validate method', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.validate).toHaveBeenCalledWith('/path/to/the/input/file.js', ['/lint/this/directory/too'],
                                                   jasmine.any(Function));
       });

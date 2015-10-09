@@ -2,6 +2,7 @@
 
 import {
   NativeProcess as TestNativeProcess,
+  watch as testWatch,
   JS as TestJS,
   SASS as TestSASS,
   DevServer as TestDevServer,
@@ -17,6 +18,7 @@ import {
 } from '../lib';
 
 import NativeProcess from '../lib/NativeProcess';
+import watch from '../lib/watch';
 import JS from '../lib/JS';
 import SASS from '../lib/SASS';
 import DevServer from '../lib/DevServer';
@@ -34,6 +36,10 @@ describe('index', function () {
 
   it('re-exports NativeProcess', function () {
     expect(TestNativeProcess).toBe(NativeProcess);
+  });
+
+  it('re-exports watch', function () {
+    expect(testWatch).toBe(watch);
   });
 
   it('re-exports JS', function () {

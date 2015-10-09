@@ -4,8 +4,6 @@ import JSLint from '../lib/JSLint';
 import {CLIEngine} from 'eslint';
 
 describe('JSLint', function () {
-
-  /* @noflow */
   let cmp;
 
   it('should contain the linter object', function () {
@@ -27,6 +25,9 @@ describe('JSLint', function () {
     });
 
     it('should invoke the executeOnFiles method of the linter', function () {
+      if (!cmp) {
+        return;
+      }
       spyOn(cmp.linter, 'executeOnFiles').and.returnValue({results: [{messages: []}]});
       cmp.run(['somefile.js', 'somedirectory'], Function.prototype);
       expect(cmp.linter.executeOnFiles).toHaveBeenCalledWith(['somefile.js', 'somedirectory']);
@@ -40,6 +41,9 @@ describe('JSLint', function () {
       });
 
       it('should return an array of error objects on linter error', function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp.linter, 'executeOnFiles').and.returnValue({results: [
           {filePath: 'first file', messages: [
             {message: 'error message', ruleId: 'some rule', line: 1, column: 3}
@@ -52,6 +56,9 @@ describe('JSLint', function () {
       });
 
       it('should return null if everything is OK', function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp.linter, 'executeOnFiles').and.returnValue({results: [{messages: []}]});
         cmp.run([], callback);
         expect(callback).toHaveBeenCalledWith(null);

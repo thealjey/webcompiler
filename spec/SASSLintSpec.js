@@ -9,8 +9,6 @@ const config = path.join(__dirname, '..', 'config', 'scsslint.yml');
 describe('SASSLint', function () {
 
   describe('no excludes', function () {
-
-    /* @noflow */
     let cmp;
 
     beforeEach(function () {
@@ -18,15 +16,24 @@ describe('SASSLint', function () {
     });
 
     it('contains an empty exclude list', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.excludeLinter).toBe('');
     });
 
     it('includes a correct NativeProcess instance', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.proc instanceof NativeProcess).toBeTruthy();
       expect(cmp.proc.task).toBe('scss-lint');
     });
 
     it('invokes proc.run', function () {
+      if (!cmp) {
+        return;
+      }
       function callback() {}
 
       spyOn(cmp.proc, 'run');
@@ -37,8 +44,6 @@ describe('SASSLint', function () {
   });
 
   describe('exclude some linters', function () {
-
-    /* @noflow */
     let cmp;
 
     beforeEach(function () {
@@ -46,10 +51,16 @@ describe('SASSLint', function () {
     });
 
     it('contains a comma-separated exclude list', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.excludeLinter).toBe('QualifyingElement,PlaceholderInExtend');
     });
 
     it('supplies proc.run with the list of excluded linters', function () {
+      if (!cmp) {
+        return;
+      }
       function callback() {}
 
       spyOn(cmp.proc, 'run');

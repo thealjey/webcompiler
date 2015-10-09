@@ -10,6 +10,10 @@ var _NativeProcess = require('./NativeProcess');
 
 var _NativeProcess2 = _interopRequireDefault(_NativeProcess);
 
+var _watch = require('./watch');
+
+var _watch2 = _interopRequireDefault(_watch);
+
 var _JS = require('./JS');
 
 var _JS2 = _interopRequireDefault(_JS);
@@ -59,6 +63,7 @@ var _cssMin = require('./cssMin');
 var _cssMin2 = _interopRequireDefault(_cssMin);
 
 exports.NativeProcess = _NativeProcess2['default'];
+exports.watch = _watch2['default'];
 exports.JS = _JS2['default'];
 exports.SASS = _SASS2['default'];
 exports.DevServer = _DevServer2['default'];

@@ -4,8 +4,6 @@ import NativeProcess from '../lib/NativeProcess';
 import proc from 'child_process';
 
 describe('NativeProcess', function () {
-
-  /* @noflow */
   let np, on, stdoutOn, stderrOn, kill;
 
   beforeEach(function () {
@@ -23,6 +21,9 @@ describe('NativeProcess', function () {
     });
 
     it('kills the process leftover from the previous run', function () {
+      if (!np) {
+        return;
+      }
       np.run(Function.prototype);
       expect(kill).not.toHaveBeenCalled();
       np.run(Function.prototype);
@@ -32,6 +33,9 @@ describe('NativeProcess', function () {
     describe('sample arguments', function () {
 
       beforeEach(function () {
+        if (!np) {
+          return;
+        }
         np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
       });
 
@@ -54,6 +58,9 @@ describe('NativeProcess', function () {
     });
 
     it('returns process response', function () {
+      if (!on || !np) {
+        return;
+      }
       const callback = jasmine.createSpy('callback');
 
       np.run(callback);
@@ -72,11 +79,17 @@ describe('NativeProcess', function () {
     });
 
     it('calls stdoutOn', function () {
+      if (!np) {
+        return;
+      }
       np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
       expect(stdoutOn).toHaveBeenCalledWith('data', jasmine.any(Function));
     });
 
     it('returns process response', function () {
+      if (!np || !stdoutOn || !on) {
+        return;
+      }
       const callback = jasmine.createSpy('callback');
 
       np.run(callback);
@@ -102,11 +115,17 @@ describe('NativeProcess', function () {
     });
 
     it('calls stderrOn', function () {
+      if (!np) {
+        return;
+      }
       np.run(Function.prototype, ['sample', 'arguments'], {something: 'here'});
       expect(stderrOn).toHaveBeenCalledWith('data', jasmine.any(Function));
     });
 
     it('returns process response', function () {
+      if (!stderrOn || !on || !np) {
+        return;
+      }
       const callback = jasmine.createSpy('callback');
 
       np.run(callback);

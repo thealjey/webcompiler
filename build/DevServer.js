@@ -1,6 +1,3 @@
-
-
-/* @noflow */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -13,11 +10,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _simpleRecursiveWatch = require('simple-recursive-watch');
-
 var _SASS = require('./SASS');
 
 var _SASS2 = _interopRequireDefault(_SASS);
+
+var _watch = require('./watch');
+
+var _watch2 = _interopRequireDefault(_watch);
 
 var _tinyLr = require('tiny-lr');
 
@@ -50,11 +49,11 @@ var _path = require('path');
  * import {DevServer} from 'webcompiler';
  * import {join} from 'path';
  *
- * let rootDir = join(__dirname, '..'),
+ * const rootDir = join(__dirname, '..'),
  *     devDir = join(rootDir, 'development'),
  *     server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
  *
- * server.run(rootDir, 'bin', 'build', 'docs', 'lib', 'node_modules', 'spec');
+ * server.run(rootDir);
  * // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )
  */
 
@@ -151,10 +150,9 @@ var DevServer = (function () {
    * @memberof DevServer
    * @instance
    * @method watchSASS
-   * @param {string}    watchDir - the directory in which to watch for the changes in the SASS files
-   * @param {...string} exclude  - file/directory names to exclude from watching for the changes in the SASS files
+   * @param {string} watchDir - the directory in which to watch for the changes in the SASS files
    * @example
-   * server.watchSASS('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');
+   * server.watchSASS('/path/to/some/directory');
    */
 
   _createClass(DevServer, [{
@@ -162,12 +160,7 @@ var DevServer = (function () {
     value: function watchSASS(watchDir) {
       this.lr.listen(35729);
       this.compileSASS();
-
-      for (var _len = arguments.length, exclude = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        exclude[_key - 1] = arguments[_key];
-      }
-
-      _simpleRecursiveWatch.DirectoryWatcher.watch.apply(_simpleRecursiveWatch.DirectoryWatcher, [watchDir, 'scss', this.compileSASS].concat(exclude));
+      (0, _watch2['default'])(watchDir, 'scss', this.compileSASS);
     }
 
     /**
@@ -199,20 +192,14 @@ var DevServer = (function () {
      * @instance
      * @method run
      * @param {string}    watchDir - the directory in which to watch for the changes in the SASS files
-     * @param {...string} exclude  - file/directory names to exclude from watching for the changes in the SASS files
      * @example
-     * server.run('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');
+     * server.run('/path/to/some/directory');
      */
   }, {
     key: 'run',
     value: function run(watchDir) {
       this.watchJS();
-
-      for (var _len2 = arguments.length, exclude = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        exclude[_key2 - 1] = arguments[_key2];
-      }
-
-      this.watchSASS.apply(this, [watchDir].concat(exclude));
+      this.watchSASS(watchDir);
     }
   }]);
 

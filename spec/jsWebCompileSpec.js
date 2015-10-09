@@ -10,8 +10,6 @@ describe('jsWebCompile', function () {
   });
 
   describe('should pass correct options to webpack', function () {
-
-    /* @noflow */
     let jsWebCompile;
 
     beforeEach(function () {
@@ -19,6 +17,9 @@ describe('jsWebCompile', function () {
     });
 
     it('configures for production', function () {
+      if (!jsWebCompile) {
+        return;
+      }
       jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype);
       expect(spy).toHaveBeenCalledWith({
         cache: {},
@@ -38,6 +39,9 @@ describe('jsWebCompile', function () {
     });
 
     it('configures for development', function () {
+      if (!jsWebCompile) {
+        return;
+      }
       jsWebCompile('/path/to/the/input/file.js', '/path/to/the/output/file.js', Function.prototype, true);
       expect(spy).toHaveBeenCalledWith({
         cache: {},

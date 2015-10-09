@@ -1,7 +1,5 @@
 /* @flow */
 
-/* @noflow */
-import {DirectoryWatcher} from 'simple-recursive-watch';
 import proxyquire from 'proxyquire';
 
 class SASS {
@@ -50,15 +48,14 @@ class HotModuleReplacementPlugin {}
 class NoErrorsPlugin {}
 
 describe('DevServer', function () {
-
-  /* @noflow */
-  let DevServer, cmp, tinylr, webpack, srv, send;
+  let DevServer, cmp, tinylr, webpack, srv, send, watch;
 
   beforeEach(function () {
     srv = new Server();
     tinylr = jasmine.createSpy('tinylr').and.returnValue(srv);
     webpack = jasmine.createSpy('webpack').and.returnValue('the webpack module bundler');
     send = jasmine.createSpy('send');
+    watch = jasmine.createSpy('watch');
 
     /* eslint-disable id-length */
     webpack.HotModuleReplacementPlugin = HotModuleReplacementPlugin;
@@ -67,26 +64,36 @@ describe('DevServer', function () {
     webpack.NoErrorsPlugin = NoErrorsPlugin;
     spyOn(SASS.prototype.feDev, 'bind').and.callThrough();
     spyOn(WebpackDevServer.prototype.app, 'get').and.callThrough();
-    DevServer = proxyquire('../lib/DevServer', {'./SASS': SASS, 'tiny-lr': tinylr,
+    DevServer = proxyquire('../lib/DevServer', {'./SASS': SASS, './watch': watch, 'tiny-lr': tinylr,
                                                 'webpack-dev-server': WebpackDevServer, webpack});
   });
 
   describe('non-react', function () {
 
     beforeEach(function () {
+      /* @noflow */
       cmp = new DevServer('/path/to/a/script/file.js', '/path/to/a/style/file.scss',
                           '/path/to/the/development/directory', 8000, false);
     });
 
     it('assigns a port number', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.port).toBe(8000);
     });
 
     it('constructs a LiveReload server instance', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.lr).toBe(srv);
     });
 
     it('binds the sass compiler', function () {
+      if (!cmp) {
+        return;
+      }
       expect(SASS.prototype.feDev.bind).toHaveBeenCalledWith(jasmine.any(SASS), '/path/to/a/style/file.scss',
                                                              '/path/to/the/development/directory/style.css',
                                                              jasmine.any(Function));
@@ -94,6 +101,9 @@ describe('DevServer', function () {
     });
 
     it('invokes notifies LiveReload when SASS is recompiled', function () {
+      if (!cmp) {
+        return;
+      }
       spyOn(cmp.lr, 'changed');
       cmp.compileSASS();
       expect(cmp.lr.changed).toHaveBeenCalledWith({body: {files: ['style.css']}});
@@ -129,6 +139,9 @@ describe('DevServer', function () {
     });
 
     it('instantiates WebpackDevServer', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.server).toEqual(jasmine.any(WebpackDevServer));
       expect(cmp.server.webpackInstance).toBe('the webpack module bundler');
       expect(cmp.server.config).toEqual({
@@ -140,6 +153,9 @@ describe('DevServer', function () {
     });
 
     it('creates the index route', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.server.app.get).toHaveBeenCalledWith('*', jasmine.any(Function));
       cmp.server.app.handler(null, {send});
       expect(send).toHaveBeenCalledWith(`<!DOCTYPE html>
@@ -163,8 +179,13 @@ describe('DevServer', function () {
   describe('react', function () {
 
     beforeEach(function () {
+      if (!cmp) {
+        return;
+      }
       spyOn(console, 'log');
       spyOn(console, 'error');
+
+      /* @noflow */
       cmp = new DevServer('/path/to/a/script/file.js', '/path/to/a/style/file.scss',
                           '/path/to/the/development/directory');
     });
@@ -201,24 +222,33 @@ describe('DevServer', function () {
     describe('watchSASS', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp.lr, 'listen');
         spyOn(cmp, 'compileSASS');
-        spyOn(DirectoryWatcher, 'watch');
-        cmp.watchSASS('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');
+        cmp.watchSASS('/path/to/some/directory');
       });
 
       it('starts up LiveReload', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.lr.listen).toHaveBeenCalledWith(35729);
       });
 
       it('compiles SASS on start up', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.compileSASS).toHaveBeenCalled();
       });
 
       it('starts up the watcher', function () {
-        expect(DirectoryWatcher.watch).toHaveBeenCalledWith('/path/to/some/directory', 'scss', cmp.compileSASS,
-                                                            'node_modules', 'spec', 'docs', 'config', 'bin', 'build',
-                                                            'coverage');
+        if (!cmp) {
+          return;
+        }
+        expect(watch).toHaveBeenCalledWith('/path/to/some/directory', 'scss', cmp.compileSASS);
       });
 
     });
@@ -226,6 +256,9 @@ describe('DevServer', function () {
     describe('watchJS start up error', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp.server, 'listen').and.callFake(function (port, host, callback) {
           callback('something bad happened');
         });
@@ -233,6 +266,9 @@ describe('DevServer', function () {
       });
 
       it('invokes the server listen method', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.server.listen).toHaveBeenCalledWith(3000, '0.0.0.0', jasmine.any(Function));
       });
 
@@ -249,6 +285,9 @@ describe('DevServer', function () {
     describe('watchJS success', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp.server, 'listen').and.callFake(function (port, host, callback) {
           callback();
         });
@@ -268,18 +307,26 @@ describe('DevServer', function () {
     describe('run', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp, 'watchJS');
         spyOn(cmp, 'watchSASS');
-        cmp.run('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config', 'bin', 'build', 'coverage');
+        cmp.run('/path/to/some/directory');
       });
 
       it('invokes the watchJS method', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.watchJS).toHaveBeenCalled();
       });
 
       it('invokes the watchSASS method', function () {
-        expect(cmp.watchSASS).toHaveBeenCalledWith('/path/to/some/directory', 'node_modules', 'spec', 'docs', 'config',
-                                                   'bin', 'build', 'coverage');
+        if (!cmp) {
+          return;
+        }
+        expect(cmp.watchSASS).toHaveBeenCalledWith('/path/to/some/directory');
       });
 
     });
