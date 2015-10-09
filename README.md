@@ -3,6 +3,7 @@
 NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 
 [Project Home](https://github.com/thealjey/webcompiler)
+|
 [API Docs](https://thealjey.github.io/webcompiler)
 
 [![Build Status](https://travis-ci.org/thealjey/webcompiler.svg?branch=master)](https://travis-ci.org/thealjey/webcompiler)
