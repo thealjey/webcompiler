@@ -2,6 +2,9 @@
 *Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as
 NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 
+[Project Home](https://github.com/thealjey/webcompiler)
+[API Docs](https://thealjey.github.io/webcompiler)
+
 [![Build Status](https://travis-ci.org/thealjey/webcompiler.svg?branch=master)](https://travis-ci.org/thealjey/webcompiler)
 [![Coverage Status](https://coveralls.io/repos/thealjey/webcompiler/badge.svg?branch=master&service=github)](https://coveralls.io/github/thealjey/webcompiler?branch=master)
 [![Code Climate](https://codeclimate.com/github/thealjey/webcompiler/badges/gpa.svg)](https://codeclimate.com/github/thealjey/webcompiler)
@@ -39,11 +42,6 @@ suppress_comment=.*@noflow.*
 ```
 npm i webcompiler --save
 ```
-
-### API Documentation
-
-To get better acquainted with the available tools feel free to skim through the auto-generated
-[API Docs](https://rawgit.com/thealjey/webcompiler/master/docs/index.html).
 
 ### Exposes 2 main classes
 

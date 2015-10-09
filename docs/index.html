@@ -45,6 +45,8 @@
     <section>
         <article><h1>webcompiler</h1><p><em>Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as
 NodeJS; lint, compile, auto-prefix, minify and gzip SASS.</em></p>
+<p><a href="https://github.com/thealjey/webcompiler">Project Home</a>
+<a href="https://thealjey.github.io/webcompiler">API Docs</a></p>
 <p><a href="https://travis-ci.org/thealjey/webcompiler"><img src="https://travis-ci.org/thealjey/webcompiler.svg?branch=master" alt="Build Status"></a>
 <a href="https://coveralls.io/github/thealjey/webcompiler?branch=master"><img src="https://coveralls.io/repos/thealjey/webcompiler/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a>
 <a href="https://codeclimate.com/github/thealjey/webcompiler"><img src="https://codeclimate.com/github/thealjey/webcompiler/badges/gpa.svg" alt="Code Climate"></a>
@@ -70,9 +72,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.</em></p>
 [libs]
 
 [options]
-suppress_comment=.*@noflow.*</code></pre><h3>Installation</h3><pre class="prettyprint source"><code>npm i webcompiler --save</code></pre><h3>API Documentation</h3><p>To get better acquainted with the available tools feel free to skim through the auto-generated
-<a href="https://rawgit.com/thealjey/webcompiler/master/docs/index.html">API Docs</a>.</p>
-<h3>Exposes 2 main classes</h3><p><code>JS</code> - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS</p>
+suppress_comment=.*@noflow.*</code></pre><h3>Installation</h3><pre class="prettyprint source"><code>npm i webcompiler --save</code></pre><h3>Exposes 2 main classes</h3><p><code>JS</code> - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS</p>
 <pre class="prettyprint source"><code>interface JS {
   constructor(lintRules: Object = {});
   validate(inPath: string, lintPaths: Array&lt;string>, callback: Function);

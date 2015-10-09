@@ -7,12 +7,20 @@
     "test": "babel-istanbul cover --root lib --print detail --include-all-sources --include-babel-polyfill jasmine",
     "lint": "eslint ./",
     "build": "babel-node bin/build",
-    "release": "release"
+    "release": "release",
+    "postpublish": "git subtree push --prefix docs origin gh-pages"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thealjey/webcompiler.git"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "build",
+    "config"
+  ],
   "keywords": [
     "lint",
     "typecheck",
@@ -33,7 +41,7 @@
   "bugs": {
     "url": "https://github.com/thealjey/webcompiler/issues"
   },
-  "homepage": "https://github.com/thealjey/webcompiler#readme",
+  "homepage": "https://thealjey.github.io/webcompiler",
   "dependencies": {
     "autoprefixer": "^6.0.3",
     "babel": "^5.8.23",
