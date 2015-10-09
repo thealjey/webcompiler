@@ -1,3 +1,14 @@
+v2.0.0 - Fri, 09 Oct 2015 21:37:12 GMT
+--------------------------------------
+
+- [15d1079](../../commit/15d1079) [added] postpublish hook that automatically pushes the generated docs
+- [9bee23b](../../commit/9bee23b) [added] updated readme to include a mention about the Watchman requirement
+- [84fa46e](../../commit/84fa46e) [fixed] jsWebCompile improved performance in development mode, advanced optimizations in production
+- [9d0ab0b](../../commit/9d0ab0b) [added] a watch method based on Facebook Watchman as a replacement for the soon to be deprecated simple-recursive-watch
+- [9130266](../../commit/9130266) [added] gitignore rule for .idea
+
+
+
 v1.5.4 - Wed, 07 Oct 2015 09:09:19 GMT
 --------------------------------------
 
