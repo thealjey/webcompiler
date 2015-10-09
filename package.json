@@ -8,7 +8,7 @@
     "lint": "eslint ./",
     "build": "babel-node bin/build",
     "release": "release",
-    "postpublish": "git push origin `git subtree split --prefix build_folder master`:gh-pages --force"
+    "postpublish": "git push origin `git subtree split --prefix docs master`:gh-pages --force"
   },
   "repository": {
     "type": "git",
