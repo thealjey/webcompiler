@@ -15,6 +15,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 
 1. [Facebook Flow](http://flowtype.org/)
 2. [SCSS-Lint](https://github.com/brigade/scss-lint)
+2. [Watchman](https://facebook.github.io/watchman/)
 
 Important! Create a .flowconfig file at the root of your project with the following contents:
 
