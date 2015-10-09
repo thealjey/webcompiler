@@ -59,6 +59,7 @@
   },
   "peerDependencies": {
     "babel-loader": "5.x",
+    "babel-runtime": "5.x",
     "react-hot-loader": "1.x"
   },
   "devDependencies": {

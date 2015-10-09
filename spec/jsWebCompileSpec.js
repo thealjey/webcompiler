@@ -32,7 +32,13 @@ describe('jsWebCompile', function () {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-            query: {optional: 'runtime', loose: 'all', cacheDirectory: true}
+            query: {
+              optional: ['runtime', 'minification.deadCodeElimination', 'minification.constantFolding',
+                'minification.memberExpressionLiterals', 'minification.propertyLiterals',
+                'optimisation.react.inlineElements', 'optimisation.react.constantElements'],
+              loose: 'all',
+              cacheDirectory: true
+            }
           }]
         }
       }, jasmine.any(Function));
@@ -54,7 +60,7 @@ describe('jsWebCompile', function () {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-            query: {optional: 'runtime', loose: 'all', cacheDirectory: true}
+            query: {optional: [], loose: 'all', cacheDirectory: true}
           }]
         }
       }, jasmine.any(Function));
