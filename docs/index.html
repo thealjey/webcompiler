@@ -73,7 +73,14 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.</em></p>
 [libs]
 
 [options]
-suppress_comment=.*@noflow.*</code></pre><h3>Installation</h3><pre class="prettyprint source"><code>npm i webcompiler --save</code></pre><h3>Exposes 2 main classes</h3><p><code>JS</code> - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS</p>
+suppress_comment=.*@noflow.*</code></pre><h3>Installation</h3><pre class="prettyprint source"><code>npm i webcompiler --save</code></pre><h3>Exposes 3 main classes</h3><p><code>DevServer</code> - A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are
+              edited and updates the page.</p>
+<pre class="prettyprint source"><code>interface DevServer {
+  constructor(script: string, style: string, devDir: string, port: number = 3000, react: boolean = true);
+  watchSASS(watchDir: string);
+  watchJS();
+  run(watchDir: string);
+}</code></pre><p><code>JS</code> - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS</p>
 <pre class="prettyprint source"><code>interface JS {
   constructor(lintRules: Object = {});
   validate(inPath: string, lintPaths: Array&lt;string>, callback: Function);
@@ -88,39 +95,32 @@ suppress_comment=.*@noflow.*</code></pre><h3>Installation</h3><pre class="pretty
   feDev(inPath: string, outPath: string, callback: Function, ...lintPaths: Array&lt;string>);
   feProd(inPath: string, outPath: string, callback: Function, ...lintPaths: Array&lt;string>);
 }</code></pre><h3>Arguments</h3><ol>
+<li><code>script</code> - a full system path to a JavaScript file</li>
+<li><code>style</code> - a full system path to a SASS file</li>
+<li><code>devDir</code> - a full system path to a directory in which to put any compiled development resources</li>
+<li><code>port</code> - a port at which to start the dev server</li>
+<li><code>react</code> - false to disable the react hot loader plugin</li>
+<li><code>watchDir</code> - the directory in which to watch for the changes in the SASS files</li>
 <li><code>inPath</code> - a full system path to the input file/directory</li>
 <li><code>outPath</code> - a full system path to the output file/directory</li>
 <li><code>callback</code> - a callback function, executed after the successful compilation</li>
 <li><code>lintPaths</code> - paths to files/directories to lint (the input file is included automatically)</li>
 </ol>
-<h3>Example usage</h3><pre class="prettyprint source lang-javascript"><code>import {JS} from 'webcompiler';
-import {DirectoryWatcher} from 'simple-recursive-watch';
+<h3>Example usage</h3><pre class="prettyprint source lang-javascript"><code>import {DevServer} from 'webcompiler';
 import {join} from 'path';
-import tinylr from 'tiny-lr';
 
-var compiler = new JS(),
-    lr = tinylr(),
-    libDir = join(__dirname, 'lib'),
-    webJS = compiler.feDev.bind(compiler,
-      join(libDir, 'app.js'),
-      join(__dirname, 'public', 'script.js'),
-      function () {
-        // notify LiveReload of the file change
-        lr.changed({body: {files: ['script.js']}});
-      }, libDir);
+const rootDir = join(__dirname, '..'),
+    devDir = join(rootDir, 'development'),
+    server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
 
-lr.listen(35729);
-
-// compile at startup
-webJS();
-// automatically invoke the same compiler if any of the JavaScript files change
-DirectoryWatcher.watch(libDir, 'js', webJS);</code></pre><h3>Important!</h3><p>The resulting JavaScript and CSS files from <code>feProd</code> are gzip compressed for performance
+server.run(rootDir);</code></pre><h3>Important!</h3><p>The resulting JavaScript and CSS files from <code>feProd</code> are gzip compressed for performance
 (see <a href="https://developer.yahoo.com/performance/rules.html#gzip">Gzip Components</a>), so make sure to provide a
 <strong>&quot;Content-Encoding&quot;</strong> header to the browser (e.g. <code>res.setHeader('Content-Encoding', 'gzip');</code>).</p>
 <h3>Additional info</h3><ol>
 <li><a href="https://github.com/eslint/eslint">ESLint</a>, <a href="https://github.com/babel/babel-eslint">babel-eslint</a>,
-<a href="https://github.com/babel/eslint-plugin-babel">eslint-plugin-babel</a> and
-<a href="https://github.com/yannickcr/eslint-plugin-react">ESLint-plugin-React</a> are used to lint the JavaScript</li>
+<a href="https://github.com/babel/eslint-plugin-babel">ESLint-plugin-Babel</a>,
+<a href="https://github.com/yannickcr/eslint-plugin-react">ESLint-plugin-React</a> and
+<a href="https://github.com/yannickcr/eslint-plugin-react">ESLint-plugin-Lodash</a> are used to lint the JavaScript</li>
 <li><a href="http://flowtype.org/">Facebook Flow</a> is used to type-check the JavaScript</li>
 <li><a href="https://babeljs.io/">Babel</a> is used to compile the JavaScript</li>
 <li><a href="http://webpack.github.io/">webpack</a> is used to package the JavaScript</li>
@@ -131,6 +131,7 @@ are used to compile SASS</li>
 <li><a href="https://github.com/postcss/postcss">PostCSS</a> and <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a>
 are used to automatically add the browser vendor prefixes to the generated CSS</li>
 <li><a href="https://github.com/jakubpawlowicz/clean-css">Clean-css</a> is used to compress the CSS</li>
+<li><a href="https://facebook.github.io/watchman/">Watchman</a> is used to watch for directory changes</li>
 </ol></article>
     </section>
 

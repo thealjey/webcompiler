@@ -60,8 +60,8 @@
     "node-sass": "^3.3.3",
     "node-sass-import-once": "^1.2.0",
     "postcss": "^5.0.9",
-    "tiny-lr": "^0.2.0",
-    "uglify-js": "^2.4.24",
+    "tiny-lr": "^0.2.1",
+    "uglify-js": "^2.5.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
   },

@@ -44,7 +44,19 @@ suppress_comment=.*@noflow.*
 npm i webcompiler --save
 ```
 
-### Exposes 2 main classes
+### Exposes 3 main classes
+
+`DevServer` - A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are
+              edited and updates the page.
+
+```
+interface DevServer {
+  constructor(script: string, style: string, devDir: string, port: number = 3000, react: boolean = true);
+  watchSASS(watchDir: string);
+  watchJS();
+  run(watchDir: string);
+}
+```
 
 `JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS
 
@@ -71,36 +83,28 @@ interface SASS {
 
 ### Arguments
 
-1. `inPath` - a full system path to the input file/directory
-2. `outPath` - a full system path to the output file/directory
-3. `callback` - a callback function, executed after the successful compilation
-4. `lintPaths` - paths to files/directories to lint (the input file is included automatically)
+1. `script` - a full system path to a JavaScript file
+2. `style` - a full system path to a SASS file
+3. `devDir` - a full system path to a directory in which to put any compiled development resources
+4. `port` - a port at which to start the dev server
+5. `react` - false to disable the react hot loader plugin
+6. `watchDir` - the directory in which to watch for the changes in the SASS files
+7. `inPath` - a full system path to the input file/directory
+8. `outPath` - a full system path to the output file/directory
+9. `callback` - a callback function, executed after the successful compilation
+10. `lintPaths` - paths to files/directories to lint (the input file is included automatically)
 
 ### Example usage
 
 ```javascript
-import {JS} from 'webcompiler';
-import {DirectoryWatcher} from 'simple-recursive-watch';
+import {DevServer} from 'webcompiler';
 import {join} from 'path';
-import tinylr from 'tiny-lr';
 
-var compiler = new JS(),
-    lr = tinylr(),
-    libDir = join(__dirname, 'lib'),
-    webJS = compiler.feDev.bind(compiler,
-      join(libDir, 'app.js'),
-      join(__dirname, 'public', 'script.js'),
-      function () {
-        // notify LiveReload of the file change
-        lr.changed({body: {files: ['script.js']}});
-      }, libDir);
+const rootDir = join(__dirname, '..'),
+    devDir = join(rootDir, 'development'),
+    server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
 
-lr.listen(35729);
-
-// compile at startup
-webJS();
-// automatically invoke the same compiler if any of the JavaScript files change
-DirectoryWatcher.watch(libDir, 'js', webJS);
+server.run(rootDir);
 ```
 
 ### Important!
@@ -112,8 +116,9 @@ The resulting JavaScript and CSS files from `feProd` are gzip compressed for per
 ### Additional info
 
 1. [ESLint](https://github.com/eslint/eslint), [babel-eslint](https://github.com/babel/babel-eslint),
-[eslint-plugin-babel](https://github.com/babel/eslint-plugin-babel) and
-[ESLint-plugin-React](https://github.com/yannickcr/eslint-plugin-react) are used to lint the JavaScript
+[ESLint-plugin-Babel](https://github.com/babel/eslint-plugin-babel),
+[ESLint-plugin-React](https://github.com/yannickcr/eslint-plugin-react) and
+[ESLint-plugin-Lodash](https://github.com/yannickcr/eslint-plugin-react) are used to lint the JavaScript
 2. [Facebook Flow](http://flowtype.org/) is used to type-check the JavaScript
 3. [Babel](https://babeljs.io/) is used to compile the JavaScript
 4. [webpack](http://webpack.github.io/) is used to package the JavaScript
@@ -124,3 +129,4 @@ are used to compile SASS
 8. [PostCSS](https://github.com/postcss/postcss) and [Autoprefixer](https://github.com/postcss/autoprefixer)
 are used to automatically add the browser vendor prefixes to the generated CSS
 9. [Clean-css](https://github.com/jakubpawlowicz/clean-css) is used to compress the CSS
+10. [Watchman](https://facebook.github.io/watchman/) is used to watch for directory changes
