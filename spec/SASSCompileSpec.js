@@ -4,6 +4,8 @@ import SASSCompile from '../lib/SASSCompile';
 import sass from 'node-sass';
 import importer from 'node-sass-import-once';
 
+const precision = 8;
+
 describe('SASSCompile', function () {
 
   describe('no overrides', function () {
@@ -47,7 +49,7 @@ describe('SASSCompile', function () {
           importer,
           importOnce: {index: true, css: false, bower: false, something: 'here'},
           includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules', '/path/to/some/directory'],
-          precision: 8,
+          precision,
           sourceMap: true,
           sourceMapContents: true
         }, jasmine.any(Function));

@@ -3,6 +3,11 @@
 import JSLint from '../lib/JSLint';
 import {CLIEngine} from 'eslint';
 
+const MAX_COMPLEXITY = 4,
+    props = {complexity: [2, MAX_COMPLEXITY]},
+    line = 1,
+    column = 3;
+
 describe('JSLint', function () {
   let cmp;
 
@@ -13,9 +18,9 @@ describe('JSLint', function () {
   });
 
   it('should have easily configurable rules', function () {
-    cmp = new JSLint({complexity: [2, 4]});
+    cmp = new JSLint(props);
 
-    expect(cmp.linter.options.rules).toEqual(jasmine.objectContaining({complexity: [2, 4]}));
+    expect(cmp.linter.options.rules).toEqual(jasmine.objectContaining(props));
   });
 
   describe('when invoking run', function () {
@@ -46,12 +51,12 @@ describe('JSLint', function () {
         }
         spyOn(cmp.linter, 'executeOnFiles').and.returnValue({results: [
           {filePath: 'first file', messages: [
-            {message: 'error message', ruleId: 'some rule', line: 1, column: 3}
+            {message: 'error message', ruleId: 'some rule', line, column}
           ]}
         ]});
         cmp.run([], callback);
         expect(callback).toHaveBeenCalledWith([
-          {message: 'error message', ruleId: 'some rule', filePath: 'first file', line: 1, column: 3}
+          {message: 'error message', ruleId: 'some rule', filePath: 'first file', line, column}
         ]);
       });
 

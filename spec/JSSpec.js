@@ -6,6 +6,14 @@ import JSLint from '../lib/JSLint';
 import zlib from 'zlib';
 import fs from 'fs';
 
+const ERROR_COUNT = 3,
+    LINE1 = 3,
+    COLUMN1 = 2,
+    LINE2 = 12,
+    COLUMN2 = 5,
+    MAX_COMPLEXITY = 4,
+    props = {complexity: [2, MAX_COMPLEXITY]};
+
 describe('JS', function () {
   let jsMin;
 
@@ -20,7 +28,7 @@ describe('JS', function () {
       JS = require('../lib/JS');
 
       /* @noflow */
-      cmp = new JS({complexity: [2, 4]});
+      cmp = new JS(props);
     });
 
     it('configures Flow', function () {
@@ -36,9 +44,7 @@ describe('JS', function () {
         return;
       }
       expect(cmp.linter).toEqual(jasmine.any(JSLint));
-      expect(cmp.linter.linter.options.rules).toEqual(jasmine.objectContaining({
-        complexity: [2, 4]
-      }));
+      expect(cmp.linter.linter.options.rules).toEqual(jasmine.objectContaining(props));
     });
 
   });
@@ -149,8 +155,8 @@ describe('JS', function () {
             }
             spyOn(cmp.linter, 'run').and.callFake(function (paths, callback) {
               callback([
-                {message: 'error message', ruleId: 'rule id', filePath: 'some file', line: 3, column: 2},
-                {message: 'error other message', filePath: 'some other file', line: 12, column: 5}
+                {message: 'error message', ruleId: 'rule id', filePath: 'some file', line: LINE1, column: COLUMN1},
+                {message: 'error other message', filePath: 'some other file', line: LINE2, column: COLUMN2}
               ]);
             });
             cmp.validate('/path/to/a/file.js', ['/lint/this/directory/too'], spy);
@@ -167,10 +173,10 @@ describe('JS', function () {
           it('logs the error to console', function () {
             expect(console.log).toHaveBeenCalledWith(
               '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-              'error message', ' (rule id)', 'some file', 3, 2);
+              'error message', ' (rule id)', 'some file', LINE1, COLUMN1);
             expect(console.log).toHaveBeenCalledWith(
               '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-              'error other message', '', 'some other file', 12, 5);
+              'error other message', '', 'some other file', LINE2, COLUMN2);
           });
 
           it('does not invoke the callback', function () {
@@ -249,7 +255,7 @@ describe('JS', function () {
       });
 
       it('does not log the successful message', function () {
-        expect(console.log).toHaveBeenCalledWith('JavaScript compilation errors: %s', 3);
+        expect(console.log).toHaveBeenCalledWith('JavaScript compilation errors: %s', ERROR_COUNT);
         expect(console.log).not.toHaveBeenCalledWith('\x1b[32m%s. Compiled %s\x1b[0m', 1, '/path/to/the/input/file.js');
       });
 

@@ -16,13 +16,14 @@ var _nodeSassImportOnce = require('node-sass-import-once');
 
 var _nodeSassImportOnce2 = _interopRequireDefault(_nodeSassImportOnce);
 
-var options = {
+var precision = 8,
+    options = {
   file: null,
   outFile: null,
   importer: _nodeSassImportOnce2['default'],
   importOnce: { index: true, css: false, bower: false },
   includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
-  precision: 8,
+  precision: precision,
   sourceMap: true,
   sourceMapContents: true
 };

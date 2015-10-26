@@ -11,6 +11,8 @@ var _cleanCss = require('clean-css');
 
 var _cleanCss2 = _interopRequireDefault(_cleanCss);
 
+var roundingPrecision = -1;
+
 /**
  * Minifies CSS
  *
@@ -27,7 +29,7 @@ function cssMin(data) {
   var sourceMappingURL = data.code.match(/\n.+$/)[0],
       result = new _cleanCss2['default']({
     keepSpecialComments: 0,
-    roundingPrecision: -1,
+    roundingPrecision: roundingPrecision,
     sourceMap: data.map,
     sourceMapInlineSources: true
   }).minify(data.code);

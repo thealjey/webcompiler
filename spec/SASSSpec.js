@@ -6,6 +6,10 @@ import SASSCompile from '../lib/SASSCompile';
 import zlib from 'zlib';
 import fs from 'fs';
 
+const ERROR_COUNT = 3,
+    line = 12,
+    column = 8;
+
 describe('SASS', function () {
   let cssMin;
 
@@ -255,7 +259,7 @@ describe('SASS', function () {
             return;
           }
           spyOn(cmp.compiler, 'run').and.callFake(function (inPath, outPath, callback) {
-            callback({message: 'could not compile', file: 'some file', line: 12, column: 8});
+            callback({message: 'could not compile', file: 'some file', line, column});
           });
           cmp.webCompile('/path/to/the/input/file.scss', '/path/to/the/output/file.css', Function.prototype);
         });
@@ -271,7 +275,7 @@ describe('SASS', function () {
         it('prints the error', function () {
           expect(console.log).toHaveBeenCalledWith(
             '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-            'could not compile', 'some file', 12, 8);
+            'could not compile', 'some file', line, column);
         });
 
         it('does not call cssAutoprefix', function () {
@@ -302,7 +306,7 @@ describe('SASS', function () {
           expect(console.error).toHaveBeenCalledWith('something');
           expect(console.error).toHaveBeenCalledWith('bad');
           expect(console.error).toHaveBeenCalledWith('happened');
-          expect(console.log).toHaveBeenCalledWith('CSS auto-prefix errors: %s', 3);
+          expect(console.log).toHaveBeenCalledWith('CSS auto-prefix errors: %s', ERROR_COUNT);
         });
 
         it('does not invoke the callback', function () {

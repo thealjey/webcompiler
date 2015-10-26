@@ -7,7 +7,8 @@ exports['default'] = watch;
 
 var _fbWatchman = require('fb-watchman');
 
-var client = new _fbWatchman.Client();
+var client = new _fbWatchman.Client(),
+    ALPHANUMERIC_BASE = 36;
 
 /**
  * Using the Facebook Watchman, watches the directory "dir" for changes of files with extension "type" and runs
@@ -26,7 +27,7 @@ var client = new _fbWatchman.Client();
  */
 
 function watch(dir, type, callback) {
-  var subscription = Number(Date.now()).toString(36);
+  var subscription = Number(Date.now()).toString(ALPHANUMERIC_BASE);
 
   client.capabilityCheck({}, function (capabilityErr) {
     if (capabilityErr) {

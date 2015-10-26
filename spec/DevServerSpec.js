@@ -2,6 +2,10 @@
 
 import proxyquire from 'proxyquire';
 
+const DEFAULT_WEB_PORT = 3000,
+    WEB_PORT = 8000,
+    LIVERELOAD_PORT = 35729;
+
 class SASS {
 
   feDev(inPath: string, outPath: string, callback: Function) {
@@ -73,14 +77,14 @@ describe('DevServer', function () {
     beforeEach(function () {
       /* @noflow */
       cmp = new DevServer('/path/to/a/script/file.js', '/path/to/a/style/file.scss',
-                          '/path/to/the/development/directory', 8000, false);
+                          '/path/to/the/development/directory', WEB_PORT, false);
     });
 
     it('assigns a port number', function () {
       if (!cmp) {
         return;
       }
-      expect(cmp.port).toBe(8000);
+      expect(cmp.port).toBe(WEB_PORT);
     });
 
     it('constructs a LiveReload server instance', function () {
@@ -234,7 +238,7 @@ describe('DevServer', function () {
         if (!cmp) {
           return;
         }
-        expect(cmp.lr.listen).toHaveBeenCalledWith(35729);
+        expect(cmp.lr.listen).toHaveBeenCalledWith(LIVERELOAD_PORT);
       });
 
       it('compiles SASS on start up', function () {
@@ -269,7 +273,7 @@ describe('DevServer', function () {
         if (!cmp) {
           return;
         }
-        expect(cmp.server.listen).toHaveBeenCalledWith(3000, '0.0.0.0', jasmine.any(Function));
+        expect(cmp.server.listen).toHaveBeenCalledWith(DEFAULT_WEB_PORT, '0.0.0.0', jasmine.any(Function));
       });
 
       it('prints the error on screen', function () {

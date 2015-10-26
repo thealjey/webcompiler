@@ -32,6 +32,9 @@ var _webpack2 = _interopRequireDefault(_webpack);
 
 var _path = require('path');
 
+var LIVERELOAD_PORT = 35729,
+    WEB_PORT = 3000;
+
 /**
  * A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
  * updates the page.
@@ -61,7 +64,7 @@ var DevServer = (function () {
   function DevServer(script, style, devDir) {
     var _this = this;
 
-    var port = arguments.length <= 3 || arguments[3] === undefined ? 3000 : arguments[3];
+    var port = arguments.length <= 3 || arguments[3] === undefined ? WEB_PORT : arguments[3];
     var react = arguments.length <= 4 || arguments[4] === undefined ? true : arguments[4];
 
     _classCallCheck(this, DevServer);
@@ -158,7 +161,7 @@ var DevServer = (function () {
   _createClass(DevServer, [{
     key: 'watchSASS',
     value: function watchSASS(watchDir) {
-      this.lr.listen(35729);
+      this.lr.listen(LIVERELOAD_PORT);
       this.compileSASS();
       (0, _watch2['default'])(watchDir, 'scss', this.compileSASS);
     }

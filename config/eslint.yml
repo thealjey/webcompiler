@@ -101,3 +101,5 @@ rules:
   id-length: 0
   no-negated-condition: 2
   no-mixed-spaces-and-tabs: [ 2, false ]
+  no-magic-numbers: [ 2, { enforceConst: true, detectObjects: true } ]
+  no-empty-pattern: 2

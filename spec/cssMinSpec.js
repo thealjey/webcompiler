@@ -2,6 +2,8 @@
 
 import proxyquire from 'proxyquire';
 
+const roundingPrecision = -1;
+
 let options;
 
 class CleanCSS {
@@ -28,7 +30,7 @@ describe('cssMin', function () {
     result = cssMin({code: "some css rules\nlast line", map: 'source map contents'});
     expect(options).toEqual({
       keepSpecialComments: 0,
-      roundingPrecision: -1,
+      roundingPrecision,
       sourceMap: 'source map contents',
       sourceMapInlineSources: true
     });

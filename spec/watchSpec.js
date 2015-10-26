@@ -2,6 +2,8 @@
 
 import proxyquire from 'proxyquire';
 
+const ALPHANUMERIC_BASE = 36;
+
 class Client {
 
   capabilityCheck() {}
@@ -21,7 +23,7 @@ describe('watch', function () {
       cb();
     });
     callback = jasmine.createSpy('callback');
-    spyOn(Date, 'now').and.returnValue(5);
+    spyOn(Date, 'now');
     spyOn(Number.prototype, 'toString').and.returnValue('qwerty');
     spyOn(console, 'log');
     spyOn(console, 'error');
@@ -40,7 +42,7 @@ describe('watch', function () {
       return;
     }
     watch('qwe', 'rty', Function.prototype);
-    expect(Number.prototype.toString).toHaveBeenCalledWith(36);
+    expect(Number.prototype.toString).toHaveBeenCalledWith(ALPHANUMERIC_BASE);
   });
 
   describe('capabilityCheck error', function () {
