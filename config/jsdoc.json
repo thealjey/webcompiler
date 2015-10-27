@@ -4,5 +4,8 @@
       "outputSourceFiles": false,
       "includeDate": false
     }
+  },
+  "opts": {
+    "template": "../node_modules/minami"
   }
 }

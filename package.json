@@ -57,7 +57,7 @@
     "eslint-plugin-react": "^3.6.3",
     "fb-watchman": "^1.6.0",
     "mkdirp": "^0.5.1",
-    "node-sass": "^3.4.0",
+    "node-sass": "^3.4.1",
     "node-sass-import-once": "^1.2.0",
     "postcss": "^5.0.10",
     "tiny-lr": "^0.2.1",
@@ -75,6 +75,7 @@
     "coveralls": "^2.11.4",
     "jasmine-es6": "^0.0.18",
     "jsdoc": "^3.3.3",
+    "minami": "^1.1.1",
     "mt-changelog": "^0.6.2",
     "proxyquire": "^1.7.3",
     "release-script": "^0.5.4"
