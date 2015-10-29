@@ -1,3 +1,12 @@
+v2.0.8 - Thu, 29 Oct 2015 22:23:47 GMT
+--------------------------------------
+
+- [0f30afe](../../commit/0f30afe) [fixed] updated dependencies
+- [a6414b4](../../commit/a6414b4) [changed] switched from Slack to Discord
+- [129b423](../../commit/129b423) [fixed] webpack noParse in jsWebCompile for any file a path for which contains the word "browser"
+
+
+
 v2.0.7 - Tue, 27 Oct 2015 12:52:49 GMT
 --------------------------------------
 
