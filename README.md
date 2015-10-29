@@ -5,6 +5,8 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [Project Home](https://github.com/thealjey/webcompiler)
 |
 [API Docs](https://thealjey.github.io/webcompiler)
+|
+[Discord](https://discord.gg/0blXIxApyTu9qXno)
 
 [![Build Status](https://travis-ci.org/thealjey/webcompiler.svg?branch=master)](https://travis-ci.org/thealjey/webcompiler)
 [![Coverage Status](https://coveralls.io/repos/thealjey/webcompiler/badge.svg?branch=master&service=github)](https://coveralls.io/github/thealjey/webcompiler?branch=master)
@@ -13,7 +15,6 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [![devDependency Status](https://david-dm.org/thealjey/webcompiler/dev-status.svg)](https://david-dm.org/thealjey/webcompiler#info=devDependencies)
 [![peerDependency Status](https://david-dm.org/thealjey/webcompiler/peer-status.svg)](https://david-dm.org/thealjey/webcompiler#info=peerDependencies)
 [![npm version](https://badge.fury.io/js/webcompiler.svg)](http://badge.fury.io/js/webcompiler)
-[![Slack channel](https://img.shields.io/badge/slack-webcompiler-blue.svg)](https://webcompiler.slack.com/messages/general)
 
 ### Prerequisites
 
