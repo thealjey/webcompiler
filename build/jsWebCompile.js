@@ -20,6 +20,7 @@ var config = {
   entry: '',
   output: { path: '', filename: '' },
   module: {
+    noParse: /browser/,
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
