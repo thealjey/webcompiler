@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: JS</title>
+	<title>Documentation Class: JSCompiler</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -69,13 +69,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: JS</h1>
+	<h1 class="page-title">Class: JSCompiler</h1>
 <section>
 
 <header>
     
         <h2>
-        JS
+        JSCompiler
         </h2>
         
     
@@ -88,7 +88,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="JS"><span class="type-signature"></span>new JS(<span class="optional">babelOptions</span>, <span class="optional">lintRules</span>)</h4>
+    <h4 class="name" id="JSCompiler"><span class="type-signature"></span>new JSCompiler(<span class="optional">options</span>)</h4>
     
     
 </dt>
@@ -96,7 +96,7 @@
 
     
     <div class="description">
-        JavaScript compilation tools
+        A JavaScript compiler
     </div>
     
 
@@ -135,7 +135,7 @@
 
         <tr>
             
-                <td class="name"><code>babelOptions</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -172,46 +172,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>lintRules</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last">allows to override the default linting rules</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -252,8 +212,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JS.js.html">JS.js</a>,
-				 <a href="JS.js.html#sunlight-1-line-10">line 10</a>
+				<a href="JSCompiler.js.html">JSCompiler.js</a>,
+				 <a href="JSCompiler.js.html#sunlight-1-line-19">line 19</a>
 			</li>
 		</ul>
 	</dd>
@@ -282,9 +242,9 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">import {JS} from &#x27;webcompiler&#x27;;
+    <pre class="sunlight-highlight-javascript">import {JSCompiler} from &#x27;webcompiler&#x27;;
 
-const js = new JS();</pre>
+const compiler = new JSCompiler();</pre>
 
 
     
@@ -294,6 +254,15 @@ const js = new JS();</pre>
     </div>
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="Compiler.html">Compiler</a></li>
+    </ul>
+
 
     
 
@@ -303,6 +272,103 @@ const js = new JS();</pre>
 
     
 
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="isProduction">
+    <h4><span class="type-signature">&lt;readonly> </span>isProduction<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        True if the NODE_ENV environment variable is equal to 'production'.
+Caution: modifying it's value directly may lead to unexpected results
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.html#isProduction">Compiler#isProduction</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-25">line 25</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
     
 
     
@@ -312,7 +378,7 @@ const js = new JS();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="be"><span class="type-signature"></span>be(inPath, outPath, <span class="optional">lintPaths</span>, <span class="optional">callback</span>)</h4>
+    <h4 class="name" id="be"><span class="type-signature"></span>be(inPath, outPath, <span class="optional">callback</span>)</h4>
     
     
 </dt>
@@ -320,7 +386,7 @@ const js = new JS();</pre>
 
     
     <div class="description">
-        Wraps JSCompiler#be to add static analysis and linting
+        Compiles a JavaScript file or a directory for the back end
     </div>
     
 
@@ -431,46 +497,6 @@ const js = new JS();</pre>
 
         <tr>
             
-                <td class="name"><code>lintPaths</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
-            
-
-            <td class="description last">an array of paths to files/directories to lint</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>callback</code></td>
             
 
@@ -548,8 +574,8 @@ const js = new JS();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JS.js.html">JS.js</a>,
-				 <a href="JS.js.html#sunlight-1-line-130">line 130</a>
+				<a href="JSCompiler.js.html">JSCompiler.js</a>,
+				 <a href="JSCompiler.js.html#sunlight-1-line-163">line 163</a>
 			</li>
 		</ul>
 	</dd>
@@ -598,9 +624,7 @@ const js = new JS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.be(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, [&#x27;/lint/this/directory/too&#x27;], function () {
-  // the code has passed all the checks and has been compiled successfully
-});</pre>
+    <pre class="sunlight-highlight-javascript">compiler.be(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, callback);</pre>
 
 
     
@@ -610,7 +634,7 @@ const js = new JS();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="fe"><span class="type-signature"></span>fe(inPath, outPath, <span class="optional">lintPaths</span>, <span class="optional">callback</span>)</h4>
+    <h4 class="name" id="done"><span class="type-signature">&lt;protected> </span>done(inPath, callback)</h4>
     
     
 </dt>
@@ -618,7 +642,184 @@ const js = new JS();</pre>
 
     
     <div class="description">
-        Wraps JSCompiler#fe to add static analysis and linting
+        Executed when the compilation is complete
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the input path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.html#done">Compiler#done</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-53">line 53</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">compiler.done(&#x27;/path/to/an/input/file&#x27;, callback);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="fe"><span class="type-signature"></span>fe(inPath, outPath, <span class="optional">callback</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Compiles, bundles (in production mode also minifies and g-zips) a JavaScript file for the front end
     </div>
     
 
@@ -729,46 +930,6 @@ const js = new JS();</pre>
 
         <tr>
             
-                <td class="name"><code>lintPaths</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
-            
-
-            <td class="description last">an array of paths to files/directories to lint</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>callback</code></td>
             
 
@@ -846,8 +1007,8 @@ const js = new JS();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JS.js.html">JS.js</a>,
-				 <a href="JS.js.html#sunlight-1-line-152">line 152</a>
+				<a href="JSCompiler.js.html">JSCompiler.js</a>,
+				 <a href="JSCompiler.js.html#sunlight-1-line-190">line 190</a>
 			</li>
 		</ul>
 	</dd>
@@ -896,9 +1057,7 @@ const js = new JS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, [&#x27;/lint/this/directory/too&#x27;], function () {
-  // the code has passed all the checks and has been compiled successfully
-});</pre>
+    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, callback);</pre>
 
 
     
@@ -908,7 +1067,7 @@ const js = new JS();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="lint"><span class="type-signature"></span>lint(paths, callback)</h4>
+    <h4 class="name" id="fsWrite"><span class="type-signature">&lt;protected> </span>fsWrite(path, data, callback)</h4>
     
     
 </dt>
@@ -916,7 +1075,7 @@ const js = new JS();</pre>
 
     
     <div class="description">
-        Performs linting
+        Writes the data to disk
     </div>
     
 
@@ -951,13 +1110,13 @@ const js = new JS();</pre>
 
         <tr>
             
-                <td class="name"><code>paths</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">string</span>
 
 
 
@@ -968,7 +1127,31 @@ const js = new JS();</pre>
 
             
 
-            <td class="description last">an array of paths to files/directories to lint</td>
+            <td class="description last">the output path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the data to write</td>
         </tr>
 
     
@@ -992,7 +1175,7 @@ const js = new JS();</pre>
 
             
 
-            <td class="description last">a callback function, invoked only when successfully linted</td>
+            <td class="description last">a callback function</td>
         </tr>
 
     
@@ -1009,6 +1192,15 @@ const js = new JS();</pre>
 
 	
 
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.html#fsWrite">Compiler#fsWrite</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -1036,8 +1228,8 @@ const js = new JS();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JS.js.html">JS.js</a>,
-				 <a href="JS.js.html#sunlight-1-line-82">line 82</a>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-70">line 70</a>
 			</li>
 		</ul>
 	</dd>
@@ -1066,9 +1258,7 @@ const js = new JS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">js.lint([&#x27;/path/to/the/input/file.js&#x27;, &#x27;/lint/this/directory/too&#x27;], function () {
-  // successfully linted
-});</pre>
+    <pre class="sunlight-highlight-javascript">compiler.fsWrite(&#x27;/path/to/an/output/file&#x27;, data, callback);</pre>
 
 
     
@@ -1078,7 +1268,7 @@ const js = new JS();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="typecheck"><span class="type-signature"></span>typecheck(callback)</h4>
+    <h4 class="name" id="minify"><span class="type-signature"></span>minify(path, data)</h4>
     
     
 </dt>
@@ -1086,7 +1276,7 @@ const js = new JS();</pre>
 
     
     <div class="description">
-        Performs static analysis
+        Minifies the compiled code
     </div>
     
 
@@ -1121,6 +1311,275 @@ const js = new JS();</pre>
 
         <tr>
             
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a path to the file (can be used for the sourceMappingURL comment)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the actual program data to compress</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Compiler.html#minify">Compiler#minify</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="JSCompiler.js.html">JSCompiler.js</a>,
+				 <a href="JSCompiler.js.html#sunlight-1-line-141">line 141</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    processed application code with source maps
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">const minifiedData = compiler.minify(&#x27;/path/to/the/output/file.js&#x27;, data);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="optimize"><span class="type-signature">&lt;protected> </span>optimize(inPath, outPath, data, callback)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Minifies and g-zips the program
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the input path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the output path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">processed application code with source maps</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>callback</code></td>
             
 
@@ -1138,7 +1597,7 @@ const js = new JS();</pre>
 
             
 
-            <td class="description last">a callback function, invoked only when successfully typechecked</td>
+            <td class="description last">a callback function</td>
         </tr>
 
     
@@ -1155,6 +1614,15 @@ const js = new JS();</pre>
 
 	
 
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.html#optimize">Compiler#optimize</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -1182,8 +1650,8 @@ const js = new JS();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JS.js.html">JS.js</a>,
-				 <a href="JS.js.html#sunlight-1-line-58">line 58</a>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-105">line 105</a>
 			</li>
 		</ul>
 	</dd>
@@ -1212,9 +1680,7 @@ const js = new JS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">js.typecheck(function () {
-  // successfully typechecked
-});</pre>
+    <pre class="sunlight-highlight-javascript">compiler.optimize(&#x27;/path/to/an/input/file&#x27;, &#x27;/path/to/the/output/file&#x27;, data, callback);</pre>
 
 
     

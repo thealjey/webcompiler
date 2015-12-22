@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Index</title>
+	<title>Documentation Source: Compiler.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -64,82 +64,154 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	
-	
+		<h1 class="page-title">Source: Compiler.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/* @flow */
 
+import mkdirp from 'mkdirp';
+import {dirname} from 'path';
+import {writeFile} from 'fs';
+import {gzip} from 'zlib';
 
+let i = 0;
 
+/**
+ * Processed application code with source maps
+ *
+ * @typedef {Object} ProgramData
+ * @property {string} code - program code
+ * @property {string} map  - source map json string
+ */
+export type ProgramData = {code: string, map: string};
 
+/**
+ * The base compiler class
+ *
+ * @class Compiler
+ */
+export default class Compiler {
+  /**
+   * True if the NODE_ENV environment variable is equal to 'production'.
+   * Caution: modifying it's value directly may lead to unexpected results
+   *
+   * @member {boolean} isProduction
+   * @memberof Compiler
+   * @readOnly
+   * @instance
+   */
+  isProduction: boolean;
 
+  constructor() {
+    this.isProduction = 'production' === process.env.NODE_ENV;
+  }
 
+  /**
+   * Minifies the compiled code
+   *
+   * @memberOf Compiler
+   * @instance
+   * @abstract
+   * @method minify
+   * @param  {string}      path     - a path to the file (can be used for the sourceMappingURL comment)
+   * @param  {ProgramData} data     - the actual program data to compress
+   * @return {ProgramData} processed application code with source maps or null on error
+   */
+  minify: (path: string, data: ProgramData) => ?ProgramData;
 
+  /**
+   * Executed when the compilation is complete
+   *
+   * @memberOf Compiler
+   * @instance
+   * @protected
+   * @method done
+   * @param {string}   inPath   - the input path
+   * @param {Function} callback - a callback function
+   * @example
+   * compiler.done('/path/to/an/input/file', callback);
+   */
+  done(inPath: string, callback: () => void) {
+    console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
+    callback();
+  }
 
+  /**
+   * Writes the data to disk
+   *
+   * @memberOf Compiler
+   * @instance
+   * @protected
+   * @method fsWrite
+   * @param {string}      path     - the output path
+   * @param {ProgramData} data     - the data to write
+   * @param {Function}    callback - a callback function
+   * @example
+   * compiler.fsWrite('/path/to/an/output/file', data, callback);
+   */
+  fsWrite(path: string, data: ProgramData, callback: () => void) {
+    mkdirp(dirname(path), mkdirpErr => {
+      if (mkdirpErr) {
+        return console.error(mkdirpErr);
+      }
+      writeFile(path, data.code, scriptErr => {
+        if (scriptErr) {
+          return console.error(scriptErr);
+        }
+        if (!data.map) {
+          return callback();
+        }
+        writeFile(`${path}.map`, data.map, mapErr => {
+          if (mapErr) {
+            return console.error(mapErr);
+          }
+          callback();
+        });
+      });
+    });
+  }
 
+  /**
+   * Minifies and g-zips the program
+   *
+   * @memberOf Compiler
+   * @instance
+   * @protected
+   * @method optimize
+   * @param {string}      inPath   - the input path
+   * @param {string}      outPath  - the output path
+   * @param {ProgramData} data     - processed application code with source maps
+   * @param {Function}    callback - a callback function
+   * @example
+   * compiler.optimize('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
+   */
+  optimize(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
+    const minified = this.minify(outPath, data);
 
+    if (!minified) {
+      return;
+    }
+    gzip(minified.code, (gzipErr, code) => {
+      if (gzipErr) {
+        return console.error(gzipErr);
+      }
+      this.fsWrite(outPath, {code, map: minified.map}, () => {
+        this.done(inPath, callback);
+      });
+    });
+  }
 
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><h1>webcompiler</h1><p><em>Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as
-NodeJS; lint, compile, auto-prefix, minify and gzip SASS.</em></p>
-<p><a href="https://github.com/thealjey/webcompiler">Project Home</a>
-|
-<a href="https://thealjey.github.io/webcompiler">API Docs</a>
-|
-<a href="https://discord.gg/0blXIxApyTu9qXno">Discord</a></p>
-<p><a href="https://travis-ci.org/thealjey/webcompiler"><img src="https://travis-ci.org/thealjey/webcompiler.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/github/thealjey/webcompiler?branch=master"><img src="https://coveralls.io/repos/thealjey/webcompiler/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a>
-<a href="https://codeclimate.com/github/thealjey/webcompiler"><img src="https://codeclimate.com/github/thealjey/webcompiler/badges/gpa.svg" alt="Code Climate"></a>
-<a href="https://david-dm.org/thealjey/webcompiler"><img src="https://david-dm.org/thealjey/webcompiler.svg" alt="Dependency Status"></a>
-<a href="https://david-dm.org/thealjey/webcompiler#info=devDependencies"><img src="https://david-dm.org/thealjey/webcompiler/dev-status.svg" alt="devDependency Status"></a>
-<a href="https://www.npmjs.com/package/webcompiler"><img src="https://badge.fury.io/js/webcompiler.svg" alt="npm version"></a>
-<a href="https://www.npmjs.com/package/webcompiler"><img src="https://img.shields.io/npm/dm/webcompiler.svg" alt="downloads"></a></p>
-<p>Webpack is an amazing tool, however it requires a lot of boilerplate to properly setup and configure, especially when
-you use it on more than one project.</p>
-<p>ESLint is constantly updated, new rules are added, APIs are changed. Properly configuring it is a routine and time
-consuming task, which is completely impractical to perform on each project separately.</p>
-<p>APIs are sometimes changed without any change in functionality (e.g. Babel 5 vs Babel 6).</p>
-<p>This project aims to abstract all of those problems out of the development of applications.</p>
-<h3>Prerequisites</h3><ol>
-<li><a href="http://flowtype.org/">Facebook Flow</a></li>
-<li><a href="https://github.com/brigade/scss-lint">SCSS-Lint</a></li>
-<li><a href="https://facebook.github.io/watchman/">Watchman</a></li>
-</ol>
-<h3>A note about <a href="http://flowtype.org/">Facebook Flow</a></h3><p><a href="http://flowtype.org/">Facebook Flow</a> is a static analysis tool used to check your JavaScript code for possible errors
-at compile time.</p>
-<p>It is very smart at understanding your program code, however you should not rely on it being smart enough to just
-understand your external dependencies too.</p>
-<p>It can do that, the problem is that a typical NodeJS project can contain hundreds NPM modules, with thousands of
-JavaScript files.</p>
-<p>It is a very complicated task, even for a tool that smart, to parse all of them and stay performant enough to not only
-be usable but useful as well.</p>
-<p>Which is why it must not be allowed to even try to understand any files that reside in a <code>node_modules</code> directory.</p>
-<p><a href="http://flowtype.org/docs/declarations.html">Interface Files</a> must be used instead.</p>
-<p>You can find examples of such interface files, as well as the interface file for the tool itself, in the <code>interfaces</code> directory.</p>
-<h3>Installation</h3><pre class="prettyprint source lang-bash"><code>npm i webcompiler --save</code></pre><h3>Production builds</h3><p>By default all compilation is done in development mode.</p>
-<p>If you wish to compile for production just set the <code>NODE_ENV</code> environment variable to <code>&quot;production&quot;</code>, the following
-additional actions will be performed by the compiler:</p>
-<ol>
-<li>advanced compilation time optimizations</li>
-<li>minification (only <code>fe</code> in <code>production</code> mode)</li>
-<li>g-zip compression (only <code>fe</code> in <code>production</code> mode)</li>
-</ol>
-<h3>Important!</h3><p>The resulting JavaScript and CSS files from <code>fe</code> in <code>production</code> mode are gzip compressed for performance
-(see <a href="https://developer.yahoo.com/performance/rules.html#gzip">Gzip Components</a>), so make sure to provide a
-<strong>&quot;Content-Encoding&quot;</strong> header to the browser (e.g. <code>res.setHeader('Content-Encoding', 'gzip');</code>).</p></article>
-    </section>
-
-
+}
+</pre>
+    </article>
+</section>
 
 
 
@@ -150,10 +222,6 @@ additional actions will be performed by the compiler:</p>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

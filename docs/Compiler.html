@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: DevServer</title>
+	<title>Documentation Class: Compiler</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -69,13 +69,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: DevServer</h1>
+	<h1 class="page-title">Class: Compiler</h1>
 <section>
 
 <header>
     
         <h2>
-        DevServer
+        Compiler
         </h2>
         
     
@@ -88,7 +88,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="DevServer"><span class="type-signature"></span>new DevServer(script, style, devDir, <span class="optional">port</span>, <span class="optional">react</span>)</h4>
+    <h4 class="name" id="Compiler"><span class="type-signature"></span>new Compiler()</h4>
     
     
 </dt>
@@ -96,11 +96,7 @@
 
     
     <div class="description">
-        A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
-updates the page.
-Utilizes the Webpack development server.
-Includes react hot loader to further optimize the development process of the React applications.
-Please install and enable the LiveReload browser extension for the CSS reloading to work.
+        The base compiler class
     </div>
     
 
@@ -109,224 +105,6 @@ Please install and enable the LiveReload browser extension for the CSS reloading
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>script</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">a full system path to a JavaScript file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>style</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">a full system path to a SASS file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>devDir</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">a full system path to a directory in which to put any compiled development resources</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>port</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    3000
-                
-                </td>
-            
-
-            <td class="description last">a port at which to start the dev server</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>react</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">false to disable the react hot loader plugin</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -364,8 +142,8 @@ Please install and enable the LiveReload browser extension for the CSS reloading
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-13">line 13</a>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-19">line 19</a>
 			</li>
 		</ul>
 	</dd>
@@ -392,20 +170,6 @@ Please install and enable the LiveReload browser extension for the CSS reloading
     
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">import {DevServer} from &#x27;webcompiler&#x27;;
-import {join} from &#x27;path&#x27;;
-
-const rootDir = join(__dirname, &#x27;..&#x27;),
-    devDir = join(rootDir, &#x27;development&#x27;),
-    server = new DevServer(join(devDir, &#x27;script.js&#x27;), join(devDir, &#x27;app.scss&#x27;), devDir);
-
-server.run(rootDir);
-// now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )</pre>
-
-
-    
 </dd>
 
     
@@ -421,6 +185,92 @@ server.run(rootDir);
 
     
 
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="isProduction">
+    <h4><span class="type-signature">&lt;readonly> </span>isProduction<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        True if the NODE_ENV environment variable is equal to 'production'.
+Caution: modifying it's value directly may lead to unexpected results
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-25">line 25</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
     
 
     
@@ -430,7 +280,7 @@ server.run(rootDir);
             
 <hr>
 <dt>
-    <h4 class="name" id="run"><span class="type-signature"></span>run(watchDir)</h4>
+    <h4 class="name" id="done"><span class="type-signature">&lt;protected> </span>done(inPath, callback)</h4>
     
     
 </dt>
@@ -438,7 +288,7 @@ server.run(rootDir);
 
     
     <div class="description">
-        Starts the Webpack development server, compiles SASS and starts watching for file changes
+        Executed when the compilation is complete
     </div>
     
 
@@ -473,7 +323,7 @@ server.run(rootDir);
 
         <tr>
             
-                <td class="name"><code>watchDir</code></td>
+                <td class="name"><code>inPath</code></td>
             
 
             <td class="type">
@@ -490,7 +340,31 @@ server.run(rootDir);
 
             
 
-            <td class="description last">the directory in which to watch for the changes in the SASS files</td>
+            <td class="description last">the input path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function</td>
         </tr>
 
     
@@ -534,8 +408,8 @@ server.run(rootDir);
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-177">line 177</a>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-53">line 53</a>
 			</li>
 		</ul>
 	</dd>
@@ -564,7 +438,7 @@ server.run(rootDir);
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">server.run(&#x27;/path/to/some/directory&#x27;);</pre>
+    <pre class="sunlight-highlight-javascript">compiler.done(&#x27;/path/to/an/input/file&#x27;, callback);</pre>
 
 
     
@@ -574,7 +448,7 @@ server.run(rootDir);
             
 <hr>
 <dt>
-    <h4 class="name" id="watchJS"><span class="type-signature"></span>watchJS()</h4>
+    <h4 class="name" id="fsWrite"><span class="type-signature">&lt;protected> </span>fsWrite(path, data, callback)</h4>
     
     
 </dt>
@@ -582,101 +456,7 @@ server.run(rootDir);
 
     
     <div class="description">
-        Starts the Webpack development server
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-157">line 157</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">server.watchJS();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="watchSASS"><span class="type-signature"></span>watchSASS(watchDir)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Compile SASS and start watching for file changes
+        Writes the data to disk
     </div>
     
 
@@ -711,7 +491,7 @@ server.run(rootDir);
 
         <tr>
             
-                <td class="name"><code>watchDir</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
@@ -728,7 +508,55 @@ server.run(rootDir);
 
             
 
-            <td class="description last">the directory in which to watch for the changes in the SASS files</td>
+            <td class="description last">the output path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the data to write</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function</td>
         </tr>
 
     
@@ -772,8 +600,8 @@ server.run(rootDir);
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-141">line 141</a>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-70">line 70</a>
 			</li>
 		</ul>
 	</dd>
@@ -802,7 +630,409 @@ server.run(rootDir);
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">server.watchSASS(&#x27;/path/to/some/directory&#x27;);</pre>
+    <pre class="sunlight-highlight-javascript">compiler.fsWrite(&#x27;/path/to/an/output/file&#x27;, data, callback);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="minify"><span class="type-signature">&lt;abstract> </span>minify(path, data)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Minifies the compiled code
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a path to the file (can be used for the sourceMappingURL comment)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the actual program data to compress</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-40">line 40</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    processed application code with source maps or null on error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="optimize"><span class="type-signature">&lt;protected> </span>optimize(inPath, outPath, data, callback)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Minifies and g-zips the program
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the input path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the output path</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">processed application code with source maps</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a callback function</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Compiler.js.html">Compiler.js</a>,
+				 <a href="Compiler.js.html#sunlight-1-line-105">line 105</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">compiler.optimize(&#x27;/path/to/an/input/file&#x27;, &#x27;/path/to/the/output/file&#x27;, data, callback);</pre>
 
 
     
