@@ -1,12 +1,10 @@
 [ignore]
-.*/invalidPackageJson/*
-.*/build/*
-.*/node_modules/.*/test/*
-.*/node_modules/.*/spec/*
-config/*
-coverage/*
-docs/*
-interfaces/*
+.*/node_modules/*
+.*/lib/*
+.*/config/*
+.*/coverage/*
+.*/docs/*
+.*/interfaces/*
 
 [include]
 
@@ -14,4 +12,4 @@ interfaces/*
 interfaces/
 
 [options]
-suppress_comment=.*@noflow.*
+suppress_comment=.*@flowignore.*
