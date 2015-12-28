@@ -1,3 +1,17 @@
+v3.0.0 - Mon, 28 Dec 2015 17:15:00 GMT
+--------------------------------------
+
+- [4d4c980](../../commit/4d4c980) [changed] everything :) There were too many interconnected changes in this release for any kind of meaningful changelog. Just visit the all new API docs to get started!
+- [7daa43f](../../commit/7daa43f) [added] documentation generation as a separate script
+- [5f1f1f3](../../commit/5f1f1f3) [fixed] documentation
+- [5097059](../../commit/5097059) [changed] updated flow ignore list and created interface files for all of the project dependencies
+- [bcda000](../../commit/bcda000) [fixed] updated to ESLint v1.8.0
+- [fd40706](../../commit/fd40706) [fixed] removed peerDependencies and added a requirement for the NodeJS version (>=4.1.1) as well as NPM (>=3.0.0)
+- [6acff11](../../commit/6acff11) [fixed] travis caching enabled
+- [22770c4](../../commit/22770c4) [removed] specific c++ compier version dependency from the travis config
+
+
+
 v2.0.10 - Thu, 29 Oct 2015 23:00:47 GMT
 ---------------------------------------
 
