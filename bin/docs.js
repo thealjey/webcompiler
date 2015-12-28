@@ -1,6 +1,6 @@
 /* @flow */
 
-import Documentation from '../src/Documentation';
+import {Documentation} from '../src/Documentation';
 import {createReadStream, createWriteStream} from 'fs';
 import {join} from 'path';
 

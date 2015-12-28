@@ -97,7 +97,7 @@ const client = new Client(),
  *
  * watch(join(__dirname, 'src'), 'js', someFunction);
  */
-export default (dir: string, type: string, callback: () => void) => {
+export function watch(dir: string, type: string, callback: () => void) {
   const subscription = Number(Date.now()).toString(ALPHANUMERIC_BASE);
 
   client.capabilityCheck({}, capabilityErr => {
@@ -141,7 +141,7 @@ export default (dir: string, type: string, callback: () => void) => {
       });
     });
   });
-};
+}
 </pre>
     </article>
 </section>

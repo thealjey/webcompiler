@@ -76,8 +76,8 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import SASSCompiler from './SASSCompiler';
-import SASSLint from './SASSLint';
+import {SASSCompiler} from './SASSCompiler';
+import {SASSLint} from './SASSLint';
 
 /* @flowignore */
 const emptyFn: () => void = Function.prototype;
@@ -95,7 +95,7 @@ const emptyFn: () => void = Function.prototype;
  *
  * const sass = new SASS();
  */
-export default class SASS {
+export class SASS {
   /**
    * SCSS compiler
    *

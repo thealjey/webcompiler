@@ -13,8 +13,18 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 [![Code Climate](https://codeclimate.com/github/thealjey/webcompiler/badges/gpa.svg)](https://codeclimate.com/github/thealjey/webcompiler)
 [![Dependency Status](https://david-dm.org/thealjey/webcompiler.svg)](https://david-dm.org/thealjey/webcompiler)
 [![devDependency Status](https://david-dm.org/thealjey/webcompiler/dev-status.svg)](https://david-dm.org/thealjey/webcompiler#info=devDependencies)
-[![peerDependency Status](https://david-dm.org/thealjey/webcompiler/peer-status.svg)](https://david-dm.org/thealjey/webcompiler#info=peerDependencies)
-[![npm version](https://badge.fury.io/js/webcompiler.svg)](http://badge.fury.io/js/webcompiler)
+[![npm version](https://badge.fury.io/js/webcompiler.svg)](https://www.npmjs.com/package/webcompiler)
+[![downloads](https://img.shields.io/npm/dm/webcompiler.svg)](https://www.npmjs.com/package/webcompiler)
+
+Webpack is an amazing tool, however it requires a lot of boilerplate to properly setup and configure, especially when
+you use it on more than one project.
+
+ESLint is constantly updated, new rules are added, APIs are changed. Properly configuring it is a routine and time
+consuming task, which is completely impractical to perform on each project separately.
+
+APIs are sometimes changed without any change in functionality (e.g. Babel 5 vs Babel 6).
+
+This project aims to abstract all of those problems out of the development of applications.
 
 ### Prerequisites
 
@@ -22,112 +32,45 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 2. [SCSS-Lint](https://github.com/brigade/scss-lint)
 2. [Watchman](https://facebook.github.io/watchman/)
 
-Important! Create a .flowconfig file at the root of your project with the following contents:
+### A note about [Facebook Flow](http://flowtype.org/)
 
-```
-[ignore]
-.*/invalidPackageJson/*
-.*/build/*
-.*/node_modules/.*/test/*
-.*/node_modules/.*/spec/*
+[Facebook Flow](http://flowtype.org/) is a static analysis tool used to check your JavaScript code for possible errors
+at compile time.
 
-[include]
+It is very smart at understanding your program code, however you should not rely on it being smart enough to just
+understand your external dependencies too.
 
-[libs]
+It can do that, the problem is that a typical NodeJS project can contain hundreds NPM modules, with thousands of
+JavaScript files.
 
-[options]
-suppress_comment=.*@noflow.*
-```
+It is a very complicated task, even for a tool that smart, to parse all of them and stay performant enough to not only
+be usable but useful as well.
+
+Which is why it must not be allowed to even try to understand any files that reside in a `node_modules` directory.
+
+[Interface Files](http://flowtype.org/docs/declarations.html) must be used instead.
+
+You can find examples of such interface files, as well as the interface file for the tool itself, in the `interfaces` directory.
 
 ### Installation
 
-```
-npm i webcompiler --save
-```
-
-### Exposes 3 main classes
-
-`DevServer` - A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are
-              edited and updates the page.
-
-```
-interface DevServer {
-  constructor(script: string, style: string, devDir: string, port: number = 3000, react: boolean = true);
-  watchSASS(watchDir: string);
-  watchJS();
-  run(watchDir: string);
-}
+```bash
+npm i webcompiler --save-dev
 ```
 
-`JS` - lints, type-checks, compiles, packages, minifies and gzips JavaScript for the browser and NodeJS
+### Production builds
 
-```
-interface JS {
-  constructor(lintRules: Object = {});
-  validate(inPath: string, lintPaths: Array<string>, callback: Function);
-  feDev(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-  feProd(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-  beFile(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-  beDir(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-}
-```
-`SASS` - lints, compiles, packages, adds vendor prefixes, minifies and gzips SASS for the browser
+By default all compilation is done in development mode.
 
-```
-interface SASS {
-  constructor(excludeLinter: Array<string> = [], importOnceOptions: Object = {}, includePaths: Array<string> = []);
-  validate(inPath: string, lintPaths: Array<string>, callback: Function);
-  feDev(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-  feProd(inPath: string, outPath: string, callback: Function, ...lintPaths: Array<string>);
-}
-```
+If you wish to compile for production just set the `NODE_ENV` environment variable to `"production"`, the following
+additional actions will be performed by the compiler:
 
-### Arguments
-
-1. `script` - a full system path to a JavaScript file
-2. `style` - a full system path to a SASS file
-3. `devDir` - a full system path to a directory in which to put any compiled development resources
-4. `port` - a port at which to start the dev server
-5. `react` - false to disable the react hot loader plugin
-6. `watchDir` - the directory in which to watch for the changes in the SASS files
-7. `inPath` - a full system path to the input file/directory
-8. `outPath` - a full system path to the output file/directory
-9. `callback` - a callback function, executed after the successful compilation
-10. `lintPaths` - paths to files/directories to lint (the input file is included automatically)
-
-### Example usage
-
-```javascript
-import {DevServer} from 'webcompiler';
-import {join} from 'path';
-
-const rootDir = join(__dirname, '..'),
-    devDir = join(rootDir, 'development'),
-    server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
-
-server.run(rootDir);
-```
+1. advanced compilation time optimizations
+2. minification (only `fe` in `production` mode)
+3. g-zip compression (only `fe` in `production` mode)
 
 ### Important!
 
-The resulting JavaScript and CSS files from `feProd` are gzip compressed for performance
+The resulting JavaScript and CSS files from `fe` in `production` mode are gzip compressed for performance
 (see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
 **"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
-
-### Additional info
-
-1. [ESLint](https://github.com/eslint/eslint), [babel-eslint](https://github.com/babel/babel-eslint),
-[ESLint-plugin-Babel](https://github.com/babel/eslint-plugin-babel),
-[ESLint-plugin-React](https://github.com/yannickcr/eslint-plugin-react) and
-[ESLint-plugin-Lodash](https://github.com/yannickcr/eslint-plugin-react) are used to lint the JavaScript
-2. [Facebook Flow](http://flowtype.org/) is used to type-check the JavaScript
-3. [Babel](https://babeljs.io/) is used to compile the JavaScript
-4. [webpack](http://webpack.github.io/) is used to package the JavaScript
-5. [UglifyJS 2](https://github.com/mishoo/UglifyJS2) is used to compress the JavaScript
-6. [SCSS-Lint](https://github.com/brigade/scss-lint) is used to lint SASS
-7. [node-sass](https://github.com/sass/node-sass) and [Import Once](https://github.com/at-import/node-sass-import-once)
-are used to compile SASS
-8. [PostCSS](https://github.com/postcss/postcss) and [Autoprefixer](https://github.com/postcss/autoprefixer)
-are used to automatically add the browser vendor prefixes to the generated CSS
-9. [Clean-css](https://github.com/jakubpawlowicz/clean-css) is used to compress the CSS
-10. [Watchman](https://facebook.github.io/watchman/) is used to watch for directory changes

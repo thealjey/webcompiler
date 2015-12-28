@@ -76,8 +76,9 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import yaml from './yaml';
-import Compiler from './Compiler';
+/* @flowignore */
+import config from '../config/babel';
+import {Compiler} from './Compiler';
 import type {ProgramData} from './Compiler';
 import {join, extname, dirname, basename} from 'path';
 import {readdir, stat} from 'fs';
@@ -86,11 +87,12 @@ import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 import UglifyJS from 'uglify-js';
 
-const cache = {},
-    fakeFS = new MemoryFS(),
+/* eslint-disable no-sync */
 
-    /* @flowignore */
-    emptyFn: () => void = Function.prototype;
+/* @flowignore */
+const emptyFn: () => void = Function.prototype,
+    cache = {},
+    fakeFS = new MemoryFS();
 
 /**
  * A JavaScript compiler
@@ -103,7 +105,7 @@ const cache = {},
  *
  * const compiler = new JSCompiler();
  */
-export default class JSCompiler extends Compiler {
+export class JSCompiler extends Compiler {
   /**
    * Babel options
    *
@@ -112,7 +114,7 @@ export default class JSCompiler extends Compiler {
    * @private
    * @instance
    */
-  options: ?Object;
+  options: Object;
 
   /**
    * The number of files being compiled at the moment
@@ -126,14 +128,7 @@ export default class JSCompiler extends Compiler {
 
   constructor(options: Object = {}) {
     super();
-
-    yaml(join(__dirname, '..', 'config', this.isProduction ? 'babelProd.yml' : 'babelDev.yml'), (error, data) => {
-      if (error) {
-        return console.error(error);
-      }
-      this.options = Object.assign(data, options);
-    });
-
+    this.options = Object.assign({}, config[this.isProduction ? 'production' : 'development'], options);
     this.processing = 0;
   }
 
@@ -146,18 +141,17 @@ export default class JSCompiler extends Compiler {
    * @method beDir
    * @param {string}   inPath   - the input path
    * @param {string}   outPath  - the output path
-   * @param {Object}   options  - the Babel options
    * @param {Function} callback - a callback function
    * @example
-   * compiler.beDir('/path/to/an/input/directory', '/path/to/the/output/directory', options, callback);
+   * compiler.beDir('/path/to/an/input/directory', '/path/to/the/output/directory', callback);
    */
-  beDir(inPath: string, outPath: string, options: Object, callback: () => void) {
+  beDir(inPath: string, outPath: string, callback: () => void) {
     readdir(inPath, (readdirErr, files) => {
       if (readdirErr) {
         return console.error(readdirErr);
       }
       files.forEach(file => {
-        this.beTraverse(join(inPath, file), join(outPath, file), options, callback);
+        this.beTraverse(join(inPath, file), join(outPath, file), callback);
       });
     });
   }
@@ -171,14 +165,13 @@ export default class JSCompiler extends Compiler {
    * @method beFile
    * @param {string}   inPath   - the input path
    * @param {string}   outPath  - the output path
-   * @param {Object}   options  - the Babel options
    * @param {Function} callback - a callback function
    * @example
-   * compiler.beFile('/path/to/an/input/file.js', '/path/to/the/output/file.js', options, callback);
+   * compiler.beFile('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
-  beFile(inPath: string, outPath: string, options: Object, callback: () => void) {
+  beFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
-    transformFile(inPath, options, (transformFileErr, result) => {
+    transformFile(inPath, this.options, (transformFileErr, result) => {
       if (transformFileErr) {
         return console.error(transformFileErr);
       }
@@ -196,20 +189,19 @@ export default class JSCompiler extends Compiler {
    * @method beTraverse
    * @param {string}   inPath   - the input path
    * @param {string}   outPath  - the output path
-   * @param {Object}   options  - the Babel options
    * @param {Function} callback - a callback function
    * @example
-   * compiler.beTraverse('/path/to/an/input/file.js', '/path/to/the/output/file.js', options, callback);
+   * compiler.beTraverse('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
-  beTraverse(inPath: string, outPath: string, options: Object, callback: () => void) {
+  beTraverse(inPath: string, outPath: string, callback: () => void) {
     stat(inPath, (statErr, stats) => {
       if (statErr) {
         return console.error(statErr);
       }
       if (stats.isDirectory()) {
-        this.beDir(inPath, outPath, options, callback);
+        this.beDir(inPath, outPath, callback);
       } else if ('.js' === extname(inPath)) {
-        this.beFile(inPath, outPath, options, callback);
+        this.beFile(inPath, outPath, callback);
       }
     });
   }
@@ -250,13 +242,10 @@ export default class JSCompiler extends Compiler {
    * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   be(inPath: string, outPath: string, callback: () => void = emptyFn) {
-    if (!this.options) {
-      return console.error('Failed to load the config file');
-    }
     if (this.processing) {
       return console.error('Still working...');
     }
-    this.beTraverse(inPath, outPath, this.options, () => {
+    this.beTraverse(inPath, outPath, () => {
       if (!(--this.processing)) {
         this.done(inPath, callback);
       }
@@ -277,9 +266,6 @@ export default class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
-    if (!this.options) {
-      return console.error('Failed to load the config file');
-    }
     const compiler = webpack({
       cache,
       debug: true,
@@ -316,12 +302,8 @@ export default class JSCompiler extends Compiler {
         return this.done(inPath, callback);
       }
       this.optimize(inPath, outPath, {
-
-        /* eslint-disable no-sync */
-        code: fakeFS.readFileSync(outPath).toString(),
-        map: fakeFS.readFileSync(`${outPath}.map`).toString()
-
-        /* eslint-enable no-sync */
+        code: fakeFS.readFileSync(outPath, 'utf8'),
+        map: fakeFS.readFileSync(`${outPath}.map`, 'utf8')
       }, callback);
     });
   }

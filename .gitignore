@@ -28,3 +28,6 @@ node_modules
 
 # WebStorm project files
 .idea
+
+# OS X custom attributes of a folder file
+.DS_Store

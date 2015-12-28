@@ -76,7 +76,7 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import Compiler from './Compiler';
+import {Compiler} from './Compiler';
 import type {ProgramData} from './Compiler';
 import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
@@ -122,7 +122,7 @@ type AutoprefixCallback = (data: ProgramData) => void;
  *
  * const compiler = new SASSCompiler();
  */
-export default class SASSCompiler extends Compiler {
+export class SASSCompiler extends Compiler {
   /**
    * an array of paths to search for an scss file in if it's not found in cwd
    *

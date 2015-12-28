@@ -76,8 +76,8 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import SASSCompiler from './SASSCompiler';
-import watch from './watch';
+import {SASSCompiler} from './SASSCompiler';
+import {watch} from './watch';
 import tinylr from 'tiny-lr';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
@@ -99,6 +99,7 @@ const LIVERELOAD_PORT = 35729,
  * @param {string}  devDir       - a full system path to a directory in which to put any compiled development resources
  * @param {number}  [port=3000]  - a port at which to start the dev server
  * @param {boolean} [react=true] - false to disable the react hot loader plugin
+ * @see {@link http://gaearon.github.io/react-hot-loader/|React Hot Loader}
  * @example
  * import {DevServer} from 'webcompiler';
  * import {join} from 'path';
@@ -110,7 +111,7 @@ const LIVERELOAD_PORT = 35729,
  * server.run(rootDir);
  * // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )
  */
-export default class DevServer {
+export class DevServer {
   /**
    * a port at which to start the dev server
    *

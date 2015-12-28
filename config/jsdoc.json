@@ -1,11 +1,11 @@
 {
+  "plugins": ["jsdocPlugin.js"],
   "templates": {
-    "default": {
-      "outputSourceFiles": false,
-      "includeDate": false
-    }
-  },
-  "opts": {
-    "template": "../node_modules/minami"
+    "includeDate": false,
+    "linenums": true,
+    "outputSourceFiles": true,
+    "theme": "simplex",
+    "inverseNav": true,
+    "syntaxTheme": "dark"
   }
 }

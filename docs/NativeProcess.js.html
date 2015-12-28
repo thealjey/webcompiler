@@ -100,7 +100,7 @@ export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
  *
  * const mkdir = new NativeProcess('mkdir');
  */
-export default class NativeProcess {
+export class NativeProcess {
   /**
    * a process name
    *
@@ -145,7 +145,7 @@ export default class NativeProcess {
    */
   run(callback: NativeProcessCallback = emptyFn, args: Array&lt;string> = [], opts: Object = {}) {
     if (this.proc) {
-      return console.error('Still working...');
+      return callback('Still working...', '');
     }
     this.proc = spawn(this.task, args, opts);
 

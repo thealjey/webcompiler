@@ -55,7 +55,7 @@ You can find examples of such interface files, as well as the interface file for
 ### Installation
 
 ```bash
-npm i webcompiler --save
+npm i webcompiler --save-dev
 ```
 
 ### Production builds

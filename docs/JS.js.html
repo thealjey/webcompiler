@@ -76,9 +76,9 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import JSCompiler from './JSCompiler';
-import NativeProcess from './NativeProcess';
-import JSLint from './JSLint';
+import {JSCompiler} from './JSCompiler';
+import {NativeProcess} from './NativeProcess';
+import {JSLint} from './JSLint';
 
 /* @flowignore */
 const emptyFn: () => void = Function.prototype;
@@ -94,7 +94,7 @@ const emptyFn: () => void = Function.prototype;
  *
  * const js = new JS();
  */
-export default class JS {
+export class JS {
   /**
    * JavaScript compiler
    *
