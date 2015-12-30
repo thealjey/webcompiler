@@ -52,7 +52,7 @@ export class JSCompiler extends Compiler {
 
   constructor(options: Object = {}) {
     super();
-    this.options = Object.assign({}, config[this.isProduction ? 'production' : 'development'], options);
+    this.options = Object.assign({}, config.env[this.isProduction ? 'production' : 'development'], options);
     this.processing = 0;
   }
 

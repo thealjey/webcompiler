@@ -47,7 +47,7 @@ describe('JSCompiler', () => {
     });
 
     it('inits options', () => {
-      expect(cmp.options).eql(Object.assign({}, config.production, {something: 'here'}));
+      expect(cmp.options).eql(Object.assign({}, config.env.production, {something: 'here'}));
     });
 
     it('inits processing', () => {
@@ -173,7 +173,7 @@ describe('JSCompiler', () => {
     });
 
     it('inits options', () => {
-      expect(cmp.options).eql(Object.assign({}, config.development));
+      expect(cmp.options).eql(Object.assign({}, config.env.development));
     });
 
     it('prints the error on screen', () => {
