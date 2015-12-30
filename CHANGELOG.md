@@ -1,3 +1,11 @@
+v3.0.3 - Wed, 30 Dec 2015 16:49:16 GMT
+--------------------------------------
+
+- [b174e99](../../commit/b174e99) [fixed] read the babel config options from under the "env" key
+- [20cc69e](../../commit/20cc69e) [fixed] updated autoprefixer
+
+
+
 v3.0.2 - Tue, 29 Dec 2015 10:10:46 GMT
 --------------------------------------
 
