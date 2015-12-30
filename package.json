@@ -50,7 +50,6 @@
   "homepage": "https://thealjey.github.io/webcompiler",
   "dependencies": {
     "autoprefixer": "^6.2.3",
-    "babel": "^6.3.26",
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",
     "babel-eslint": "^4.1.6",
