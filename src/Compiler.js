@@ -24,7 +24,8 @@ export type ProgramData = {code: string, map: string};
  */
 export class Compiler {
   /**
-   * True if the NODE_ENV environment variable is equal to 'production'.
+   * True if the NODE_ENV environment variable is equal to `production`.
+   *
    * Caution: modifying it's value directly may lead to unexpected results
    *
    * @member {boolean} isProduction

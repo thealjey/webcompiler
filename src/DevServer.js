@@ -13,8 +13,11 @@ const LIVERELOAD_PORT = 35729,
 /**
  * A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
  * updates the page.
+ *
  * Utilizes the Webpack development server.
+ *
  * Includes react hot loader to further optimize the development process of the React applications.
+ *
  * Please install and enable the LiveReload browser extension for the CSS reloading to work.
  *
  * @class DevServer

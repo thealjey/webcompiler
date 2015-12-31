@@ -128,7 +128,7 @@ export class JS {
   }
 
   /**
-   * Wraps JSCompiler#be to add static analysis and linting
+   * Wraps {@link JSCompiler#be} to add static analysis and linting
    *
    * @memberOf JS
    * @instance
@@ -150,7 +150,7 @@ export class JS {
   }
 
   /**
-   * Wraps JSCompiler#fe to add static analysis and linting
+   * Wraps {@link JSCompiler#fe} to add static analysis and linting
    *
    * @memberOf JS
    * @instance

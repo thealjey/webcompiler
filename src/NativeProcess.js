@@ -15,7 +15,8 @@ const emptyFn: () => void = Function.prototype;
 export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
 
 /**
- * Encapsulates a ChildProcess instance of a "task"
+ * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess|ChildProcess}
+ * instance of a `task`
  *
  * @class NativeProcess
  * @param {string} task - a process name

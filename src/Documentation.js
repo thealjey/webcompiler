@@ -18,10 +18,10 @@ const npm = new NativeProcess('npm'),
  * @property {string} [inputDir="src"]     - the input application code directory
  * @property {string} [outputDir="docs"]   - the output directory for the generated documentation
  * @property {string} [readMe="README.md"] - the documentation "homepage" (README.md file)
- * @property {string} [template="node_modules/ink-docstrap/template"]  - a full system path to a valid JSDoc3 template
- *                                                                       directory
- * @property {string} [jsdocConfig="<package root>/config/jsdoc.json"] - a full system path to a JSDoc3 configuration
- *                                                                       file
+ * @property {string} [template="node_modules/ink-docstrap/template"]      - a full system path to a valid JSDoc3
+ *                                                                           template directory
+ * @property {string} [jsdocConfig="<webcompiler root>/config/jsdoc.json"] - a full system path to a JSDoc3
+ *                                                                           configuration file
  */
 
 /**
@@ -42,6 +42,17 @@ export type CheckBinCallback = (file: ?string) => void;
 
 /**
  * Generates API documentation
+ *
+ * The default JSDoc plugin specified in `jsdocConfig` strips out all of the code from a file while retaining newlines
+ * (unlike the built in `commentsOnly` plugin that ships with JSDoc3).
+ *
+ * That way:
+ * 1. line numbers are preserved in the source view
+ * 2. you don't need to use a pre-compiler, you will always see the same code as you wrote in the docs source view
+ * 3. since JSDoc only sees comments you can use any code syntax you like - ES2015, ES7, JSX, it doesn't even have to be
+ * JavaScript.
+ *
+ * The markdown plugin is also included by default.
  *
  * @class Documentation
  * @param {DocumentationConfig} [config={}] - a configuration object

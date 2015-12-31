@@ -6,8 +6,9 @@ const client = new Client(),
     ALPHANUMERIC_BASE = 36;
 
 /**
- * Using the Facebook Watchman, watches the directory "dir" for changes of files with extension "type" and runs
- * "callback" when a change is detected.
+ * Using the Facebook Watchman, watches the directory `dir` for changes of files with extension `type` and runs
+ * `callback` when a change is detected.
+ *
  * This watcher's only goal is performance, hence the simplicity.
  *
  * @function watch

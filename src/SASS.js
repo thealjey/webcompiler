@@ -68,7 +68,7 @@ export class SASS {
   }
 
   /**
-   * Wraps SASSCompiler#fe to add linting
+   * Wraps {@link SASSCompiler#fe} to add linting
    *
    * @memberof SASS
    * @instance

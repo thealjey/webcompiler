@@ -1,5 +1,5 @@
 {
-  "plugins": ["jsdocPlugin.js"],
+  "plugins": ["jsdocPlugin.js", "plugins/markdown"],
   "templates": {
     "includeDate": false,
     "linenums": true,

@@ -96,7 +96,17 @@
 
     
     <div class="description">
-        Generates API documentation
+        <p>Generates API documentation</p>
+<p>The default JSDoc plugin specified in <code>jsdocConfig</code> strips out all of the code from a file while retaining newlines
+(unlike the built in <code>commentsOnly</code> plugin that ships with JSDoc3).</p>
+<p>That way:</p>
+<ol>
+<li>line numbers are preserved in the source view</li>
+<li>you don't need to use a pre-compiler, you will always see the same code as you wrote in the docs source view</li>
+<li>since JSDoc only sees comments you can use any code syntax you like - ES2015, ES7, JSX, it doesn't even have to be
+JavaScript.</li>
+</ol>
+<p>The markdown plugin is also included by default.</p>
     </div>
     
 
@@ -168,7 +178,7 @@
                 </td>
             
 
-            <td class="description last">a configuration object</td>
+            <td class="description last"><p>a configuration object</p></td>
         </tr>
 
     
@@ -280,7 +290,7 @@ const docs = new Documentation();</pre>
 
     
     <div class="description">
-        Generate the documentation
+        <p>Generate the documentation</p>
     </div>
     
 
@@ -352,7 +362,7 @@ const docs = new Documentation();</pre>
                 </td>
             
 
-            <td class="description last">a callback function</td>
+            <td class="description last"><p>a callback function</p></td>
         </tr>
 
     
@@ -397,7 +407,7 @@ const docs = new Documentation();</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Documentation.js.html">Documentation.js</a>,
-				 <a href="Documentation.js.html#sunlight-1-line-123">line 123</a>
+				 <a href="Documentation.js.html#sunlight-1-line-134">line 134</a>
 			</li>
 		</ul>
 	</dd>
