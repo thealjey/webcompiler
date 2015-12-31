@@ -18,21 +18,20 @@ class Client {
 const ALPHANUMERIC_BASE = 36,
     watch = proxyquire('../src/watch', {'fb-watchman': {Client}}).watch;
 
-let callback;
+let callback, toString;
 
 describe('watch', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(Date, 'now');
-    stub(Number.prototype, 'toString').returns('qwerty');
+    toString = stub().returns('qwerty');
+    stub(Date, 'now').returns({toString});
     stub(console, 'log');
     stub(console, 'error');
   });
 
   afterEach(() => {
     Date.now.restore();
-    Number.prototype.toString.restore();
     console.log.restore();
     console.error.restore();
   });
@@ -48,7 +47,7 @@ describe('watch', () => {
     });
 
     it('calls number toString', () => {
-      expect(Number.prototype.toString).calledWith(ALPHANUMERIC_BASE);
+      expect(toString).calledWith(ALPHANUMERIC_BASE);
     });
 
   });

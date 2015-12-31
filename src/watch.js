@@ -23,7 +23,7 @@ const client = new Client(),
  * watch(join(__dirname, 'src'), 'js', someFunction);
  */
 export function watch(dir: string, type: string, callback: () => void) {
-  const subscription = Number(Date.now()).toString(ALPHANUMERIC_BASE);
+  const subscription = Date.now().toString(ALPHANUMERIC_BASE);
 
   client.capabilityCheck({}, capabilityErr => {
     if (capabilityErr) {
