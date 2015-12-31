@@ -1,3 +1,12 @@
+v3.0.4 - Thu, 31 Dec 2015 01:15:12 GMT
+--------------------------------------
+
+- [4299688](../../commit/4299688) [removed] redundant Number conversion in `watch`
+- [6da6e97](../../commit/6da6e97) [changed] the markdown JSDoc plugin is now included by default; added a broader description of the default plugin to the Documentation class
+- [111046e](../../commit/111046e) [removed] obsolete "babel" package dependency
+
+
+
 v3.0.3 - Wed, 30 Dec 2015 16:49:16 GMT
 --------------------------------------
 
