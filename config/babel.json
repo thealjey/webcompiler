@@ -17,7 +17,6 @@
         "transform-member-expression-literals",
         "transform-property-literals",
         "transform-merge-sibling-variables",
-        "transform-remove-console",
         "transform-remove-debugger",
         "transform-react-constant-elements",
         "transform-react-inline-elements",
