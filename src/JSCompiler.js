@@ -193,7 +193,7 @@ export class JSCompiler extends Compiler {
     const compiler = webpack({
       cache,
       debug: true,
-      devtool: `${this.isProduction ? '' : 'eval-'}source-map`,
+      devtool: 'source-map',
       entry: inPath,
       output: {path: dirname(outPath), filename: basename(outPath)},
       module: {

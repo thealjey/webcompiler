@@ -71,7 +71,7 @@ describe('JSCompiler', () => {
           expect(webpack).calledWith({
             cache: {},
             debug: true,
-            devtool: 'eval-source-map',
+            devtool: 'source-map',
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
             module: {
