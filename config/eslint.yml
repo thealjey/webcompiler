@@ -18,19 +18,16 @@ rules:
   arrow-parens: 0
 
   # react
-  react/jsx-closing-bracket-location: 2
+  react/jsx-closing-bracket-location: [ 2, tag-aligned ]
   react/jsx-curly-spacing: 2
-  react/jsx-indent-props: [ 2, 2 ]
-  react/jsx-no-bind: 2
+  react/jsx-indent: [ 2, 2 ]
   react/jsx-no-duplicate-props: 2
   react/jsx-pascal-case: 2
   react/no-danger: 2
   react/no-direct-mutation-state: 2
-  react/prefer-es6-class: 2
   react/sort-comp: 0
   react/jsx-key: 2
   react/no-deprecated: 2
-  react/no-is-mounted: 2
 
   # lodash
   lodash/import: 2
