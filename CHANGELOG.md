@@ -1,3 +1,12 @@
+v3.0.5 - Thu, 07 Jan 2016 23:14:25 GMT
+--------------------------------------
+
+- [217aa9d](../../commit/217aa9d) [removed] webpack deftool eval-source-map as a redundant optimisation in development mode, which actually made development harder
+- [9bc19e2](../../commit/9bc19e2) [removed] babel-plugin-transform-remove-console
+- [f7b8672](../../commit/f7b8672) [fixed] updated dependencies
+
+
+
 v3.0.4 - Thu, 31 Dec 2015 01:15:12 GMT
 --------------------------------------
 
