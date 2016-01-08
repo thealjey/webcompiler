@@ -49,15 +49,10 @@ describe('Compiler', () => {
         expect(cmp.isProduction).false;
       });
 
-      describe('fsWrite', () => {
+      describe('mkdir', () => {
 
         beforeEach(() => {
-          stub(fs, 'writeFile');
-          cmp.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
-        });
-
-        afterEach(() => {
-          fs.writeFile.restore();
+          cmp.mkdir('/path/to/the/output/file', callback);
         });
 
         it('calls mkdirp', () => {
@@ -68,8 +63,8 @@ describe('Compiler', () => {
           expect(console.error).calledWith('something bad happened');
         });
 
-        it('does not write anything to disk', () => {
-          expect(fs.writeFile).not.called;
+        it('does not call the callback', () => {
+          expect(callback).not.called;
         });
 
       });
@@ -116,7 +111,31 @@ describe('Compiler', () => {
 
     });
 
+    describe('mkdir', () => {
+
+      beforeEach(() => {
+        cmp.mkdir('/path/to/the/output/file', callback);
+      });
+
+      it('does not print any errors on screen', () => {
+        expect(console.error).not.called;
+      });
+
+      it('calls the callback', () => {
+        expect(callback).called;
+      });
+
+    });
+
     describe('fsWrite', () => {
+
+      beforeEach(() => {
+        stub(cmp, 'mkdir').callsArg(1);
+      });
+
+      afterEach(() => {
+        cmp.mkdir.restore();
+      });
 
       describe('script write error', () => {
 
@@ -127,6 +146,10 @@ describe('Compiler', () => {
 
         afterEach(() => {
           fs.writeFile.restore();
+        });
+
+        it('calls mkdir', () => {
+          expect(cmp.mkdir).calledWith('/path/to/the/output/file', match.func);
         });
 
         it('attempt to write the script file', () => {
@@ -191,7 +214,7 @@ describe('Compiler', () => {
 
       });
 
-      describe('no map', () => {
+      describe('map', () => {
 
         beforeEach(() => {
           stub(fs, 'writeFile').callsArg(2);

@@ -83,10 +83,7 @@ export class Compiler {
    * compiler.fsWrite('/path/to/an/output/file', data, callback);
    */
   fsWrite(path: string, data: ProgramData, callback: () => void) {
-    mkdirp(dirname(path), mkdirpErr => {
-      if (mkdirpErr) {
-        return console.error(mkdirpErr);
-      }
+    this.mkdir(path, () => {
       writeFile(path, data.code, scriptErr => {
         if (scriptErr) {
           return console.error(scriptErr);
@@ -101,6 +98,27 @@ export class Compiler {
           callback();
         });
       });
+    });
+  }
+
+  /**
+   * Recursively creates a directory containing a file specified by `path`.
+   *
+   * @memberOf Compiler
+   * @instance
+   * @protected
+   * @method mkdir
+   * @param {string}   path     - a path to a file
+   * @param {Function} callback - a callback function
+   * @example
+   * compiler.mkdir('/path/to/a/file', callback);
+   */
+  mkdir(path: string, callback: () => void) {
+    mkdirp(dirname(path), mkdirpErr => {
+      if (mkdirpErr) {
+        return console.error(mkdirpErr);
+      }
+      callback();
     });
   }
 
