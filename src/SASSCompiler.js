@@ -114,7 +114,7 @@ export class SASSCompiler extends Compiler {
    * @param {ProgramData}        data     - the actual program data to auto-prefix
    * @param {AutoprefixCallback} callback - a callback function
    * @example
-   * compiler.autoprefix('/path/to/the/output/file.css', data, function (autoprefixedData) {
+   * compiler.autoprefix('/path/to/the/output/file.css', data, result => {
    *   // successfully added the vendor prefixes
    * });
    */
@@ -145,7 +145,7 @@ export class SASSCompiler extends Compiler {
    * @param {string}   outPath                   - a full system path to the output file
    * @param {Function} [callback=function () {}] - a callback function
    * @example
-   * compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', function () {
+   * compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', () => {
    *   // compiled successfully
    * });
    */

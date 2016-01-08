@@ -140,7 +140,7 @@ export class Documentation {
    * @param {Function} [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * docs.run(function () {
+   * docs.run(() => {
    *   // generated the API documentation
    * });
    */
@@ -164,7 +164,7 @@ export class Documentation {
    * @param {NativeProcess} jsdoc    - JSDoc3
    * @param {Function}      callback - a callback function
    * @example
-   * docs.doRun(jsdoc, function () {
+   * docs.doRun(jsdoc, () => {
    *   // generated the API documentation
    * });
    */
@@ -186,7 +186,7 @@ export class Documentation {
    * @method findExecutable
    * @param {FindExecutableCallback} callback - a callback function
    * @example
-   * docs.findExecutable((file: string) => {
+   * docs.findExecutable(file => {
    *   // the jsdoc file is found
    * });
    */
@@ -215,7 +215,7 @@ export class Documentation {
    * @param {globalPackage}    [boolean=false] - if true checks the global NPM bin directory (contains the npm
    *                                             executable itself)
    * @example
-   * docs.checkBin((file: ?string) => {
+   * docs.checkBin(file => {
    *   if (file) {
    *     // the jsdoc file is found
    *   }

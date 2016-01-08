@@ -434,7 +434,7 @@ const linter = new JSLint();</pre>
     <pre class="sunlight-highlight-javascript">// lint &quot;index.js&quot; as well as the entire contents of the &quot;src&quot; directory
 linter.run([join(__dirname, &#x27;index.js&#x27;), join(__dirname, &#x27;src&#x27;)], function (err) {
   if (err) {
-    return e.forEach(function (e) {
+    return e.forEach(e =&gt; {
       console.log(&#x27;\x1b[41mESLint error\x1b[0m &quot;\x1b[33m%s%s\x1b[0m&quot; in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m&#x27;,
         e.message, e.ruleId ? &#x60; (${e.ruleId})&#x60; : &#x27;&#x27;, e.filePath, e.line, e.column);
     });

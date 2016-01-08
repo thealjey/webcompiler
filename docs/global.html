@@ -515,7 +515,7 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
     <pre class="sunlight-highlight-javascript">import {yaml} from &#x27;webcompiler&#x27;;
 import {join} from &#x27;path&#x27;;
 
-yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), function (error, data) {
+yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) =&gt; {
   if (error) {
     return console.error(error);
   }

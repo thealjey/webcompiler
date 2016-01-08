@@ -601,9 +601,9 @@ const mkdir = new NativeProcess(&#x27;mkdir&#x27;);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">mkdir.run(function (e) {
-  if (e) {
-    return console.error(e);
+    <pre class="sunlight-highlight-javascript">mkdir.run(error =&gt; {
+  if (error) {
+    return console.error(error);
   }
   // created a directory named &quot;example&quot; in cwd
 }, [&#x27;example&#x27;]);</pre>

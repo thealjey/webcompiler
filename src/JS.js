@@ -63,7 +63,7 @@ export class JS {
    * @method typecheck
    * @param {Function} callback - a callback function, invoked only when successfully typechecked
    * @example
-   * js.typecheck(function () {
+   * js.typecheck(() => {
    *   // successfully typechecked
    * });
    */
@@ -88,7 +88,7 @@ export class JS {
    * @param {Array<string>} paths    - an array of paths to files/directories to lint
    * @param {Function}      callback - a callback function, invoked only when successfully linted
    * @example
-   * js.lint(['/path/to/the/input/file.js', '/lint/this/directory/too'], function () {
+   * js.lint(['/path/to/the/input/file.js', '/lint/this/directory/too'], () => {
    *   // successfully linted
    * });
    */
@@ -117,7 +117,7 @@ export class JS {
    * @param {Array<string>} lintPaths - an array of paths to files/directories to lint
    * @param {Function}      callback  - a callback function, invoked only when successfully validated
    * @example
-   * js.validate('/path/to/the/input/file.js', ['/lint/this/directory/too'], function () {
+   * js.validate('/path/to/the/input/file.js', ['/lint/this/directory/too'], () => {
    *   // successfully validated
    * });
    */
@@ -139,7 +139,7 @@ export class JS {
    * @param {Function}      [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], function () {
+   * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
@@ -161,7 +161,7 @@ export class JS {
    * @param {Function}      [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], function () {
+   * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */

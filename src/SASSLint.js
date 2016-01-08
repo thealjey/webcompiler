@@ -53,9 +53,9 @@ export class SASSLint {
    * @param {Function}      callback - a callback function, accepts 1 argument: an error message or null
    * @example
    * // lint "style.scss" as well as the entire contents of the "sass" directory
-   * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], function (e) {
-   *   if (e) {
-   *     return console.error(e);
+   * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], error => {
+   *   if (error) {
+   *     return console.error(error);
    *   }
    *   // there were no linting errors
    * });

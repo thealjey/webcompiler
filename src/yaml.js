@@ -22,7 +22,7 @@ export type YAMLCallback = (error: ?string, data: Object) => void;
  * import {yaml} from 'webcompiler';
  * import {join} from 'path';
  *
- * yaml(join(__dirname, 'config', 'config.yml'), function (error, data) {
+ * yaml(join(__dirname, 'config', 'config.yml'), (error, data) => {
  *   if (error) {
  *     return console.error(error);
  *   }

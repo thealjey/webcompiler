@@ -639,7 +639,7 @@ const sass = new SASS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, [&#x27;/lint/this/directory/too&#x27;], function () {
+    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, [&#x27;/lint/this/directory/too&#x27;], () =&gt; {
   // the code has passed all the checks and has been compiled successfully
 });</pre>
 
@@ -809,7 +809,7 @@ const sass = new SASS();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">sass.lint([&#x27;/path/to/the/input/file.scss&#x27;, &#x27;/lint/this/directory/too&#x27;], function () {
+    <pre class="sunlight-highlight-javascript">sass.lint([&#x27;/path/to/the/input/file.scss&#x27;, &#x27;/lint/this/directory/too&#x27;], () =&gt; {
   // successfully linted
 });</pre>
 

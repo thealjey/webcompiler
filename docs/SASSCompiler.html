@@ -601,7 +601,7 @@ const compiler = new SASSCompiler();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.autoprefix(&#x27;/path/to/the/output/file.css&#x27;, data, function (autoprefixedData) {
+    <pre class="sunlight-highlight-javascript">compiler.autoprefix(&#x27;/path/to/the/output/file.css&#x27;, data, result =&gt; {
   // successfully added the vendor prefixes
 });</pre>
 
@@ -1016,7 +1016,7 @@ const compiler = new SASSCompiler();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/the/input/file.scss&#x27;, &#x27;/path/to/the/output/file.css&#x27;, function () {
+    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/the/input/file.scss&#x27;, &#x27;/path/to/the/output/file.css&#x27;, () =&gt; {
   // compiled successfully
 });</pre>
 

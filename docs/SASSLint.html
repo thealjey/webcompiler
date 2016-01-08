@@ -424,9 +424,9 @@ const linter = new SASSLint();</pre>
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">// lint &quot;style.scss&quot; as well as the entire contents of the &quot;sass&quot; directory
-linter.run([join(__dirname, &#x27;style.scss&#x27;), join(__dirname, &#x27;sass&#x27;)], function (e) {
-  if (e) {
-    return console.error(e);
+linter.run([join(__dirname, &#x27;style.scss&#x27;), join(__dirname, &#x27;sass&#x27;)], error =&gt; {
+  if (error) {
+    return console.error(error);
   }
   // there were no linting errors
 });</pre>

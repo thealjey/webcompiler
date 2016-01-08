@@ -61,9 +61,9 @@ export class NativeProcess {
    * @param  {Object}                [opts={}]                 - a configuration object for the process
    * @return {void}
    * @example
-   * mkdir.run(function (e) {
-   *   if (e) {
-   *     return console.error(e);
+   * mkdir.run(error => {
+   *   if (error) {
+   *     return console.error(error);
    *   }
    *   // created a directory named "example" in cwd
    * }, ['example']);
