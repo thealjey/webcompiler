@@ -1,3 +1,17 @@
+v3.1.0 - Fri, 08 Jan 2016 17:53:24 GMT
+--------------------------------------
+
+- [fda2228](../../commit/fda2228) [removed] the one-var ESLint rule
+- [bff6a80](../../commit/bff6a80) [changed] JSCompiler#be now does not ignore non-JavaScript files, but simply copies them over
+- [4cc3c3c](../../commit/4cc3c3c) [added] the mkdir function to Compiler
+- [18ba82f](../../commit/18ba82f) [removed] an optimization that could result in errors for negligible gains
+- [3b9ec58](../../commit/3b9ec58) [removed] an unnecessary test case from JSCompiler.spec
+- [423522a](../../commit/423522a) [fixed] fixed minor spacing issue in jsdocPlugin
+- [607ff33](../../commit/607ff33) [fixed] minor. updated docs
+- [0ec2f02](../../commit/0ec2f02) [fixed] updated eslint-config-airbnb
+
+
+
 v3.0.5 - Thu, 07 Jan 2016 23:14:25 GMT
 --------------------------------------
 
