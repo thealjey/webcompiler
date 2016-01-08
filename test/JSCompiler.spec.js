@@ -106,25 +106,6 @@ describe('JSCompiler', () => {
           cmp.optimize.restore();
         });
 
-        it('calls webpack', () => {
-          expect(webpack).calledWith({
-            cache: {},
-            debug: true,
-            devtool: 'source-map',
-            entry: '/path/to/the/input/file.js',
-            output: {path: '/path/to/the/output', filename: 'file.js'},
-            module: {
-              noParse: /browser/,
-              loaders: [{
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {cacheDirectory: true, some: 'options'}
-              }]
-            }
-          });
-        });
-
         it('overrides the compiler file system', () => {
           expect(compiler.outputFileSystem).instanceof(MemoryFS);
         });
