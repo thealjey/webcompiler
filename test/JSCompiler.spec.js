@@ -17,7 +17,7 @@ chai.use(sinonChai);
 
 const files = 10;
 
-let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback;
+let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
 
 function req(options) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
@@ -433,16 +433,61 @@ describe('JSCompiler', () => {
 
     });
 
+    describe('copyFile', () => {
+
+      beforeEach(() => {
+        cmp.processing = 0;
+        pipe = spy();
+        stub(cmp, 'mkdir').callsArg(1);
+        stub(fs, 'createReadStream').returns({pipe});
+        stub(fs, 'createWriteStream').returns('write stream');
+        cmp.copyFile('/path/to/the/input/file.css', '/path/to/the/output/file.css', callback);
+      });
+
+      afterEach(() => {
+        cmp.mkdir.restore();
+        fs.createReadStream.restore();
+        fs.createWriteStream.restore();
+      });
+
+      it('increments the processing counter', () => {
+        expect(cmp.processing).equal(1);
+      });
+
+      it('calls mkdir', () => {
+        expect(cmp.mkdir).calledWith('/path/to/the/output/file.css', match.func);
+      });
+
+      it('calls createReadStream', () => {
+        expect(fs.createReadStream).calledWith('/path/to/the/input/file.css');
+      });
+
+      it('calls createWriteStream', () => {
+        expect(fs.createWriteStream).calledWith('/path/to/the/output/file.css');
+      });
+
+      it('calls pipe', () => {
+        expect(pipe).calledWith('write stream');
+      });
+
+      it('calls the callback', () => {
+        expect(callback).called;
+      });
+
+    });
+
     describe('beTraverse', () => {
 
       beforeEach(() => {
         stub(cmp, 'beDir');
         stub(cmp, 'beFile');
+        stub(cmp, 'copyFile');
       });
 
       afterEach(() => {
         cmp.beDir.restore();
         cmp.beFile.restore();
+        cmp.copyFile.restore();
       });
 
       describe('stat error', () => {
@@ -498,6 +543,10 @@ describe('JSCompiler', () => {
 
           it('does not call beFile', () => {
             expect(cmp.beFile).not.called;
+          });
+
+          it('calls copyFile', () => {
+            expect(cmp.copyFile).calledWith('/path/to/the/input/file.css', '/path/to/the/output/file.css', callback);
           });
 
         });

@@ -81,7 +81,7 @@ import config from '../config/babel';
 import {Compiler} from './Compiler';
 import type {ProgramData} from './Compiler';
 import {join, extname, dirname, basename} from 'path';
-import {readdir, stat} from 'fs';
+import {readdir, stat, createReadStream, createWriteStream} from 'fs';
 import {transformFile} from 'babel-core';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
@@ -180,8 +180,29 @@ export class JSCompiler extends Compiler {
   }
 
   /**
+   * Compiles a files
+   *
+   * @memberOf JSCompiler
+   * @instance
+   * @private
+   * @method copyFile
+   * @param {string}   inPath   - the input path
+   * @param {string}   outPath  - the output path
+   * @param {Function} callback - a callback function
+   * @example
+   * compiler.copyFile('/path/to/an/input/file', '/path/to/the/output/file', callback);
+   */
+  copyFile(inPath: string, outPath: string, callback: () => void) {
+    ++this.processing;
+    this.mkdir(outPath, () => {
+      createReadStream(inPath).pipe(createWriteStream(outPath));
+      callback();
+    });
+  }
+
+  /**
    * Compiles a JavaScript file for the back end or recursively traverses a directory, looking for the JavaScript files
-   * to compile
+   * to compile. Non-JavaScript files are simply copied over.
    *
    * @memberOf JSCompiler
    * @instance
@@ -202,6 +223,8 @@ export class JSCompiler extends Compiler {
         this.beDir(inPath, outPath, callback);
       } else if ('.js' === extname(inPath)) {
         this.beFile(inPath, outPath, callback);
+      } else {
+        this.copyFile(inPath, outPath, callback);
       }
     });
   }
@@ -229,7 +252,7 @@ export class JSCompiler extends Compiler {
   }
 
   /**
-   * Compiles a JavaScript file or a directory for the back end
+   * Compiles a JavaScript file or a directory for the back end. Non-JavaScript files are simply copied over.
    *
    * @memberOf JSCompiler
    * @instance
