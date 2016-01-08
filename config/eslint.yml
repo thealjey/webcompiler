@@ -83,7 +83,7 @@ rules:
   no-lonely-if: 2
   no-multiple-empty-lines: [ 2, { max: 1 } ]
   no-unneeded-ternary: 2
-  one-var: [ 2, always ]
+  one-var: 0
   operator-assignment: [ 2, always ]
   operator-linebreak: 2
   quote-props: [ 2, as-needed, { keywords: true } ]
