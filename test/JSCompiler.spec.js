@@ -75,7 +75,6 @@ describe('JSCompiler', () => {
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
             module: {
-              noParse: /browser/,
               loaders: [{
                 test: /\.js$/,
                 exclude: /node_modules/,
