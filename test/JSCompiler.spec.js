@@ -9,13 +9,16 @@ import proxyquire from 'proxyquire';
 import UglifyJS from 'uglify-js';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
+import autoprefixer from 'autoprefixer';
+import importer from 'node-sass-import-once';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sync */
 
-const files = 10;
+const precision = 8,
+    files = 10;
 
 let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
 
@@ -80,7 +83,18 @@ describe('JSCompiler', () => {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {cacheDirectory: true, some: 'options'}
+              }, {
+                test: /\.scss$/,
+                loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss',
+                  'sass&sourceMap']
               }]
+            },
+            postcss: match(value => value()[0] === autoprefixer),
+            sassLoader: {
+              importer,
+              importOnce: {index: true, css: false, bower: false},
+              includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
+              precision
             }
           });
         });

@@ -13,5 +13,5 @@ type Stub = {
 declare module 'sinon' {
   declare function spy(obj: ?any, method: ?string): Spy;
   declare function stub(obj: ?any, method: ?string, func: ?(...args: Array<any>) => any): Stub;
-  declare var match: {func: void, instanceOf: (obj: any) => void};
+  declare var match: {(callback: (value: any) => boolean): void, func: void, instanceOf: (obj: any) => void};
 }

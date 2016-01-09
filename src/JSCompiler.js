@@ -10,11 +10,14 @@ import {transformFile} from 'babel-core';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 import UglifyJS from 'uglify-js';
+import autoprefixer from 'autoprefixer';
+import importer from 'node-sass-import-once';
 
 /* eslint-disable no-sync */
 
 /* @flowignore */
 const emptyFn: () => void = Function.prototype,
+    precision = 8,
     cache = {},
     fakeFS = new MemoryFS();
 
@@ -200,7 +203,9 @@ export class JSCompiler extends Compiler {
   }
 
   /**
-   * Compiles, bundles (in production mode also minifies and g-zips) a JavaScript file for the front end
+   * Compiles, bundles (in production mode also minifies and g-zips) a JavaScript file for the front end.
+   *
+   * Supports importing (requiring) `.scss` files inside of JavaScript.
    *
    * @memberOf JSCompiler
    * @instance
@@ -209,6 +214,7 @@ export class JSCompiler extends Compiler {
    * @param {string}   outPath                   - the output path
    * @param {Function} [callback=function () {}] - a callback function
    * @return {void}
+   * @see {@link https://github.com/css-modules/css-modules|CSS Modules}
    * @example
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
@@ -225,7 +231,17 @@ export class JSCompiler extends Compiler {
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {cacheDirectory: true, ...this.options}
+        }, {
+          test: /\.scss$/,
+          loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss', 'sass&sourceMap']
         }]
+      },
+      postcss: () => [autoprefixer],
+      sassLoader: {
+        importer,
+        importOnce: {index: true, css: false, bower: false},
+        includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
+        precision
       }
     });
 
