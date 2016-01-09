@@ -1,3 +1,10 @@
+v3.2.0 - Sat, 09 Jan 2016 19:30:41 GMT
+--------------------------------------
+
+- [52fba51](../../commit/52fba51) [added] support for importing `.scss` files as JavaScript modules to JSCompiler#fe
+
+
+
 v3.1.0 - Fri, 08 Jan 2016 17:53:24 GMT
 --------------------------------------
 
