@@ -1,3 +1,11 @@
+v3.2.1 - Mon, 11 Jan 2016 20:12:05 GMT
+--------------------------------------
+
+- [0dce231](../../commit/0dce231) [added] support for the server-side usage of the SCSS Modules
+- [10f9884](../../commit/10f9884) [fixed] the `.scss` loader for webpack
+
+
+
 v3.2.0 - Sat, 09 Jan 2016 19:30:41 GMT
 --------------------------------------
 
