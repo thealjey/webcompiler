@@ -153,9 +153,7 @@ describe('JSCompiler', () => {
       compiler = {outputFileSystem: 'realFS', run};
       webpack = stub().returns(compiler);
       JSCompiler = req({webpack});
-      process.env.NODE_ENV = 'development';
       cmp = new JSCompiler();
-      delete process.env.NODE_ENV;
       stub(cmp, 'done');
       stub(cmp, 'optimize');
       cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
@@ -164,10 +162,6 @@ describe('JSCompiler', () => {
     afterEach(() => {
       cmp.done.restore();
       cmp.optimize.restore();
-    });
-
-    it('inits options', () => {
-      expect(cmp.options).eql(Object.assign({}, config.env.development));
     });
 
     it('prints the error on screen', () => {
@@ -294,7 +288,9 @@ describe('JSCompiler', () => {
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, 'something bad happened');
       JSCompiler = req({'babel-core': {transformFile}});
+      process.env.NODE_ENV = 'development';
       cmp = new JSCompiler();
+      delete process.env.NODE_ENV;
       stub(cmp, 'fsWrite').callsArg(2);
       stub(cmp, 'done');
     });
@@ -302,6 +298,10 @@ describe('JSCompiler', () => {
     afterEach(() => {
       cmp.fsWrite.restore();
       cmp.done.restore();
+    });
+
+    it('inits options', () => {
+      expect(cmp.options).eql(Object.assign({}, config.env.development));
     });
 
     describe('minify', () => {

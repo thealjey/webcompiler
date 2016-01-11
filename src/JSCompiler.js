@@ -219,6 +219,12 @@ export class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
+    const {plugins} = this.options;
+
+    if (plugins) {
+      this.options.plugins = plugins.filter(plugin => 'webpack-loaders' !== plugin && 'webpack-loaders' !== plugin[0]);
+    }
+
     const compiler = webpack({
       cache,
       debug: true,

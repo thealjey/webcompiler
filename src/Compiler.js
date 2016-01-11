@@ -37,6 +37,9 @@ export class Compiler {
 
   constructor() {
     this.isProduction = 'production' === process.env.NODE_ENV;
+    if (!this.isProduction) {
+      process.env.NODE_ENV = 'development';
+    }
   }
 
   /**

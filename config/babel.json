@@ -5,7 +5,8 @@
       "plugins": [
         "transform-class-properties",
         "transform-react-display-name",
-        "transform-runtime"
+        "transform-runtime",
+        ["webpack-loaders", {"config": "./config/webpack.node.js"}]
       ]
     },
     "production": {
@@ -14,6 +15,7 @@
         "transform-class-properties",
         "transform-react-display-name",
         "transform-runtime",
+        ["webpack-loaders", {"config": "./config/webpack.node.js"}],
         "transform-member-expression-literals",
         "transform-property-literals",
         "transform-merge-sibling-variables",
