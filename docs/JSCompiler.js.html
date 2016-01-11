@@ -309,7 +309,7 @@ export class JSCompiler extends Compiler {
           query: {cacheDirectory: true, ...this.options}
         }, {
           test: /\.scss$/,
-          loaders: ['style?singleton', 'css?modules&amp;minimize&amp;importLoaders=1&amp;sourceMap', 'postcss', 'sass&amp;sourceMap']
+          loaders: ['style?singleton', 'css?modules&amp;minimize&amp;importLoaders=1&amp;sourceMap', 'postcss', 'sass?sourceMap']
         }]
       },
       postcss: () => [autoprefixer],

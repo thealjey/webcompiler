@@ -86,7 +86,7 @@ describe('JSCompiler', () => {
               }, {
                 test: /\.scss$/,
                 loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss',
-                  'sass&sourceMap']
+                  'sass?sourceMap']
               }]
             },
             postcss: match(value => value()[0] === autoprefixer),
