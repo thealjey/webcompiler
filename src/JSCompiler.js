@@ -219,10 +219,15 @@ export class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
-    const {plugins} = this.options;
+    const {plugins} = this.options,
+        {NODE_ENV} = process.env;
 
     if (plugins) {
       this.options.plugins = plugins.filter(plugin => 'webpack-loaders' !== plugin && 'webpack-loaders' !== plugin[0]);
+    }
+
+    if (!this.isProduction) {
+      process.env.NODE_ENV = 'development';
     }
 
     const compiler = webpack({
@@ -250,6 +255,13 @@ export class JSCompiler extends Compiler {
         precision
       }
     });
+
+    /* istanbul ignore next */
+    if (NODE_ENV) {
+      process.env.NODE_ENV = NODE_ENV;
+    } else {
+      delete process.env.NODE_ENV;
+    }
 
     if (this.isProduction) {
       compiler.outputFileSystem = fakeFS;
