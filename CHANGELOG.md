@@ -1,3 +1,10 @@
+v3.2.2 - Wed, 13 Jan 2016 09:54:49 GMT
+--------------------------------------
+
+- [2af4164](../../commit/2af4164) [fixed] do not permanently override process.env.NODE_ENV
+
+
+
 v3.2.1 - Mon, 11 Jan 2016 20:12:05 GMT
 --------------------------------------
 
