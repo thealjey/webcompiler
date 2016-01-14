@@ -84,6 +84,9 @@ describe('JSCompiler', () => {
                 loader: 'babel-loader',
                 query: {cacheDirectory: true, some: 'options'}
               }, {
+                test: /\.json$/,
+                loader: 'json'
+              }, {
                 test: /\.scss$/,
                 loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss',
                   'sass?sourceMap']

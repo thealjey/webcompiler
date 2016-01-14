@@ -82,6 +82,7 @@
     "ink-docstrap": "^1.1.0",
     "js-yaml": "^3.5.2",
     "jsdoc": "^3.4.0",
+    "json-loader": "^0.5.4",
     "memory-fs": "^0.3.0",
     "mkdirp": "^0.5.1",
     "node-sass": "^3.4.2",
