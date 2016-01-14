@@ -1,3 +1,11 @@
+v3.2.3 - Thu, 14 Jan 2016 22:13:56 GMT
+--------------------------------------
+
+- [11ff8f4](../../commit/11ff8f4) [added] a json-loader to `JSCompiler#fe`
+- [d7be232](../../commit/d7be232) [fixed] updated dependencies
+
+
+
 v3.2.2 - Wed, 13 Jan 2016 09:54:49 GMT
 --------------------------------------
 
