@@ -1,3 +1,10 @@
+v3.3.1 - Wed, 20 Jan 2016 13:18:18 GMT
+--------------------------------------
+
+- [2ab1cb1](../../commit/2ab1cb1) [fixed] updated the library interface file
+
+
+
 v3.3.0 - Wed, 20 Jan 2016 12:57:51 GMT
 --------------------------------------
 
