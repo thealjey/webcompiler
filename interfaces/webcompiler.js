@@ -24,7 +24,7 @@ declare module 'webcompiler' {
   declare function yaml(filename: string, callback: YAMLCallback): void;
 
   declare class JS {
-    constructor(babelOptions: ?Object, lintRules: ?Object): void;
+    constructor(compress: ?boolean, babelOptions: ?Object, lintRules: ?Object): void;
     typecheck(callback: () => void): void;
     lint(paths: Array<string>, callback: () => void): void;
     be(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
@@ -32,7 +32,8 @@ declare module 'webcompiler' {
   }
 
   declare class SASS {
-    constructor(includePaths: ?Array<string>, excludeLinter: ?Array<string>, importOnceOptions: ?Object): void;
+    constructor(compress: ?boolean, includePaths: ?Array<string>, excludeLinter: ?Array<string>,
+                importOnceOptions: ?Object): void;
     lint(paths: Array<string>, callback: () => void): void;
     fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
   }
@@ -50,7 +51,7 @@ declare module 'webcompiler' {
   }
 
   declare class JSCompiler {
-    constructor(options: ?Object): void;
+    constructor(compress: ?boolean, options: ?Object): void;
     minify(path: string, data: ProgramData): ProgramData;
     be(inPath: string, outPath: string, callback: ?() => void): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
@@ -62,7 +63,7 @@ declare module 'webcompiler' {
   }
 
   declare class SASSCompiler {
-    constructor(includePaths: ?Array<string>, importOnceOptions: ?Object): void;
+    constructor(compress: ?boolean, includePaths: ?Array<string>, importOnceOptions: ?Object): void;
     minify(path: string, data: ProgramData): ?ProgramData;
     autoprefix(path: string, data: ProgramData, callback: AutoprefixCallback): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
