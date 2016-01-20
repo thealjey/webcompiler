@@ -1,3 +1,12 @@
+v3.3.0 - Wed, 20 Jan 2016 12:57:51 GMT
+--------------------------------------
+
+- [440fc4e](../../commit/440fc4e) [added] a `compress` argument to `Compiler`, `JSCompiler`, `SASSCompiler`, `JS` and `SASS`
+- [3a4331f](../../commit/3a4331f) [changed] the option of the ESLint rule dot-location from "object" to "property"
+- [d7ac6fc](../../commit/d7ac6fc) [fixed] updated dependencies
+
+
+
 v3.2.3 - Thu, 14 Jan 2016 22:13:56 GMT
 --------------------------------------
 
