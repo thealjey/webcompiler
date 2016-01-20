@@ -97,6 +97,7 @@ export type ProgramData = {code: string, map: string};
  *
  * @class Compiler
  * @abstract
+ * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data
  */
 export class Compiler {
   /**
@@ -111,8 +112,19 @@ export class Compiler {
    */
   isProduction: boolean;
 
-  constructor() {
+  /**
+   * if true `Compiler#optimize` will gzip compress the data
+   *
+   * @member {boolean} compress
+   * @memberof Compiler
+   * @private
+   * @instance
+   */
+  compress: boolean;
+
+  constructor(compress: boolean = true) {
     this.isProduction = 'production' === process.env.NODE_ENV;
+    this.compress = compress;
   }
 
   /**
@@ -143,6 +155,26 @@ export class Compiler {
   done(inPath: string, callback: () => void) {
     console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
     callback();
+  }
+
+  /**
+   * Writes the data to disk and then calls `done`.
+   *
+   * @memberOf Compiler
+   * @instance
+   * @private
+   * @method writeAndCallDone
+   * @param {string}      inPath   - the input path
+   * @param {string}      outPath  - the output path
+   * @param {ProgramData} data     - processed application code with source maps
+   * @param {Function}    callback - a callback function
+   * @example
+   * compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
+   */
+  writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
+    this.fsWrite(outPath, data, () => {
+      this.done(inPath, callback);
+    });
   }
 
   /**
@@ -218,13 +250,15 @@ export class Compiler {
     if (!minified) {
       return;
     }
+    if (!this.compress) {
+      this.writeAndCallDone(inPath, outPath, minified, callback);
+      return;
+    }
     gzip(minified.code, (gzipErr, code) => {
       if (gzipErr) {
         return console.error(gzipErr);
       }
-      this.fsWrite(outPath, {code, map: minified.map}, () => {
-        this.done(inPath, callback);
-      });
+      this.writeAndCallDone(inPath, outPath, {code, map: minified.map}, callback);
     });
   }
 

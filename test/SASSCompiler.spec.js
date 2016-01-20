@@ -50,7 +50,11 @@ describe('SASSCompiler', () => {
       process = stub().returns({then});
       postcss = stub().returns({process});
       SASSCompiler = req({postcss});
-      cmp = new SASSCompiler(['/path/to/a/directory'], {bower: true});
+      cmp = new SASSCompiler(false, ['/path/to/a/directory'], {bower: true});
+    });
+
+    it('has the compress flag set to false', () => {
+      expect(cmp.compress).false;
     });
 
     it('extends Compiler', () => {

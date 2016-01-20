@@ -11,8 +11,9 @@ const emptyFn: () => void = Function.prototype;
  * JavaScript compilation tools
  *
  * @class JS
- * @param {Object} [babelOptions={}] - allows to override the default Babel options
- * @param {Object} [lintRules={}]    - allows to override the default linting rules
+ * @param {boolean} [compress=true]   - if true `Compiler#optimize` will gzip compress the data
+ * @param {Object}  [babelOptions={}] - allows to override the default Babel options
+ * @param {Object}  [lintRules={}]    - allows to override the default linting rules
  * @example
  * import {JS} from 'webcompiler';
  *
@@ -49,8 +50,8 @@ export class JS {
    */
   linter: JSLint;
 
-  constructor(babelOptions: Object = {}, lintRules: Object = {}) {
-    this.compiler = new JSCompiler(babelOptions);
+  constructor(compress: boolean = true, babelOptions: Object = {}, lintRules: Object = {}) {
+    this.compiler = new JSCompiler(compress, babelOptions);
     this.flow = new NativeProcess('flow');
     this.linter = new JSLint(lintRules);
   }

@@ -26,7 +26,8 @@ const emptyFn: () => void = Function.prototype,
  *
  * @class JSCompiler
  * @extends Compiler
- * @param {Object} [options={}] - allows to override the default Babel options
+ * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data
+ * @param {Object}  [options={}]    - allows to override the default Babel options
  * @example
  * import {JSCompiler} from 'webcompiler';
  *
@@ -53,8 +54,8 @@ export class JSCompiler extends Compiler {
    */
   processing: number;
 
-  constructor(options: Object = {}) {
-    super();
+  constructor(compress: boolean = true, options: Object = {}) {
+    super(compress);
     this.options = Object.assign({}, config.env[this.isProduction ? 'production' : 'development'], options);
     this.processing = 0;
   }

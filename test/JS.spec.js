@@ -304,7 +304,11 @@ describe('JS', () => {
   describe('babel overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS({sample: 'babel config'});
+      cmp = new JS(false, {sample: 'babel config'});
+    });
+
+    it('has the compress flag set to false', () => {
+      expect(cmp.compiler.compress).false;
     });
 
     it('instantiates a compiler', () => {
@@ -316,7 +320,11 @@ describe('JS', () => {
   describe('all overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS({sample: 'babel config'}, {complexity: [2, 2]});
+      cmp = new JS(true, {sample: 'babel config'}, {complexity: [2, 2]});
+    });
+
+    it('has the compress flag set to true', () => {
+      expect(cmp.compiler.compress).true;
     });
 
     it('instantiates a linter', () => {

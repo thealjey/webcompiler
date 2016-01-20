@@ -38,6 +38,7 @@ type AutoprefixCallback = (data: ProgramData) => void;
  *
  * @class SASSCompiler
  * @extends Compiler
+ * @param {boolean}       [compress=true]        - if true `Compiler#optimize` will gzip compress the data
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
  *                                                 configuration
@@ -67,8 +68,8 @@ export class SASSCompiler extends Compiler {
    */
   importOnce: Object;
 
-  constructor(includePaths: Array<string> = [], importOnceOptions: Object = {}) {
-    super();
+  constructor(compress: boolean = true, includePaths: Array<string> = [], importOnceOptions: Object = {}) {
+    super(compress);
     this.includePaths = options.includePaths.concat(includePaths);
     this.importOnce = Object.assign({}, options.importOnce, importOnceOptions);
   }

@@ -10,6 +10,7 @@ const emptyFn: () => void = Function.prototype;
  * SASS compilation tools
  *
  * @class SASS
+ * @param {boolean}       [compress=true]        - if true `Compiler#optimize` will gzip compress the data
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
  * @param {Array<string>} [excludeLinter=[]]     - names of linters to exclude
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
@@ -40,8 +41,9 @@ export class SASS {
    */
   linter: SASSLint;
 
-  constructor(includePaths: Array<string> = [], excludeLinter: Array<string> = [], importOnceOptions: Object = {}) {
-    this.compiler = new SASSCompiler(includePaths, importOnceOptions);
+  constructor(compress: boolean = true, includePaths: Array<string> = [], excludeLinter: Array<string> = [],
+              importOnceOptions: Object = {}) {
+    this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
     this.linter = new SASSLint(...excludeLinter);
   }
 

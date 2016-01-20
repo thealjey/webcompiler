@@ -28,10 +28,11 @@ describe('SASS', () => {
   describe('arguments', () => {
 
     beforeEach(() => {
-      cmp = new SASS(['/path/to/a/directory'], ['QualifyingElement', 'PlaceholderInExtend'], {bower: true});
+      cmp = new SASS(false, ['/path/to/a/directory'], ['QualifyingElement', 'PlaceholderInExtend'], {bower: true});
     });
 
     it('initializes compiler', () => {
+      expect(cmp.compiler.compress).false;
       expect(cmp.compiler).instanceof(SASSCompiler);
       expect(cmp.compiler.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
                                             '/path/to/a/directory']);

@@ -45,8 +45,12 @@ describe('JSCompiler', () => {
       webpack = stub().returns(compiler);
       JSCompiler = req({webpack});
       process.env.NODE_ENV = 'production';
-      cmp = new JSCompiler({something: 'here'});
+      cmp = new JSCompiler(false, {something: 'here'});
       delete process.env.NODE_ENV;
+    });
+
+    it('has the compress flag set to false', () => {
+      expect(cmp.compress).false;
     });
 
     it('inits options', () => {
