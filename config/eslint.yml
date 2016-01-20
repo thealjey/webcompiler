@@ -45,7 +45,7 @@ rules:
   block-spacing: 2
   complexity: [ 2, 11 ]
   curly: [ 2, all ]
-  dot-location: [ 2, object ]
+  dot-location: [ 2, property ]
   padded-blocks: 0
   no-fallthrough: 0
   no-floating-decimal: 0
