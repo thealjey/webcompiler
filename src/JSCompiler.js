@@ -1,23 +1,19 @@
 /* @flow */
 
-/* @flowignore */
-import config from '../config/babel';
 import {Compiler} from './Compiler';
 import type {ProgramData} from './Compiler';
 import {join, extname, dirname, basename} from 'path';
 import {readdir, stat, createReadStream, createWriteStream} from 'fs';
-import {transformFile} from 'babel-core';
+import {transformFile, OptionManager} from 'babel-core';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 import UglifyJS from 'uglify-js';
-import autoprefixer from 'autoprefixer';
-import importer from 'node-sass-import-once';
 
 /* eslint-disable no-sync */
 
 /* @flowignore */
 const emptyFn: () => void = Function.prototype,
-    precision = 8,
+    manager = new OptionManager(),
     cache = {},
     fakeFS = new MemoryFS();
 
@@ -56,7 +52,7 @@ export class JSCompiler extends Compiler {
 
   constructor(compress: boolean = true, options: Object = {}) {
     super(compress);
-    this.options = Object.assign({}, config.env[this.isProduction ? 'production' : 'development'], options);
+    this.options = manager.init({filename: __dirname, ...options});
     this.processing = 0;
   }
 
@@ -206,31 +202,16 @@ export class JSCompiler extends Compiler {
   /**
    * Compiles, bundles (in production mode also minifies and g-zips) a JavaScript file for the front end.
    *
-   * Supports importing (requiring) `.scss` files inside of JavaScript.
-   *
    * @memberOf JSCompiler
    * @instance
    * @method fe
    * @param {string}   inPath                    - the input path
    * @param {string}   outPath                   - the output path
    * @param {Function} [callback=function () {}] - a callback function
-   * @return {void}
-   * @see {@link https://github.com/css-modules/css-modules|CSS Modules}
    * @example
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
-    const {plugins} = this.options,
-        {NODE_ENV} = process.env;
-
-    if (plugins) {
-      this.options.plugins = plugins.filter(plugin => 'webpack-loaders' !== plugin && 'webpack-loaders' !== plugin[0]);
-    }
-
-    if (!this.isProduction) {
-      process.env.NODE_ENV = 'development';
-    }
-
     const compiler = webpack({
       cache,
       debug: true,
@@ -246,26 +227,9 @@ export class JSCompiler extends Compiler {
         }, {
           test: /\.json$/,
           loader: 'json'
-        }, {
-          test: /\.scss$/,
-          loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss', 'sass?sourceMap']
         }]
-      },
-      postcss: () => [autoprefixer],
-      sassLoader: {
-        importer,
-        importOnce: {index: true, css: false, bower: false},
-        includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
-        precision
       }
     });
-
-    /* istanbul ignore next */
-    if (NODE_ENV) {
-      process.env.NODE_ENV = NODE_ENV;
-    } else {
-      delete process.env.NODE_ENV;
-    }
 
     if (this.isProduction) {
       compiler.outputFileSystem = fakeFS;

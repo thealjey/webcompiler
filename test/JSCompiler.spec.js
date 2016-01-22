@@ -1,7 +1,5 @@
 /* @flow */
 
-/* @flowignore */
-import config from '../config/babel';
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -9,16 +7,15 @@ import proxyquire from 'proxyquire';
 import UglifyJS from 'uglify-js';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
-import autoprefixer from 'autoprefixer';
-import importer from 'node-sass-import-once';
+import {join} from 'path';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sync */
 
-const precision = 8,
-    files = 10;
+const files = 10,
+    BABELRC_FILENAME = join(__dirname, '..', 'src');
 
 let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
 
@@ -26,15 +23,21 @@ function req(options) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
 }
 
+class OptionManager {
+  init() {}
+}
+
 describe('JSCompiler', () => {
 
   beforeEach(() => {
     callback = spy();
     stub(console, 'error');
+    stub(OptionManager.prototype, 'init').returns({resolved: 'options'});
   });
 
   afterEach(() => {
     console.error.restore();
+    OptionManager.prototype.init.restore();
   });
 
   describe('webpack exception', () => {
@@ -43,9 +46,9 @@ describe('JSCompiler', () => {
       run = stub().callsArgWith(0, 'failed to compile');
       compiler = {outputFileSystem: 'realFS', run};
       webpack = stub().returns(compiler);
-      JSCompiler = req({webpack});
+      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       process.env.NODE_ENV = 'production';
-      cmp = new JSCompiler(false, {something: 'here'});
+      cmp = new JSCompiler(false, {some: 'options'});
       delete process.env.NODE_ENV;
     });
 
@@ -53,8 +56,12 @@ describe('JSCompiler', () => {
       expect(cmp.compress).false;
     });
 
+    it('calls OptionManager#init', () => {
+      expect(OptionManager.prototype.init).calledWith({filename: BABELRC_FILENAME, some: 'options'});
+    });
+
     it('inits options', () => {
-      expect(cmp.options).eql(Object.assign({}, config.env.production, {something: 'here'}));
+      expect(cmp.options).eql({resolved: 'options'});
     });
 
     it('inits processing', () => {
@@ -90,18 +97,7 @@ describe('JSCompiler', () => {
               }, {
                 test: /\.json$/,
                 loader: 'json'
-              }, {
-                test: /\.scss$/,
-                loaders: ['style?singleton', 'css?modules&minimize&importLoaders=1&sourceMap', 'postcss',
-                  'sass?sourceMap']
               }]
-            },
-            postcss: match(value => value()[0] === autoprefixer),
-            sassLoader: {
-              importer,
-              importOnce: {index: true, css: false, bower: false},
-              includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
-              precision
             }
           });
         });
@@ -159,7 +155,7 @@ describe('JSCompiler', () => {
         {toJson: () => ({errors: ['something', 'bad', 'happened'], warnings: ['you', 'cannot', 'do', 'that']})});
       compiler = {outputFileSystem: 'realFS', run};
       webpack = stub().returns(compiler);
-      JSCompiler = req({webpack});
+      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       cmp = new JSCompiler();
       stub(cmp, 'done');
       stub(cmp, 'optimize');
@@ -197,7 +193,7 @@ describe('JSCompiler', () => {
       run = stub().callsArgWith(0, null, {toJson: () => ({errors: [], warnings: []})});
       compiler = {outputFileSystem: 'realFS', run};
       webpack = stub().returns(compiler);
-      JSCompiler = req({webpack});
+      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       cmp = new JSCompiler();
       cmp.options = {some: 'options'};
       stub(cmp, 'done');
@@ -294,7 +290,7 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, 'something bad happened');
-      JSCompiler = req({'babel-core': {transformFile}});
+      JSCompiler = req({'babel-core': {transformFile, OptionManager}});
       process.env.NODE_ENV = 'development';
       cmp = new JSCompiler();
       delete process.env.NODE_ENV;
@@ -305,10 +301,6 @@ describe('JSCompiler', () => {
     afterEach(() => {
       cmp.fsWrite.restore();
       cmp.done.restore();
-    });
-
-    it('inits options', () => {
-      expect(cmp.options).eql(Object.assign({}, config.env.development));
     });
 
     describe('minify', () => {
@@ -370,7 +362,7 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, null, {code: 'compiled code', map: 'compiled source map'});
-      JSCompiler = req({'babel-core': {transformFile}});
+      JSCompiler = req({'babel-core': {transformFile, OptionManager}});
       cmp = new JSCompiler();
       stub(cmp, 'fsWrite').callsArg(2);
       stub(cmp, 'done');
