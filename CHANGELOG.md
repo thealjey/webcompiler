@@ -1,3 +1,11 @@
+v3.4.0 - Tue, 26 Jan 2016 14:48:39 GMT
+--------------------------------------
+
+- [1d78498](../../commit/1d78498) [changed] removed a number of unnecessary dependencies; improved performance; updated dependencies; added more extensive linting rules for the use of the LoDash library
+- [08969d1](../../commit/08969d1) [removed] support for CSS Modules. Though, certainly a good idea, the implementation is based solely on hacks, which I just do not feel comfortable having on the project. Also, switched to using the Babel OptionManager, instead of loading the configuration file manually.
+
+
+
 v3.3.1 - Wed, 20 Jan 2016 13:18:18 GMT
 --------------------------------------
 
