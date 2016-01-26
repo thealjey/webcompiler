@@ -28,16 +28,46 @@ rules:
   react/sort-comp: 0
   react/jsx-key: 2
   react/no-deprecated: 2
+  react/jsx-equals-spacing: 2
 
   # lodash
-  lodash/import: 2
+  lodash/callback-binding: 2
+  lodash/unwrap: 2
+  lodash/no-double-unwrap: 2
+  lodash/collection-return: 2
+  lodash/prop-shorthand: 2
+  lodash/matches-prop-shorthand: 2
+  lodash/matches-shorthand: 2
+  lodash/preferred-alias: 2
+  lodash/prefer-chain: 2
+  lodash/no-single-chain: 2
+  lodash/prefer-reject: 2
+  lodash/prefer-filter: 2
+  lodash/prefer-compact: 2
+  lodash/prefer-map: 2
+  lodash/prefer-wrapper-method: 2
+  lodash/prefer-invoke-map: 2
+  lodash/prefer-thru: 2
+  lodash/no-commit: 2
+  lodash/chain-style: 2
+  lodash/prefer-flat-map: 2
+  lodash/prefer-lodash-chain: 2
+  lodash/prefer-lodash-method: 2
+  lodash/prefer-lodash-typecheck: 2
+  lodash/prefer-get: 2
+  lodash/prefer-matches: 2
+  lodash/prefer-times: 2
+  lodash/prefer-startswith: 2
+  lodash/prefer-noop: 2
+  lodash/prefer-constant: 2
+  lodash/prefer-is-nil: 2
+  lodash/prefer-over-quantifier: 2
 
   # flow
   flow-vars/define-flow-type: 2
   flow-vars/use-flow-type: 2
 
   # eslint
-  prefer-arrow-callback: 2
   no-inner-declarations: [ 2, both ]
   valid-jsdoc: [ 2, { prefer: { returns: return }, requireReturn: false } ]
   no-unexpected-multiline: 2
@@ -57,7 +87,6 @@ rules:
   no-useless-call: 2
   no-void: 2
   no-warning-comments: [ 2, { terms: [ todo, fixme, xxx ], location: start } ]
-  wrap-iife: 2
   yoda: [ 2, always ]
   no-catch-shadow: 2
   no-label-var: 2
@@ -94,7 +123,6 @@ rules:
   no-class-assign: 2
   no-this-before-super: 2
   prefer-spread: 2
-  prefer-template: 2
   require-yield: 2
   func-names: 0
   max-depth: [ 2, 4 ]
@@ -104,6 +132,5 @@ rules:
   no-negated-condition: 2
   no-magic-numbers: [ 2, { enforceConst: true, detectObjects: true } ]
   no-empty-pattern: 2
-  arrow-body-style: [ 2, as-needed ]
   no-arrow-condition: 2
   no-case-declarations: 2

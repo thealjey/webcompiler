@@ -3,9 +3,8 @@
 import {JSCompiler} from './JSCompiler';
 import {NativeProcess} from './NativeProcess';
 import {JSLint} from './JSLint';
-
-/* @flowignore */
-const emptyFn: () => void = Function.prototype;
+import forEach from 'lodash/forEach';
+import noop from 'lodash/noop';
 
 /**
  * JavaScript compilation tools
@@ -74,7 +73,7 @@ export class JS {
         return console.error(flowErr);
       }
       if (!JSON.parse(stdout).passed) {
-        return this.flow.run(emptyFn, [], {stdio: 'inherit'});
+        return this.flow.run(noop, [], {stdio: 'inherit'});
       }
       callback();
     }, ['--json']);
@@ -98,7 +97,7 @@ export class JS {
       if (!linterErr) {
         return callback();
       }
-      linterErr.forEach(e => {
+      forEach(linterErr, e => {
         console.log(
           '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
           e.message, e.ruleId ? ` (${e.ruleId})` : '', e.filePath, e.line, e.column);
@@ -144,7 +143,7 @@ export class JS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  be(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = emptyFn) {
+  be(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {
       this.compiler.be(inPath, outPath, callback);
     });
@@ -166,7 +165,7 @@ export class JS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = emptyFn) {
+  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {
       this.compiler.fe(inPath, outPath, callback);
     });

@@ -3,13 +3,11 @@
 import {NativeProcess} from './NativeProcess';
 import {stat} from 'fs';
 import {join} from 'path';
+import noop from 'lodash/noop';
 
 const npm = new NativeProcess('npm'),
     defaultConfig = join(__dirname, '..', 'config', 'jsdoc.json'),
-    cwd = process.cwd(),
-
-    /* @flowignore */
-    emptyFn: () => void = Function.prototype;
+    cwd = process.cwd();
 
 /**
  * Processed application code with source maps
@@ -144,7 +142,7 @@ export class Documentation {
    *   // generated the API documentation
    * });
    */
-  run(callback: () => void = emptyFn) {
+  run(callback: () => void = noop) {
     if (this.jsdoc) {
       return this.doRun(this.jsdoc, callback);
     }

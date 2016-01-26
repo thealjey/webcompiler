@@ -3,6 +3,7 @@
 import {join} from 'path';
 import {JS} from '../src/JS';
 import {NativeProcess} from '../src/NativeProcess';
+import noop from 'lodash/noop';
 
 const rootDir = join(__dirname, '..'),
     binDir = join(rootDir, 'bin'),
@@ -10,16 +11,13 @@ const rootDir = join(__dirname, '..'),
     libDir = join(rootDir, 'lib'),
     testDir = join(rootDir, 'test'),
     js = new JS(),
-    npm = new NativeProcess('npm'),
-
-    /* @flowignore */
-    emptyFn: () => void = Function.prototype;
+    npm = new NativeProcess('npm');
 
 js.be(srcDir, libDir, [testDir, binDir], () => {
   npm.run(stderr => {
     if (stderr) {
       return console.error(stderr);
     }
-    npm.run(emptyFn, ['test'], {stdio: 'inherit'});
+    npm.run(noop, ['test'], {stdio: 'inherit'});
   }, ['run', 'docs-build'], {stdio: 'inherit'});
 });

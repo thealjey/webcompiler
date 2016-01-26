@@ -1,21 +1,21 @@
 /* @flow */
 
 import {Compiler} from './Compiler';
-import type {ProgramData} from './Compiler';
 import {join, extname, dirname, basename} from 'path';
 import {readdir, stat, createReadStream, createWriteStream} from 'fs';
 import {transformFile, OptionManager} from 'babel-core';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
-import UglifyJS from 'uglify-js';
+import forEach from 'lodash/forEach';
+import noop from 'lodash/noop';
 
 /* eslint-disable no-sync */
 
-/* @flowignore */
-const emptyFn: () => void = Function.prototype,
-    manager = new OptionManager(),
+const manager = new OptionManager(),
     cache = {},
-    fakeFS = new MemoryFS();
+    fakeFS = new MemoryFS(),
+    {DedupePlugin, UglifyJsPlugin} = webpack.optimize,
+    productionPlugins = [new DedupePlugin(), new UglifyJsPlugin()];
 
 /**
  * A JavaScript compiler
@@ -74,7 +74,7 @@ export class JSCompiler extends Compiler {
       if (readdirErr) {
         return console.error(readdirErr);
       }
-      files.forEach(file => {
+      forEach(files, file => {
         this.beTraverse(join(inPath, file), join(outPath, file), callback);
       });
     });
@@ -104,7 +104,7 @@ export class JSCompiler extends Compiler {
   }
 
   /**
-   * Compiles a files
+   * Copies a file
    *
    * @memberOf JSCompiler
    * @instance
@@ -154,28 +154,6 @@ export class JSCompiler extends Compiler {
   }
 
   /**
-   * Minifies the compiled code
-   *
-   * @memberOf JSCompiler
-   * @instance
-   * @method minify
-   * @param  {string}      path     - a path to the file (can be used for the sourceMappingURL comment)
-   * @param  {ProgramData} data     - the actual program data to compress
-   * @return {ProgramData} processed application code with source maps
-   * @example
-   * const minifiedData = compiler.minify('/path/to/the/output/file.js', data);
-   */
-  minify(path: string, data: ProgramData): ProgramData {
-    return UglifyJS.minify(data.code, {
-      fromString: true,
-      mangle: false,
-      output: {space_colon: false},
-      inSourceMap: JSON.parse(data.map),
-      outSourceMap: `${basename(path)}.map`
-    });
-  }
-
-  /**
    * Compiles a JavaScript file or a directory for the back end. Non-JavaScript files are simply copied over.
    *
    * @memberOf JSCompiler
@@ -188,7 +166,7 @@ export class JSCompiler extends Compiler {
    * @example
    * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
-  be(inPath: string, outPath: string, callback: () => void = emptyFn) {
+  be(inPath: string, outPath: string, callback: () => void = noop) {
     if (this.processing) {
       return console.error('Still working...');
     }
@@ -211,13 +189,14 @@ export class JSCompiler extends Compiler {
    * @example
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
-  fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
+  fe(inPath: string, outPath: string, callback: () => void = noop) {
     const compiler = webpack({
       cache,
       debug: true,
       devtool: 'source-map',
       entry: inPath,
       output: {path: dirname(outPath), filename: basename(outPath)},
+      plugins: this.isProduction ? productionPlugins : [],
       module: {
         loaders: [{
           test: /\.js$/,
@@ -231,9 +210,8 @@ export class JSCompiler extends Compiler {
       }
     });
 
-    if (this.isProduction) {
-      compiler.outputFileSystem = fakeFS;
-    }
+    compiler.outputFileSystem = fakeFS;
+
     compiler.run((error, stats) => {
       if (error) {
         return console.error(error);
@@ -242,12 +220,9 @@ export class JSCompiler extends Compiler {
           errors = jsonStats.errors.concat(jsonStats.warnings);
 
       if (errors.length) {
-        return errors.forEach(err => {
+        return forEach(errors, err => {
           console.error(err);
         });
-      }
-      if (!this.isProduction) {
-        return this.done(inPath, callback);
       }
       this.optimize(inPath, outPath, {
         code: fakeFS.readFileSync(outPath, 'utf8'),

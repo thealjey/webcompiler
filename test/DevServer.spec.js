@@ -5,6 +5,7 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
+import noop from 'lodash/noop';
 
 chai.use(sinonChai);
 
@@ -37,9 +38,11 @@ WebpackDevServer.prototype.app = {
 };
 
 class Server {
-  changed() {}
-  listen() {}
+  changed: () => void;
+  listen: () => void;
 }
+Server.prototype.changed = noop;
+Server.prototype.listen = noop;
 
 class HotModuleReplacementPlugin {}
 
@@ -53,11 +56,7 @@ describe('DevServer', () => {
     webpack = stub().returns('the webpack module bundler');
     send = spy();
     watch = spy();
-
-    /* @flowignore */
     webpack.HotModuleReplacementPlugin = HotModuleReplacementPlugin;
-
-    /* @flowignore */
     webpack.NoErrorsPlugin = NoErrorsPlugin;
     stub(SASSCompiler.prototype, 'fe').callsArg(2);
     spy(SASSCompiler.prototype.fe, 'bind');

@@ -78,6 +78,7 @@
 
 import {CLIEngine} from 'eslint';
 import {join} from 'path';
+import forEach from 'lodash/forEach';
 
 /**
  * The JavaScript linting error object
@@ -151,8 +152,8 @@ export class JSLint {
     const report = this.linter.executeOnFiles(paths),
         errors = [];
 
-    report.results.forEach(f => {
-      f.messages.forEach(e => {
+    forEach(report.results, f => {
+      forEach(f.messages, e => {
         e.filePath = f.filePath;
         errors.push(e);
       });

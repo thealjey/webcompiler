@@ -4,10 +4,10 @@ import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
-import UglifyJS from 'uglify-js';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
 import {join} from 'path';
+import noop from 'lodash/noop';
 
 chai.use(sinonChai);
 
@@ -24,7 +24,19 @@ function req(options) {
 }
 
 class OptionManager {
-  init() {}
+  init: () => void;
+}
+OptionManager.prototype.init = noop;
+
+class DedupePlugin {}
+
+class UglifyJsPlugin {}
+
+function getWebpack(c) {
+  const wp = stub().returns(c);
+
+  wp.optimize = {DedupePlugin, UglifyJsPlugin};
+  return wp;
 }
 
 describe('JSCompiler', () => {
@@ -45,7 +57,7 @@ describe('JSCompiler', () => {
     beforeEach(() => {
       run = stub().callsArgWith(0, 'failed to compile');
       compiler = {outputFileSystem: 'realFS', run};
-      webpack = stub().returns(compiler);
+      webpack = getWebpack(compiler);
       JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       process.env.NODE_ENV = 'production';
       cmp = new JSCompiler(false, {some: 'options'});
@@ -72,6 +84,11 @@ describe('JSCompiler', () => {
 
       beforeEach(() => {
         cmp.options = {some: 'options'};
+        stub(cmp, 'optimize');
+      });
+
+      afterEach(() => {
+        cmp.optimize.restore();
       });
 
       describe('development', () => {
@@ -88,6 +105,7 @@ describe('JSCompiler', () => {
             devtool: 'source-map',
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
+            plugins: [],
             module: {
               loaders: [{
                 test: /\.js$/,
@@ -102,26 +120,6 @@ describe('JSCompiler', () => {
           });
         });
 
-        it('does not override the compiler file system', () => {
-          expect(compiler.outputFileSystem).equal('realFS');
-        });
-
-      });
-
-      describe('production', () => {
-
-        beforeEach(() => {
-          cmp.isProduction = true;
-          stub(cmp, 'done');
-          stub(cmp, 'optimize');
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-        });
-
-        afterEach(() => {
-          cmp.done.restore();
-          cmp.optimize.restore();
-        });
-
         it('overrides the compiler file system', () => {
           expect(compiler.outputFileSystem).instanceof(MemoryFS);
         });
@@ -134,12 +132,39 @@ describe('JSCompiler', () => {
           expect(console.error).calledWith('failed to compile');
         });
 
-        it('does not call cmp.done', () => {
-          expect(cmp.done).not.called;
-        });
-
         it('does not call cmp.optimize', () => {
           expect(cmp.optimize).not.called;
+        });
+
+      });
+
+      describe('production', () => {
+
+        beforeEach(() => {
+          cmp.isProduction = true;
+          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
+        });
+
+        it('calls webpack', () => {
+          expect(webpack).calledWith({
+            cache: {},
+            debug: true,
+            devtool: 'source-map',
+            entry: '/path/to/the/input/file.js',
+            output: {path: '/path/to/the/output', filename: 'file.js'},
+            plugins: [match.instanceOf(DedupePlugin), match.instanceOf(UglifyJsPlugin)],
+            module: {
+              loaders: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {cacheDirectory: true, some: 'options'}
+              }, {
+                test: /\.json$/,
+                loader: 'json'
+              }]
+            }
+          });
         });
 
       });
@@ -154,16 +179,14 @@ describe('JSCompiler', () => {
       run = stub().callsArgWith(0, null,
         {toJson: () => ({errors: ['something', 'bad', 'happened'], warnings: ['you', 'cannot', 'do', 'that']})});
       compiler = {outputFileSystem: 'realFS', run};
-      webpack = stub().returns(compiler);
+      webpack = getWebpack(compiler);
       JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       cmp = new JSCompiler();
-      stub(cmp, 'done');
       stub(cmp, 'optimize');
       cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
     });
 
     afterEach(() => {
-      cmp.done.restore();
       cmp.optimize.restore();
     });
 
@@ -177,10 +200,6 @@ describe('JSCompiler', () => {
       expect(console.error).calledWith('that');
     });
 
-    it('does not call cmp.done', () => {
-      expect(cmp.done).not.called;
-    });
-
     it('does not call cmp.optimize', () => {
       expect(cmp.optimize).not.called;
     });
@@ -192,94 +211,41 @@ describe('JSCompiler', () => {
     beforeEach(() => {
       run = stub().callsArgWith(0, null, {toJson: () => ({errors: [], warnings: []})});
       compiler = {outputFileSystem: 'realFS', run};
-      webpack = stub().returns(compiler);
+      webpack = getWebpack(compiler);
       JSCompiler = req({webpack, 'babel-core': {OptionManager}});
       cmp = new JSCompiler();
       cmp.options = {some: 'options'};
-      stub(cmp, 'done');
       stub(cmp, 'optimize');
+      stub(MemoryFS.prototype, 'readFileSync').returnsArg(0);
     });
 
     afterEach(() => {
-      cmp.done.restore();
       cmp.optimize.restore();
+      MemoryFS.prototype.readFileSync.restore();
     });
 
-    describe('development', () => {
+    describe('no callback', () => {
 
       beforeEach(() => {
-        cmp.isProduction = false;
+        cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
       });
 
-      describe('no callback', () => {
-
-        beforeEach(() => {
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-        });
-
-        it('calls done', () => {
-          expect(cmp.done).calledWith('/path/to/the/input/file.js', match.func);
-        });
-
-        it('does not call optimize', () => {
-          expect(cmp.optimize).not.called;
-        });
-
-      });
-
-      describe('callback', () => {
-
-        beforeEach(() => {
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', callback);
-        });
-
-        it('calls done', () => {
-          expect(cmp.done).calledWith('/path/to/the/input/file.js', callback);
-        });
-
+      it('calls optimize', () => {
+        expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+          {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, match.func);
       });
 
     });
 
-    describe('production', () => {
+    describe('callback', () => {
 
       beforeEach(() => {
-        cmp.isProduction = true;
-        stub(MemoryFS.prototype, 'readFileSync').returnsArg(0);
+        cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', callback);
       });
 
-      afterEach(() => {
-        MemoryFS.prototype.readFileSync.restore();
-      });
-
-      describe('no callback', () => {
-
-        beforeEach(() => {
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-        });
-
-        it('does not call done', () => {
-          expect(cmp.done).not.called;
-        });
-
-        it('calls optimize', () => {
-          expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-            {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, match.func);
-        });
-
-      });
-
-      describe('callback', () => {
-
-        beforeEach(() => {
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', callback);
-        });
-
-        it('calls optimize', () => {
-          expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-            {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, callback);
-        });
-
+      it('calls optimize', () => {
+        expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+          {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, callback);
       });
 
     });
@@ -301,35 +267,6 @@ describe('JSCompiler', () => {
     afterEach(() => {
       cmp.fsWrite.restore();
       cmp.done.restore();
-    });
-
-    describe('minify', () => {
-
-      beforeEach(() => {
-        stub(UglifyJS, 'minify').returns('minified javascript');
-        spy(cmp, 'minify');
-        cmp.minify('/path/to/a/script/file.js', {code: 'js code', map: '{"source": "map"}'});
-      });
-
-      afterEach(() => {
-        UglifyJS.minify.restore();
-        cmp.minify.restore();
-      });
-
-      it('calls UglifyJS.minify', () => {
-        expect(UglifyJS.minify).calledWith('js code', {
-          fromString: true,
-          mangle: false,
-          output: {space_colon: false},
-          inSourceMap: {source: 'map'},
-          outSourceMap: 'file.js.map'
-        });
-      });
-
-      it('returns minified result', () => {
-        expect(cmp.minify).returned('minified javascript');
-      });
-
     });
 
     describe('beFile', () => {

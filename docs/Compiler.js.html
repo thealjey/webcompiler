@@ -93,11 +93,19 @@ let i = 0;
 export type ProgramData = {code: string, map: string};
 
 /**
+ * Invoked when the data was successfully g-zipped
+ *
+ * @callback GzipCallback
+ * @param {ProgramData} data - the program data
+ */
+type GzipCallback = (data: ProgramData) => void;
+
+/**
  * The base compiler class
  *
  * @class Compiler
  * @abstract
- * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data
+ * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data in production mode
  */
 export class Compiler {
   /**
@@ -124,21 +132,8 @@ export class Compiler {
 
   constructor(compress: boolean = true) {
     this.isProduction = 'production' === process.env.NODE_ENV;
-    this.compress = compress;
+    this.compress = this.isProduction &amp;&amp; compress;
   }
-
-  /**
-   * Minifies the compiled code
-   *
-   * @memberOf Compiler
-   * @instance
-   * @abstract
-   * @method minify
-   * @param  {string}      path     - a path to the file (can be used for the sourceMappingURL comment)
-   * @param  {ProgramData} data     - the actual program data to compress
-   * @return {ProgramData} processed application code with source maps or null on error
-   */
-  minify: (path: string, data: ProgramData) => ?ProgramData;
 
   /**
    * Executed when the compilation is complete
@@ -231,7 +226,27 @@ export class Compiler {
   }
 
   /**
-   * Minifies and g-zips the program
+   * Z-zips the compiled code
+   *
+   * @memberOf Compiler
+   * @instance
+   * @method gzip
+   * @param {ProgramData}  data     - the actual program data to auto-prefix
+   * @param {GzipCallback} callback - a callback function
+   * @example
+   * compiler.gzip(data, callback);
+   */
+  gzip(data: ProgramData, callback: GzipCallback) {
+    gzip(data.code, (err, code) => {
+      if (err) {
+        return console.error(err);
+      }
+      callback({code, map: data.map});
+    });
+  }
+
+  /**
+   * G-zips the program if necessary and writes the results to disk.
    *
    * @memberOf Compiler
    * @instance
@@ -245,20 +260,12 @@ export class Compiler {
    * compiler.optimize('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
   optimize(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
-    const minified = this.minify(outPath, data);
-
-    if (!minified) {
-      return;
-    }
     if (!this.compress) {
-      this.writeAndCallDone(inPath, outPath, minified, callback);
+      this.writeAndCallDone(inPath, outPath, data, callback);
       return;
     }
-    gzip(minified.code, (gzipErr, code) => {
-      if (gzipErr) {
-        return console.error(gzipErr);
-      }
-      this.writeAndCallDone(inPath, outPath, {code, map: minified.map}, callback);
+    this.gzip(data, result => {
+      this.writeAndCallDone(inPath, outPath, result, callback);
     });
   }
 

@@ -6,6 +6,7 @@ import sinonChai from 'sinon-chai';
 import {NativeProcess} from '../src/NativeProcess';
 import type {NativeProcessCallback} from '../src/NativeProcess';
 import proc from 'child_process';
+import constant from 'lodash/constant';
 
 chai.use(sinonChai);
 
@@ -46,7 +47,7 @@ describe('NativeProcess', () => {
 
         beforeEach(() => {
           on = spy((event, cb) => {
-            cb('close' === event ? 1 : {toString: () => 'something bad happened'});
+            cb('close' === event ? 1 : {toString: constant('something bad happened')});
           });
           stub(proc, 'spawn').returns({on});
           cmp.run(callback);
@@ -79,7 +80,7 @@ describe('NativeProcess', () => {
 
         beforeEach(() => {
           on = spy((event, cb) => {
-            cb('close' === event ? 0 : {toString: () => 'something bad happened'});
+            cb('close' === event ? 0 : {toString: constant('something bad happened')});
           });
           stub(proc, 'spawn').returns({on});
           cmp.run(callback);
@@ -103,7 +104,7 @@ describe('NativeProcess', () => {
         stdoutOn = stub().callsArgWith(1, 'the standard output');
         stderrOn = stub().callsArgWith(1, 'something is wrong');
         on = spy((event, cb) => {
-          cb('close' === event ? 1 : {toString: () => 'something bad happened'});
+          cb('close' === event ? 1 : {toString: constant('something bad happened')});
         });
         stub(proc, 'spawn').returns({on, stdout: {on: stdoutOn}, stderr: {on: stderrOn}});
         cmp.run();

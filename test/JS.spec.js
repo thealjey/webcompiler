@@ -323,10 +323,6 @@ describe('JS', () => {
       cmp = new JS(true, {sample: 'babel config'}, {complexity: [2, 2]});
     });
 
-    it('has the compress flag set to true', () => {
-      expect(cmp.compiler.compress).true;
-    });
-
     it('instantiates a linter', () => {
       expect(cmp.linter.linter.options.rules).eql({complexity: [2, 2]});
     });

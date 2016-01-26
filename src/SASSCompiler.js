@@ -4,29 +4,17 @@ import {Compiler} from './Compiler';
 import type {ProgramData} from './Compiler';
 import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
-import CleanCSS from 'clean-css';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
+import forEach from 'lodash/forEach';
+import noop from 'lodash/noop';
 
 const precision = 8,
-    roundingPrecision = -1,
-    sourceMappingURLPattern = /\n*\/\*# sourceMappingURL=\S+ \*\//,
-    options = {
-      file: null,
-      outFile: null,
-      importer,
-      importOnce: {index: true, css: false, bower: false},
-      includePaths: ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'],
-      precision,
-      sourceMap: true,
-      sourceMapContents: true
-    },
-
-    /* @flowignore */
-    emptyFn: () => void = Function.prototype;
+    importOnceDefaults = {index: true, css: false, bower: false},
+    defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'];
 
 /**
- * Invoked on operation success or failure
+ * Invoked when the data was successfully autoprefixed
  *
  * @callback AutoprefixCallback
  * @param {ProgramData} data - the parsed object
@@ -70,39 +58,8 @@ export class SASSCompiler extends Compiler {
 
   constructor(compress: boolean = true, includePaths: Array<string> = [], importOnceOptions: Object = {}) {
     super(compress);
-    this.includePaths = options.includePaths.concat(includePaths);
-    this.importOnce = Object.assign({}, options.importOnce, importOnceOptions);
-  }
-
-  /**
-   * Minifies the compiled code
-   *
-   * @memberOf SASSCompiler
-   * @instance
-   * @method minify
-   * @param  {string}      path     - a path to the file (can be used for the sourceMappingURL comment)
-   * @param  {ProgramData} data     - the actual program data to compress
-   * @return {ProgramData} processed application code with source maps or null on error
-   * @example
-   * const minifiedData = compiler.minify('/path/to/the/output/file.css', data);
-   */
-  minify(path: string, data: ProgramData): ?ProgramData {
-    const sourceMappingURL = data.code.match(sourceMappingURLPattern),
-        minified = new CleanCSS({
-          keepSpecialComments: 0,
-          roundingPrecision,
-          sourceMap: data.map,
-          sourceMapInlineSources: true
-        }).minify(data.code),
-        errors = minified.errors.concat(minified.warnings);
-
-    if (errors.length) {
-      errors.forEach(error => {
-        console.error(error);
-      });
-      return null;
-    }
-    return {code: `${minified.styles}${sourceMappingURL ? sourceMappingURL[0] : ''}`, map: minified.sourceMap};
+    this.includePaths = defaultIncludePaths.concat(includePaths);
+    this.importOnce = {...importOnceDefaults, ...importOnceOptions};
   }
 
   /**
@@ -128,7 +85,7 @@ export class SASSCompiler extends Compiler {
       const warnings = result.warnings();
 
       if (warnings.length) {
-        return warnings.forEach(warning => {
+        return forEach(warnings, warning => {
           console.error(warning.toString());
         });
       }
@@ -150,25 +107,25 @@ export class SASSCompiler extends Compiler {
    *   // compiled successfully
    * });
    */
-  fe(inPath: string, outPath: string, callback: () => void = emptyFn) {
-    render(Object.assign({}, options, {
+  fe(inPath: string, outPath: string, callback: () => void = noop) {
+    render({
       file: inPath,
       outFile: outPath,
+      importer,
+      precision,
       importOnce: this.importOnce,
-      includePaths: this.includePaths
-    }), (error, result) => {
+      includePaths: this.includePaths,
+      sourceMap: true,
+      sourceMapContents: true,
+      outputStyle: this.isProduction ? 'compressed' : 'nested'
+    }, (error, result) => {
       if (error) {
         return console.log(
           '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
           error.message, error.file, error.line, error.column);
       }
       this.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
-        if (this.isProduction) {
-          return this.optimize(inPath, outPath, data, callback);
-        }
-        this.fsWrite(outPath, data, () => {
-          this.done(inPath, callback);
-        });
+        this.optimize(inPath, outPath, data, callback);
       });
     });
   }

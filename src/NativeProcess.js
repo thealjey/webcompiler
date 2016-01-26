@@ -1,9 +1,7 @@
 /* @flow */
 
 import {spawn} from 'child_process';
-
-/* @flowignore */
-const emptyFn: () => void = Function.prototype;
+import noop from 'lodash/noop';
 
 /**
  * Invoked on operation success or failure
@@ -68,7 +66,7 @@ export class NativeProcess {
    *   // created a directory named "example" in cwd
    * }, ['example']);
    */
-  run(callback: NativeProcessCallback = emptyFn, args: Array<string> = [], opts: Object = {}) {
+  run(callback: NativeProcessCallback = noop, args: Array<string> = [], opts: Object = {}) {
     if (this.proc) {
       return callback('Still working...', '');
     }

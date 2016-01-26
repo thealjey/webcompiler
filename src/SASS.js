@@ -2,9 +2,7 @@
 
 import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
-
-/* @flowignore */
-const emptyFn: () => void = Function.prototype;
+import noop from 'lodash/noop';
 
 /**
  * SASS compilation tools
@@ -85,7 +83,7 @@ export class SASS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = emptyFn) {
+  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
     this.lint(lintPaths.concat([inPath]), () => {
       this.compiler.fe(inPath, outPath, callback);
     });

@@ -269,124 +269,94 @@ describe('Compiler', () => {
 
     });
 
+    describe('gzip error', () => {
+
+      beforeEach(() => {
+        stub(zlib, 'gzip').callsArgWith(1, 'failed to compress');
+        cmp.gzip({code: 'some code', map: 'source map'}, callback);
+      });
+
+      afterEach(() => {
+        zlib.gzip.restore();
+      });
+
+      it('g-zips the code', () => {
+        expect(zlib.gzip).calledWith('some code', match.func);
+      });
+
+      it('prints the error on screen', () => {
+        expect(console.error).calledWith('failed to compress');
+      });
+
+      it('does not call the callback', () => {
+        expect(callback).not.called;
+      });
+
+    });
+
+    describe('gzip success', () => {
+
+      beforeEach(() => {
+        stub(zlib, 'gzip').callsArgWith(1, null, 'compressed code');
+        cmp.gzip({code: 'some code', map: 'source map'}, callback);
+      });
+
+      afterEach(() => {
+        zlib.gzip.restore();
+      });
+
+      it('calls the callback', () => {
+        expect(callback).calledWith({code: 'compressed code', map: 'source map'});
+      });
+
+    });
+
     describe('optimize', () => {
 
       beforeEach(() => {
         stub(cmp, 'writeAndCallDone');
+        stub(cmp, 'gzip').callsArgWith(1, {code: 'compressed code', map: 'source map'});
       });
 
       afterEach(() => {
         cmp.writeAndCallDone.restore();
+        cmp.gzip.restore();
       });
 
-      describe('minify error', () => {
+      describe('not compress', () => {
 
         beforeEach(() => {
-          stub(zlib, 'gzip');
-          cmp.minify = spy();
-          cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file', {code: 'some code', map: 'source map'},
-                       callback);
+          cmp.compress = false;
+          cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file',
+                       {code: 'some code', map: 'source map'}, callback);
         });
 
-        afterEach(() => {
-          zlib.gzip.restore();
+        it('calls writeAndCallDone', () => {
+          expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
+                                                  {code: 'some code', map: 'source map'}, callback);
         });
 
-        it('calls minify', () => {
-          expect(cmp.minify).calledWith('/path/to/the/output/file', {code: 'some code', map: 'source map'});
-        });
-
-        it('does not call writeAndCallDone', () => {
-          expect(cmp.writeAndCallDone).not.called;
-        });
-
-        it('does not g-zip anything', () => {
-          expect(zlib.gzip).not.called;
+        it('does not call gzip', () => {
+          expect(cmp.gzip).not.called;
         });
 
       });
 
-      describe('minify success', () => {
+      describe('compress', () => {
 
         beforeEach(() => {
-          cmp.minify = stub().returns({code: 'minified code', map: 'minified source map'});
+          cmp.compress = true;
+          cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file',
+                       {code: 'some code', map: 'source map'}, callback);
         });
 
-        describe('not compress', () => {
-
-          beforeEach(() => {
-            cmp.compress = false;
-            stub(zlib, 'gzip');
-            cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file',
-                         {code: 'some code', map: 'source map'}, callback);
-          });
-
-          afterEach(() => {
-            zlib.gzip.restore();
-          });
-
-          it('calls writeAndCallDone', () => {
-            expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
-                                                    {code: 'minified code', map: 'minified source map'}, callback);
-          });
-
-          it('does not g-zip anything', () => {
-            expect(zlib.gzip).not.called;
-          });
-
+        it('calls gzip', () => {
+          expect(cmp.gzip).calledWith({code: 'some code', map: 'source map'}, match.func);
         });
 
-        describe('compress', () => {
-
-          beforeEach(() => {
-            cmp.compress = true;
-          });
-
-          describe('gzip error', () => {
-
-            beforeEach(() => {
-              stub(zlib, 'gzip').callsArgWith(1, 'failed to compress');
-              cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file',
-                           {code: 'some code', map: 'source map'}, callback);
-            });
-
-            afterEach(() => {
-              zlib.gzip.restore();
-            });
-
-            it('g-zips the code', () => {
-              expect(zlib.gzip).calledWith('minified code', match.func);
-            });
-
-            it('prints the error on screen', () => {
-              expect(console.error).calledWith('failed to compress');
-            });
-
-            it('does not call writeAndCallDone', () => {
-              expect(cmp.writeAndCallDone).not.called;
-            });
-
-          });
-
-          describe('gzip success', () => {
-
-            beforeEach(() => {
-              stub(zlib, 'gzip').callsArgWith(1, null, 'compressed code');
-              cmp.optimize('/path/to/the/input/file', '/path/to/the/output/file',
-                           {code: 'some code', map: 'source map'}, callback);
-            });
-
-            afterEach(() => {
-              zlib.gzip.restore();
-            });
-
-            it('calls writeAndCallDone', () => {
-              expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
-                                                      {code: 'compressed code', map: 'minified source map'}, callback);
-            });
-
-          });
-
+        it('calls writeAndCallDone', () => {
+          expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
+                                                  {code: 'compressed code', map: 'source map'}, callback);
         });
 
       });

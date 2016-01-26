@@ -13,9 +13,7 @@
         "transform-merge-sibling-variables",
         "transform-remove-debugger",
         "transform-react-constant-elements",
-        "transform-react-inline-elements",
-        "transform-inline-environment-variables",
-        "transform-node-env-inline"
+        "transform-react-inline-elements"
       ]
     }
   }
