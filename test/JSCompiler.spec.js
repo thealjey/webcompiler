@@ -44,11 +44,13 @@ describe('JSCompiler', () => {
   beforeEach(() => {
     callback = spy();
     stub(console, 'error');
+    stub(console, 'log');
     stub(OptionManager.prototype, 'init').returns({resolved: 'options'});
   });
 
   afterEach(() => {
     console.error.restore();
+    console.log.restore();
     OptionManager.prototype.init.restore();
   });
 
@@ -190,14 +192,17 @@ describe('JSCompiler', () => {
       cmp.optimize.restore();
     });
 
-    it('prints the error on screen', () => {
+    it('prints the warnings on screen', () => {
+      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'you');
+      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'cannot');
+      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'do');
+      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'that');
+    });
+
+    it('prints the errors on screen', () => {
       expect(console.error).calledWith('something');
       expect(console.error).calledWith('bad');
       expect(console.error).calledWith('happened');
-      expect(console.error).calledWith('you');
-      expect(console.error).calledWith('cannot');
-      expect(console.error).calledWith('do');
-      expect(console.error).calledWith('that');
     });
 
     it('does not call cmp.optimize', () => {

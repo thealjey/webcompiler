@@ -212,16 +212,18 @@ export class JSCompiler extends Compiler {
 
     compiler.outputFileSystem = fakeFS;
 
-    compiler.run((error, stats) => {
-      if (error) {
-        return console.error(error);
+    compiler.run((err, stats) => {
+      if (err) {
+        return console.error(err);
       }
-      const jsonStats = stats.toJson(),
-          errors = jsonStats.errors.concat(jsonStats.warnings);
+      const {warnings, errors} = stats.toJson();
 
+      forEach(warnings, warning => {
+        console.log('\x1b[33m%s\x1b[0m', warning);
+      });
       if (errors.length) {
-        return forEach(errors, err => {
-          console.error(err);
+        return forEach(errors, error => {
+          console.error(error);
         });
       }
       this.optimize(inPath, outPath, {
