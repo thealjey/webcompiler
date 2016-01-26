@@ -1,3 +1,10 @@
+v3.4.1 - Tue, 26 Jan 2016 23:14:40 GMT
+--------------------------------------
+
+- [cf43b9f](../../commit/cf43b9f) [fixed] webpack warnings are purely for informational purposes and do not abort the compilation
+
+
+
 v3.4.0 - Tue, 26 Jan 2016 14:48:39 GMT
 --------------------------------------
 
