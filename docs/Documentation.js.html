@@ -206,6 +206,69 @@ export class Documentation {
   }
 
   /**
+   * Finds a path to the JSDoc3 executable
+   *
+   * @memberof Documentation
+   * @static
+   * @private
+   * @method findExecutable
+   * @param {FindExecutableCallback} callback - a callback function
+   * @example
+   * Documentation.findExecutable(file => {
+   *   // the jsdoc file is found
+   * });
+   */
+  static findExecutable(callback: FindExecutableCallback) {
+    Documentation.checkBin(localFile => {
+      if (localFile) {
+        return callback(localFile);
+      }
+      Documentation.checkBin(globalFile => {
+        if (globalFile) {
+          return callback(globalFile);
+        }
+        console.error('Failed to locate the jsdoc executable');
+      }, true);
+    });
+  }
+
+  /**
+   * Checks the NPM bin directories to see if they contain a file named jsdoc
+   *
+   * @memberof Documentation
+   * @static
+   * @private
+   * @method checkBin
+   * @param {CheckBinCallback} callback        - a callback function
+   * @param {globalPackage}    [boolean=false] - if true checks the global NPM bin directory (contains the npm
+   *                                             executable itself)
+   * @example
+   * Documentation.checkBin(file => {
+   *   if (file) {
+   *     // the jsdoc file is found
+   *   }
+   * });
+   */
+  static checkBin(callback: CheckBinCallback, globalPackage: boolean = false) {
+    const args = ['bin'];
+
+    if (globalPackage) {
+      args.push('-g');
+    }
+    npm.run((stderr, stdout) => {
+      if (stderr) {
+        console.error(stderr);
+        return callback(null);
+      }
+      const path = join(stdout.replace(/\n$/, ''), 'jsdoc');
+
+      stat(path, err => {
+        callback(err ? null : path);
+      });
+    }, args);
+  }
+
+  /**
    * Generate the documentation
    *
    * @memberof Documentation
@@ -222,7 +285,7 @@ export class Documentation {
     if (this.jsdoc) {
       return this.doRun(this.jsdoc, callback);
     }
-    this.findExecutable(file => {
+    Documentation.findExecutable(file => {
       this.jsdoc = new NativeProcess(file);
       this.doRun(this.jsdoc, callback);
     });
@@ -249,69 +312,6 @@ export class Documentation {
       }
       callback();
     }, [this.inputDir, '-d', this.outputDir, '-R', this.readMe, '-c', this.jsdocConfig, '-t', this.template]);
-  }
-
-  /**
-   * Finds a path to the JSDoc3 executable
-   *
-   * @memberof Documentation
-   * @instance
-   * @private
-   * @method findExecutable
-   * @param {FindExecutableCallback} callback - a callback function
-   * @example
-   * docs.findExecutable(file => {
-   *   // the jsdoc file is found
-   * });
-   */
-  findExecutable(callback: FindExecutableCallback) {
-    this.checkBin(localFile => {
-      if (localFile) {
-        return callback(localFile);
-      }
-      this.checkBin(globalFile => {
-        if (globalFile) {
-          return callback(globalFile);
-        }
-        console.error('Failed to locate the jsdoc executable');
-      }, true);
-    });
-  }
-
-  /**
-   * Checks the NPM bin directories to see if they contain a file named jsdoc
-   *
-   * @memberof Documentation
-   * @instance
-   * @private
-   * @method checkBin
-   * @param {CheckBinCallback} callback        - a callback function
-   * @param {globalPackage}    [boolean=false] - if true checks the global NPM bin directory (contains the npm
-   *                                             executable itself)
-   * @example
-   * docs.checkBin(file => {
-   *   if (file) {
-   *     // the jsdoc file is found
-   *   }
-   * });
-   */
-  checkBin(callback: CheckBinCallback, globalPackage: boolean = false) {
-    const args = ['bin'];
-
-    if (globalPackage) {
-      args.push('-g');
-    }
-    npm.run((stderr, stdout) => {
-      if (stderr) {
-        console.error(stderr);
-        return callback(null);
-      }
-      const path = join(stdout.replace(/\n$/, ''), 'jsdoc');
-
-      stat(path, err => {
-        callback(err ? null : path);
-      });
-    }, args);
   }
 
 }

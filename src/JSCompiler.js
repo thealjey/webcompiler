@@ -2,16 +2,20 @@
 
 import {Compiler} from './Compiler';
 import {join, extname, dirname, basename} from 'path';
-import {readdir, stat, createReadStream, createWriteStream} from 'fs';
-import {transformFile, OptionManager} from 'babel-core';
+import {readdir, stat, createReadStream, createWriteStream, readFileSync} from 'fs';
+import {transformFile} from 'babel-core';
 import webpack from 'webpack';
 import MemoryFS from 'memory-fs';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import assignWith from 'lodash/assignWith';
+import get from 'lodash/get';
+import isArray from 'lodash/isArray';
+import uniq from 'lodash/uniq';
 
 /* eslint-disable no-sync */
 
-const manager = new OptionManager(),
+const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
     cache = {},
     fakeFS = new MemoryFS(),
     {DedupePlugin, UglifyJsPlugin} = webpack.optimize,
@@ -52,8 +56,33 @@ export class JSCompiler extends Compiler {
 
   constructor(compress: boolean = true, options: Object = {}) {
     super(compress);
-    this.options = manager.init({filename: __dirname, ...options});
+    this.configure(options);
     this.processing = 0;
+  }
+
+  /**
+   * Merges Babel configuration options
+   *
+   * @memberOf JSCompiler
+   * @instance
+   * @private
+   * @method configure
+   * @param {Object} options - allows to override the default Babel options
+   * @example
+   * compiler.configure(options);
+   */
+  configure(options: Object) {
+    this.options = assignWith({}, config, get(config, ['env', process.env.NODE_ENV || 'development']), options,
+      (objValue, srcValue) => {
+        if (!isArray(srcValue)) {
+          return srcValue;
+        }
+        if (!isArray(objValue)) {
+          return uniq(srcValue);
+        }
+        return uniq(srcValue.concat(objValue));
+      });
+    delete this.options.env;
   }
 
   /**
@@ -99,7 +128,7 @@ export class JSCompiler extends Compiler {
       if (transformFileErr) {
         return console.error(transformFileErr);
       }
-      this.fsWrite(outPath, result, callback);
+      Compiler.fsWrite(outPath, result, callback);
     });
   }
 
@@ -118,7 +147,7 @@ export class JSCompiler extends Compiler {
    */
   copyFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
-    this.mkdir(outPath, () => {
+    Compiler.mkdir(outPath, () => {
       createReadStream(inPath).pipe(createWriteStream(outPath));
       callback();
     });
@@ -172,7 +201,7 @@ export class JSCompiler extends Compiler {
     }
     this.beTraverse(inPath, outPath, () => {
       if (!(--this.processing)) {
-        this.done(inPath, callback);
+        Compiler.done(inPath, callback);
       }
     });
   }

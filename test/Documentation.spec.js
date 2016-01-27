@@ -116,18 +116,18 @@ describe('Documentation', () => {
     describe('run no executable', () => {
 
       beforeEach(() => {
-        stub(cmp, 'findExecutable').callsArgWith(0, '/path/to/jsdoc');
+        stub(Documentation, 'findExecutable').callsArgWith(0, '/path/to/jsdoc');
         stub(cmp, 'doRun');
         cmp.run();
       });
 
       afterEach(() => {
-        cmp.findExecutable.restore();
+        Documentation.findExecutable.restore();
         cmp.doRun.restore();
       });
 
       it('calls findExecutable', () => {
-        expect(cmp.findExecutable).calledWith(match.func);
+        expect(Documentation.findExecutable).calledWith(match.func);
       });
 
       it('instantiates the jsdoc executable', () => {
@@ -203,17 +203,17 @@ describe('Documentation', () => {
     describe('findExecutable local file found', () => {
 
       beforeEach(() => {
-        stub(cmp, 'checkBin').callsArgWith(0, '/path/to/local/jsdoc');
-        cmp.findExecutable(callback);
+        stub(Documentation, 'checkBin').callsArgWith(0, '/path/to/local/jsdoc');
+        Documentation.findExecutable(callback);
       });
 
       afterEach(() => {
-        cmp.checkBin.restore();
+        Documentation.checkBin.restore();
       });
 
       it('checks the local executable path', () => {
-        expect(cmp.checkBin).calledOnce;
-        expect(cmp.checkBin).calledWith(match.func);
+        expect(Documentation.checkBin).calledOnce;
+        expect(Documentation.checkBin).calledWith(match.func);
       });
 
       it('calls the callback', () => {
@@ -225,19 +225,19 @@ describe('Documentation', () => {
     describe('findExecutable global file found', () => {
 
       beforeEach(() => {
-        stub(cmp, 'checkBin', (cb, globalPackage) => {
+        stub(Documentation, 'checkBin', (cb, globalPackage) => {
           cb(globalPackage ? '/path/to/global/jsdoc' : null);
         });
-        cmp.findExecutable(callback);
+        Documentation.findExecutable(callback);
       });
 
       afterEach(() => {
-        cmp.checkBin.restore();
+        Documentation.checkBin.restore();
       });
 
       it('checks the local executable path', () => {
-        expect(cmp.checkBin).calledTwice;
-        expect(cmp.checkBin).calledWith(match.func, true);
+        expect(Documentation.checkBin).calledTwice;
+        expect(Documentation.checkBin).calledWith(match.func, true);
       });
 
       it('calls the callback', () => {
@@ -253,12 +253,12 @@ describe('Documentation', () => {
     describe('findExecutable nothing found', () => {
 
       beforeEach(() => {
-        stub(cmp, 'checkBin').callsArg(0);
-        cmp.findExecutable(callback);
+        stub(Documentation, 'checkBin').callsArg(0);
+        Documentation.findExecutable(callback);
       });
 
       afterEach(() => {
-        cmp.checkBin.restore();
+        Documentation.checkBin.restore();
       });
 
       it('prints an error on screen', () => {
@@ -272,7 +272,7 @@ describe('Documentation', () => {
       beforeEach(() => {
         stub(NativeProcess.prototype, 'run').callsArgWith(0, 'something bad happened');
         stub(fs, 'stat');
-        cmp.checkBin(callback, true);
+        Documentation.checkBin(callback, true);
       });
 
       afterEach(() => {
@@ -312,7 +312,7 @@ describe('Documentation', () => {
 
         beforeEach(() => {
           stub(fs, 'stat').callsArgWith(1, 'cannot read the file');
-          cmp.checkBin(callback);
+          Documentation.checkBin(callback);
         });
 
         afterEach(() => {
@@ -337,7 +337,7 @@ describe('Documentation', () => {
 
         beforeEach(() => {
           stub(fs, 'stat').callsArg(1);
-          cmp.checkBin(callback);
+          Documentation.checkBin(callback);
         });
 
         afterEach(() => {

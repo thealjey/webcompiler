@@ -142,17 +142,17 @@ export class SASSCompiler extends Compiler {
    * Auto-prefixes the compiled code
    *
    * @memberOf SASSCompiler
-   * @instance
+   * @static
    * @method autoprefix
    * @param {string}             path     - a path to the file
    * @param {ProgramData}        data     - the actual program data to auto-prefix
    * @param {AutoprefixCallback} callback - a callback function
    * @example
-   * compiler.autoprefix('/path/to/the/output/file.css', data, result => {
+   * SASSCompiler.autoprefix('/path/to/the/output/file.css', data, result => {
    *   // successfully added the vendor prefixes
    * });
    */
-  autoprefix(path: string, data: ProgramData, callback: AutoprefixCallback) {
+  static autoprefix(path: string, data: ProgramData, callback: AutoprefixCallback) {
     postcss([autoprefixer]).process(data.code, {
       from: path,
       to: path,
@@ -200,7 +200,7 @@ export class SASSCompiler extends Compiler {
           '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
           error.message, error.file, error.line, error.column);
       }
-      this.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
+      SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
         this.optimize(inPath, outPath, data, callback);
       });
     });

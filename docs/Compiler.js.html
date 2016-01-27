@@ -139,15 +139,14 @@ export class Compiler {
    * Executed when the compilation is complete
    *
    * @memberOf Compiler
-   * @instance
-   * @protected
+   * @static
    * @method done
    * @param {string}   inPath   - the input path
    * @param {Function} callback - a callback function
    * @example
-   * compiler.done('/path/to/an/input/file', callback);
+   * Compiler.done('/path/to/an/input/file', callback);
    */
-  done(inPath: string, callback: () => void) {
+  static done(inPath: string, callback: () => void) {
     console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
     callback();
   }
@@ -156,7 +155,7 @@ export class Compiler {
    * Writes the data to disk and then calls `done`.
    *
    * @memberOf Compiler
-   * @instance
+   * @static
    * @private
    * @method writeAndCallDone
    * @param {string}      inPath   - the input path
@@ -164,11 +163,11 @@ export class Compiler {
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
    * @example
-   * compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
+   * Compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
-  writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
-    this.fsWrite(outPath, data, () => {
-      this.done(inPath, callback);
+  static writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
+    Compiler.fsWrite(outPath, data, () => {
+      Compiler.done(inPath, callback);
     });
   }
 
@@ -176,17 +175,16 @@ export class Compiler {
    * Writes the data to disk
    *
    * @memberOf Compiler
-   * @instance
-   * @protected
+   * @static
    * @method fsWrite
    * @param {string}      path     - the output path
    * @param {ProgramData} data     - the data to write
    * @param {Function}    callback - a callback function
    * @example
-   * compiler.fsWrite('/path/to/an/output/file', data, callback);
+   * Compiler.fsWrite('/path/to/an/output/file', data, callback);
    */
-  fsWrite(path: string, data: ProgramData, callback: () => void) {
-    this.mkdir(path, () => {
+  static fsWrite(path: string, data: ProgramData, callback: () => void) {
+    Compiler.mkdir(path, () => {
       writeFile(path, data.code, scriptErr => {
         if (scriptErr) {
           return console.error(scriptErr);
@@ -208,15 +206,14 @@ export class Compiler {
    * Recursively creates a directory containing a file specified by `path`.
    *
    * @memberOf Compiler
-   * @instance
-   * @protected
+   * @static
    * @method mkdir
    * @param {string}   path     - a path to a file
    * @param {Function} callback - a callback function
    * @example
-   * compiler.mkdir('/path/to/a/file', callback);
+   * Compiler.mkdir('/path/to/a/file', callback);
    */
-  mkdir(path: string, callback: () => void) {
+  static mkdir(path: string, callback: () => void) {
     mkdirp(dirname(path), mkdirpErr => {
       if (mkdirpErr) {
         return console.error(mkdirpErr);
@@ -226,17 +223,17 @@ export class Compiler {
   }
 
   /**
-   * Z-zips the compiled code
+   * G-zips the compiled code
    *
    * @memberOf Compiler
-   * @instance
+   * @static
    * @method gzip
    * @param {ProgramData}  data     - the actual program data to auto-prefix
    * @param {GzipCallback} callback - a callback function
    * @example
-   * compiler.gzip(data, callback);
+   * Compiler.gzip(data, callback);
    */
-  gzip(data: ProgramData, callback: GzipCallback) {
+  static gzip(data: ProgramData, callback: GzipCallback) {
     gzip(data.code, (err, code) => {
       if (err) {
         return console.error(err);
@@ -261,11 +258,11 @@ export class Compiler {
    */
   optimize(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
     if (!this.compress) {
-      this.writeAndCallDone(inPath, outPath, data, callback);
+      Compiler.writeAndCallDone(inPath, outPath, data, callback);
       return;
     }
-    this.gzip(data, result => {
-      this.writeAndCallDone(inPath, outPath, result, callback);
+    Compiler.gzip(data, result => {
+      Compiler.writeAndCallDone(inPath, outPath, result, callback);
     });
   }
 

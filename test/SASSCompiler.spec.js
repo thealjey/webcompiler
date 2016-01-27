@@ -64,7 +64,7 @@ describe('SASSCompiler', () => {
     describe('autoprefix', () => {
 
       beforeEach(() => {
-        cmp.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
+        SASSCompiler.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
       });
 
       it('calls postcss', () => {
@@ -115,7 +115,7 @@ describe('SASSCompiler', () => {
     describe('autoprefix', () => {
 
       beforeEach(() => {
-        cmp.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
+        SASSCompiler.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
       });
 
       it('calls callback', () => {
@@ -127,12 +127,12 @@ describe('SASSCompiler', () => {
     describe('fe', () => {
 
       beforeEach(() => {
-        stub(cmp, 'autoprefix').callsArgWith(2, 'autoprefixed data');
+        stub(SASSCompiler, 'autoprefix').callsArgWith(2, 'autoprefixed data');
         stub(cmp, 'optimize');
       });
 
       afterEach(() => {
-        cmp.autoprefix.restore();
+        SASSCompiler.autoprefix.restore();
         cmp.optimize.restore();
       });
 
@@ -170,7 +170,7 @@ describe('SASSCompiler', () => {
         });
 
         it('does not call autoprefix', () => {
-          expect(cmp.autoprefix).not.called;
+          expect(SASSCompiler.autoprefix).not.called;
         });
 
       });
@@ -202,8 +202,8 @@ describe('SASSCompiler', () => {
         });
 
         it('calls autoprefix', () => {
-          expect(cmp.autoprefix).calledWith('/path/to/the/output/file.css', {code: 'css rules', map: 'source map'},
-                                            match.func);
+          expect(SASSCompiler.autoprefix).calledWith('/path/to/the/output/file.css',
+                                                     {code: 'css rules', map: 'source map'}, match.func);
         });
 
         it('calls optimize', () => {

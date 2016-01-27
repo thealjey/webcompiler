@@ -56,7 +56,7 @@ describe('Compiler', () => {
       describe('mkdir', () => {
 
         beforeEach(() => {
-          cmp.mkdir('/path/to/the/output/file', callback);
+          Compiler.mkdir('/path/to/the/output/file', callback);
         });
 
         it('calls mkdirp', () => {
@@ -106,7 +106,7 @@ describe('Compiler', () => {
     describe('done', () => {
 
       beforeEach(() => {
-        cmp.done('/path/to/the/output/file', callback);
+        Compiler.done('/path/to/the/output/file', callback);
       });
 
       it('logs the info to stdout', () => {
@@ -122,23 +122,24 @@ describe('Compiler', () => {
     describe('writeAndCallDone', () => {
 
       beforeEach(() => {
-        stub(cmp, 'fsWrite').callsArg(2);
-        stub(cmp, 'done');
-        cmp.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
+        stub(Compiler, 'fsWrite').callsArg(2);
+        stub(Compiler, 'done');
+        Compiler.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
                              {code: 'some code', map: 'source map'}, callback);
       });
 
       afterEach(() => {
-        cmp.fsWrite.restore();
-        cmp.done.restore();
+        Compiler.fsWrite.restore();
+        Compiler.done.restore();
       });
 
       it('calls fsWrite', () => {
-        expect(cmp.fsWrite).calledWith('/path/to/the/output/file', {code: 'some code', map: 'source map'}, match.func);
+        expect(Compiler.fsWrite).calledWith('/path/to/the/output/file', {code: 'some code', map: 'source map'},
+                                            match.func);
       });
 
       it('calls done', () => {
-        expect(cmp.done).calledWith('/path/to/the/input/file', callback);
+        expect(Compiler.done).calledWith('/path/to/the/input/file', callback);
       });
 
     });
@@ -146,7 +147,7 @@ describe('Compiler', () => {
     describe('mkdir', () => {
 
       beforeEach(() => {
-        cmp.mkdir('/path/to/the/output/file', callback);
+        Compiler.mkdir('/path/to/the/output/file', callback);
       });
 
       it('does not print any errors on screen', () => {
@@ -162,18 +163,18 @@ describe('Compiler', () => {
     describe('fsWrite', () => {
 
       beforeEach(() => {
-        stub(cmp, 'mkdir').callsArg(1);
+        stub(Compiler, 'mkdir').callsArg(1);
       });
 
       afterEach(() => {
-        cmp.mkdir.restore();
+        Compiler.mkdir.restore();
       });
 
       describe('script write error', () => {
 
         beforeEach(() => {
           stub(fs, 'writeFile').callsArgWith(2, 'failed to write script');
-          cmp.fsWrite('/path/to/the/output/file', {code: 'some code'}, callback);
+          Compiler.fsWrite('/path/to/the/output/file', {code: 'some code'}, callback);
         });
 
         afterEach(() => {
@@ -181,7 +182,7 @@ describe('Compiler', () => {
         });
 
         it('calls mkdir', () => {
-          expect(cmp.mkdir).calledWith('/path/to/the/output/file', match.func);
+          expect(Compiler.mkdir).calledWith('/path/to/the/output/file', match.func);
         });
 
         it('attempt to write the script file', () => {
@@ -202,7 +203,7 @@ describe('Compiler', () => {
 
         beforeEach(() => {
           stub(fs, 'writeFile').callsArg(2);
-          cmp.fsWrite('/path/to/the/output/file', {code: 'some code'}, callback);
+          Compiler.fsWrite('/path/to/the/output/file', {code: 'some code'}, callback);
         });
 
         afterEach(() => {
@@ -225,7 +226,7 @@ describe('Compiler', () => {
           stub(fs, 'writeFile', (path, data, cb) => {
             cb('/path/to/the/output/file.map' === path ? 'failed to write map' : null);
           });
-          cmp.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
+          Compiler.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
         });
 
         afterEach(() => {
@@ -250,7 +251,7 @@ describe('Compiler', () => {
 
         beforeEach(() => {
           stub(fs, 'writeFile').callsArg(2);
-          cmp.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
+          Compiler.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
         });
 
         afterEach(() => {
@@ -273,7 +274,7 @@ describe('Compiler', () => {
 
       beforeEach(() => {
         stub(zlib, 'gzip').callsArgWith(1, 'failed to compress');
-        cmp.gzip({code: 'some code', map: 'source map'}, callback);
+        Compiler.gzip({code: 'some code', map: 'source map'}, callback);
       });
 
       afterEach(() => {
@@ -298,7 +299,7 @@ describe('Compiler', () => {
 
       beforeEach(() => {
         stub(zlib, 'gzip').callsArgWith(1, null, 'compressed code');
-        cmp.gzip({code: 'some code', map: 'source map'}, callback);
+        Compiler.gzip({code: 'some code', map: 'source map'}, callback);
       });
 
       afterEach(() => {
@@ -314,13 +315,13 @@ describe('Compiler', () => {
     describe('optimize', () => {
 
       beforeEach(() => {
-        stub(cmp, 'writeAndCallDone');
-        stub(cmp, 'gzip').callsArgWith(1, {code: 'compressed code', map: 'source map'});
+        stub(Compiler, 'writeAndCallDone');
+        stub(Compiler, 'gzip').callsArgWith(1, {code: 'compressed code', map: 'source map'});
       });
 
       afterEach(() => {
-        cmp.writeAndCallDone.restore();
-        cmp.gzip.restore();
+        Compiler.writeAndCallDone.restore();
+        Compiler.gzip.restore();
       });
 
       describe('not compress', () => {
@@ -332,12 +333,12 @@ describe('Compiler', () => {
         });
 
         it('calls writeAndCallDone', () => {
-          expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
+          expect(Compiler.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
                                                   {code: 'some code', map: 'source map'}, callback);
         });
 
         it('does not call gzip', () => {
-          expect(cmp.gzip).not.called;
+          expect(Compiler.gzip).not.called;
         });
 
       });
@@ -351,11 +352,11 @@ describe('Compiler', () => {
         });
 
         it('calls gzip', () => {
-          expect(cmp.gzip).calledWith({code: 'some code', map: 'source map'}, match.func);
+          expect(Compiler.gzip).calledWith({code: 'some code', map: 'source map'}, match.func);
         });
 
         it('calls writeAndCallDone', () => {
-          expect(cmp.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
+          expect(Compiler.writeAndCallDone).calledWith('/path/to/the/input/file', '/path/to/the/output/file',
                                                   {code: 'compressed code', map: 'source map'}, callback);
         });
 

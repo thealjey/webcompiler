@@ -6,27 +6,20 @@ import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
-import {join} from 'path';
-import noop from 'lodash/noop';
+import {Compiler} from '../src/Compiler';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sync */
 
-const files = 10,
-    BABELRC_FILENAME = join(__dirname, '..', 'src');
+const files = 10;
 
 let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
 
 function req(options) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
 }
-
-class OptionManager {
-  init: () => void;
-}
-OptionManager.prototype.init = noop;
 
 class DedupePlugin {}
 
@@ -45,13 +38,11 @@ describe('JSCompiler', () => {
     callback = spy();
     stub(console, 'error');
     stub(console, 'log');
-    stub(OptionManager.prototype, 'init').returns({resolved: 'options'});
   });
 
   afterEach(() => {
     console.error.restore();
     console.log.restore();
-    OptionManager.prototype.init.restore();
   });
 
   describe('webpack exception', () => {
@@ -60,7 +51,7 @@ describe('JSCompiler', () => {
       run = stub().callsArgWith(0, 'failed to compile');
       compiler = {outputFileSystem: 'realFS', run};
       webpack = getWebpack(compiler);
-      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
+      JSCompiler = req({webpack});
       process.env.NODE_ENV = 'production';
       cmp = new JSCompiler(false, {some: 'options'});
       delete process.env.NODE_ENV;
@@ -68,14 +59,6 @@ describe('JSCompiler', () => {
 
     it('has the compress flag set to false', () => {
       expect(cmp.compress).false;
-    });
-
-    it('calls OptionManager#init', () => {
-      expect(OptionManager.prototype.init).calledWith({filename: BABELRC_FILENAME, some: 'options'});
-    });
-
-    it('inits options', () => {
-      expect(cmp.options).eql({resolved: 'options'});
     });
 
     it('inits processing', () => {
@@ -182,14 +165,10 @@ describe('JSCompiler', () => {
         {toJson: () => ({errors: ['something', 'bad', 'happened'], warnings: ['you', 'cannot', 'do', 'that']})});
       compiler = {outputFileSystem: 'realFS', run};
       webpack = getWebpack(compiler);
-      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
+      JSCompiler = req({webpack});
       cmp = new JSCompiler();
       stub(cmp, 'optimize');
       cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-    });
-
-    afterEach(() => {
-      cmp.optimize.restore();
     });
 
     it('prints the warnings on screen', () => {
@@ -217,16 +196,20 @@ describe('JSCompiler', () => {
       run = stub().callsArgWith(0, null, {toJson: () => ({errors: [], warnings: []})});
       compiler = {outputFileSystem: 'realFS', run};
       webpack = getWebpack(compiler);
-      JSCompiler = req({webpack, 'babel-core': {OptionManager}});
-      cmp = new JSCompiler();
+      JSCompiler = req({webpack});
+      stub(JSCompiler.prototype, 'configure');
+      cmp = new JSCompiler(false, {some: 'options'});
       cmp.options = {some: 'options'};
       stub(cmp, 'optimize');
       stub(MemoryFS.prototype, 'readFileSync').returnsArg(0);
     });
 
     afterEach(() => {
-      cmp.optimize.restore();
       MemoryFS.prototype.readFileSync.restore();
+    });
+
+    it('calls configure', () => {
+      expect(cmp.configure).calledWith({some: 'options'});
     });
 
     describe('no callback', () => {
@@ -261,17 +244,17 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, 'something bad happened');
-      JSCompiler = req({'babel-core': {transformFile, OptionManager}});
+      JSCompiler = req({'babel-core': {transformFile}});
       process.env.NODE_ENV = 'development';
       cmp = new JSCompiler();
       delete process.env.NODE_ENV;
-      stub(cmp, 'fsWrite').callsArg(2);
-      stub(cmp, 'done');
+      stub(Compiler, 'fsWrite').callsArg(2);
+      stub(Compiler, 'done');
     });
 
     afterEach(() => {
-      cmp.fsWrite.restore();
-      cmp.done.restore();
+      Compiler.fsWrite.restore();
+      Compiler.done.restore();
     });
 
     describe('beFile', () => {
@@ -293,7 +276,7 @@ describe('JSCompiler', () => {
       });
 
       it('does not write anything to disk', () => {
-        expect(cmp.fsWrite).not.called;
+        expect(Compiler.fsWrite).not.called;
       });
 
     });
@@ -304,15 +287,15 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, null, {code: 'compiled code', map: 'compiled source map'});
-      JSCompiler = req({'babel-core': {transformFile, OptionManager}});
+      JSCompiler = req({'babel-core': {transformFile}});
       cmp = new JSCompiler();
-      stub(cmp, 'fsWrite').callsArg(2);
-      stub(cmp, 'done');
+      stub(Compiler, 'fsWrite').callsArg(2);
+      stub(Compiler, 'done');
     });
 
     afterEach(() => {
-      cmp.fsWrite.restore();
-      cmp.done.restore();
+      Compiler.fsWrite.restore();
+      Compiler.done.restore();
     });
 
     describe('beFile', () => {
@@ -327,7 +310,7 @@ describe('JSCompiler', () => {
       });
 
       it('calls fsWrite', () => {
-        expect(cmp.fsWrite).calledWith('/path/to/the/output/file.js',
+        expect(Compiler.fsWrite).calledWith('/path/to/the/output/file.js',
                                        {code: 'compiled code', map: 'compiled source map'}, callback);
       });
 
@@ -393,14 +376,14 @@ describe('JSCompiler', () => {
       beforeEach(() => {
         cmp.processing = 0;
         pipe = spy();
-        stub(cmp, 'mkdir').callsArg(1);
+        stub(Compiler, 'mkdir').callsArg(1);
         stub(fs, 'createReadStream').returns({pipe});
         stub(fs, 'createWriteStream').returns('write stream');
         cmp.copyFile('/path/to/the/input/file.css', '/path/to/the/output/file.css', callback);
       });
 
       afterEach(() => {
-        cmp.mkdir.restore();
+        Compiler.mkdir.restore();
         fs.createReadStream.restore();
         fs.createWriteStream.restore();
       });
@@ -410,7 +393,7 @@ describe('JSCompiler', () => {
       });
 
       it('calls mkdir', () => {
-        expect(cmp.mkdir).calledWith('/path/to/the/output/file.css', match.func);
+        expect(Compiler.mkdir).calledWith('/path/to/the/output/file.css', match.func);
       });
 
       it('calls createReadStream', () => {
@@ -602,7 +585,7 @@ describe('JSCompiler', () => {
             });
 
             it('doe not call done', () => {
-              expect(cmp.done).not.called;
+              expect(Compiler.done).not.called;
             });
 
           });
@@ -631,7 +614,7 @@ describe('JSCompiler', () => {
         });
 
         it('calls done', () => {
-          expect(cmp.done).calledWith('/path/to/the/input/file.js', callback);
+          expect(Compiler.done).calledWith('/path/to/the/input/file.js', callback);
         });
 
       });
