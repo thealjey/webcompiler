@@ -1,3 +1,10 @@
+v3.4.2 - Wed, 27 Jan 2016 20:05:10 GMT
+--------------------------------------
+
+- [9a3b6e5](../../commit/9a3b6e5) [fixed] merge the Babel options manually instead of using the OptionManager because webpack can only pass primitive values as query parameters
+
+
+
 v3.4.1 - Tue, 26 Jan 2016 23:14:40 GMT
 --------------------------------------
 
