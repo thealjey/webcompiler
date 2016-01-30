@@ -1,3 +1,10 @@
+v3.5.0 - Sat, 30 Jan 2016 23:30:18 GMT
+--------------------------------------
+
+- [f42ab3d](../../commit/f42ab3d) [added] the `Markup` class, which converts Mardown to HTML and HTML to React components that can be used in JSX expressions
+
+
+
 v3.4.2 - Wed, 27 Jan 2016 20:05:10 GMT
 --------------------------------------
 
