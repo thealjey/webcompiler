@@ -6,6 +6,8 @@ export {Documentation} from './Documentation';
 export {watch} from './watch';
 export {yaml} from './yaml';
 
+export {Markup} from './Markup';
+
 export {JS} from './JS';
 export {SASS} from './SASS';
 

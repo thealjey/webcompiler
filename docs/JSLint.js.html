@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Documentation Source: JSLint.js</title>
 
 	<!--[if lt IE 9]>
@@ -32,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
+					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="Markup.html">Markup</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
 				</ul>
 			</li>
 			
@@ -76,29 +77,10 @@
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
+import type {JSLintCallback} from './typedef';
 import {CLIEngine} from 'eslint';
 import {join} from 'path';
 import forEach from 'lodash/forEach';
-
-/**
- * The JavaScript linting error object
- *
- * @typedef {Object} JSLintError
- * @property {string} message  - the error message
- * @property {string} [ruleId] - the relative linting rule
- * @property {string} filePath - the path to a file
- * @property {number} line     - the offending line number
- * @property {number} column   - the offending column number
- */
-type JSLintError = {message: string, ruleId?: string, filePath: string, line: number, column: number};
-
-/**
- * Invoked on operation success or failure
- *
- * @callback JSLintCallback
- * @param {Array&lt;JSLintError>} [errors] - a collection of error objects
- */
-export type JSLintCallback = (errors: ?Array&lt;JSLintError>) => void;
 
 const configFile = join(__dirname, '..', 'config', 'eslint.yml');
 

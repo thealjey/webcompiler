@@ -1,42 +1,20 @@
 /* @flow */
 
+import type {FileCallback, NullableFileCallback} from './typedef';
 import {NativeProcess} from './NativeProcess';
 import {stat} from 'fs';
 import {join} from 'path';
 import noop from 'lodash/noop';
 
 const npm = new NativeProcess('npm'),
-    defaultConfig = join(__dirname, '..', 'config', 'jsdoc.json'),
-    cwd = process.cwd();
-
-/**
- * Processed application code with source maps
- *
- * @typedef {Object} DocumentationConfig
- * @property {string} [inputDir="src"]     - the input application code directory
- * @property {string} [outputDir="docs"]   - the output directory for the generated documentation
- * @property {string} [readMe="README.md"] - the documentation "homepage" (README.md file)
- * @property {string} [template="node_modules/ink-docstrap/template"]      - a full system path to a valid JSDoc3
- *                                                                           template directory
- * @property {string} [jsdocConfig="<webcompiler root>/config/jsdoc.json"] - a full system path to a JSDoc3
- *                                                                           configuration file
- */
-
-/**
- * Invoked on operation success or failure
- *
- * @callback FindExecutableCallback
- * @param {string} file - a full system path to a file
- */
-type FindExecutableCallback = (file: string) => void;
-
-/**
- * Invoked on operation success or failure
- *
- * @callback CheckBinCallback
- * @param {string} [file] - a full system path to a file
- */
-export type CheckBinCallback = (file: ?string) => void;
+    cwd = process.cwd(),
+    defaultOptions = {
+      inputDir: join(cwd, 'src'),
+      outputDir: join(cwd, 'docs'),
+      readMe: join(cwd, 'README.md'),
+      template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+      jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
+    };
 
 /**
  * Generates API documentation
@@ -71,62 +49,17 @@ export class Documentation {
   jsdoc: ?NativeProcess;
 
   /**
-   * the input application code directory
+   * documentation generator configuration object
    *
-   * @member {string} inputDir
+   * @member {DocumentationConfig} options
    * @memberof Documentation
    * @private
    * @instance
    */
-  inputDir: string;
+  options: Object;
 
-  /**
-   * the output directory for the generated documentation
-   *
-   * @member {string} outputDir
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  outputDir: string;
-
-  /**
-   * the documentation "homepage" (README.md file)
-   *
-   * @member {string} readMe
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  readMe: string;
-
-  /**
-   * a full system path to a valid JSDoc3 template directory
-   *
-   * @member {string} template
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  template: string;
-
-  /**
-   * a full system path to a JSDoc3 configuration file
-   *
-   * @member {string} jsdocConfig
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  jsdocConfig: string;
-
-  constructor({inputDir, outputDir, readMe, template, jsdocConfig}: {inputDir?: string, outputDir?: string,
-      readMe?: string, template?: string, jsdocConfig?: string} = {}) {
-    this.inputDir = inputDir || join(cwd, 'src');
-    this.outputDir = outputDir || join(cwd, 'docs');
-    this.readMe = readMe || join(cwd, 'README.md');
-    this.template = template || join(cwd, 'node_modules', 'ink-docstrap', 'template');
-    this.jsdocConfig = jsdocConfig || defaultConfig;
+  constructor(options: Object = {}) {
+    this.options = {...defaultOptions, ...options};
   }
 
   /**
@@ -136,13 +69,13 @@ export class Documentation {
    * @static
    * @private
    * @method findExecutable
-   * @param {FindExecutableCallback} callback - a callback function
+   * @param {FileCallback} callback - a callback function
    * @example
    * Documentation.findExecutable(file => {
    *   // the jsdoc file is found
    * });
    */
-  static findExecutable(callback: FindExecutableCallback) {
+  static findExecutable(callback: FileCallback) {
     Documentation.checkBin(localFile => {
       if (localFile) {
         return callback(localFile);
@@ -163,9 +96,9 @@ export class Documentation {
    * @static
    * @private
    * @method checkBin
-   * @param {CheckBinCallback} callback        - a callback function
-   * @param {globalPackage}    [boolean=false] - if true checks the global NPM bin directory (contains the npm
-   *                                             executable itself)
+   * @param {NullableFileCallback} callback        - a callback function
+   * @param {globalPackage}        [boolean=false] - if true checks the global NPM bin directory (contains the npm
+   *                                                 executable itself)
    * @example
    * Documentation.checkBin(file => {
    *   if (file) {
@@ -173,7 +106,7 @@ export class Documentation {
    *   }
    * });
    */
-  static checkBin(callback: CheckBinCallback, globalPackage: boolean = false) {
+  static checkBin(callback: NullableFileCallback, globalPackage: boolean = false) {
     const args = ['bin'];
 
     if (globalPackage) {
@@ -230,12 +163,14 @@ export class Documentation {
    * });
    */
   doRun(jsdoc: NativeProcess, callback: () => void) {
+    const {inputDir, outputDir, readMe, template, jsdocConfig} = this.options;
+
     jsdoc.run(stderr => {
       if (stderr) {
         return console.error(stderr);
       }
       callback();
-    }, [this.inputDir, '-d', this.outputDir, '-R', this.readMe, '-c', this.jsdocConfig, '-t', this.template]);
+    }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
   }
 
 }

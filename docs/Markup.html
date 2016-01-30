@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: JSLint</title>
+	<title>Documentation Class: Markup</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -70,13 +70,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: JSLint</h1>
+	<h1 class="page-title">Class: Markup</h1>
 <section>
 
 <header>
     
         <h2>
-        JSLint
+        Markup
         </h2>
         
     
@@ -89,7 +89,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="JSLint"><span class="type-signature"></span>new JSLint(<span class="optional">rules</span>)</h4>
+    <h4 class="name" id="Markup"><span class="type-signature"></span>new Markup(transformers)</h4>
     
     
 </dt>
@@ -97,7 +97,9 @@
 
     
     <div class="description">
-        <p>A JavaScript linter</p>
+        <p>Allows to easily and efficiently convert text from Markdown to HTML and from HTML to a collection of React Elements
+that can be used directly in a JSX expression.</p>
+<p>Whenever an HTML string is involved, runs it through an array of Transformer functions.</p>
     </div>
     
 
@@ -124,8 +126,6 @@
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -136,13 +136,13 @@
 
         <tr>
             
-                <td class="name"><code>rules</code></td>
+                <td class="name"><code>transformers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#Transformer">Transformer</a></span>
 
 
 
@@ -152,24 +152,18 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
 
+                
+                    &lt;repeatable><br>
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
 
-            <td class="description last"><p>an object that lets you override default linting rules</p></td>
+            <td class="description last"><p>transformers to initialize with</p></td>
         </tr>
 
     
@@ -213,8 +207,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSLint.js.html">JSLint.js</a>,
-				 <a href="JSLint.js.html#sunlight-1-line-10">line 10</a>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-15">line 15</a>
 			</li>
 		</ul>
 	</dd>
@@ -243,10 +237,9 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">import {JSLint} from &#x27;webcompiler&#x27;;
-import {join} from &#x27;path&#x27;;
+    <pre class="sunlight-highlight-javascript">import {Markup} from &#x27;webcompiler&#x27;;
 
-const linter = new JSLint();</pre>
+const mark = new Markup();</pre>
 
 
     
@@ -274,7 +267,7 @@ const linter = new JSLint();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="run"><span class="type-signature"></span>run(paths, callback)</h4>
+    <h4 class="name" id="htmlToJSX"><span class="type-signature"></span>htmlToJSX(html)</h4>
     
     
 </dt>
@@ -282,7 +275,7 @@ const linter = new JSLint();</pre>
 
     
     <div class="description">
-        <p>Execute the linter</p>
+        <p>Converts an arbitrary HTML string to an array of React Elements</p>
     </div>
     
 
@@ -317,13 +310,13 @@ const linter = new JSLint();</pre>
 
         <tr>
             
-                <td class="name"><code>paths</code></td>
+                <td class="name"><code>html</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">string</span>
 
 
 
@@ -334,31 +327,7 @@ const linter = new JSLint();</pre>
 
             
 
-            <td class="description last"><p>an array of paths to files/directories to lint</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#JSLintCallback">JSLintCallback</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>a callback function, accepts 1 argument: an array of error objects or null</p></td>
+            <td class="description last"><p>an arbitrary HTML string</p></td>
         </tr>
 
     
@@ -402,8 +371,8 @@ const linter = new JSLint();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSLint.js.html">JSLint.js</a>,
-				 <a href="JSLint.js.html#sunlight-1-line-36">line 36</a>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-160">line 160</a>
 			</li>
 		</ul>
 	</dd>
@@ -428,20 +397,375 @@ const linter = new JSLint();</pre>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>an array of React Elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;ReactElement></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">// lint &quot;index.js&quot; as well as the entire contents of the &quot;src&quot; directory
-linter.run([join(__dirname, &#x27;index.js&#x27;), join(__dirname, &#x27;src&#x27;)], function (err) {
-  if (err) {
-    return e.forEach(e =&gt; {
-      console.log(&#x27;\x1b[41mESLint error\x1b[0m &quot;\x1b[33m%s%s\x1b[0m&quot; in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m&#x27;,
-        e.message, e.ruleId ? &#x60; (${e.ruleId})&#x60; : &#x27;&#x27;, e.filePath, e.line, e.column);
-    });
-  }
-  // there were no linting errors
-});</pre>
+    <pre class="sunlight-highlight-javascript">const children = mark.htmlToJSX(&#x27;Hello &lt;span&gt;world!&lt;/span&gt;&#x27;);
+
+return &lt;div&gt;{children}&lt;/div&gt;;</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="markdownToHTML"><span class="type-signature"></span>markdownToHTML(markdown)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Converts an arbitrary Markdown string to an HTML string</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>markdown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>an arbitrary Markdown string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-177">line 177</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>an HTML string</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">mark.markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="markdownToJSX"><span class="type-signature"></span>markdownToJSX(markdown)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Converts an arbitrary Markdown string to an array of React Elements</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>markdown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>an arbitrary Markdown string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-192">line 192</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>an array of React Elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;ReactElement></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">const header = mark.markdownToJSX(&#x27;# Hello world!&#x27;);
+
+return &lt;div&gt;{header}&lt;/div&gt;;</pre>
 
 
     

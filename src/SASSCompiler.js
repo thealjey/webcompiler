@@ -1,7 +1,7 @@
 /* @flow */
 
+import type {ProgramData, ProgramDataCallback} from './typedef';
 import {Compiler} from './Compiler';
-import type {ProgramData} from './Compiler';
 import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
 import postcss from 'postcss';
@@ -12,14 +12,6 @@ import noop from 'lodash/noop';
 const precision = 8,
     importOnceDefaults = {index: true, css: false, bower: false},
     defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'];
-
-/**
- * Invoked when the data was successfully autoprefixed
- *
- * @callback AutoprefixCallback
- * @param {ProgramData} data - the parsed object
- */
-type AutoprefixCallback = (data: ProgramData) => void;
 
 /**
  * A SASS compiler
@@ -70,13 +62,13 @@ export class SASSCompiler extends Compiler {
    * @method autoprefix
    * @param {string}             path     - a path to the file
    * @param {ProgramData}        data     - the actual program data to auto-prefix
-   * @param {AutoprefixCallback} callback - a callback function
+   * @param {ProgramDataCallback} callback - a callback function
    * @example
    * SASSCompiler.autoprefix('/path/to/the/output/file.css', data, result => {
    *   // successfully added the vendor prefixes
    * });
    */
-  static autoprefix(path: string, data: ProgramData, callback: AutoprefixCallback) {
+  static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback) {
     postcss([autoprefixer]).process(data.code, {
       from: path,
       to: path,

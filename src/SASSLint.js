@@ -1,7 +1,7 @@
 /* @flow */
 
+import type {NativeProcessCallback} from './typedef';
 import {NativeProcess} from './NativeProcess';
-import type {NativeProcessCallback} from './NativeProcess';
 import {join} from 'path';
 
 const config = join(__dirname, '..', 'config', 'scsslint.yml');

@@ -1,28 +1,9 @@
 /* @flow */
 
+import type {JSLintCallback} from './typedef';
 import {CLIEngine} from 'eslint';
 import {join} from 'path';
 import forEach from 'lodash/forEach';
-
-/**
- * The JavaScript linting error object
- *
- * @typedef {Object} JSLintError
- * @property {string} message  - the error message
- * @property {string} [ruleId] - the relative linting rule
- * @property {string} filePath - the path to a file
- * @property {number} line     - the offending line number
- * @property {number} column   - the offending column number
- */
-type JSLintError = {message: string, ruleId?: string, filePath: string, line: number, column: number};
-
-/**
- * Invoked on operation success or failure
- *
- * @callback JSLintCallback
- * @param {Array<JSLintError>} [errors] - a collection of error objects
- */
-export type JSLintCallback = (errors: ?Array<JSLintError>) => void;
 
 const configFile = join(__dirname, '..', 'config', 'eslint.yml');
 

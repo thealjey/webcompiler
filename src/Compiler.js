@@ -1,28 +1,12 @@
 /* @flow */
 
+import type {ProgramData, ProgramDataCallback} from './typedef';
 import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 import {writeFile} from 'fs';
 import {gzip} from 'zlib';
 
 let i = 0;
-
-/**
- * Processed application code with source maps
- *
- * @typedef {Object} ProgramData
- * @property {string} code - program code
- * @property {string} map  - source map json string
- */
-export type ProgramData = {code: string, map: string};
-
-/**
- * Invoked when the data was successfully g-zipped
- *
- * @callback GzipCallback
- * @param {ProgramData} data - the program data
- */
-type GzipCallback = (data: ProgramData) => void;
 
 /**
  * The base compiler class
@@ -152,12 +136,12 @@ export class Compiler {
    * @memberOf Compiler
    * @static
    * @method gzip
-   * @param {ProgramData}  data     - the actual program data to auto-prefix
-   * @param {GzipCallback} callback - a callback function
+   * @param {ProgramData}         data     - the actual program data to auto-prefix
+   * @param {ProgramDataCallback} callback - a callback function
    * @example
    * Compiler.gzip(data, callback);
    */
-  static gzip(data: ProgramData, callback: GzipCallback) {
+  static gzip(data: ProgramData, callback: ProgramDataCallback) {
     gzip(data.code, (err, code) => {
       if (err) {
         return console.error(err);

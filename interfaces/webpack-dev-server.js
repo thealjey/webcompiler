@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module 'webpack-dev-server' {
   declare class exports {
     app: {get: (path: string, callback: (req: any, res: {send: (data: string) => void}) => void) => void};

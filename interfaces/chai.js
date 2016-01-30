@@ -1,3 +1,5 @@
+/* @flow */
+
 type Assert = {
   not: Assert,
   a: (type: string) => void,

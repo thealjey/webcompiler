@@ -1,10 +1,10 @@
 /* @flow */
 
+import type {NativeProcessCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {NativeProcess} from '../src/NativeProcess';
-import type {NativeProcessCallback} from '../src/NativeProcess';
 import proc from 'child_process';
 import constant from 'lodash/constant';
 

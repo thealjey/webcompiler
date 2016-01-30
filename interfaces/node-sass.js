@@ -1,3 +1,5 @@
+/* @flow */
+
 type NodeSassError = {message: string, file: string, line: number, column: number};
 type NodeSassCallback = (error: ?NodeSassError, result: {css: string, map: string}) => void;
 

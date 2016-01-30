@@ -1,16 +1,8 @@
 /* @flow */
 
+import type {NativeProcessCallback} from './typedef';
 import {spawn} from 'child_process';
 import noop from 'lodash/noop';
-
-/**
- * Invoked on operation success or failure
- *
- * @callback NativeProcessCallback
- * @param {string} [stderr] - an error message
- * @param {string} stdout   - the process output
- */
-export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
 
 /**
  * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess|ChildProcess}

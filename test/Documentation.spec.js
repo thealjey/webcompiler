@@ -1,10 +1,10 @@
 /* @flow */
 
+import type {NullableFileCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {Documentation} from '../src/Documentation';
-import type {CheckBinCallback} from '../src/Documentation';
 import {NativeProcess} from '../src/NativeProcess';
 import {join} from 'path';
 import fs from 'fs';
@@ -14,8 +14,14 @@ chai.use(sinonChai);
 /* eslint-disable no-unused-expressions */
 
 const rootDir = join(__dirname, '..'),
-    defaultConfig = join(rootDir, 'config', 'jsdoc.json'),
-    cwd = process.cwd();
+    cwd = process.cwd(),
+    defaultOptions = {
+      inputDir: join(cwd, 'src'),
+      outputDir: join(cwd, 'docs'),
+      readMe: join(cwd, 'README.md'),
+      template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+      jsdocConfig: join(rootDir, 'config', 'jsdoc.json')
+    };
 
 let cmp, callback, jsdoc;
 
@@ -23,7 +29,7 @@ describe('Documentation', () => {
 
   beforeEach(() => {
     /* @flowignore */
-    callback = (spy(): CheckBinCallback);
+    callback = (spy(): NullableFileCallback);
     stub(console, 'error');
   });
 
@@ -34,17 +40,12 @@ describe('Documentation', () => {
   describe('no options', () => {
 
     beforeEach(() => {
-      /* @flowignore */
       cmp = new Documentation();
       jsdoc = new NativeProcess('/path/to/jsdoc');
     });
 
     it('sets the default options', () => {
-      expect(cmp.inputDir).equal(join(cwd, 'src'));
-      expect(cmp.outputDir).equal(join(cwd, 'docs'));
-      expect(cmp.readMe).equal(join(cwd, 'README.md'));
-      expect(cmp.template).equal(join(cwd, 'node_modules', 'ink-docstrap', 'template'));
-      expect(cmp.jsdocConfig).equal(defaultConfig);
+      expect(cmp.options).eql(defaultOptions);
     });
 
   });
@@ -56,7 +57,7 @@ describe('Documentation', () => {
     });
 
     it('sets inputDir', () => {
-      expect(cmp.inputDir).equal('/path/to/the/input/directory');
+      expect(cmp.options.inputDir).equal('/path/to/the/input/directory');
     });
 
   });
@@ -68,7 +69,7 @@ describe('Documentation', () => {
     });
 
     it('sets outputDir', () => {
-      expect(cmp.outputDir).equal('/path/to/the/output/directory');
+      expect(cmp.options.outputDir).equal('/path/to/the/output/directory');
     });
 
   });
@@ -80,7 +81,7 @@ describe('Documentation', () => {
     });
 
     it('sets readMe', () => {
-      expect(cmp.readMe).equal('/path/to/README.md');
+      expect(cmp.options.readMe).equal('/path/to/README.md');
     });
 
   });
@@ -92,7 +93,7 @@ describe('Documentation', () => {
     });
 
     it('sets the default options', () => {
-      expect(cmp.template).equal('/path/to/a/template/directory');
+      expect(cmp.options.template).equal('/path/to/a/template/directory');
     });
 
   });
@@ -110,7 +111,7 @@ describe('Documentation', () => {
     });
 
     it('sets jsdocConfig', () => {
-      expect(cmp.jsdocConfig).equal('/path/to/jsdoc.json');
+      expect(cmp.options.jsdocConfig).equal('/path/to/jsdoc.json');
     });
 
     describe('run no executable', () => {
@@ -170,7 +171,7 @@ describe('Documentation', () => {
 
       it('runs the jsdoc task', () => {
         expect(jsdoc.run).calledWith(match.func, ['/path/to/the/input/directory', '-d', '/path/to/the/output/directory',
-          '-R', '/path/to/README.md', '-c', cmp.jsdocConfig, '-t', cmp.template]);
+          '-R', '/path/to/README.md', '-c', cmp.options.jsdocConfig, '-t', cmp.options.template]);
       });
 
       it('prints the error on screen', () => {

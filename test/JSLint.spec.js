@@ -1,10 +1,10 @@
 /* @flow */
 
+import type {JSLintCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {JSLint} from '../src/JSLint';
-import type {JSLintCallback} from '../src/JSLint';
 import {CLIEngine} from 'eslint';
 
 chai.use(sinonChai);

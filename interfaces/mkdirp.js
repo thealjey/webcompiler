@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module 'mkdirp' {
-  declare var exports: (path: string, callback: (error: ?string) => void) => void;
+  declare function exports(path: string, callback: (error: ?string) => void): void;
 }

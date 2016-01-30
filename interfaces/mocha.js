@@ -1,3 +1,5 @@
+/* @flow */
+
 type MochaCallback = (done: ?() => void) => void;
 
 declare function describe(name: string, callback: MochaCallback): void;

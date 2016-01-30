@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Documentation Global</title>
 
 	<!--[if lt IE 9]>
@@ -32,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
+					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="Markup.html">Markup</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
 				</ul>
 			</li>
 			
@@ -427,7 +428,7 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#YAMLCallback">YAMLCallback</a></span>
+<span class="param-type"><a href="global.html#ObjectOrErrorCallback">ObjectOrErrorCallback</a></span>
 
 
 
@@ -483,7 +484,7 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
 		<ul class="dummy">
 			<li>
 				<a href="yaml.js.html">yaml.js</a>,
-				 <a href="yaml.js.html#sunlight-1-line-15">line 15</a>
+				 <a href="yaml.js.html#sunlight-1-line-7">line 7</a>
 			</li>
 		</ul>
 	</dd>
@@ -535,167 +536,40 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <dl>
                 
 <hr>
-<dt>
-    <h4 class="name" id="AutoprefixCallback"><span class="type-signature"></span>AutoprefixCallback(data)</h4>
-    
+<dt class="name" id="CheerioElement">
+    <h4>CheerioElement</h4>
+
     
 </dt>
 <dd>
-
     
     <div class="description">
-        <p>Invoked when the data was successfully autoprefixed</p>
+        <p>A dumbed down representation of a DOM Element</p>
     </div>
     
 
     
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
+        <h5>Type:</h5>
+        <ul>
+            <li>
                 
-<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
+<span class="param-type">Object</span>
 
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the parsed object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
+            </li>
+        </ul>
     
 
     
 <dl class="details">
     
 
-	
+    <h5 class="subsection-title">Properties:</h5>
 
-	
+    <dl>
 
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="SASSCompiler.js.html">SASSCompiler.js</a>,
-				 <a href="SASSCompiler.js.html#sunlight-1-line-16">line 16</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="CheckBinCallback"><span class="type-signature"></span>CheckBinCallback(<span class="optional">file</span>)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Invoked on operation success or failure</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
+<table class="props table table-striped">
     <thead>
     <tr>
         
@@ -719,7 +593,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
         <tr>
             
-                <td class="name"><code>file</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -735,9 +609,35 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>&quot;tag&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
                 
 
                 
@@ -746,17 +646,172 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
             
 
-            <td class="description last"><p>a full system path to a file</p></td>
+            <td class="description last"><p>the tag name (e.g. &quot;div&quot;)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attribs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the tag attributes (e.g. {style: 'min-width:50px'})</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#CheerioNode">CheerioNode</a>></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>an array of child nodes</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the next sibling node</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prev</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the previous sibling node</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioElement">CheerioElement</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the parent element</p></td>
         </tr>
 
     
     </tbody>
 </table>
+</dl>
 
-    
-
-    
-<dl class="details">
     
 
 	
@@ -790,8 +845,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="Documentation.js.html">Documentation.js</a>,
-				 <a href="Documentation.js.html#sunlight-1-line-33">line 33</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-32">line 32</a>
 			</li>
 		</ul>
 	</dd>
@@ -806,6 +861,98 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
 
     
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CheerioNode">
+    <h4>CheerioNode</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A dumbed down representation of a DOM Node</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>either &quot;comment&quot;, &quot;text&quot; or &quot;tag&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
 
     
 
@@ -815,7 +962,305 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
     
 
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-24">line 24</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
     
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CheerioText">
+    <h4>CheerioText</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A dumbed down representation of a DOM Text or a Comment Nodes</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>either &quot;text&quot; or &quot;comment&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the textual content of the node</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the next sibling node</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prev</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the previous sibling node</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#CheerioElement">CheerioElement</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the parent element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-47">line 47</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
 
     
 </dd>
@@ -831,7 +1276,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <dd>
     
     <div class="description">
-        <p>Processed application code with source maps</p>
+        <p>Documentation generator configuration object</p>
     </div>
     
 
@@ -1108,8 +1553,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="Documentation.js.html">Documentation.js</a>,
-				 <a href="Documentation.js.html#sunlight-1-line-12">line 12</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-59">line 59</a>
 			</li>
 		</ul>
 	</dd>
@@ -1130,16 +1575,12 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
                 
 <hr>
 <dt>
-    <h4 class="name" id="FindExecutableCallback"><span class="type-signature"></span>FindExecutableCallback(file)</h4>
+    <h4 class="name" id="FileCallback"><span class="type-signature"></span>FileCallback(file)</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        <p>Invoked on operation success or failure</p>
-    </div>
     
 
     
@@ -1234,146 +1675,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="Documentation.js.html">Documentation.js</a>,
-				 <a href="Documentation.js.html#sunlight-1-line-25">line 25</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="GzipCallback"><span class="type-signature"></span>GzipCallback(data)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Invoked when the data was successfully g-zipped</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the program data</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-19">line 19</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-78">line 78</a>
 			</li>
 		</ul>
 	</dd>
@@ -1412,10 +1715,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 </dt>
 <dd>
 
-    
-    <div class="description">
-        <p>Invoked on operation success or failure</p>
-    </div>
     
 
     
@@ -1522,8 +1821,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSLint.js.html">JSLint.js</a>,
-				 <a href="JSLint.js.html#sunlight-1-line-19">line 19</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-90">line 90</a>
 			</li>
 		</ul>
 	</dd>
@@ -1798,8 +2097,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSLint.js.html">JSLint.js</a>,
-				 <a href="JSLint.js.html#sunlight-1-line-7">line 7</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-12">line 12</a>
 			</li>
 		</ul>
 	</dd>
@@ -1826,10 +2125,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 </dt>
 <dd>
 
-    
-    <div class="description">
-        <p>Invoked on operation success or failure</p>
-    </div>
     
 
     
@@ -1968,8 +2263,332 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="NativeProcess.js.html">NativeProcess.js</a>,
-				 <a href="NativeProcess.js.html#sunlight-1-line-6">line 6</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-96">line 96</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="NullableFileCallback"><span class="type-signature"></span>NullableFileCallback(<span class="optional">file</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>a full system path to a file</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-84">line 84</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="ObjectOrErrorCallback"><span class="type-signature"></span>ObjectOrErrorCallback(<span class="optional">error</span>, result)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>an error message</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the resulting object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-103">line 103</a>
 			</li>
 		</ul>
 	</dd>
@@ -2138,8 +2757,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-10">line 10</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-3">line 3</a>
 			</li>
 		</ul>
 	</dd>
@@ -2160,16 +2779,12 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
                 
 <hr>
 <dt>
-    <h4 class="name" id="YAMLCallback"><span class="type-signature"></span>YAMLCallback(<span class="optional">error</span>, data)</h4>
+    <h4 class="name" id="ProgramDataCallback"><span class="type-signature"></span>ProgramDataCallback(data)</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        <p>Invoked on operation success or failure</p>
-    </div>
     
 
     
@@ -2191,8 +2806,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
-        
 
         
 
@@ -2205,47 +2818,13 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
         <tr>
             
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>an error message</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
 
 
 
@@ -2253,18 +2832,10 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>the parsed object</p></td>
+            <td class="description last"><p>the program data</p></td>
         </tr>
 
     
@@ -2308,8 +2879,8 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="yaml.js.html">yaml.js</a>,
-				 <a href="yaml.js.html#sunlight-1-line-6">line 6</a>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-72">line 72</a>
 			</li>
 		</ul>
 	</dd>
@@ -2334,6 +2905,170 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="Transformer"><span class="type-signature"></span>Transformer(input)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Must be a pure function, always return the same value given the same input, must be side-effect free and not depend
+on other replacers executing before it.</p>
+<p>If provided with a result of its own previous execution, must return it unchanged.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a transformed string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-110">line 110</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>transformed output</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>

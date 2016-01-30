@@ -1,3 +1,5 @@
+/* @flow */
+
 type ESLintMessage = {message: string, ruleId?: string, line: number, column: number, filePath: string};
 type ESLintResult = {filePath: string, messages: Array<ESLintMessage>};
 

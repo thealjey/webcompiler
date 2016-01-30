@@ -4,7 +4,6 @@
 .*/config/*
 .*/coverage/*
 .*/docs/*
-.*/interfaces/*
 
 [include]
 

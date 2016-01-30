@@ -1,3 +1,5 @@
+/* @flow */
+
 type Spy = {
   callCount: number
 };

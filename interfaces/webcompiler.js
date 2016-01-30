@@ -1,11 +1,7 @@
-type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
-type DocumentationConfig = {inputDir?: string, outputDir?: string, readMe?: string, template?: string,
-  jsdocConfig: ?string};
-type YAMLCallback = (error: ?string, data: Object) => void;
-type JSLintError = {message: string, ruleId?: string, filePath: string, line: number, column: number};
-type JSLintCallback = (errors: ?Array<JSLintError>) => void;
-type ProgramData = {code: string, map: string};
-type AutoprefixCallback = (data: ProgramData) => void;
+/* @flow */
+
+import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback,
+  ObjectOrErrorCallback} from '../src/typedef';
 
 declare module 'webcompiler' {
 
@@ -16,12 +12,18 @@ declare module 'webcompiler' {
   }
 
   declare class Documentation {
-    constructor(config: ?DocumentationConfig): void;
+    constructor(config: ?Object): void;
     run(callback: () => void): void;
   }
 
+  declare class Markup {
+    static markdownToHTML(markdown: string): string;
+    static htmlToJSX(html: string): Array<any>;
+    static markdownToJSX(markdown: string): Array<any>;
+  }
+
   declare function watch(dir: string, type: string, callback: () => void): void;
-  declare function yaml(filename: string, callback: YAMLCallback): void;
+  declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;
 
   declare class JS {
     constructor(compress: ?boolean, babelOptions: ?Object, lintRules: ?Object): void;
@@ -52,7 +54,6 @@ declare module 'webcompiler' {
 
   declare class JSCompiler {
     constructor(compress: ?boolean, options: ?Object): void;
-    minify(path: string, data: ProgramData): ProgramData;
     be(inPath: string, outPath: string, callback: ?() => void): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
   }
@@ -64,8 +65,7 @@ declare module 'webcompiler' {
 
   declare class SASSCompiler {
     constructor(compress: ?boolean, includePaths: ?Array<string>, importOnceOptions: ?Object): void;
-    minify(path: string, data: ProgramData): ?ProgramData;
-    autoprefix(path: string, data: ProgramData, callback: AutoprefixCallback): void;
+    static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
   }
 

@@ -7,6 +7,7 @@ import {
   Documentation as TestDocumentation,
   watch as testWatch,
   yaml as testYaml,
+  Markup as TestMarkup,
   JS as TestJS,
   SASS as TestSASS,
   DevServer as TestDevServer,
@@ -20,6 +21,7 @@ import {NativeProcess} from '../src/NativeProcess';
 import {Documentation} from '../src/Documentation';
 import {watch} from '../src/watch';
 import {yaml} from '../src/yaml';
+import {Markup} from '../src/Markup';
 import {JS} from '../src/JS';
 import {SASS} from '../src/SASS';
 import {DevServer} from '../src/DevServer';
@@ -44,6 +46,10 @@ describe('index', () => {
 
   it('re-exports yaml', () => {
     expect(testYaml).equal(yaml);
+  });
+
+  it('re-exports Markup', () => {
+    expect(TestMarkup).equal(Markup);
   });
 
   it('re-exports JS', () => {
