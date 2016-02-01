@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback,
+import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback, Transformer,
   ObjectOrErrorCallback} from '../src/typedef';
 
 declare module 'webcompiler' {
@@ -17,9 +17,10 @@ declare module 'webcompiler' {
   }
 
   declare class Markup {
-    static markdownToHTML(markdown: string): string;
-    static htmlToJSX(html: string): Array<any>;
-    static markdownToJSX(markdown: string): Array<any>;
+    constructor(...transformers: Array<Transformer>): void;
+    htmlToJSX(html: string): Array<any>;
+    markdownToHTML(markdown: string): string;
+    markdownToJSX(markdown: string): Array<any>;
   }
 
   declare function watch(dir: string, type: string, callback: () => void): void;

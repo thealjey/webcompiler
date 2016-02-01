@@ -154,7 +154,7 @@ export class Markup {
    * @return {string} a transformed string
    */
   transform(html: string): string {
-    return reduce(this.transformers, (result, replacer) => replacer(result), html);
+    return reduce(this.transformers, (result, transformer) => transformer(result), html);
   }
 
   /**
