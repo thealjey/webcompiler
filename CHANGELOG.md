@@ -1,3 +1,10 @@
+v3.5.1 - Mon, 01 Feb 2016 09:56:53 GMT
+--------------------------------------
+
+- [2071e3a](../../commit/2071e3a) [fixed] Markup class definition in the webcompiler.js interface file
+
+
+
 v3.5.0 - Sat, 30 Jan 2016 23:30:18 GMT
 --------------------------------------
 
