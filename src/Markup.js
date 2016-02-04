@@ -9,6 +9,8 @@ import map from 'lodash/map';
 import transform from 'lodash/transform';
 import has from 'lodash/has';
 import reduce from 'lodash/reduce';
+import flattenDeep from 'lodash/flattenDeep';
+import isString from 'lodash/isString';
 
 /* eslint-disable no-arrow-condition */
 
@@ -144,6 +146,32 @@ export class Markup {
   }
 
   /**
+   * Recursively flattens `args` and combines string values.
+   *
+   * Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
+   * joining adjacent text nodes together.
+   *
+   * @memberof Markup
+   * @static
+   * @method flatten
+   * @param {...*} args - the input array
+   * @return {Array<*>} the flattened result
+   * @example
+   * Markup.flatten('lorem ', ['ipsum ', ['dolor ', ['sit ', ['amet']]]]); // ["lorem ipsum dolor sit amet"]
+   */
+  static flatten(...args: Array<any>): Array<any> {
+    return transform(flattenDeep(args), (accumulator, value) => {
+      const lastIndex = accumulator.length - 1;
+
+      if (isString(value) && isString(accumulator[lastIndex])) {
+        accumulator[lastIndex] += value;
+      } else {
+        accumulator.push(value);
+      }
+    }, []);
+  }
+
+  /**
    * Runs the html string through an array of Transformer functions
    *
    * @memberof Markup
@@ -166,9 +194,7 @@ export class Markup {
    * @param {string} [html=""] - an arbitrary HTML string
    * @return {Array<ReactElement>} an array of React Elements
    * @example
-   * const children = mark.htmlToJSX('Hello <span>world!</span>');
-   *
-   * return <div>{children}</div>;
+   * <div>{mark.htmlToJSX('Hello <span>world!</span>')}</div>
    */
   htmlToJSX(html: string = ''): Array<any> {
     return html ? Markup.childrenToJSX(load(this.transform(html)).root().toArray()[0].children) : [];
@@ -198,9 +224,7 @@ export class Markup {
    * @param {string} [markdown=""] - an arbitrary Markdown string
    * @return {Array<ReactElement>} an array of React Elements
    * @example
-   * const header = mark.markdownToJSX('# Hello world!');
-   *
-   * return <div>{header}</div>;
+   * <div>{mark.markdownToJSX('# Hello world!')}</div>
    */
   markdownToJSX(markdown: string = ''): Array<any> {
     return markdown ? this.htmlToJSX(marked(markdown)) : [];

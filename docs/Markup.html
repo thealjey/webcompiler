@@ -208,7 +208,7 @@ that can be used directly in a JSX expression.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-15">line 15</a>
+				 <a href="Markup.js.html#sunlight-1-line-17">line 17</a>
 			</li>
 		</ul>
 	</dd>
@@ -264,6 +264,188 @@ const mark = new Markup();</pre>
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".flatten"><span class="type-signature">&lt;static> </span>flatten(args)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Recursively flattens <code>args</code> and combines string values.</p>
+<p>Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
+joining adjacent text nodes together.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the input array</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-148">line 148</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>the flattened result</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;*></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">Markup.flatten(&#x27;lorem &#x27;, [&#x27;ipsum &#x27;, [&#x27;dolor &#x27;, [&#x27;sit &#x27;, [&#x27;amet&#x27;]]]]); // [&quot;lorem ipsum dolor sit amet&quot;]</pre>
+
+
+    
+</dd>
+
+        
             
 <hr>
 <dt>
@@ -392,7 +574,7 @@ const mark = new Markup();</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-160">line 160</a>
+				 <a href="Markup.js.html#sunlight-1-line-188">line 188</a>
 			</li>
 		</ul>
 	</dd>
@@ -445,9 +627,7 @@ const mark = new Markup();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const children = mark.htmlToJSX(&#x27;Hello &lt;span&gt;world!&lt;/span&gt;&#x27;);
-
-return &lt;div&gt;{children}&lt;/div&gt;;</pre>
+    <pre class="sunlight-highlight-javascript">&lt;div&gt;{mark.htmlToJSX(&#x27;Hello &lt;span&gt;world!&lt;/span&gt;&#x27;)}&lt;/div&gt;</pre>
 
 
     
@@ -582,7 +762,7 @@ return &lt;div&gt;{children}&lt;/div&gt;;</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-177">line 177</a>
+				 <a href="Markup.js.html#sunlight-1-line-203">line 203</a>
 			</li>
 		</ul>
 	</dd>
@@ -770,7 +950,7 @@ return &lt;div&gt;{children}&lt;/div&gt;;</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-192">line 192</a>
+				 <a href="Markup.js.html#sunlight-1-line-218">line 218</a>
 			</li>
 		</ul>
 	</dd>
@@ -823,9 +1003,7 @@ return &lt;div&gt;{children}&lt;/div&gt;;</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const header = mark.markdownToJSX(&#x27;# Hello world!&#x27;);
-
-return &lt;div&gt;{header}&lt;/div&gt;;</pre>
+    <pre class="sunlight-highlight-javascript">&lt;div&gt;{mark.markdownToJSX(&#x27;# Hello world!&#x27;)}&lt;/div&gt;</pre>
 
 
     

@@ -208,6 +208,23 @@ describe('Markup', () => {
 
   });
 
+  describe('flatten', () => {
+
+    beforeEach(() => {
+      spy(Markup, 'flatten');
+      Markup.flatten('something ', ['here', {value: 2, other: [true]}]);
+    });
+
+    afterEach(() => {
+      Markup.flatten.restore();
+    });
+
+    it('returns result', () => {
+      expect(Markup.flatten).returned(['something here', {value: 2, other: [true]}]);
+    });
+
+  });
+
   describe('assigns transformers', () => {
 
     beforeEach(() => {
