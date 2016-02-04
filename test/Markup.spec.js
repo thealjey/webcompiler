@@ -253,7 +253,6 @@ describe('Markup', () => {
       beforeEach(() => {
         spy(cmp, 'markdownToHTML');
         stub(cmp, 'transform').returnsArg(0);
-        cmp.markdownToHTML('# Hello world!');
       });
 
       afterEach(() => {
@@ -261,16 +260,36 @@ describe('Markup', () => {
         cmp.transform.restore();
       });
 
-      it('calls marked', () => {
-        expect(marked).calledWith('# Hello world!');
+      describe('no arg', () => {
+
+        beforeEach(() => {
+          cmp.markdownToHTML();
+        });
+
+        it('returns result', () => {
+          expect(cmp.markdownToHTML).returned('');
+        });
+
       });
 
-      it('calls transform', () => {
-        expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
-      });
+      describe('arg', () => {
 
-      it('returns html', () => {
-        expect(cmp.markdownToHTML).returned('<h1>Hello world!</h1>');
+        beforeEach(() => {
+          cmp.markdownToHTML('# Hello world!');
+        });
+
+        it('calls marked', () => {
+          expect(marked).calledWith('# Hello world!');
+        });
+
+        it('calls transform', () => {
+          expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
+        });
+
+        it('returns html', () => {
+          expect(cmp.markdownToHTML).returned('<h1>Hello world!</h1>');
+        });
+
       });
 
     });
@@ -280,7 +299,6 @@ describe('Markup', () => {
       beforeEach(() => {
         spy(cmp, 'markdownToJSX');
         stub(cmp, 'htmlToJSX').returnsArg(0);
-        cmp.markdownToJSX('# Hello world!');
       });
 
       afterEach(() => {
@@ -288,16 +306,36 @@ describe('Markup', () => {
         cmp.htmlToJSX.restore();
       });
 
-      it('calls marked', () => {
-        expect(marked).calledWith('# Hello world!');
+      describe('no arg', () => {
+
+        beforeEach(() => {
+          cmp.markdownToJSX();
+        });
+
+        it('returns result', () => {
+          expect(cmp.markdownToJSX).returned([]);
+        });
+
       });
 
-      it('calls htmlToJSX', () => {
-        expect(cmp.htmlToJSX).calledWith('<h1>Hello world!</h1>');
-      });
+      describe('arg', () => {
 
-      it('returns html', () => {
-        expect(cmp.markdownToJSX).returned('<h1>Hello world!</h1>');
+        beforeEach(() => {
+          cmp.markdownToJSX('# Hello world!');
+        });
+
+        it('calls marked', () => {
+          expect(marked).calledWith('# Hello world!');
+        });
+
+        it('calls htmlToJSX', () => {
+          expect(cmp.htmlToJSX).calledWith('<h1>Hello world!</h1>');
+        });
+
+        it('returns result', () => {
+          expect(cmp.markdownToJSX).returned('<h1>Hello world!</h1>');
+        });
+
       });
 
     });
@@ -309,7 +347,6 @@ describe('Markup', () => {
         stub(cmp, 'transform').returnsArg(0);
         stub(Markup, 'childrenToJSX').returnsArg(0);
         stub(cheerio, 'load').returns({root: () => ({toArray: () => [{children: ['child', 'components']}]})});
-        cmp.htmlToJSX('<h1>Hello world!</h1>');
       });
 
       afterEach(() => {
@@ -319,20 +356,40 @@ describe('Markup', () => {
         cheerio.load.restore();
       });
 
-      it('calls transform', () => {
-        expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
+      describe('no arg', () => {
+
+        beforeEach(() => {
+          cmp.htmlToJSX();
+        });
+
+        it('returns result', () => {
+          expect(cmp.htmlToJSX).returned([]);
+        });
+
       });
 
-      it('calls load', () => {
-        expect(cheerio.load).calledWith('<h1>Hello world!</h1>');
-      });
+      describe('arg', () => {
 
-      it('calls childrenToJSX', () => {
-        expect(Markup.childrenToJSX).calledWith(['child', 'components']);
-      });
+        beforeEach(() => {
+          cmp.htmlToJSX('<h1>Hello world!</h1>');
+        });
 
-      it('returns result', () => {
-        expect(cmp.htmlToJSX).returned(['child', 'components']);
+        it('calls transform', () => {
+          expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
+        });
+
+        it('calls load', () => {
+          expect(cheerio.load).calledWith('<h1>Hello world!</h1>');
+        });
+
+        it('calls childrenToJSX', () => {
+          expect(Markup.childrenToJSX).calledWith(['child', 'components']);
+        });
+
+        it('returns result', () => {
+          expect(cmp.htmlToJSX).returned(['child', 'components']);
+        });
+
       });
 
     });

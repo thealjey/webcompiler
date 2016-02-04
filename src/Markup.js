@@ -163,15 +163,15 @@ export class Markup {
    * @memberof Markup
    * @instance
    * @method htmlToJSX
-   * @param {string} html - an arbitrary HTML string
+   * @param {string} [html=""] - an arbitrary HTML string
    * @return {Array<ReactElement>} an array of React Elements
    * @example
    * const children = mark.htmlToJSX('Hello <span>world!</span>');
    *
    * return <div>{children}</div>;
    */
-  htmlToJSX(html: string): Array<any> {
-    return Markup.childrenToJSX(load(this.transform(html)).root().toArray()[0].children);
+  htmlToJSX(html: string = ''): Array<any> {
+    return html ? Markup.childrenToJSX(load(this.transform(html)).root().toArray()[0].children) : [];
   }
 
   /**
@@ -180,13 +180,13 @@ export class Markup {
    * @memberof Markup
    * @instance
    * @method markdownToHTML
-   * @param {string} markdown - an arbitrary Markdown string
+   * @param {string} [markdown=""] - an arbitrary Markdown string
    * @return {string} an HTML string
    * @example
    * mark.markdownToHTML('# Hello world!'); // <h1>Hello world!</h1>
    */
-  markdownToHTML(markdown: string): string {
-    return this.transform(marked(markdown));
+  markdownToHTML(markdown: string = ''): string {
+    return markdown ? this.transform(marked(markdown)) : '';
   }
 
   /**
@@ -195,15 +195,15 @@ export class Markup {
    * @memberof Markup
    * @instance
    * @method markdownToJSX
-   * @param {string} markdown - an arbitrary Markdown string
+   * @param {string} [markdown=""] - an arbitrary Markdown string
    * @return {Array<ReactElement>} an array of React Elements
    * @example
    * const header = mark.markdownToJSX('# Hello world!');
    *
    * return <div>{header}</div>;
    */
-  markdownToJSX(markdown: string): Array<any> {
-    return this.htmlToJSX(marked(markdown));
+  markdownToJSX(markdown: string = ''): Array<any> {
+    return markdown ? this.htmlToJSX(marked(markdown)) : [];
   }
 
 }
