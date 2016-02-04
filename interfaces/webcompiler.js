@@ -18,9 +18,9 @@ declare module 'webcompiler' {
 
   declare class Markup {
     constructor(...transformers: Array<Transformer>): void;
-    htmlToJSX(html: string): Array<any>;
-    markdownToHTML(markdown: string): string;
-    markdownToJSX(markdown: string): Array<any>;
+    htmlToJSX(html: ?string): Array<any>;
+    markdownToHTML(markdown: ?string): string;
+    markdownToJSX(markdown: ?string): Array<any>;
   }
 
   declare function watch(dir: string, type: string, callback: () => void): void;
