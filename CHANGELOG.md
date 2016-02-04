@@ -1,3 +1,11 @@
+v3.6.0 - Thu, 04 Feb 2016 22:54:55 GMT
+--------------------------------------
+
+- [4a044cf](../../commit/4a044cf) [added] the `Markup.flatten` method
+- [02c9096](../../commit/02c9096) [fixed] the interface declaration for `Markup` to make the input value for `htmlToJSX`, `markdownToHTML` and `markdownToJSX` optional
+
+
+
 v3.5.3 - Thu, 04 Feb 2016 16:11:25 GMT
 --------------------------------------
 
