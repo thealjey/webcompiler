@@ -1,3 +1,10 @@
+v3.5.3 - Thu, 04 Feb 2016 16:11:25 GMT
+--------------------------------------
+
+- [1dbe099](../../commit/1dbe099) [fixed] handle empty input in the `Markup` class; updated dependencies
+
+
+
 v3.5.2 - Mon, 01 Feb 2016 12:52:50 GMT
 --------------------------------------
 
