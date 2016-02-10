@@ -1,3 +1,12 @@
+v3.6.1 - Wed, 10 Feb 2016 21:57:35 GMT
+--------------------------------------
+
+- [50ac89a](../../commit/50ac89a) [fixed] `Markup` - trim the input and output where necessary
+- [9ce8f3e](../../commit/9ce8f3e) [fixed] minor documentation updates; updates to the lodash interface file
+- [f9346b1](../../commit/f9346b1) [fixed] updated dependencies
+
+
+
 v3.6.0 - Thu, 04 Feb 2016 22:54:55 GMT
 --------------------------------------
 
