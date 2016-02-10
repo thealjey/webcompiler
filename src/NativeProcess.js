@@ -5,7 +5,7 @@ import {spawn} from 'child_process';
 import noop from 'lodash/noop';
 
 /**
- * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess|ChildProcess}
+ * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess ChildProcess}
  * instance of a `task`
  *
  * @class NativeProcess

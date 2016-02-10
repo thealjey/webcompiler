@@ -18,6 +18,14 @@ declare module 'lodash/constant' {
   declare function exports(value: any): any;
 }
 
+declare module 'lodash/clone' {
+  declare function exports(value: any): any;
+}
+
+declare module 'lodash/cloneDeep' {
+  declare function exports(value: any): any;
+}
+
 declare module 'lodash/isArray' {
   declare function exports(value: any): boolean;
 }
@@ -28,6 +36,10 @@ declare module 'lodash/isString' {
 
 declare module 'lodash/camelCase' {
   declare function exports(value: string): string;
+}
+
+declare module 'lodash/trim' {
+  declare function exports(value: string, chars: ?string): string;
 }
 
 declare module 'lodash/uniq' {
@@ -43,11 +55,11 @@ declare module 'lodash/without' {
 }
 
 declare module 'lodash/has' {
-  declare function exports(object: Object, path: Path): boolean;
+  declare function exports(object: any, path: Path): boolean;
 }
 
 declare module 'lodash/get' {
-  declare function exports(object: Object, path: Path, defaultValue: ?any): any;
+  declare function exports(object: any, path: Path, defaultValue: ?any): any;
 }
 
 declare module 'lodash/forEach' {
@@ -68,6 +80,10 @@ declare module 'lodash/map' {
 
 declare module 'lodash/find' {
   declare function exports(collection: Iterable, iteratee: ?Iteratee): any;
+}
+
+declare module 'lodash/findIndex' {
+  declare function exports(collection: Iterable, iteratee: ?Iteratee): number;
 }
 
 declare module 'lodash/transform' {

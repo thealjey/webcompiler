@@ -15,7 +15,7 @@ const client = new Client(),
  * @param {string}   dir      - a full system path to a directory to watch
  * @param {string}   type     - a file extension
  * @param {Function} callback - a callback function
- * @see {@link https://facebook.github.io/watchman/|Watchman}
+ * @see {@link https://facebook.github.io/watchman/ Watchman}
  * @example
  * import {watch} from 'webcompiler';
  * import {join} from 'path';

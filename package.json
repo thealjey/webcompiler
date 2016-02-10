@@ -8,7 +8,7 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
-    "test": "babel-node ./node_modules/.bin/isparta cover _mocha --root src -- -R dot",
+    "test": "babel-node ./node_modules/.bin/isparta cover _mocha --root src -- -R nyan",
     "docs-build": "babel-node bin/docs",
     "lint": "eslint ./",
     "build": "babel-node bin/build",
