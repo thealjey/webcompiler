@@ -11,6 +11,7 @@ import has from 'lodash/has';
 import reduce from 'lodash/reduce';
 import flattenDeep from 'lodash/flattenDeep';
 import isString from 'lodash/isString';
+import trim from 'lodash/trim';
 
 /* eslint-disable no-arrow-condition */
 
@@ -197,6 +198,7 @@ export class Markup {
    * <div>{mark.htmlToJSX('Hello <span>world!</span>')}</div>
    */
   htmlToJSX(html: string = ''): Array<any> {
+    html = trim(html);
     return html ? Markup.childrenToJSX(load(this.transform(html)).root().toArray()[0].children) : [];
   }
 
@@ -212,7 +214,8 @@ export class Markup {
    * mark.markdownToHTML('# Hello world!'); // <h1>Hello world!</h1>
    */
   markdownToHTML(markdown: string = ''): string {
-    return markdown ? this.transform(marked(markdown)) : '';
+    markdown = trim(markdown);
+    return markdown ? trim(this.transform(marked(markdown))) : '';
   }
 
   /**
@@ -227,6 +230,7 @@ export class Markup {
    * <div>{mark.markdownToJSX('# Hello world!')}</div>
    */
   markdownToJSX(markdown: string = ''): Array<any> {
+    markdown = trim(markdown);
     return markdown ? this.htmlToJSX(marked(markdown)) : [];
   }
 
