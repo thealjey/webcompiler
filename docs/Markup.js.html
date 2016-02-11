@@ -224,6 +224,28 @@ export class Markup {
   }
 
   /**
+   * If a simple single line string is passed to the Markdown parser it thinks that it's a paragraph (it sort of
+   * technically is) and unnecessarily wraps it into `&lt;p>&lt;/p>`, which most often is not the desired behavior.
+   *
+   * This function converts Markdown to HTML and then removes the wrapping paragraph if it is the only top level tag
+   * unwrapping its contents.
+   *
+   * @memberof Markup
+   * @static
+   * @private
+   * @method markdownToUnwrappedHTML
+   * @param {string} markdown - an arbitrary Markdown string
+   * @return {string} an HTML string
+   */
+  static markdownToUnwrappedHTML(markdown: string): string {
+    const html = trim(marked(markdown)),
+        dom = load(html),
+        {children} = dom.root().toArray()[0];
+
+    return 1 === children.length &amp;&amp; 'tag' === children[0].type &amp;&amp; 'p' === children[0].name ? dom('p').html() : html;
+  }
+
+  /**
    * Recursively flattens `args` and combines string values.
    *
    * Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
@@ -292,7 +314,7 @@ export class Markup {
    */
   markdownToHTML(markdown: string = ''): string {
     markdown = trim(markdown);
-    return markdown ? trim(this.transform(marked(markdown))) : '';
+    return markdown ? trim(this.transform(Markup.markdownToUnwrappedHTML(markdown))) : '';
   }
 
   /**
@@ -308,7 +330,7 @@ export class Markup {
    */
   markdownToJSX(markdown: string = ''): Array&lt;any> {
     markdown = trim(markdown);
-    return markdown ? this.htmlToJSX(marked(markdown)) : [];
+    return markdown ? this.htmlToJSX(Markup.markdownToUnwrappedHTML(markdown)) : [];
   }
 
 }

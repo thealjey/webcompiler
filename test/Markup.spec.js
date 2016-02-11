@@ -14,7 +14,7 @@ let marked, Markup, object, cmp, args, attribs;
 describe('Markup', () => {
 
   beforeEach(() => {
-    marked = stub().returns('<h1>Hello world!</h1>');
+    marked = stub().returnsArg(0);
     Markup = proxyquire('../src/Markup', {marked}).Markup;
   });
 
@@ -208,6 +208,42 @@ describe('Markup', () => {
 
   });
 
+  describe('markdownToUnwrappedHTML', () => {
+
+    beforeEach(() => {
+      spy(Markup, 'markdownToUnwrappedHTML');
+    });
+
+    afterEach(() => {
+      Markup.markdownToUnwrappedHTML.restore();
+    });
+
+    describe('unwrap', () => {
+
+      beforeEach(() => {
+        Markup.markdownToUnwrappedHTML(' <p>something</p> ');
+      });
+
+      it('returns result', () => {
+        expect(Markup.markdownToUnwrappedHTML).returned('something');
+      });
+
+    });
+
+    describe('do not unwrap', () => {
+
+      beforeEach(() => {
+        Markup.markdownToUnwrappedHTML('<h1>something</h1>');
+      });
+
+      it('returns result', () => {
+        expect(Markup.markdownToUnwrappedHTML).returned('<h1>something</h1>');
+      });
+
+    });
+
+  });
+
   describe('flatten', () => {
 
     beforeEach(() => {
@@ -292,11 +328,7 @@ describe('Markup', () => {
       describe('arg', () => {
 
         beforeEach(() => {
-          cmp.markdownToHTML('# Hello world!');
-        });
-
-        it('calls marked', () => {
-          expect(marked).calledWith('# Hello world!');
+          cmp.markdownToHTML('<h1>Hello world!</h1>');
         });
 
         it('calls transform', () => {
@@ -338,11 +370,7 @@ describe('Markup', () => {
       describe('arg', () => {
 
         beforeEach(() => {
-          cmp.markdownToJSX('# Hello world!');
-        });
-
-        it('calls marked', () => {
-          expect(marked).calledWith('# Hello world!');
+          cmp.markdownToJSX('<h1>Hello world!</h1>');
         });
 
         it('calls htmlToJSX', () => {
