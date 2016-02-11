@@ -1,3 +1,10 @@
+v3.7.0 - Thu, 11 Feb 2016 20:01:16 GMT
+--------------------------------------
+
+- [c398d90](../../commit/c398d90) [added] `private Markup.markdownToUnwrappedHTML` - If a simple single line string is passed to the Markdown parser it thinks that it is a paragraph (it sort of technically is) and unnecessarily wraps it into `<p></p>`, which most often is not the desired behavior. This function fixes that.
+
+
+
 v3.6.1 - Wed, 10 Feb 2016 21:57:35 GMT
 --------------------------------------
 
