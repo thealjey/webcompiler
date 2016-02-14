@@ -119,7 +119,6 @@ rules:
   quote-props: [ 2, as-needed, { keywords: true } ]
   space-infix-ops: [ 2, { int32Hint: true } ]
   space-unary-ops: [ 2, { words: true, nonwords: false } ]
-  arrow-parens: [ 2, as-needed ]
   constructor-super: 2
   no-class-assign: 2
   no-this-before-super: 2
