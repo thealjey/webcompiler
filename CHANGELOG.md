@@ -1,3 +1,10 @@
+v3.7.1 - Sun, 14 Feb 2016 00:06:38 GMT
+--------------------------------------
+
+- [18f7807](../../commit/18f7807) [fixed] made travis only watch the master branch; removed a duplicate eslint rule
+
+
+
 v3.7.0 - Thu, 11 Feb 2016 20:01:16 GMT
 --------------------------------------
 
