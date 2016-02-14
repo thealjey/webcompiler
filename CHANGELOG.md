@@ -1,3 +1,10 @@
+v3.8.0 - Sun, 14 Feb 2016 16:54:52 GMT
+--------------------------------------
+
+- [bc1e3f3](../../commit/bc1e3f3) [changed] updated ESLint to v2; removed eslint-config-airbnb; better and faster linting for javascript
+
+
+
 v3.7.1 - Sun, 14 Feb 2016 00:06:38 GMT
 --------------------------------------
 
