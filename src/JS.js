@@ -49,6 +49,7 @@ export class JS {
    */
   linter: JSLint;
 
+  /** @constructs */
   constructor(compress: boolean = true, babelOptions: Object = {}, lintRules: Object = {}) {
     this.compiler = new JSCompiler(compress, babelOptions);
     this.flow = new NativeProcess('flow');

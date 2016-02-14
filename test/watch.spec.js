@@ -9,6 +9,7 @@ import noop from 'lodash/noop';
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable require-jsdoc */
 
 class Client {
   capabilityCheck: () => void;
@@ -20,7 +21,7 @@ Client.prototype.command = noop;
 Client.prototype.on = noop;
 
 const ALPHANUMERIC_BASE = 36,
-    watch = proxyquire('../src/watch', {'fb-watchman': {Client}}).watch;
+  watch = proxyquire('../src/watch', {'fb-watchman': {Client}}).watch;
 
 let callback, toString;
 

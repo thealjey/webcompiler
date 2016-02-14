@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {NullableFileCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -14,22 +13,21 @@ chai.use(sinonChai);
 /* eslint-disable no-unused-expressions */
 
 const rootDir = join(__dirname, '..'),
-    cwd = process.cwd(),
-    defaultOptions = {
-      inputDir: join(cwd, 'src'),
-      outputDir: join(cwd, 'docs'),
-      readMe: join(cwd, 'README.md'),
-      template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
-      jsdocConfig: join(rootDir, 'config', 'jsdoc.json')
-    };
+  cwd = process.cwd(),
+  defaultOptions = {
+    inputDir: join(cwd, 'src'),
+    outputDir: join(cwd, 'docs'),
+    readMe: join(cwd, 'README.md'),
+    template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+    jsdocConfig: join(rootDir, 'config', 'jsdoc.json')
+  };
 
 let cmp, callback, jsdoc;
 
 describe('Documentation', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): NullableFileCallback);
+    callback = spy();
     stub(console, 'error');
   });
 

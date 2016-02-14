@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {JSLintCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub} from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -10,17 +9,16 @@ import {CLIEngine} from 'eslint';
 chai.use(sinonChai);
 
 const MAX_COMPLEXITY = 4,
-    props = {complexity: [2, MAX_COMPLEXITY]},
-    line = 1,
-    column = 3;
+  props = {complexity: [2, MAX_COMPLEXITY]},
+  line = 1,
+  column = 3;
 
 let cmp, callback;
 
 describe('JSLint', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): JSLintCallback);
+    callback = spy();
   });
 
   describe('no props', () => {

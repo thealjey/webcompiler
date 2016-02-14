@@ -6,6 +6,8 @@ import {dirname} from 'path';
 import {writeFile} from 'fs';
 import {gzip} from 'zlib';
 
+/* eslint-disable no-process-env */
+
 let i = 0;
 
 /**
@@ -38,6 +40,7 @@ export class Compiler {
    */
   compress: boolean;
 
+  /** @constructs */
   constructor(compress: boolean = true) {
     this.isProduction = 'production' === process.env.NODE_ENV;
     this.compress = this.isProduction && compress;

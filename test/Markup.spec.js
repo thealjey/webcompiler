@@ -9,6 +9,8 @@ import react from 'react';
 
 chai.use(sinonChai);
 
+/* eslint-disable prefer-const */
+
 let marked, Markup, object, cmp, args, attribs;
 
 describe('Markup', () => {

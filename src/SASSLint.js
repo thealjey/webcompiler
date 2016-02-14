@@ -38,6 +38,7 @@ export class SASSLint {
    */
   proc: NativeProcess;
 
+  /** @constructs */
   constructor(...excludeLinter: Array<string>) {
     this.excludeLinter = excludeLinter.join(',');
     this.proc = new NativeProcess('scss-lint');

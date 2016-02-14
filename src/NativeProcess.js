@@ -36,7 +36,9 @@ export class NativeProcess {
    */
   proc: any;
 
+  /* eslint-disable require-jsdoc */
   constructor(task: string) {
+    /* eslint-enable require-jsdoc */
     this.task = task;
   }
 

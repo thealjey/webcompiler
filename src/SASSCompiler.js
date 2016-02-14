@@ -10,8 +10,8 @@ import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 
 const precision = 8,
-    importOnceDefaults = {index: true, css: false, bower: false},
-    defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'];
+  importOnceDefaults = {index: true, css: false, bower: false},
+  defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'];
 
 /**
  * A SASS compiler
@@ -48,6 +48,7 @@ export class SASSCompiler extends Compiler {
    */
   importOnce: Object;
 
+  /** @constructs */
   constructor(compress: boolean = true, includePaths: Array<string> = [], importOnceOptions: Object = {}) {
     super(compress);
     this.includePaths = defaultIncludePaths.concat(includePaths);

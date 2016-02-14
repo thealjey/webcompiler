@@ -3,7 +3,7 @@
 import {Client} from 'fb-watchman';
 
 const client = new Client(),
-    ALPHANUMERIC_BASE = 36;
+  ALPHANUMERIC_BASE = 36;
 
 /**
  * Using the Facebook Watchman, watches the directory `dir` for changes of files with extension `type` and runs

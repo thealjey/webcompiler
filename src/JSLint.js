@@ -5,7 +5,7 @@ import {CLIEngine} from 'eslint';
 import {join} from 'path';
 import forEach from 'lodash/forEach';
 
-const configFile = join(__dirname, '..', 'config', 'eslint.yml');
+const configFile = join(__dirname, '..', '.eslintrc.yml');
 
 /**
  * A JavaScript linter
@@ -29,6 +29,7 @@ export class JSLint {
    */
   linter: CLIEngine;
 
+  /** @constructs */
   constructor(rules: Object = {}) {
     this.linter = new CLIEngine({configFile, rules});
   }
@@ -55,7 +56,7 @@ export class JSLint {
    */
   run(paths: Array<string>, callback: JSLintCallback) {
     const report = this.linter.executeOnFiles(paths),
-        errors = [];
+      errors = [];
 
     forEach(report.results, f => {
       forEach(f.messages, e => {

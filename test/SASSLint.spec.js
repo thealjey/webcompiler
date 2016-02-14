@@ -9,6 +9,8 @@ import {join} from 'path';
 
 chai.use(sinonChai);
 
+/* eslint-disable require-jsdoc */
+
 const config = join(__dirname, '..', 'config', 'scsslint.yml');
 
 let cmp;

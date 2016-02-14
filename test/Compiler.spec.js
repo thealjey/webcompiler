@@ -10,6 +10,8 @@ import zlib from 'zlib';
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable no-process-env */
+/* eslint-disable require-jsdoc */
 
 let cmp, mkdirp, Compiler, callback;
 

@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {NativeProcessCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -17,8 +16,7 @@ let cmp, callback, on, kill, stdoutOn, stderrOn;
 describe('NativeProcess', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): NativeProcessCallback);
+    callback = spy();
     cmp = new NativeProcess('script');
   });
 

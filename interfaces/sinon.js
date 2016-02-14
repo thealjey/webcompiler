@@ -1,6 +1,7 @@
 /* @flow */
 
 type Spy = {
+  (...args: Array<any>): any,
   callCount: number
 };
 

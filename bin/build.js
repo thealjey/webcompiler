@@ -6,12 +6,12 @@ import {NativeProcess} from '../src/NativeProcess';
 import noop from 'lodash/noop';
 
 const rootDir = join(__dirname, '..'),
-    binDir = join(rootDir, 'bin'),
-    srcDir = join(rootDir, 'src'),
-    libDir = join(rootDir, 'lib'),
-    testDir = join(rootDir, 'test'),
-    js = new JS(),
-    npm = new NativeProcess('npm');
+  binDir = join(rootDir, 'bin'),
+  srcDir = join(rootDir, 'src'),
+  libDir = join(rootDir, 'lib'),
+  testDir = join(rootDir, 'test'),
+  js = new JS(),
+  npm = new NativeProcess('npm');
 
 js.be(srcDir, libDir, [testDir, binDir], () => {
   npm.run(stderr => {

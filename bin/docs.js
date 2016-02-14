@@ -5,8 +5,8 @@ import {createReadStream, createWriteStream} from 'fs';
 import {join} from 'path';
 
 const rootDir = join(__dirname, '..'),
-    docsDir = join(rootDir, 'docs'),
-    docs = new Documentation();
+  docsDir = join(rootDir, 'docs'),
+  docs = new Documentation();
 
 docs.run(() => {
   createReadStream(join(rootDir, 'LICENSE')).pipe(createWriteStream(join(docsDir, 'LICENSE')));

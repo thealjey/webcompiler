@@ -12,6 +12,7 @@ import importer from 'node-sass-import-once';
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable require-jsdoc */
 
 const precision = 8;
 

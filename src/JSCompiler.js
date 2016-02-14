@@ -14,12 +14,13 @@ import isArray from 'lodash/isArray';
 import uniq from 'lodash/uniq';
 
 /* eslint-disable no-sync */
+/* eslint-disable no-process-env */
 
 const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
-    cache = {},
-    fakeFS = new MemoryFS(),
-    {DedupePlugin, UglifyJsPlugin} = webpack.optimize,
-    productionPlugins = [new DedupePlugin(), new UglifyJsPlugin()];
+  cache = {},
+  fakeFS = new MemoryFS(),
+  {DedupePlugin, UglifyJsPlugin} = webpack.optimize,
+  productionPlugins = [new DedupePlugin(), new UglifyJsPlugin()];
 
 /**
  * A JavaScript compiler
@@ -54,6 +55,7 @@ export class JSCompiler extends Compiler {
    */
   processing: number;
 
+  /** @constructs */
   constructor(compress: boolean = true, options: Object = {}) {
     super(compress);
     this.configure(options);
@@ -200,7 +202,8 @@ export class JSCompiler extends Compiler {
       return console.error('Still working...');
     }
     this.beTraverse(inPath, outPath, () => {
-      if (!(--this.processing)) {
+      --this.processing;
+      if (!this.processing) {
         Compiler.done(inPath, callback);
       }
     });

@@ -19,8 +19,7 @@ let cmp, callback;
 describe('JS', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): () => void);
+    callback = spy();
     stub(console, 'log');
     stub(console, 'error');
   });

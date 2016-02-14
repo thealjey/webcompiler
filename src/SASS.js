@@ -39,6 +39,7 @@ export class SASS {
    */
   linter: SASSLint;
 
+  /** @constructs */
   constructor(compress: boolean = true, includePaths: Array<string> = [], excludeLinter: Array<string> = [],
               importOnceOptions: Object = {}) {
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);

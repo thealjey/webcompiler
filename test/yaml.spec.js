@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {ObjectOrErrorCallback} from '../src/typedef';
 import chai, {expect} from 'chai';
 import {spy, stub} from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -17,8 +16,7 @@ let callback;
 describe('yaml', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): ObjectOrErrorCallback);
+    callback = spy();
     stub(fs, 'readFileSync').returns('a yaml string');
   });
 

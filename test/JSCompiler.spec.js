@@ -12,6 +12,8 @@ chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sync */
+/* eslint-disable no-process-env */
+/* eslint-disable require-jsdoc */
 
 const files = 10;
 

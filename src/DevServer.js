@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import {join} from 'path';
 
 const LIVERELOAD_PORT = 35729,
-    WEB_PORT = 3000;
+  WEB_PORT = 3000;
 
 /**
  * A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
@@ -80,7 +80,9 @@ export class DevServer {
    */
   server: WebpackDevServer;
 
+  /* eslint-disable require-jsdoc */
   constructor(script: string, style: string, devDir: string, port: number = WEB_PORT, react: boolean = true) {
+    /* eslint-enable require-jsdoc */
     const sass = new SASSCompiler(), loaders = [];
 
     if (react) {

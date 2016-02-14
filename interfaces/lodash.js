@@ -34,8 +34,16 @@ declare module 'lodash/isString' {
   declare function exports(value: any): boolean;
 }
 
+declare module 'lodash/isError' {
+  declare function exports(value: any): boolean;
+}
+
 declare module 'lodash/camelCase' {
   declare function exports(value: string): string;
+}
+
+declare module 'lodash/attempt' {
+  declare function exports(callback: Function): any;
 }
 
 declare module 'lodash/trim' {

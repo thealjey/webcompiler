@@ -16,8 +16,7 @@ let cmp, callback;
 describe('SASS', () => {
 
   beforeEach(() => {
-    /* @flowignore */
-    callback = (spy(): () => void);
+    callback = spy();
     stub(console, 'error');
   });
 

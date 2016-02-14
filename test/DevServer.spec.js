@@ -10,10 +10,12 @@ import noop from 'lodash/noop';
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable require-jsdoc */
+/* eslint-disable prefer-const */
 
 const DEFAULT_WEB_PORT = 3000,
-    WEB_PORT = 8000,
-    LIVERELOAD_PORT = 35729;
+  WEB_PORT = 8000,
+  LIVERELOAD_PORT = 35729;
 
 let DevServer, cmp, tinylr, webpack, srv, send, watch;
 

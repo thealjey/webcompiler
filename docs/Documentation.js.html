@@ -84,14 +84,14 @@ import {join} from 'path';
 import noop from 'lodash/noop';
 
 const npm = new NativeProcess('npm'),
-    cwd = process.cwd(),
-    defaultOptions = {
-      inputDir: join(cwd, 'src'),
-      outputDir: join(cwd, 'docs'),
-      readMe: join(cwd, 'README.md'),
-      template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
-      jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
-    };
+  cwd = process.cwd(),
+  defaultOptions = {
+    inputDir: join(cwd, 'src'),
+    outputDir: join(cwd, 'docs'),
+    readMe: join(cwd, 'README.md'),
+    template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+    jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
+  };
 
 /**
  * Generates API documentation
@@ -135,6 +135,7 @@ export class Documentation {
    */
   options: Object;
 
+  /** @constructs */
   constructor(options: Object = {}) {
     this.options = {...defaultOptions, ...options};
   }

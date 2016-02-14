@@ -39,6 +39,7 @@ export class Markup {
    */
   transformers: Array<Transformer>;
 
+  /** @constructs */
   constructor(...transformers: Array<Transformer>) {
     this.transformers = transformers;
   }
@@ -72,7 +73,7 @@ export class Markup {
     if (has(object, 'style')) {
       object.style = transform(object.style.split(';'), (result, style) => {
         const firstColon = style.indexOf(':'),
-            key = style.substr(0, firstColon).trim();
+          key = style.substr(0, firstColon).trim();
 
         if (key) {
           result[Markup.toJSXKey(key.toLowerCase())] = style.substr(firstColon + 1).trim();
@@ -162,8 +163,8 @@ export class Markup {
    */
   static markdownToUnwrappedHTML(markdown: string): string {
     const html = trim(marked(markdown)),
-        dom = load(html),
-        {children} = dom.root().toArray()[0];
+      dom = load(html),
+      {children} = dom.root().toArray()[0];
 
     return 1 === children.length && 'tag' === children[0].type && 'p' === children[0].name ? dom('p').html() : html;
   }
