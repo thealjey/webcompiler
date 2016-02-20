@@ -32,6 +32,7 @@ rules:
   react/jsx-no-duplicate-props: 2
   react/jsx-no-undef: 2
   react/jsx-pascal-case: 2
+  react/jsx-space-before-closing: 2
   react/jsx-uses-vars: 2
   react/no-danger: 2
   react/no-deprecated: 2
@@ -59,6 +60,7 @@ rules:
   lodash/prop-shorthand: 2
   lodash/matches-prop-shorthand: 2
   lodash/matches-shorthand: 2
+  lodash/no-extra-args: 2
   lodash/preferred-alias: 2
   lodash/prefer-reject: 2
   lodash/prefer-filter: 2
