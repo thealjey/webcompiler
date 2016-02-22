@@ -1,3 +1,10 @@
+v3.8.4 - Mon, 22 Feb 2016 16:47:28 GMT
+--------------------------------------
+
+- [927f2d8](../../commit/927f2d8) [fixed] made webpack ignore the "fs" module; `Markup.flatten` removes falsy values
+
+
+
 v3.8.3 - Sat, 20 Feb 2016 17:59:15 GMT
 --------------------------------------
 
