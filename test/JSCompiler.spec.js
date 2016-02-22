@@ -93,6 +93,9 @@ describe('JSCompiler', () => {
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
             plugins: [],
+            node: {
+              fs: 'empty'
+            },
             module: {
               loaders: [{
                 test: /\.js$/,
@@ -140,6 +143,9 @@ describe('JSCompiler', () => {
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
             plugins: [match.instanceOf(DedupePlugin), match.instanceOf(UglifyJsPlugin)],
+            node: {
+              fs: 'empty'
+            },
             module: {
               loaders: [{
                 test: /\.js$/,

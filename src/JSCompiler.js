@@ -229,6 +229,9 @@ export class JSCompiler extends Compiler {
       entry: inPath,
       output: {path: dirname(outPath), filename: basename(outPath)},
       plugins: this.isProduction ? productionPlugins : [],
+      node: {
+        fs: 'empty'
+      },
       module: {
         loaders: [{
           test: /\.js$/,

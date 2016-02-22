@@ -170,7 +170,7 @@ export class Markup {
   }
 
   /**
-   * Recursively flattens `args` and combines string values.
+   * Recursively flattens `args`, removes falsy value and combines string values.
    *
    * Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
    * joining adjacent text nodes together.
@@ -185,6 +185,9 @@ export class Markup {
    */
   static flatten(...args: Array<any>): Array<any> {
     return transform(flattenDeep(args), (accumulator, value) => {
+      if (!value) {
+        return;
+      }
       const lastIndex = accumulator.length - 1;
 
       if (isString(value) && isString(accumulator[lastIndex])) {

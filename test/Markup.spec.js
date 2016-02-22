@@ -250,7 +250,7 @@ describe('Markup', () => {
 
     beforeEach(() => {
       spy(Markup, 'flatten');
-      Markup.flatten('something ', ['here', {value: 2, other: [true]}]);
+      Markup.flatten('something ', ['here', null, {value: 2, other: [true]}]);
     });
 
     afterEach(() => {

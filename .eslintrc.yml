@@ -78,6 +78,7 @@ rules:
   lodash/prefer-constant: 2
   lodash/prefer-is-nil: 2
   lodash/prefer-over-quantifier: 2
+  lodash/identity-shorthand: 2
 
   # eslint
   no-console: 0

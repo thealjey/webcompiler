@@ -15,6 +15,10 @@ declare module 'lodash/assignWith' {
 }
 
 declare module 'lodash/constant' {
+  declare function exports(value: any): () => any;
+}
+
+declare module 'lodash/identity' {
   declare function exports(value: any): any;
 }
 
@@ -38,7 +42,15 @@ declare module 'lodash/isError' {
   declare function exports(value: any): boolean;
 }
 
+declare module 'lodash/keys' {
+  declare function exports(value: any): Array<any>;
+}
+
 declare module 'lodash/camelCase' {
+  declare function exports(value: string): string;
+}
+
+declare module 'lodash/upperFirst' {
   declare function exports(value: string): string;
 }
 
@@ -54,6 +66,10 @@ declare module 'lodash/uniq' {
   declare function exports(collection: Array<any>): Array<any>;
 }
 
+declare module 'lodash/flatten' {
+  declare function exports(collection: Array<any>): Array<any>;
+}
+
 declare module 'lodash/flattenDeep' {
   declare function exports(collection: Array<any>): Array<any>;
 }
@@ -62,12 +78,24 @@ declare module 'lodash/without' {
   declare function exports(collection: Array<any>, ...values: Array<any>): Array<any>;
 }
 
+declare module 'lodash/defaultsDeep' {
+  declare function exports(value: Object, ...sources: Array<Object>): Object;
+}
+
+declare module 'lodash/isEqual' {
+  declare function exports(value: any, other: any): boolean;
+}
+
 declare module 'lodash/has' {
   declare function exports(object: any, path: Path): boolean;
 }
 
 declare module 'lodash/get' {
   declare function exports(object: any, path: Path, defaultValue: ?any): any;
+}
+
+declare module 'lodash/set' {
+  declare function exports(object: any, path: Path, value: any): any;
 }
 
 declare module 'lodash/forEach' {
@@ -100,4 +128,8 @@ declare module 'lodash/transform' {
 
 declare module 'lodash/reduce' {
   declare function exports(collection: Iterable, iteratee: ?TransformCallback, accumulator: ?any): any;
+}
+
+declare module 'lodash/sortedIndexBy' {
+  declare function exports(collection: Array<any>, value: any, iteratee: ?Iteratee): number;
 }
