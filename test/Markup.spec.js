@@ -1,23 +1,158 @@
 /* @flow */
 
 import chai, {expect} from 'chai';
-import {spy, stub} from 'sinon';
+import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import cheerio from 'cheerio';
 import react from 'react';
+import noop from 'lodash/noop';
+import constant from 'lodash/constant';
 
 chai.use(sinonChai);
 
 /* eslint-disable prefer-const */
 
-let marked, Markup, object, cmp, args, attribs;
+let marked, Markup, object, cmp, args, attribs, dom, lines;
 
 describe('Markup', () => {
 
   beforeEach(() => {
     marked = stub().returnsArg(0);
-    Markup = proxyquire('../src/Markup', {marked}).Markup;
+    Markup = proxyquire('../src/Markup', {marked, codemirror: noop}).Markup;
+  });
+
+  describe('window.document.createRange', () => {
+
+    beforeEach(() => {
+      spy(window.document, 'createRange');
+      window.document.createRange();
+    });
+
+    afterEach(() => {
+      window.document.createRange.restore();
+    });
+
+    it('configures globals', () => {
+      expect(global.document.createRange).returned({
+        setEnd: match.func,
+        setStart: match.func,
+        getBoundingClientRect: match.func
+      });
+    });
+
+  });
+
+  describe('highlight', () => {
+
+    beforeEach(() => {
+      lines = {find: constant({removeAttr: noop})};
+      dom = constant(lines);
+      stub(document, 'createElement').returns({innerHTML: 'HTML string'});
+      stub(cheerio, 'load').returns(dom);
+      spy(Markup, 'highlight');
+      Markup.highlight('function myScript(){return 100;}');
+    });
+
+    afterEach(() => {
+      document.createElement.restore();
+      cheerio.load.restore();
+      Markup.highlight.restore();
+    });
+
+    it('returns result', () => {
+      expect(Markup.highlight).returned({dom, lines});
+    });
+
+  });
+
+  describe('highlight HTML and JSX', () => {
+
+    beforeEach(() => {
+      stub(Markup, 'highlight').returns({
+        dom: {html: constant('HTML string')},
+        lines: {toArray: constant(['some', 'JSX', 'elements'])}
+      });
+    });
+
+    afterEach(() => {
+      Markup.highlight.restore();
+    });
+
+    describe('HTML', () => {
+
+      beforeEach(() => {
+        spy(Markup, 'highlightHTML');
+      });
+
+      afterEach(() => {
+        Markup.highlightHTML.restore();
+      });
+
+      describe('empty', () => {
+
+        beforeEach(() => {
+          Markup.highlightHTML();
+        });
+
+        it('returns result', () => {
+          expect(Markup.highlightHTML).returned('');
+        });
+
+      });
+
+      describe('non-empty', () => {
+
+        beforeEach(() => {
+          Markup.highlightHTML('function myScript(){return 100;}');
+        });
+
+        it('returns result', () => {
+          expect(Markup.highlightHTML).returned('HTML string');
+        });
+
+      });
+
+    });
+
+    describe('JSX', () => {
+
+      beforeEach(() => {
+        stub(Markup, 'childrenToJSX').returnsArg(0);
+        spy(Markup, 'highlightJSX');
+      });
+
+      afterEach(() => {
+        Markup.childrenToJSX.restore();
+        Markup.highlightJSX.restore();
+      });
+
+      describe('empty', () => {
+
+        beforeEach(() => {
+          Markup.highlightJSX();
+        });
+
+        it('returns result', () => {
+          expect(Markup.highlightJSX).returned([]);
+        });
+
+      });
+
+      describe('non-empty', () => {
+
+        beforeEach(() => {
+          Markup.highlightJSX('function myScript(){return 100;}');
+        });
+
+        it('returns result', () => {
+          expect(Markup.highlightJSX).returned(['some', 'JSX', 'elements']);
+        });
+
+      });
+
+    });
+
   });
 
   describe('toJSXKey', () => {

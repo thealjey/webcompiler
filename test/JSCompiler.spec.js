@@ -98,9 +98,12 @@ describe('JSCompiler', () => {
             },
             module: {
               loaders: [{
+                test: /jsdom/,
+                loader: 'null'
+              }, {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel',
                 query: {cacheDirectory: true, some: 'options'}
               }, {
                 test: /\.json$/,
@@ -148,9 +151,12 @@ describe('JSCompiler', () => {
             },
             module: {
               loaders: [{
+                test: /jsdom/,
+                loader: 'null'
+              }, {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel',
                 query: {cacheDirectory: true, some: 'options'}
               }, {
                 test: /\.json$/,

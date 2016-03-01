@@ -6,7 +6,9 @@ type DOM = {
   toArray: () => Array<CheerioNode>,
   html: () => string,
   children: () => DOM,
-  each: (iteratee: (i: number, el: CheerioNode) => any) => DOM
+  each: (iteratee: (i: number, el: CheerioNode) => any) => DOM,
+  find: (selector: string) => DOM,
+  removeAttr: (attr: string) => void
 };
 
 declare module 'cheerio' {

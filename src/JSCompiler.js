@@ -234,9 +234,12 @@ export class JSCompiler extends Compiler {
       },
       module: {
         loaders: [{
+          test: /jsdom/,
+          loader: 'null'
+        }, {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          loader: 'babel',
           query: {cacheDirectory: true, ...this.options}
         }, {
           test: /\.json$/,

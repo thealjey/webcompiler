@@ -12,8 +12,25 @@ import reduce from 'lodash/reduce';
 import flattenDeep from 'lodash/flattenDeep';
 import isString from 'lodash/isString';
 import trim from 'lodash/trim';
+import {jsdom} from 'jsdom';
+import noop from 'lodash/noop';
+import constant from 'lodash/constant';
 
 /* eslint-disable no-arrow-condition */
+/* eslint-disable lodash/prefer-lodash-method */
+
+// when not in the browser, polyfill specific DOM requirements of CodeMirror
+if ('undefined' === typeof navigator) {
+  global.window = jsdom().defaultView;
+  global.navigator = window.navigator;
+  window.document.createRange = () => ({setEnd: noop, setStart: noop, getBoundingClientRect: constant({})});
+  global.document = window.document;
+}
+
+// we have to use normal requires because of the import hoisting
+const cm = require('codemirror');
+
+require('codemirror/mode/jsx/jsx');
 
 /**
  * Allows to easily and efficiently convert text from Markdown to HTML and from HTML to a collection of React Elements
@@ -170,7 +187,7 @@ export class Markup {
   }
 
   /**
-   * Recursively flattens `args`, removes falsy value and combines string values.
+   * Recursively flattens `args`, removes falsy values and combines string values.
    *
    * Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
    * joining adjacent text nodes together.
@@ -196,6 +213,78 @@ export class Markup {
         accumulator.push(value);
       }
     }, []);
+  }
+
+  /**
+   * Using the CodeMirror editor highlights a string of text representing JavaScript program code.
+   *
+   * DOM independent and works equally well in the browser and on Node.js (4.0.0+).
+   *
+   * @memberof Markup
+   * @static
+   * @private
+   * @method highlight
+   * @param {string} value - any valid ES2015, TypeScript, JSX, Flow code
+   * @return {Object} an object containing a CheerioDOM object and a CheerioCollection of the `pre.CodeMirror-line`
+   *                  elements
+   */
+  static highlight(value: string): {dom: any, lines: any} {
+    const el = document.createElement('div');
+
+    cm(el, {value, mode: {name: 'jsx', typescript: true}, scrollbarStyle: 'null', inputStyle: 'contenteditable'});
+
+    const dom = load(el.innerHTML),
+      lines = dom('.CodeMirror-line');
+
+    lines.find('> span').removeAttr('style');
+
+    return {dom, lines};
+  }
+
+  /**
+   * Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an HTML
+   * string.
+   *
+   * DOM independent and works equally well in the browser and on Node.js (4.0.0+).
+   *
+   * @memberof Markup
+   * @static
+   * @method highlightHTML
+   * @param {string} [code=""] - any valid ES2015, TypeScript, JSX, Flow code
+   * @return {string} an HTML string of the `pre.CodeMirror-line` elements
+   * @example
+   * Markup.highlightHTML('function myScript(){return 100;}'); // <pre class="CodeMirror-line">...</pre>
+   */
+  static highlightHTML(code: string = ''): string {
+    if (!code) {
+      return '';
+    }
+    const {dom, lines} = Markup.highlight(code);
+
+    return dom.html(lines);
+  }
+
+  /**
+   * Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an array
+   * of React elements.
+   *
+   * DOM independent and works equally well in the browser and on Node.js (4.0.0+).
+   *
+   * @memberof Markup
+   * @static
+   * @method highlightJSX
+   * @param {string} [code=""] - any valid ES2015, TypeScript, JSX, Flow code
+   * @return {Array<ReactElement>} React elements of the `pre.CodeMirror-line` elements
+   * @example
+   * <div className="CodeMirror cm-s-monokai">{Markup.highlightJSX('function myScript(){return 100;}')}</div>
+   */
+  static highlightJSX(code: string = ''): Array<any> {
+    if (!code) {
+      return [];
+    }
+    const {lines} = Markup.highlight(code);
+
+    return Markup.childrenToJSX(lines.toArray());
   }
 
   /**

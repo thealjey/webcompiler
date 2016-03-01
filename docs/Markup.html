@@ -208,7 +208,7 @@ that can be used directly in a JSX expression.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-18">line 18</a>
+				 <a href="Markup.js.html#sunlight-1-line-35">line 35</a>
 			</li>
 		</ul>
 	</dd>
@@ -275,7 +275,7 @@ const mark = new Markup();</pre>
 
     
     <div class="description">
-        <p>Recursively flattens <code>args</code>, removes falsy value and combines string values.</p>
+        <p>Recursively flattens <code>args</code>, removes falsy values and combines string values.</p>
 <p>Can be used as a simple optimization step on the JSX children-to-be to simplify the resulting DOM structure by
 joining adjacent text nodes together.</p>
     </div>
@@ -386,7 +386,7 @@ joining adjacent text nodes together.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-172">line 172</a>
+				 <a href="Markup.js.html#sunlight-1-line-189">line 189</a>
 			</li>
 		</ul>
 	</dd>
@@ -440,6 +440,386 @@ joining adjacent text nodes together.</p>
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">Markup.flatten(&#x27;lorem &#x27;, [&#x27;ipsum &#x27;, [&#x27;dolor &#x27;, [&#x27;sit &#x27;, [&#x27;amet&#x27;]]]]); // [&quot;lorem ipsum dolor sit amet&quot;]</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".highlightHTML"><span class="type-signature">&lt;static> </span>highlightHTML(<span class="optional">code</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an HTML
+string.</p>
+<p>DOM independent and works equally well in the browser and on Node.js (4.0.0+).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+
+            <td class="description last"><p>any valid ES2015, TypeScript, JSX, Flow code</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-244">line 244</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>an HTML string of the <code>pre.CodeMirror-line</code> elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">Markup.highlightHTML(&#x27;function myScript(){return 100;}&#x27;); // &lt;pre class=&quot;CodeMirror-line&quot;&gt;...&lt;/pre&gt;</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".highlightJSX"><span class="type-signature">&lt;static> </span>highlightJSX(<span class="optional">code</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an array
+of React elements.</p>
+<p>DOM independent and works equally well in the browser and on Node.js (4.0.0+).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+
+            <td class="description last"><p>any valid ES2015, TypeScript, JSX, Flow code</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Markup.js.html">Markup.js</a>,
+				 <a href="Markup.js.html#sunlight-1-line-267">line 267</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>React elements of the <code>pre.CodeMirror-line</code> elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;ReactElement></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">&lt;div className=&quot;CodeMirror cm-s-monokai&quot;&gt;{Markup.highlightJSX(&#x27;function myScript(){return 100;}&#x27;)}&lt;/div&gt;</pre>
 
 
     
@@ -574,7 +954,7 @@ joining adjacent text nodes together.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-215">line 215</a>
+				 <a href="Markup.js.html#sunlight-1-line-304">line 304</a>
 			</li>
 		</ul>
 	</dd>
@@ -762,7 +1142,7 @@ joining adjacent text nodes together.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-231">line 231</a>
+				 <a href="Markup.js.html#sunlight-1-line-320">line 320</a>
 			</li>
 		</ul>
 	</dd>
@@ -950,7 +1330,7 @@ joining adjacent text nodes together.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Markup.js.html">Markup.js</a>,
-				 <a href="Markup.js.html#sunlight-1-line-247">line 247</a>
+				 <a href="Markup.js.html#sunlight-1-line-336">line 336</a>
 			</li>
 		</ul>
 	</dd>
