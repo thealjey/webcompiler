@@ -1,3 +1,11 @@
+v3.9.0 - Tue, 01 Mar 2016 09:52:37 GMT
+--------------------------------------
+
+- [d864013](../../commit/d864013) [fixed] updated project dependencies
+- [5f9b134](../../commit/5f9b134) [added] `Markup.highlightHTML` and `Markup.highlightJSX`
+
+
+
 v3.8.4 - Mon, 22 Feb 2016 16:47:28 GMT
 --------------------------------------
 
