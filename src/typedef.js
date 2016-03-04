@@ -106,15 +106,3 @@ export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
  * @param {Object} result  - the resulting object
  */
 export type ObjectOrErrorCallback = (error: ?string, result: Object) => void;
-
-/**
- * Must be a pure function, always return the same value given the same input, must be side-effect free and not depend
- * on other replacers executing before it.
- *
- * If provided with a result of its own previous execution, must return it unchanged.
- *
- * @callback Transformer
- * @param {string} input - a transformed string
- * @return {string} transformed output
- */
-export type Transformer = (input: string) => string;

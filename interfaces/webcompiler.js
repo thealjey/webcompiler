@@ -17,8 +17,9 @@ declare module 'webcompiler' {
   }
 
   declare class Markup {
-    constructor(...transformers: Array<Transformer>): void;
     static flatten(...args: Array<any>): Array<any>;
+    static highlightHTML(code: ?string): string;
+    static highlightJSX(code: ?string): string;
     htmlToJSX(html: ?string): Array<any>;
     markdownToHTML(markdown: ?string): string;
     markdownToJSX(markdown: ?string): Array<any>;

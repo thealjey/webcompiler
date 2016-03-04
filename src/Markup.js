@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {CheerioNode, CheerioElement, Transformer} from './typedef';
+import type {CheerioNode, CheerioElement} from './typedef';
 import {load} from 'cheerio';
 import {createElement} from 'react';
 import marked from 'marked';
@@ -8,7 +8,6 @@ import reject from 'lodash/reject';
 import map from 'lodash/map';
 import transform from 'lodash/transform';
 import has from 'lodash/has';
-import reduce from 'lodash/reduce';
 import flattenDeep from 'lodash/flattenDeep';
 import isString from 'lodash/isString';
 import trim from 'lodash/trim';
@@ -36,31 +35,13 @@ require('codemirror/mode/jsx/jsx');
  * Allows to easily and efficiently convert text from Markdown to HTML and from HTML to a collection of React Elements
  * that can be used directly in a JSX expression.
  *
- * Whenever an HTML string is involved, runs it through an array of Transformer functions.
- *
  * @class Markup
- * @param {...Transformer} transformers - transformers to initialize with
  * @example
  * import {Markup} from 'webcompiler';
  *
  * const mark = new Markup();
  */
 export class Markup {
-  /**
-   * an array of Transformer functions
-   *
-   * @member {Array<Transformer>} transformers
-   * @memberof Markup
-   * @private
-   * @instance
-   */
-  transformers: Array<Transformer>;
-
-  /** @constructs */
-  constructor(...transformers: Array<Transformer>) {
-    this.transformers = transformers;
-  }
-
   /**
    * Convert the CSS style key to a JSX style key
    *
@@ -288,20 +269,6 @@ export class Markup {
   }
 
   /**
-   * Runs the html string through an array of Transformer functions
-   *
-   * @memberof Markup
-   * @instance
-   * @private
-   * @method transform
-   * @param {string} html - an arbitrary HTML string
-   * @return {string} a transformed string
-   */
-  transform(html: string): string {
-    return reduce(this.transformers, (result, transformer) => transformer(result), html);
-  }
-
-  /**
    * Converts an arbitrary HTML string to an array of React Elements
    *
    * @memberof Markup
@@ -314,7 +281,7 @@ export class Markup {
    */
   htmlToJSX(html: string = ''): Array<any> {
     html = trim(html);
-    return html ? Markup.childrenToJSX(load(this.transform(html)).root().toArray()[0].children) : [];
+    return html ? Markup.childrenToJSX(load(html).root().toArray()[0].children) : [];
   }
 
   /**
@@ -330,7 +297,7 @@ export class Markup {
    */
   markdownToHTML(markdown: string = ''): string {
     markdown = trim(markdown);
-    return markdown ? trim(this.transform(Markup.markdownToUnwrappedHTML(markdown))) : '';
+    return markdown ? Markup.markdownToUnwrappedHTML(markdown) : '';
   }
 
   /**

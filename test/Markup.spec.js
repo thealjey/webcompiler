@@ -13,7 +13,7 @@ chai.use(sinonChai);
 
 /* eslint-disable prefer-const */
 
-let marked, Markup, object, cmp, args, attribs, dom, lines;
+let marked, Markup, object, cmp, attribs, dom, lines;
 
 describe('Markup', () => {
 
@@ -398,56 +398,20 @@ describe('Markup', () => {
 
   });
 
-  describe('assigns transformers', () => {
-
-    beforeEach(() => {
-      args = [str => `${str}-one`, str => `${str}-two`, str => `${str}-three`];
-      cmp = new Markup(...args);
-    });
-
-    it('transformers', () => {
-      expect(cmp.transformers).eql(args);
-    });
-
-    describe('transform', () => {
-
-      beforeEach(() => {
-        spy(cmp, 'transform');
-        cmp.transform('zero');
-      });
-
-      afterEach(() => {
-        cmp.transform.restore();
-      });
-
-      it('transforms the string', () => {
-        expect(cmp.transform).returned('zero-one-two-three');
-      });
-
-    });
-
-  });
-
   describe('no args', () => {
 
     beforeEach(() => {
       cmp = new Markup();
     });
 
-    it('transformers', () => {
-      expect(cmp.transformers).eql([]);
-    });
-
     describe('markdownToHTML', () => {
 
       beforeEach(() => {
         spy(cmp, 'markdownToHTML');
-        stub(cmp, 'transform').returnsArg(0);
       });
 
       afterEach(() => {
         cmp.markdownToHTML.restore();
-        cmp.transform.restore();
       });
 
       describe('no arg', () => {
@@ -466,10 +430,6 @@ describe('Markup', () => {
 
         beforeEach(() => {
           cmp.markdownToHTML('<h1>Hello world!</h1>');
-        });
-
-        it('calls transform', () => {
-          expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
         });
 
         it('returns html', () => {
@@ -526,14 +486,12 @@ describe('Markup', () => {
 
       beforeEach(() => {
         spy(cmp, 'htmlToJSX');
-        stub(cmp, 'transform').returnsArg(0);
         stub(Markup, 'childrenToJSX').returnsArg(0);
         stub(cheerio, 'load').returns({root: () => ({toArray: () => [{children: ['child', 'components']}]})});
       });
 
       afterEach(() => {
         cmp.htmlToJSX.restore();
-        cmp.transform.restore();
         Markup.childrenToJSX.restore();
         cheerio.load.restore();
       });
@@ -554,10 +512,6 @@ describe('Markup', () => {
 
         beforeEach(() => {
           cmp.htmlToJSX('<h1>Hello world!</h1>');
-        });
-
-        it('calls transform', () => {
-          expect(cmp.transform).calledWith('<h1>Hello world!</h1>');
         });
 
         it('calls load', () => {
