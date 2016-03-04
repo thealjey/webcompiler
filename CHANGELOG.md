@@ -1,3 +1,10 @@
+v3.10.0 - Fri, 04 Mar 2016 10:33:19 GMT
+---------------------------------------
+
+- [4e525a9](../../commit/4e525a9) [removed] transformer support from the `Markup` class; updated the library definition file and the project dependencies
+
+
+
 v3.9.0 - Tue, 01 Mar 2016 09:52:37 GMT
 --------------------------------------
 
