@@ -80,7 +80,7 @@
 import type {CheerioNode, CheerioElement} from './typedef';
 import {load} from 'cheerio';
 import {createElement} from 'react';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 import reject from 'lodash/reject';
 import map from 'lodash/map';
 import transform from 'lodash/transform';
@@ -92,8 +92,9 @@ import {jsdom} from 'jsdom';
 import noop from 'lodash/noop';
 import constant from 'lodash/constant';
 
-/* eslint-disable no-arrow-condition */
 /* eslint-disable lodash/prefer-lodash-method */
+
+const md = new Remarkable('full', {html: true, linkify: true, typographer: true});
 
 // when not in the browser, polyfill specific DOM requirements of CodeMirror
 if ('undefined' === typeof navigator) {
@@ -237,7 +238,7 @@ export class Markup {
    * @return {string} an HTML string
    */
   static markdownToUnwrappedHTML(markdown: string): string {
-    const html = trim(marked(markdown)),
+    const html = trim(md.render(markdown)),
       dom = load(html),
       {children} = dom.root().toArray()[0];
 

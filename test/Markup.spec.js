@@ -11,15 +11,31 @@ import constant from 'lodash/constant';
 
 chai.use(sinonChai);
 
-/* eslint-disable prefer-const */
+/* eslint-disable require-jsdoc */
 
-let marked, Markup, object, cmp, attribs, dom, lines;
+let Markup, object, cmp, attribs, dom, lines;
+
+class Remarkable {
+
+  preset: string;
+
+  options: Object;
+
+  constructor(preset: string, options: Object) {
+    this.preset = preset;
+    this.options = options;
+  }
+
+  render(markdown: string): string {
+    return markdown;
+  }
+
+}
 
 describe('Markup', () => {
 
   beforeEach(() => {
-    marked = stub().returnsArg(0);
-    Markup = proxyquire('../src/Markup', {marked, codemirror: noop}).Markup;
+    Markup = proxyquire('../src/Markup', {remarkable: Remarkable, codemirror: noop}).Markup;
   });
 
   describe('window.document.createRange', () => {
