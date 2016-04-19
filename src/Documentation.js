@@ -58,8 +58,9 @@ export class Documentation {
    */
   options: Object;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(options: Object = {}) {
+    /* eslint-enable require-jsdoc */
     this.options = {...defaultOptions, ...options};
   }
 
@@ -97,9 +98,9 @@ export class Documentation {
    * @static
    * @private
    * @method checkBin
-   * @param {NullableFileCallback} callback        - a callback function
-   * @param {globalPackage}        [boolean=false] - if true checks the global NPM bin directory (contains the npm
-   *                                                 executable itself)
+   * @param {NullableFileCallback} callback              - a callback function
+   * @param {boolean}              [globalPackage=false] - if true checks the global NPM bin directory (contains the npm
+   *                                                       executable itself)
    * @example
    * Documentation.checkBin(file => {
    *   if (file) {
@@ -116,6 +117,7 @@ export class Documentation {
     npm.run((stderr, stdout) => {
       if (stderr) {
         console.error(stderr);
+
         return callback(null);
       }
       const path = join(stdout.replace(/\n$/, ''), 'jsdoc');

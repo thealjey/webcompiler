@@ -1,6 +1,6 @@
-lib/**
-config/**
-coverage/**
-docs/**
-interfaces/**
-node_modules/**
+/lib/**
+/config/**
+/coverage/**
+/docs/**
+/interfaces/**
+/node_modules/**

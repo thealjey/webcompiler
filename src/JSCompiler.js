@@ -55,8 +55,9 @@ export class JSCompiler extends Compiler {
    */
   processing: number;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, options: Object = {}) {
+    /* eslint-enable require-jsdoc */
     super(compress);
     this.configure(options);
     this.processing = 0;
@@ -82,6 +83,7 @@ export class JSCompiler extends Compiler {
         if (!isArray(objValue)) {
           return uniq(srcValue);
         }
+
         return uniq(srcValue.concat(objValue));
       });
     delete this.options.env;

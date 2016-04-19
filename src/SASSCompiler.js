@@ -48,8 +48,9 @@ export class SASSCompiler extends Compiler {
    */
   importOnce: Object;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, includePaths: Array<string> = [], importOnceOptions: Object = {}) {
+    /* eslint-enable require-jsdoc */
     super(compress);
     this.includePaths = defaultIncludePaths.concat(includePaths);
     this.importOnce = {...importOnceDefaults, ...importOnceOptions};

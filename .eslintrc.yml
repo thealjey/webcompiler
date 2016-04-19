@@ -42,8 +42,10 @@ rules:
   react/no-multi-comp: [ 2, { ignoreStateless: true } ]
   react/no-unknown-property: 2
   react/prefer-es6-class: 2
+  react/prefer-stateless-function: 2
   react/prop-types: 2
   react/react-in-jsx-scope: 2
+  react/require-render-return: 2
   react/self-closing-comp: 2
   react/wrap-multilines: 2
 
@@ -56,6 +58,7 @@ rules:
 
   # lodash
   lodash/callback-binding: 2
+  lodash/collection-method-value: 2
   lodash/collection-return: 2
   lodash/prop-shorthand: 2
   lodash/matches-prop-shorthand: 2
@@ -76,6 +79,7 @@ rules:
   lodash/prefer-startswith: 2
   lodash/prefer-noop: 2
   lodash/prefer-constant: 2
+  lodash/prefer-includes: [ 2, { includeNative: true } ]
   lodash/prefer-is-nil: 2
   lodash/prefer-over-quantifier: 2
   lodash/identity-shorthand: 2
@@ -92,9 +96,12 @@ rules:
   dot-notation: 2
   eqeqeq: 2
   guard-for-in: 2
+  max-statements-per-line: 2
+  newline-before-return: 2
   no-alert: 2
   no-caller: 2
   no-div-regex: 2
+  no-duplicate-imports: [ 2, { includeExports: true } ]
   no-else-return: 2
   no-empty-function: 2
   no-eval: 2
@@ -125,6 +132,7 @@ rules:
   no-unused-expressions: 2
   no-useless-call: 2
   no-useless-concat: 2
+  no-useless-escape: 2
   no-void: 2
   no-warning-comments: 2
   no-with: 2

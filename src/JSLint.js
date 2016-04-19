@@ -29,8 +29,9 @@ export class JSLint {
    */
   linter: CLIEngine;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(rules: Object = {}) {
+    /* eslint-enable require-jsdoc */
     this.linter = new CLIEngine({configFile, rules});
   }
 

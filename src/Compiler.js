@@ -40,8 +40,9 @@ export class Compiler {
    */
   compress: boolean;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true) {
+    /* eslint-enable require-jsdoc */
     this.isProduction = 'production' === process.env.NODE_ENV;
     this.compress = this.isProduction && compress;
   }
@@ -170,6 +171,7 @@ export class Compiler {
   optimize(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
     if (!this.compress) {
       Compiler.writeAndCallDone(inPath, outPath, data, callback);
+
       return;
     }
     Compiler.gzip(data, result => {

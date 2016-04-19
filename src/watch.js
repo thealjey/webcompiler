@@ -28,6 +28,7 @@ export function watch(dir: string, type: string, callback: () => void) {
   client.capabilityCheck({}, capabilityErr => {
     if (capabilityErr) {
       console.error(capabilityErr);
+
       return;
     }
 
@@ -36,6 +37,7 @@ export function watch(dir: string, type: string, callback: () => void) {
 
       if (watchErr) {
         console.error('Error initiating watch:', watchErr);
+
         return;
       }
 
@@ -46,6 +48,7 @@ export function watch(dir: string, type: string, callback: () => void) {
       client.command(['clock', watcher], (clockErr, clockResp) => {
         if (clockErr) {
           console.error('Failed to query clock:', clockErr);
+
           return;
         }
 

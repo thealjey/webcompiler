@@ -126,8 +126,9 @@ export class JS {
    */
   linter: JSLint;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, babelOptions: Object = {}, lintRules: Object = {}) {
+    /* eslint-enable require-jsdoc */
     this.compiler = new JSCompiler(compress, babelOptions);
     this.flow = new NativeProcess('flow');
     this.linter = new JSLint(lintRules);

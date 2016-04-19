@@ -358,6 +358,7 @@ export class Markup {
    */
   htmlToJSX(html: string = ''): Array&lt;any> {
     html = trim(html);
+
     return html ? Markup.childrenToJSX(load(html).root().toArray()[0].children) : [];
   }
 
@@ -374,6 +375,7 @@ export class Markup {
    */
   markdownToHTML(markdown: string = ''): string {
     markdown = trim(markdown);
+
     return markdown ? Markup.markdownToUnwrappedHTML(markdown) : '';
   }
 
@@ -390,6 +392,7 @@ export class Markup {
    */
   markdownToJSX(markdown: string = ''): Array&lt;any> {
     markdown = trim(markdown);
+
     return markdown ? this.htmlToJSX(Markup.markdownToUnwrappedHTML(markdown)) : [];
   }
 

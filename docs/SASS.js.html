@@ -116,9 +116,10 @@ export class SASS {
    */
   linter: SASSLint;
 
-  /** @constructs */
+  /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, includePaths: Array&lt;string> = [], excludeLinter: Array&lt;string> = [],
               importOnceOptions: Object = {}) {
+    /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
     this.linter = new SASSLint(...excludeLinter);
   }

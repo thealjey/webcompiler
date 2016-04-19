@@ -31,6 +31,7 @@ function getWebpack(c) {
   const wp = stub().returns(c);
 
   wp.optimize = {DedupePlugin, UglifyJsPlugin};
+
   return wp;
 }
 
