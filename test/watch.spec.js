@@ -261,7 +261,7 @@ describe('watch', () => {
         });
 
         it('calls callback', () => {
-          expect(callback).called;
+          expect(callback).calledWith({subscription: 'qwerty'});
         });
 
       });

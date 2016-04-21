@@ -106,3 +106,30 @@ export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
  * @param {Object} result  - the resulting object
  */
 export type ObjectOrErrorCallback = (error: ?string, result: Object) => void;
+
+/**
+ * Describes a file a change in which was caught.
+ *
+ * @typedef {Object} WatchmanFile
+ * @property {string}  name   - the relative path to a file
+ * @property {number}  size   - file size in bytes
+ * @property {boolean} exists - true if the file exists
+ * @property {string}  type   - e.g. "f"
+ */
+export type WatchmanFile = {name: string, size: number, exists: boolean, type: string};
+
+/**
+ * A watchman response object.
+ *
+ * @typedef {Object} WatchmanResponse
+ * @property {string}              root         - the path to the directory being watched
+ * @property {string}              subscription - random subscription name
+ * @property {Array<WatchmanFile>} files        - an array of file descriptions
+ */
+export type WatchmanResponse = {root: string, subscription: string, files: Array<WatchmanFile>};
+
+/**
+ * @callback WatchCallback
+ * @param {WatchmanResponse} response - a watchman response object
+ */
+export type WatchCallback = (response: WatchmanResponse) => void;

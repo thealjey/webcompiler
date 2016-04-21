@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {WatchCallback} from './typedef';
 import {Client} from 'fb-watchman';
 
 const client = new Client(),
@@ -12,9 +13,9 @@ const client = new Client(),
  * This watcher's only goal is performance, hence the simplicity.
  *
  * @function watch
- * @param {string}   dir      - a full system path to a directory to watch
- * @param {string}   type     - a file extension
- * @param {Function} callback - a callback function
+ * @param {string}        dir      - a full system path to a directory to watch
+ * @param {string}        type     - a file extension
+ * @param {WatchCallback} callback - a callback function
  * @see {@link https://facebook.github.io/watchman/ Watchman}
  * @example
  * import {watch} from 'webcompiler';
@@ -22,7 +23,7 @@ const client = new Client(),
  *
  * watch(join(__dirname, 'src'), 'js', someFunction);
  */
-export function watch(dir: string, type: string, callback: () => void) {
+export function watch(dir: string, type: string, callback: WatchCallback) {
   const subscription = Date.now().toString(ALPHANUMERIC_BASE);
 
   client.capabilityCheck({}, capabilityErr => {
@@ -63,7 +64,7 @@ export function watch(dir: string, type: string, callback: () => void) {
 
         client.on('subscription', subscriptionResp => {
           if (subscription === subscriptionResp.subscription) {
-            callback();
+            callback(subscriptionResp);
           }
         });
       });
