@@ -1,3 +1,10 @@
+v3.11.0 - Thu, 21 Apr 2016 19:08:25 GMT
+---------------------------------------
+
+- [4124ac4](../../commit/4124ac4) [changed] the `watch` function callback now accepts one argument - an object which describes what files were changed
+
+
+
 v3.10.3 - Tue, 19 Apr 2016 19:18:21 GMT
 ---------------------------------------
 
