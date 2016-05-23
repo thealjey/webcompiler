@@ -1,3 +1,10 @@
+v4.0.0 - Mon, 23 May 2016 18:33:38 GMT
+--------------------------------------
+
+- [d0e5692](../../commit/d0e5692) [changed] split the `Markup` class into 3 distinct modules - `jsx`, `markdown` and `highlight`. Added support for plain-object representations of React elements for easy serialization/unserialization.
+
+
+
 v3.11.0 - Thu, 21 Apr 2016 19:08:25 GMT
 ---------------------------------------
 
