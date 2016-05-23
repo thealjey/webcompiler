@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Source: SASSCompiler.js</title>
+	<title>Documentation Source: markdown.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -77,142 +77,113 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: SASSCompiler.js</h1>
+		<h1 class="page-title">Source: markdown.js</h1>
     
 <section>
     <article>
         <pre
             class="sunlight-highlight-javascript linenums">/* @flow */
 
-import type {ProgramData, ProgramDataCallback} from './typedef';
-import {Compiler} from './Compiler';
-import {render} from 'node-sass';
-import importer from 'node-sass-import-once';
-import postcss from 'postcss';
-import autoprefixer from 'autoprefixer';
-import forEach from 'lodash/forEach';
-import noop from 'lodash/noop';
+import trim from 'lodash/trim';
+import Remarkable from 'remarkable';
+import {htmlToArray, parseHTML, htmlToJSX} from './jsx';
 
-const precision = 8,
-  importOnceDefaults = {index: true, css: false, bower: false},
-  defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules'];
+const md = new Remarkable('full', {html: true, linkify: true, typographer: true});
 
 /**
- * A SASS compiler
+ * Useful utilities for working with Markdown.
  *
- * @class SASSCompiler
- * @extends Compiler
- * @param {boolean}       [compress=true]        - if true `Compiler#optimize` will gzip compress the data
- * @param {Array&lt;string>} [includePaths=[]]      - an array of additional include paths
- * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
- *                                                 configuration
- * @example
- * import {SASSCompiler} from 'webcompiler';
- * // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
- * // or - var SASSCompiler = require('webcompiler').SASSCompiler;
- * // or - var SASSCompiler = require('webcompiler/lib/SASSCompiler').SASSCompiler;
- *
- * const compiler = new SASSCompiler();
+ * @module markdown
  */
-export class SASSCompiler extends Compiler {
-  /**
-   * an array of paths to search for an scss file in if it's not found in cwd
-   *
-   * @member {Array&lt;string>} includePaths
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  includePaths: Array&lt;string>;
 
-  /**
-   * importOnce resolver configuration
-   *
-   * @member {Object} importOnce
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  importOnce: Object;
+/**
+ * If a simple single line string is passed to the Markdown parser it thinks that it's a paragraph (it sort of
+ * technically is) and unnecessarily wraps it into `&lt;p>&lt;/p>`, which most often is not the desired behavior.
+ *
+ * This function converts Markdown to HTML and then removes the wrapping paragraph if it is the only top level tag
+ * unwrapping its contents.
+ *
+ * @memberof module:markdown
+ * @private
+ * @method markdownToUnwrappedHTML
+ * @param {string} markdown - an arbitrary Markdown string
+ * @return {string} an HTML string
+ */
+export function markdownToUnwrappedHTML(markdown: string): string {
+  const html = trim(md.render(markdown)),
+    {dom, children} = parseHTML(html);
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array&lt;string> = [], importOnceOptions: Object = {}) {
-    /* eslint-enable require-jsdoc */
-    super(compress);
-    this.includePaths = defaultIncludePaths.concat(includePaths);
-    this.importOnce = {...importOnceDefaults, ...importOnceOptions};
+  if (1 !== children.length) {
+    return html;
   }
+  const child = children[0],
+    {type, name} = child;
 
-  /**
-   * Auto-prefixes the compiled code
-   *
-   * @memberOf SASSCompiler
-   * @static
-   * @method autoprefix
-   * @param {string}             path     - a path to the file
-   * @param {ProgramData}        data     - the actual program data to auto-prefix
-   * @param {ProgramDataCallback} callback - a callback function
-   * @example
-   * SASSCompiler.autoprefix('/path/to/the/output/file.css', data, result => {
-   *   // successfully added the vendor prefixes
-   * });
-   */
-  static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback) {
-    postcss([autoprefixer]).process(data.code, {
-      from: path,
-      to: path,
-      map: {prev: data.map}
-    }).then(result => {
-      const warnings = result.warnings();
+  return 'tag' === type &amp;&amp; 'p' === name ? dom(child).html() : html;
+}
 
-      if (warnings.length) {
-        forEach(warnings, warning => {
-          console.error(warning.toString());
-        });
+/**
+ * Converts an arbitrary Markdown string to an array of plain objects describing React Elements for easy
+ * serialization/unserialization.
+ *
+ * @memberof module:markdown
+ * @method markdownToArray
+ * @param {string} [markdown=""] - an arbitrary Markdown string
+ * @return {Array&lt;string|Object>} an array of plain objects describing React Elements
+ * @example
+ * import {markdownToArray} from 'webcompiler';
+ * // or - import {markdownToArray} from 'webcompiler/lib/markdown';
+ * // or - var markdownToArray = require('webcompiler').markdownToArray;
+ * // or - var markdownToArray = require('webcompiler/lib/markdown').markdownToArray;
+ *
+ * markdownToArray('# Hello world!'); // [{type: 'h1', children: ['Hello world!']}]
+ */
+export function markdownToArray(markdown: string = ''): Array&lt;string|Object> {
+  markdown = trim(markdown);
 
-        return;
-      }
-      callback({code: result.css, map: JSON.stringify(result.map)});
-    });
-  }
+  return markdown ? htmlToArray(markdownToUnwrappedHTML(markdown)) : [];
+}
 
-  /**
-   * Compiles, auto-prefixes and optionally minifies and g-zips in the production mode
-   *
-   * @memberof SASSCompiler
-   * @instance
-   * @method fe
-   * @param {string}   inPath                    - a full system path to the input file
-   * @param {string}   outPath                   - a full system path to the output file
-   * @param {Function} [callback=function () {}] - a callback function
-   * @example
-   * compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', () => {
-   *   // compiled successfully
-   * });
-   */
-  fe(inPath: string, outPath: string, callback: () => void = noop) {
-    render({
-      file: inPath,
-      outFile: outPath,
-      importer,
-      precision,
-      importOnce: this.importOnce,
-      includePaths: this.includePaths,
-      sourceMap: true,
-      sourceMapContents: true,
-      outputStyle: this.isProduction ? 'compressed' : 'nested'
-    }, (error, result) => {
-      if (error) {
-        return console.log(
-          '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          error.message, error.file, error.line, error.column);
-      }
-      SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
-        this.optimize(inPath, outPath, data, callback);
-      });
-    });
-  }
+/**
+ * Converts an arbitrary Markdown string to an array of React Elements
+ *
+ * @memberof module:markdown
+ * @method markdownToJSX
+ * @param {string} [markdown=""] - an arbitrary Markdown string
+ * @return {Array&lt;ReactElement>} an array of React Elements
+ * @example
+ * import {markdownToJSX} from 'webcompiler';
+ * // or - import {markdownToJSX} from 'webcompiler/lib/markdown';
+ * // or - var markdownToJSX = require('webcompiler').markdownToJSX;
+ * // or - var markdownToJSX = require('webcompiler/lib/markdown').markdownToJSX;
+ *
+ * &lt;div>{markdownToJSX('# Hello world!')}&lt;/div>
+ */
+export function markdownToJSX(markdown: string = ''): Array&lt;any> {
+  markdown = trim(markdown);
 
+  return markdown ? htmlToJSX(markdownToUnwrappedHTML(markdown)) : [];
+}
+
+/**
+ * Converts an arbitrary Markdown string to an HTML string
+ *
+ * @memberof module:markdown
+ * @method markdownToHTML
+ * @param {string} [markdown=""] - an arbitrary Markdown string
+ * @return {string} an HTML string
+ * @example
+ * import {markdownToHTML} from 'webcompiler';
+ * // or - import {markdownToHTML} from 'webcompiler/lib/markdown';
+ * // or - var markdownToHTML = require('webcompiler').markdownToHTML;
+ * // or - var markdownToHTML = require('webcompiler/lib/markdown').markdownToHTML;
+ *
+ * markdownToHTML('# Hello world!'); // &lt;h1>Hello world!&lt;/h1>
+ */
+export function markdownToHTML(markdown: string = ''): string {
+  markdown = trim(markdown);
+
+  return markdown ? markdownToUnwrappedHTML(markdown) : '';
 }
 </pre>
     </article>

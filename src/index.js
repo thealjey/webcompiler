@@ -6,7 +6,9 @@ export {Documentation} from './Documentation';
 export {watch} from './watch';
 export {yaml} from './yaml';
 
-export {Markup} from './Markup';
+export {flatten, arrayToJSX, htmlToArray, htmlToJSX} from './jsx';
+export {markdownToArray, markdownToJSX, markdownToHTML} from './markdown';
+export {highlightHTML, highlightArray, highlightJSX} from './highlight';
 
 export {JS} from './JS';
 export {SASS} from './SASS';

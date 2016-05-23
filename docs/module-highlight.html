@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: JSCompiler</title>
+	<title>Documentation Module: highlight</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -77,15 +77,10 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: JSCompiler</h1>
+	<h1 class="page-title">Module: highlight</h1>
 <section>
 
 <header>
-    
-        <h2>
-        JSCompiler
-        </h2>
-        
     
 </header>
 
@@ -94,138 +89,10 @@
     <div class="container-overview">
     
         
-<hr>
-<dt>
-    <h4 class="name" id="JSCompiler"><span class="type-signature"></span>new JSCompiler(<span class="optional">compress</span>, <span class="optional">options</span>)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A JavaScript compiler</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
+            <div class="description"><p>CodeMirror syntax highlighting that works in the browser and on Node.js</p></div>
         
 
         
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>compress</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last"><p>if true <code>Compiler#optimize</code> will gzip compress the data</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last"><p>allows to override the default Babel options</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
 <dl class="details">
     
 
@@ -260,8 +127,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSCompiler.js.html">JSCompiler.js</a>,
-				 <a href="JSCompiler.js.html#sunlight-1-line-25">line 25</a>
+				<a href="highlight.js.html">highlight.js</a>,
+				 <a href="highlight.js.html#sunlight-1-line-9">line 9</a>
 			</li>
 		</ul>
 	</dd>
@@ -275,45 +142,11 @@
 </dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">import {JSCompiler} from &#x27;webcompiler&#x27;;
-// or - import {JSCompiler} from &#x27;webcompiler/lib/JSCompiler&#x27;;
-// or - var JSCompiler = require(&#x27;webcompiler&#x27;).JSCompiler;
-// or - var JSCompiler = require(&#x27;webcompiler/lib/JSCompiler&#x27;).JSCompiler;
-
-const compiler = new JSCompiler();</pre>
-
-
-    
-</dd>
-
     
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="Compiler.html">Compiler</a></li>
-    </ul>
-
 
     
 
@@ -323,103 +156,6 @@ const compiler = new JSCompiler();</pre>
 
     
 
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-<hr>
-<dt class="name" id="isProduction">
-    <h4><span class="type-signature">&lt;readonly> </span>isProduction<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>True if the NODE_ENV environment variable is equal to <code>production</code>.</p>
-<p>Caution: modifying it's value directly may lead to unexpected results</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Compiler.html#isProduction">Compiler#isProduction</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-21">line 21</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        </dl>
     
 
     
@@ -429,7 +165,7 @@ const compiler = new JSCompiler();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="be"><span class="type-signature"></span>be(inPath, outPath, <span class="optional">callback</span>)</h4>
+    <h4 class="name" id=".highlightArray"><span class="type-signature">&lt;static> </span>highlightArray(<span class="optional">code</span>)</h4>
     
     
 </dt>
@@ -437,7 +173,8 @@ const compiler = new JSCompiler();</pre>
 
     
     <div class="description">
-        <p>Compiles a JavaScript file or a directory for the back end. Non-JavaScript files are simply copied over.</p>
+        <p>Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an array of
+plain objects describing React Elements for easy serialization/unserialization.</p>
     </div>
     
 
@@ -476,85 +213,13 @@ const compiler = new JSCompiler();</pre>
 
         <tr>
             
-                <td class="name"><code>inPath</code></td>
+                <td class="name"><code>code</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the input path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the output path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
 
 
 
@@ -576,12 +241,12 @@ const compiler = new JSCompiler();</pre>
             
                 <td class="default">
                 
-                    function () {}
+                    ""
                 
                 </td>
             
 
-            <td class="description last"><p>a callback function</p></td>
+            <td class="description last"><p>any valid ES2015, TypeScript, JSX, Flow code</p></td>
         </tr>
 
     
@@ -625,8 +290,8 @@ const compiler = new JSCompiler();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSCompiler.js.html">JSCompiler.js</a>,
-				 <a href="JSCompiler.js.html#sunlight-1-line-192">line 192</a>
+				<a href="highlight.js.html">highlight.js</a>,
+				 <a href="highlight.js.html#sunlight-1-line-79">line 79</a>
 			</li>
 		</ul>
 	</dd>
@@ -654,6 +319,10 @@ const compiler = new JSCompiler();</pre>
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>an array of plain objects describing React Elements</p>
+</div>
+
 
 
 <dl>
@@ -662,7 +331,7 @@ const compiler = new JSCompiler();</pre>
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">Array.&lt;(string|Object)></span>
 
 
 
@@ -675,7 +344,13 @@ const compiler = new JSCompiler();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.be(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, callback);</pre>
+    <pre class="sunlight-highlight-javascript">import {highlightArray} from &#x27;webcompiler&#x27;;
+// or - import {highlightArray} from &#x27;webcompiler/lib/highlight&#x27;;
+// or - var highlightArray = require(&#x27;webcompiler&#x27;).highlightArray;
+// or - var highlightArray = require(&#x27;webcompiler/lib/highlight&#x27;).highlightArray;
+
+highlightArray(&#x27;function myScript(){return 100;}&#x27;);
+// [{type: &#x27;pre&#x27;, props: {className: &#x27;CodeMirror-line&#x27;}, children: [...]}]</pre>
 
 
     
@@ -685,7 +360,7 @@ const compiler = new JSCompiler();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="fe"><span class="type-signature"></span>fe(inPath, outPath, <span class="optional">callback</span>)</h4>
+    <h4 class="name" id=".highlightHTML"><span class="type-signature">&lt;static> </span>highlightHTML(<span class="optional">code</span>)</h4>
     
     
 </dt>
@@ -693,7 +368,8 @@ const compiler = new JSCompiler();</pre>
 
     
     <div class="description">
-        <p>Compiles, bundles (in production mode also minifies and g-zips) a JavaScript file for the front end.</p>
+        <p>Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an HTML
+string.</p>
     </div>
     
 
@@ -732,85 +408,13 @@ const compiler = new JSCompiler();</pre>
 
         <tr>
             
-                <td class="name"><code>inPath</code></td>
+                <td class="name"><code>code</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the input path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the output path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
 
 
 
@@ -832,12 +436,12 @@ const compiler = new JSCompiler();</pre>
             
                 <td class="default">
                 
-                    function () {}
+                    ""
                 
                 </td>
             
 
-            <td class="description last"><p>a callback function</p></td>
+            <td class="description last"><p>any valid ES2015, TypeScript, JSX, Flow code</p></td>
         </tr>
 
     
@@ -881,8 +485,8 @@ const compiler = new JSCompiler();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="JSCompiler.js.html">JSCompiler.js</a>,
-				 <a href="JSCompiler.js.html#sunlight-1-line-217">line 217</a>
+				<a href="highlight.js.html">highlight.js</a>,
+				 <a href="highlight.js.html#sunlight-1-line-54">line 54</a>
 			</li>
 		</ul>
 	</dd>
@@ -907,11 +511,40 @@ const compiler = new JSCompiler();</pre>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>an HTML string of the <code>pre.CodeMirror-line</code> elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.fe(&#x27;/path/to/an/input/file.js&#x27;, &#x27;/path/to/the/output/file.js&#x27;, callback);</pre>
+    <pre class="sunlight-highlight-javascript">import {highlightHTML} from &#x27;webcompiler&#x27;;
+// or - import {highlightHTML} from &#x27;webcompiler/lib/highlight&#x27;;
+// or - var highlightHTML = require(&#x27;webcompiler&#x27;).highlightHTML;
+// or - var highlightHTML = require(&#x27;webcompiler/lib/highlight&#x27;).highlightHTML;
+
+highlightHTML(&#x27;function myScript(){return 100;}&#x27;); // &lt;pre class=&quot;CodeMirror-line&quot;&gt;...&lt;/pre&gt;</pre>
 
 
     
@@ -921,7 +554,7 @@ const compiler = new JSCompiler();</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="optimize"><span class="type-signature">&lt;protected> </span>optimize(inPath, outPath, data, callback)</h4>
+    <h4 class="name" id=".highlightJSX"><span class="type-signature">&lt;static> </span>highlightJSX(<span class="optional">code</span>)</h4>
     
     
 </dt>
@@ -929,7 +562,8 @@ const compiler = new JSCompiler();</pre>
 
     
     <div class="description">
-        <p>G-zips the program if necessary and writes the results to disk.</p>
+        <p>Using the CodeMirror editor highlights a string of text representing JavaScript program code and returns an array
+of React elements.</p>
     </div>
     
 
@@ -952,7 +586,11 @@ const compiler = new JSCompiler();</pre>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -964,7 +602,7 @@ const compiler = new JSCompiler();</pre>
 
         <tr>
             
-                <td class="name"><code>inPath</code></td>
+                <td class="name"><code>code</code></td>
             
 
             <td class="type">
@@ -978,82 +616,26 @@ const compiler = new JSCompiler();</pre>
             </td>
 
             
-
-            
-
-            <td class="description last"><p>the input path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outPath</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the output path</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>processed application code with source maps</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">function</span>
 
-
-
-            
-            </td>
-
+                
+                </td>
             
 
             
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
 
-            <td class="description last"><p>a callback function</p></td>
+            <td class="description last"><p>any valid ES2015, TypeScript, JSX, Flow code</p></td>
         </tr>
 
     
@@ -1070,15 +652,6 @@ const compiler = new JSCompiler();</pre>
 
 	
 
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Compiler.html#optimize">Compiler#optimize</a>
-			</li>
-		</ul>
-	</dd>
 	
 
     
@@ -1106,8 +679,8 @@ const compiler = new JSCompiler();</pre>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-157">line 157</a>
+				<a href="highlight.js.html">highlight.js</a>,
+				 <a href="highlight.js.html#sunlight-1-line-105">line 105</a>
 			</li>
 		</ul>
 	</dd>
@@ -1132,11 +705,40 @@ const compiler = new JSCompiler();</pre>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>React elements of the <code>pre.CodeMirror-line</code> elements</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;ReactElement></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.optimize(&#x27;/path/to/an/input/file&#x27;, &#x27;/path/to/the/output/file&#x27;, data, callback);</pre>
+    <pre class="sunlight-highlight-javascript">import {highlightJSX} from &#x27;webcompiler&#x27;;
+// or - import {highlightJSX} from &#x27;webcompiler/lib/highlight&#x27;;
+// or - var highlightJSX = require(&#x27;webcompiler&#x27;).highlightJSX;
+// or - var highlightJSX = require(&#x27;webcompiler/lib/highlight&#x27;).highlightJSX;
+
+&lt;div className=&quot;CodeMirror cm-s-monokai&quot;&gt;{highlightJSX(&#x27;function myScript(){return 100;}&#x27;)}&lt;/div&gt;</pre>
 
 
     

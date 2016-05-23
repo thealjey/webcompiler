@@ -13,6 +13,9 @@ const config = join(__dirname, '..', 'config', 'scsslint.yml');
  * @param {...string} excludeLinter - names of linters to exclude
  * @example
  * import {SASSLint} from 'webcompiler';
+ * // or - import {SASSLint} from 'webcompiler/lib/SASSLint';
+ * // or - var SASSLint = require('webcompiler').SASSLint;
+ * // or - var SASSLint = require('webcompiler/lib/SASSLint').SASSLint;
  * import {join} from 'path';
  *
  * const linter = new SASSLint();

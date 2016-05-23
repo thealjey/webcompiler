@@ -12,6 +12,9 @@ import {readFileSync} from 'fs';
  * @param {ObjectOrErrorCallback} callback - a callback function
  * @example
  * import {yaml} from 'webcompiler';
+ * // or - import {yaml} from 'webcompiler/lib/yaml';
+ * // or - var yaml = require('webcompiler').yaml;
+ * // or - var yaml = require('webcompiler/lib/yaml').yaml;
  * import {join} from 'path';
  *
  * yaml(join(__dirname, 'config', 'config.yml'), (error, data) => {

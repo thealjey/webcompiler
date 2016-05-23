@@ -24,6 +24,9 @@ const precision = 8,
  *                                                 configuration
  * @example
  * import {SASSCompiler} from 'webcompiler';
+ * // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
+ * // or - var SASSCompiler = require('webcompiler').SASSCompiler;
+ * // or - var SASSCompiler = require('webcompiler/lib/SASSCompiler').SASSCompiler;
  *
  * const compiler = new SASSCompiler();
  */
@@ -79,9 +82,11 @@ export class SASSCompiler extends Compiler {
       const warnings = result.warnings();
 
       if (warnings.length) {
-        return forEach(warnings, warning => {
+        forEach(warnings, warning => {
           console.error(warning.toString());
         });
+
+        return;
       }
       callback({code: result.css, map: JSON.stringify(result.map)});
     });

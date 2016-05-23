@@ -11,7 +11,7 @@
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
 
-	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
 
 </head>
 
@@ -31,9 +31,16 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="Markup.html">Markup</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
+					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
 				</ul>
 			</li>
 			
@@ -343,6 +350,9 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">import {watch} from &#x27;webcompiler&#x27;;
+// or - import {watch} from &#x27;webcompiler/lib/watch&#x27;;
+// or - var watch = require(&#x27;webcompiler&#x27;).watch;
+// or - var watch = require(&#x27;webcompiler/lib/watch&#x27;).watch;
 import {join} from &#x27;path&#x27;;
 
 watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
@@ -514,6 +524,9 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">import {yaml} from &#x27;webcompiler&#x27;;
+// or - import {yaml} from &#x27;webcompiler/lib/yaml&#x27;;
+// or - var yaml = require(&#x27;webcompiler&#x27;).yaml;
+// or - var yaml = require(&#x27;webcompiler/lib/yaml&#x27;).yaml;
 import {join} from &#x27;path&#x27;;
 
 yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) =&gt; {
@@ -534,738 +547,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <h3 class="subsection-title">Type Definitions</h3>
 
         <dl>
-                
-<hr>
-<dt class="name" id="CheerioElement">
-    <h4>CheerioElement</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A dumbed down representation of a DOM Element</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>&quot;tag&quot;</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the tag name (e.g. &quot;div&quot;)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attribs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the tag attributes (e.g. {style: 'min-width:50px'})</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>children</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="global.html#CheerioNode">CheerioNode</a>></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>an array of child nodes</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the next sibling node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>prev</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the previous sibling node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>parent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioElement">CheerioElement</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the parent element</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-32">line 32</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="CheerioNode">
-    <h4>CheerioNode</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A dumbed down representation of a DOM Node</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>either &quot;comment&quot;, &quot;text&quot; or &quot;tag&quot;</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-24">line 24</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="CheerioText">
-    <h4>CheerioText</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A dumbed down representation of a DOM Text or a Comment Nodes</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>either &quot;text&quot; or &quot;comment&quot;</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the textual content of the node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the next sibling node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>prev</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioNode">CheerioNode</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the previous sibling node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>parent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CheerioElement">CheerioElement</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the parent element</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-47">line 47</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
                 
 <hr>
 <dt class="name" id="DocumentationConfig">
@@ -1554,7 +835,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-59">line 59</a>
+				 <a href="typedef.js.html#sunlight-1-line-24">line 24</a>
 			</li>
 		</ul>
 	</dd>
@@ -1567,140 +848,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	
 </dl>
 
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="FileCallback"><span class="type-signature"></span>FileCallback(file)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>file</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>a full system path to a file</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-78">line 78</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
 </dd>
@@ -1822,7 +969,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-90">line 90</a>
+				 <a href="typedef.js.html#sunlight-1-line-43">line 43</a>
 			</li>
 		</ul>
 	</dd>
@@ -2264,153 +1411,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-96">line 96</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="NullableFileCallback"><span class="type-signature"></span>NullableFileCallback(<span class="optional">file</span>)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>file</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>a full system path to a file</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-84">line 84</a>
+				 <a href="typedef.js.html#sunlight-1-line-49">line 49</a>
 			</li>
 		</ul>
 	</dd>
@@ -2588,7 +1589,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-103">line 103</a>
+				 <a href="typedef.js.html#sunlight-1-line-56">line 56</a>
 			</li>
 		</ul>
 	</dd>
@@ -2880,7 +1881,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-72">line 72</a>
+				 <a href="typedef.js.html#sunlight-1-line-37">line 37</a>
 			</li>
 		</ul>
 	</dd>
@@ -3014,7 +2015,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-131">line 131</a>
+				 <a href="typedef.js.html#sunlight-1-line-84">line 84</a>
 			</li>
 		</ul>
 	</dd>
@@ -3232,7 +2233,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-110">line 110</a>
+				 <a href="typedef.js.html#sunlight-1-line-63">line 63</a>
 			</li>
 		</ul>
 	</dd>
@@ -3414,7 +2415,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-121">line 121</a>
+				 <a href="typedef.js.html#sunlight-1-line-74">line 74</a>
 			</li>
 		</ul>
 	</dd>

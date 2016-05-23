@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback, Transformer,
+import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback,
   ObjectOrErrorCallback} from '../src/typedef';
 
 declare module 'webcompiler' {
@@ -16,14 +16,16 @@ declare module 'webcompiler' {
     run(callback: () => void): void;
   }
 
-  declare class Markup {
-    static flatten(...args: Array<any>): Array<any>;
-    static highlightHTML(code: ?string): string;
-    static highlightJSX(code: ?string): string;
-    htmlToJSX(html: ?string): Array<any>;
-    markdownToHTML(markdown: ?string): string;
-    markdownToJSX(markdown: ?string): Array<any>;
-  }
+  declare function flatten(...args: Array<any>): Array<any>;
+  declare function arrayToJSX(arr: ?Array<string|Object>): Array<any>;
+  declare function htmlToArray(html: ?string): Array<string|Object>;
+  declare function htmlToJSX(html: ?string): Array<any>;
+  declare function markdownToArray(markdown: ?string): Array<string|Object>;
+  declare function markdownToJSX(markdown: ?string): Array<any>;
+  declare function markdownToHTML(markdown: ?string): string;
+  declare function highlightHTML(code: ?string): string;
+  declare function highlightArray(code: ?string): Array<string|Object>;
+  declare function highlightJSX(code: ?string): string;
 
   declare function watch(dir: string, type: string, callback: () => void): void;
   declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;

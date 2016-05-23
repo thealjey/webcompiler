@@ -7,6 +7,7 @@ import proxyquire from 'proxyquire';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
 import {Compiler} from '../src/Compiler';
+import {DedupePlugin, UglifyJsPlugin, getWebpack} from './mock';
 
 chai.use(sinonChai);
 
@@ -21,18 +22,6 @@ let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callbac
 
 function req(options) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
-}
-
-class DedupePlugin {}
-
-class UglifyJsPlugin {}
-
-function getWebpack(c) {
-  const wp = stub().returns(c);
-
-  wp.optimize = {DedupePlugin, UglifyJsPlugin};
-
-  return wp;
 }
 
 describe('JSCompiler', () => {

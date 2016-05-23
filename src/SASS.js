@@ -15,6 +15,9 @@ import noop from 'lodash/noop';
  *                                                 configuration
  * @example
  * import {SASS} from 'webcompiler';
+ * // or - import {SASS} from 'webcompiler/lib/SASS';
+ * // or - var SASS = require('webcompiler').SASS;
+ * // or - var SASS = require('webcompiler/lib/SASS').SASS;
  *
  * const sass = new SASS();
  */

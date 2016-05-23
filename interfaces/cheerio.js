@@ -1,12 +1,10 @@
 /* @flow */
 
-import type {CheerioNode} from '../src/typedef';
-
 type DOM = {
-  toArray: () => Array<CheerioNode>,
+  toArray: () => Array<Object>,
   html: () => string,
   children: () => DOM,
-  each: (iteratee: (i: number, el: CheerioNode) => any) => DOM,
+  each: (iteratee: (i: number, el: Object) => any) => DOM,
   find: (selector: string) => DOM,
   removeAttr: (attr: string) => void
 };

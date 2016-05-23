@@ -15,6 +15,9 @@ import noop from 'lodash/noop';
  * @param {Object}  [lintRules={}]    - allows to override the default linting rules
  * @example
  * import {JS} from 'webcompiler';
+ * // or - import {JS} from 'webcompiler/lib/JS';
+ * // or - var JS = require('webcompiler').JS;
+ * // or - var JS = require('webcompiler/lib/JS').JS;
  *
  * const js = new JS();
  */

@@ -11,7 +11,7 @@
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
 
-	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
 
 </head>
 
@@ -31,9 +31,16 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="Markup.html">Markup</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
+					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
 				</ul>
 			</li>
 			
@@ -405,6 +412,9 @@ updates the page.</p>
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">import {DevServer} from &#x27;webcompiler&#x27;;
+// or - import {DevServer} from &#x27;webcompiler/lib/DevServer&#x27;;
+// or - var DevServer = require(&#x27;webcompiler&#x27;).DevServer;
+// or - var DevServer = require(&#x27;webcompiler/lib/DevServer&#x27;).DevServer;
 import {join} from &#x27;path&#x27;;
 
 const rootDir = join(__dirname, &#x27;..&#x27;),
@@ -545,7 +555,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-184">line 184</a>
+				 <a href="DevServer.js.html#sunlight-1-line-187">line 187</a>
 			</li>
 		</ul>
 	</dd>
@@ -639,7 +649,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-164">line 164</a>
+				 <a href="DevServer.js.html#sunlight-1-line-167">line 167</a>
 			</li>
 		</ul>
 	</dd>
@@ -783,7 +793,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-148">line 148</a>
+				 <a href="DevServer.js.html#sunlight-1-line-151">line 151</a>
 			</li>
 		</ul>
 	</dd>

@@ -31,6 +31,9 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
  * @param {Object}  [options={}]    - allows to override the default Babel options
  * @example
  * import {JSCompiler} from 'webcompiler';
+ * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
+ * // or - var JSCompiler = require('webcompiler').JSCompiler;
+ * // or - var JSCompiler = require('webcompiler/lib/JSCompiler').JSCompiler;
  *
  * const compiler = new JSCompiler();
  */

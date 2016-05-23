@@ -12,6 +12,9 @@ import noop from 'lodash/noop';
  * @param {string} task - a process name
  * @example
  * import {NativeProcess} from 'webcompiler';
+ * // or - import {NativeProcess} from 'webcompiler/lib/NativeProcess';
+ * // or - var NativeProcess = require('webcompiler').NativeProcess;
+ * // or - var NativeProcess = require('webcompiler/lib/NativeProcess').NativeProcess;
  *
  * const mkdir = new NativeProcess('mkdir');
  */

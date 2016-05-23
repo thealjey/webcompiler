@@ -19,6 +19,9 @@ const client = new Client(),
  * @see {@link https://facebook.github.io/watchman/ Watchman}
  * @example
  * import {watch} from 'webcompiler';
+ * // or - import {watch} from 'webcompiler/lib/watch';
+ * // or - var watch = require('webcompiler').watch;
+ * // or - var watch = require('webcompiler/lib/watch').watch;
  * import {join} from 'path';
  *
  * watch(join(__dirname, 'src'), 'js', someFunction);

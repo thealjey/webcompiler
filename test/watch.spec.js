@@ -4,21 +4,12 @@ import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
-import noop from 'lodash/noop';
+import {Client} from './mock';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable require-jsdoc */
-
-class Client {
-  capabilityCheck: () => void;
-  command: () => void;
-  on: () => void;
-}
-Client.prototype.capabilityCheck = noop;
-Client.prototype.command = noop;
-Client.prototype.on = noop;
 
 const ALPHANUMERIC_BASE = 36,
   watch = proxyquire('../src/watch', {'fb-watchman': {Client}}).watch;

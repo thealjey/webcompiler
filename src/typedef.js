@@ -22,41 +22,6 @@ export type ProgramData = {code: string, map: string};
 export type JSLintError = {message: string, ruleId?: string, filePath: string, line: number, column: number};
 
 /**
- * A dumbed down representation of a DOM Node
- *
- * @typedef {Object} CheerioNode
- * @property {string} type - either "comment", "text" or "tag"
- */
-export type CheerioNode = {type: string};
-
-/**
- * A dumbed down representation of a DOM Element
- *
- * @typedef {Object} CheerioElement
- * @property {string}             type       - "tag"
- * @property {string}             name       - the tag name (e.g. "div")
- * @property {Object}             attribs    - the tag attributes (e.g. {style: 'min-width:50px'})
- * @property {Array<CheerioNode>} [children] - an array of child nodes
- * @property {CheerioNode}        [next]     - the next sibling node
- * @property {CheerioNode}        [prev]     - the previous sibling node
- * @property {CheerioElement}     [parent]   - the parent element
- */
-export type CheerioElement = {type: string, name: string, attribs: Object, children?: Array<CheerioNode>,
-  next: ?CheerioNode, prev: ?CheerioNode, parent: ?CheerioElement};
-
-/**
- * A dumbed down representation of a DOM Text or a Comment Nodes
- *
- * @typedef {Object} CheerioText
- * @property {string}         type     - either "text" or "comment"
- * @property {string}         data     - the textual content of the node
- * @property {CheerioNode}    [next]   - the next sibling node
- * @property {CheerioNode}    [prev]   - the previous sibling node
- * @property {CheerioElement} [parent] - the parent element
- */
-export type CheerioText = {type: string, data: string, next: ?CheerioNode, prev: ?CheerioNode, parent: ?CheerioElement};
-
-/**
  * Documentation generator configuration object
  *
  * @typedef {Object} DocumentationConfig
@@ -74,18 +39,6 @@ export type CheerioText = {type: string, data: string, next: ?CheerioNode, prev:
  * @param {ProgramData} data - the program data
  */
 export type ProgramDataCallback = (data: ProgramData) => void;
-
-/**
- * @callback FileCallback
- * @param {string} file - a full system path to a file
- */
-export type FileCallback = (file: string) => void;
-
-/**
- * @callback NullableFileCallback
- * @param {string} [file] - a full system path to a file
- */
-export type NullableFileCallback = (file: ?string) => void;
 
 /**
  * @callback JSLintCallback

@@ -5,7 +5,7 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
-import noop from 'lodash/noop';
+import {WebpackDevServer, Server, HotModuleReplacementPlugin, NoErrorsPlugin} from './mock';
 
 chai.use(sinonChai);
 
@@ -21,33 +21,6 @@ let DevServer, cmp, tinylr, webpack, srv, send, watch;
 function req(options) {
   return proxyquire('../src/DevServer', options).DevServer;
 }
-
-class WebpackDevServer {
-  webpackInstance: any;
-  config: Object;
-  app: Object;
-  constructor(webpackInstance: any, config: Object) {
-    this.webpackInstance = webpackInstance;
-    this.config = config;
-  }
-}
-
-WebpackDevServer.prototype.app = {
-  get(route: string, handler: () => void) {
-    this.handler = handler;
-  }
-};
-
-class Server {
-  changed: () => void;
-  listen: () => void;
-}
-Server.prototype.changed = noop;
-Server.prototype.listen = noop;
-
-class HotModuleReplacementPlugin {}
-
-class NoErrorsPlugin {}
 
 describe('DevServer', () => {
 

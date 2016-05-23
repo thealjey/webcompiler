@@ -14,6 +14,9 @@ const configFile = join(__dirname, '..', '.eslintrc.yml');
  * @param {Object} [rules={}] - an object that lets you override default linting rules
  * @example
  * import {JSLint} from 'webcompiler';
+ * // or - import {JSLint} from 'webcompiler/lib/JSLint';
+ * // or - var JSLint = require('webcompiler').JSLint;
+ * // or - var JSLint = require('webcompiler/lib/JSLint').JSLint;
  * import {join} from 'path';
  *
  * const linter = new JSLint();

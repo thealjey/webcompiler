@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {FileCallback, NullableFileCallback} from './typedef';
 import {NativeProcess} from './NativeProcess';
 import {stat} from 'fs';
 import {join} from 'path';
@@ -34,6 +33,9 @@ const npm = new NativeProcess('npm'),
  * @param {DocumentationConfig} [config={}] - a configuration object
  * @example
  * import {Documentation} from 'webcompiler';
+ * // or - import {Documentation} from 'webcompiler/lib/Documentation';
+ * // or - var Documentation = require('webcompiler').Documentation;
+ * // or - var Documentation = require('webcompiler/lib/Documentation').Documentation;
  *
  * const docs = new Documentation();
  */
@@ -71,13 +73,13 @@ export class Documentation {
    * @static
    * @private
    * @method findExecutable
-   * @param {FileCallback} callback - a callback function
+   * @param {Function} callback - a callback function
    * @example
    * Documentation.findExecutable(file => {
    *   // the jsdoc file is found
    * });
    */
-  static findExecutable(callback: FileCallback) {
+  static findExecutable(callback: Function) {
     Documentation.checkBin(localFile => {
       if (localFile) {
         return callback(localFile);
@@ -98,9 +100,9 @@ export class Documentation {
    * @static
    * @private
    * @method checkBin
-   * @param {NullableFileCallback} callback              - a callback function
-   * @param {boolean}              [globalPackage=false] - if true checks the global NPM bin directory (contains the npm
-   *                                                       executable itself)
+   * @param {Function} callback              - a callback function
+   * @param {boolean}  [globalPackage=false] - if true checks the global NPM bin directory (contains the npm executable
+   *                                           itself)
    * @example
    * Documentation.checkBin(file => {
    *   if (file) {
@@ -108,7 +110,7 @@ export class Documentation {
    *   }
    * });
    */
-  static checkBin(callback: NullableFileCallback, globalPackage: boolean = false) {
+  static checkBin(callback: Function, globalPackage: boolean = false) {
     const args = ['bin'];
 
     if (globalPackage) {
