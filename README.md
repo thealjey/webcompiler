@@ -40,7 +40,7 @@ at compile time.
 It is very smart at understanding your program code, however you should not rely on it being smart enough to just
 understand your external dependencies too.
 
-It can do that, the problem is that a typical NodeJS project can contain hundreds NPM modules, with thousands of
+It can do that, the problem is that a typical NodeJS project can contain hundreds of NPM modules, with thousands of
 JavaScript files.
 
 It is a very complicated task, even for a tool that smart, to parse all of them and stay performant enough to not only

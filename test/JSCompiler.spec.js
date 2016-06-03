@@ -60,7 +60,7 @@ describe('JSCompiler', () => {
     describe('fe', () => {
 
       beforeEach(() => {
-        cmp.options = {some: 'options'};
+        cmp.options = {presets: ['es2015', 'es2015-loose', 'something'], some: 'options'};
         stub(cmp, 'optimize');
       });
 
@@ -94,7 +94,11 @@ describe('JSCompiler', () => {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
-                query: {cacheDirectory: true, some: 'options'}
+                query: {
+                  cacheDirectory: true,
+                  presets: ['es2015-native-modules', 'es2015-loose-native-modules', 'something'],
+                  some: 'options'
+                }
               }, {
                 test: /\.json$/,
                 loader: 'json'
@@ -147,7 +151,11 @@ describe('JSCompiler', () => {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
-                query: {cacheDirectory: true, some: 'options'}
+                query: {
+                  cacheDirectory: true,
+                  presets: ['es2015-native-modules', 'es2015-loose-native-modules', 'something'],
+                  some: 'options'
+                }
               }, {
                 test: /\.json$/,
                 loader: 'json'

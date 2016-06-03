@@ -215,3 +215,4 @@ rules:
   prefer-spread: 2
   prefer-template: 2
   template-curly-spacing: 2
+  unicode-bom: 2

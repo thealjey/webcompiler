@@ -12,6 +12,7 @@ import assignWith from 'lodash/assignWith';
 import get from 'lodash/get';
 import isArray from 'lodash/isArray';
 import uniq from 'lodash/uniq';
+import map from 'lodash/map';
 
 /* eslint-disable no-sync */
 /* eslint-disable no-process-env */
@@ -227,31 +228,45 @@ export class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
-    const compiler = webpack({
-      cache,
-      debug: true,
-      devtool: 'source-map',
-      entry: inPath,
-      output: {path: dirname(outPath), filename: basename(outPath)},
-      plugins: this.isProduction ? productionPlugins : [],
-      node: {
-        fs: 'empty'
-      },
-      module: {
-        loaders: [{
-          test: /jsdom/,
-          loader: 'null'
-        }, {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel',
-          query: {cacheDirectory: true, ...this.options}
-        }, {
-          test: /\.json$/,
-          loader: 'json'
-        }]
-      }
-    });
+    const {presets, ...options} = this.options,
+      compiler = webpack({
+        cache,
+        debug: true,
+        devtool: 'source-map',
+        entry: inPath,
+        output: {path: dirname(outPath), filename: basename(outPath)},
+        plugins: this.isProduction ? productionPlugins : [],
+        node: {
+          fs: 'empty'
+        },
+        module: {
+          loaders: [{
+            test: /jsdom/,
+            loader: 'null'
+          }, {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+            query: {
+              cacheDirectory: true,
+              presets: map(presets, preset => {
+                if ('es2015' === preset) {
+                  return 'es2015-native-modules';
+                }
+                if ('es2015-loose' === preset) {
+                  return 'es2015-loose-native-modules';
+                }
+
+                return preset;
+              }),
+              ...options
+            }
+          }, {
+            test: /\.json$/,
+            loader: 'json'
+          }]
+        }
+      });
 
     compiler.outputFileSystem = fakeFS;
 
