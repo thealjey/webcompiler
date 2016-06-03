@@ -1,3 +1,10 @@
+v4.0.1 - Fri, 03 Jun 2016 22:02:47 GMT
+--------------------------------------
+
+- [5578892](../../commit/5578892) [fixed] compile in loose mode by default. Better [tree shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html) for webpack
+
+
+
 v4.0.0 - Mon, 23 May 2016 18:33:38 GMT
 --------------------------------------
 
