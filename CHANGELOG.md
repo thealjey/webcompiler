@@ -1,3 +1,10 @@
+v4.0.3 - Tue, 07 Jun 2016 13:58:07 GMT
+--------------------------------------
+
+- [c7b4ed0](../../commit/c7b4ed0) [fixed] enabled the `react/jsx-uses-react`, `react/jsx-no-target-blank` and `react/no-is-mounted` ESLint rules
+
+
+
 v4.0.2 - Tue, 07 Jun 2016 12:31:39 GMT
 --------------------------------------
 
