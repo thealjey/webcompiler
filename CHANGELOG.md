@@ -1,3 +1,10 @@
+v4.0.2 - Tue, 07 Jun 2016 12:31:39 GMT
+--------------------------------------
+
+- [757f44f](../../commit/757f44f) [fixed] npm package must include the `.eslintrc.yml` and the `.babelrc` files
+
+
+
 v4.0.1 - Fri, 03 Jun 2016 22:02:47 GMT
 --------------------------------------
 
