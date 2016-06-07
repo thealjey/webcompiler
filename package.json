@@ -23,6 +23,8 @@
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
+    ".eslintrc.yml",
+    ".babelrc",
     "src/typedef.js",
     "lib",
     "config",
