@@ -1,6 +1,7 @@
 /* @flow */
 
 type PropTypesObject = {
+  instanceOf: (obj: any) => void,
   arrayOf: (obj: any) => void,
   string: {isRequired: void},
   any: {isRequired: void},
