@@ -1,3 +1,10 @@
+v4.0.5 - Thu, 09 Jun 2016 17:28:27 GMT
+--------------------------------------
+
+- [e5d7dc4](../../commit/e5d7dc4) [added] the `json` loader to `DevServer`, interface declaration for `lodash/debounce` and `React.PropTypes.number`
+
+
+
 v4.0.4 - Wed, 08 Jun 2016 01:24:59 GMT
 --------------------------------------
 
