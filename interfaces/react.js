@@ -8,6 +8,7 @@ type PropTypesObject = {
   object: {isRequired: void},
   bool: {isRequired: void},
   array: {isRequired: void},
+  number: {isRequired: void},
   func: {isRequired: void}
 };
 

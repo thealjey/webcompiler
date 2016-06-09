@@ -133,3 +133,7 @@ declare module 'lodash/reduce' {
 declare module 'lodash/sortedIndexBy' {
   declare function exports(collection: Array<any>, value: any, iteratee: ?Iteratee): number;
 }
+
+declare module 'lodash/debounce' {
+  declare function exports(func: Function, wait: ?number): Function;
+}

@@ -111,6 +111,9 @@ describe('DevServer', () => {
             test: /\.js$/,
             exclude: /node_modules/,
             loaders: ['babel']
+          }, {
+            test: /\.json$/,
+            loader: 'json'
           }]
         }
       });
@@ -179,6 +182,9 @@ describe('DevServer', () => {
             test: /\.js$/,
             exclude: /node_modules/,
             loaders: ['react-hot', 'babel']
+          }, {
+            test: /\.json$/,
+            loader: 'json'
           }]
         }
       });

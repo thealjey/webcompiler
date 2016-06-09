@@ -121,6 +121,9 @@ export class DevServer {
           test: /\.js$/,
           exclude: /node_modules/,
           loaders
+        }, {
+          test: /\.json$/,
+          loader: 'json'
         }]
       }
     }), {
