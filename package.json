@@ -53,7 +53,7 @@
   "homepage": "https://thealjey.github.io/webcompiler",
   "dependencies": {
     "autoprefixer": "^6.3.6",
-    "babel-cli": "^6.9.0",
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
@@ -74,7 +74,7 @@
     "babel-runtime": "^6.9.2",
     "cheerio": "^0.20.0",
     "codemirror": "^5.15.2",
-    "eslint": "^2.11.1",
+    "eslint": "^2.12.0",
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-flow-vars": "^0.4.0",
     "eslint-plugin-lodash": "^1.9.2",

@@ -38,6 +38,10 @@ declare module 'lodash/isString' {
   declare function exports(value: any): boolean;
 }
 
+declare module 'lodash/isFinite' {
+  declare function exports(value: any): boolean;
+}
+
 declare module 'lodash/isError' {
   declare function exports(value: any): boolean;
 }
@@ -51,6 +55,10 @@ declare module 'lodash/camelCase' {
 }
 
 declare module 'lodash/upperFirst' {
+  declare function exports(value: string): string;
+}
+
+declare module 'lodash/toLower' {
   declare function exports(value: string): string;
 }
 
@@ -72,6 +80,10 @@ declare module 'lodash/flatten' {
 
 declare module 'lodash/flattenDeep' {
   declare function exports(collection: Array<any>): Array<any>;
+}
+
+declare module 'lodash/includes' {
+  declare function exports(collection: Iterable|string, value: any, fromIndex: ?number): boolean;
 }
 
 declare module 'lodash/without' {
