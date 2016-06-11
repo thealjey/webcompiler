@@ -1,3 +1,10 @@
+v4.0.6 - Sat, 11 Jun 2016 22:38:26 GMT
+--------------------------------------
+
+- [4698324](../../commit/4698324) [added] `rest-spread-spacing` ESLint rule; `lodash/isFinite`, `lodash/toLower` and `lodash/includes` interface declarations
+
+
+
 v4.0.5 - Thu, 09 Jun 2016 17:28:27 GMT
 --------------------------------------
 
