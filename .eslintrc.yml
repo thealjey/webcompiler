@@ -51,6 +51,9 @@ rules:
   react/require-render-return: 2
   react/self-closing-comp: 2
   react/wrap-multilines: 2
+  react/require-optimization: 2
+  react/no-render-return-value: 2
+  react/no-comment-textnodes: 2
 
   # babel
   babel/new-cap: 2
@@ -58,6 +61,8 @@ rules:
   babel/object-curly-spacing: 2
   babel/object-shorthand: 2
   babel/arrow-parens: [ 2, as-needed ]
+  babel/flow-object-type: 2
+  babel/func-params-comma-dangle: 1
 
   # lodash
   lodash/callback-binding: 2

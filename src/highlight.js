@@ -35,7 +35,7 @@ require('codemirror/mode/jsx/jsx');
  * @return {Object} an object containing a CheerioDOM object and a CheerioCollection of the `pre.CodeMirror-line`
  *                  elements
  */
-export function highlight(value: string): {dom: any, lines: any} {
+export function highlight(value: string): {dom: any; lines: any} {
   const el = document.createElement('div');
 
   cm(el, {value, mode: {name: 'jsx', typescript: true}, scrollbarStyle: 'null', inputStyle: 'contenteditable'});

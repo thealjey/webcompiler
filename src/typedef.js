@@ -7,7 +7,10 @@
  * @property {string} code - program code
  * @property {string} map  - source map json string
  */
-export type ProgramData = {code: string, map: string};
+export type ProgramData = {
+  code: string;
+  map: string;
+};
 
 /**
  * The JavaScript linting error object
@@ -19,7 +22,13 @@ export type ProgramData = {code: string, map: string};
  * @property {number} line     - the offending line number
  * @property {number} column   - the offending column number
  */
-export type JSLintError = {message: string, ruleId?: string, filePath: string, line: number, column: number};
+export type JSLintError = {
+  message: string;
+  ruleId?: string;
+  filePath: string;
+  line: number;
+  column: number;
+};
 
 /**
  * Documentation generator configuration object
@@ -69,7 +78,12 @@ export type ObjectOrErrorCallback = (error: ?string, result: Object) => void;
  * @property {boolean} exists - true if the file exists
  * @property {string}  type   - e.g. "f"
  */
-export type WatchmanFile = {name: string, size: number, exists: boolean, type: string};
+export type WatchmanFile = {
+  name: string;
+  size: number;
+  exists: boolean;
+  type: string;
+};
 
 /**
  * A watchman response object.
@@ -79,7 +93,11 @@ export type WatchmanFile = {name: string, size: number, exists: boolean, type: s
  * @property {string}              subscription - random subscription name
  * @property {Array<WatchmanFile>} files        - an array of file descriptions
  */
-export type WatchmanResponse = {root: string, subscription: string, files: Array<WatchmanFile>};
+export type WatchmanResponse = {
+  root: string;
+  subscription: string;
+  files: Array<WatchmanFile>;
+};
 
 /**
  * @callback WatchCallback
