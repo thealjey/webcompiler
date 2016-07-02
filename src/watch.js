@@ -46,7 +46,7 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
       }
 
       if (watchResp.warning) {
-        console.log('warning: ', watchResp.warning);
+        console.log('Warning:', watchResp.warning);
       }
 
       client.command(['clock', watcher], (clockErr, clockResp) => {
@@ -61,7 +61,7 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
           since: clockResp.clock
         }], subscribeErr => {
           if (subscribeErr) {
-            console.error('failed to subscribe: ', subscribeErr);
+            console.error('Failed to subscribe:', subscribeErr);
           }
         });
 

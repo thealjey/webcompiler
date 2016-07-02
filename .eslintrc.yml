@@ -62,7 +62,7 @@ rules:
   babel/object-shorthand: 2
   babel/arrow-parens: [ 2, as-needed ]
   babel/flow-object-type: 2
-  babel/func-params-comma-dangle: 1
+  babel/func-params-comma-dangle: 2
 
   # lodash
   lodash/callback-binding: 2
@@ -124,7 +124,6 @@ rules:
   no-loop-func: 2
   no-magic-numbers: [ 2, { ignore: [ -1, 0, 1, 2 ] } ]
   no-multi-str: 2
-  no-native-reassign: 2
   no-new-func: 2
   no-new-wrappers: 2
   no-new: 2
@@ -142,7 +141,6 @@ rules:
   no-useless-concat: 2
   no-useless-escape: 2
   no-useless-computed-key: 2
-  no-unsafe-finally: 2
   no-void: 2
   no-warning-comments: 2
   no-with: 2
@@ -225,3 +223,4 @@ rules:
   template-curly-spacing: 2
   unicode-bom: 2
   rest-spread-spacing: 2
+  comma-dangle: 2

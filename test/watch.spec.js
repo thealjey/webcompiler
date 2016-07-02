@@ -126,7 +126,7 @@ describe('watch', () => {
       });
 
       it('prints a warning on screen', () => {
-        expect(console.log).calledWith('warning: ', 'a warning message');
+        expect(console.log).calledWith('Warning:', 'a warning message');
       });
 
     });
@@ -192,7 +192,7 @@ describe('watch', () => {
       });
 
       it('prints an error on screen', () => {
-        expect(console.error).calledWith('failed to subscribe: ', 'subscribe exception');
+        expect(console.error).calledWith('Failed to subscribe:', 'subscribe exception');
       });
 
     });
