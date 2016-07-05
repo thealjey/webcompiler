@@ -20,8 +20,8 @@ import map from 'lodash/map';
 const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
   cache = {},
   fakeFS = new MemoryFS(),
-  {DedupePlugin, UglifyJsPlugin} = webpack.optimize,
-  productionPlugins = [new DedupePlugin(), new UglifyJsPlugin()];
+  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = webpack.optimize,
+  productionPlugins = [new OccurrenceOrderPlugin(), new DedupePlugin(), new UglifyJsPlugin()];
 
 /**
  * A JavaScript compiler

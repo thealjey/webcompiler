@@ -7,7 +7,7 @@ import proxyquire from 'proxyquire';
 import MemoryFS from 'memory-fs';
 import fs from 'fs';
 import {Compiler} from '../src/Compiler';
-import {DedupePlugin, UglifyJsPlugin, getWebpack} from './mock';
+import {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin, getWebpack} from './mock';
 
 chai.use(sinonChai);
 
@@ -139,7 +139,11 @@ describe('JSCompiler', () => {
             devtool: 'source-map',
             entry: '/path/to/the/input/file.js',
             output: {path: '/path/to/the/output', filename: 'file.js'},
-            plugins: [match.instanceOf(DedupePlugin), match.instanceOf(UglifyJsPlugin)],
+            plugins: [
+              match.instanceOf(OccurrenceOrderPlugin),
+              match.instanceOf(DedupePlugin),
+              match.instanceOf(UglifyJsPlugin)
+            ],
             node: {
               fs: 'empty'
             },
