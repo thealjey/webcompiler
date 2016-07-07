@@ -14,7 +14,8 @@ chai.use(sinonChai);
 
 const DEFAULT_WEB_PORT = 3000,
   WEB_PORT = 8000,
-  LIVERELOAD_PORT = 35729;
+  LIVERELOAD_PORT = 35729,
+  cwd = process.cwd();
 
 let DevServer, cmp, tinylr, webpack, srv, send, watch;
 
@@ -195,7 +196,7 @@ describe('DevServer', () => {
       beforeEach(() => {
         stub(cmp.lr, 'listen');
         stub(cmp, 'compileSASS');
-        cmp.watchSASS('/path/to/some/directory');
+        cmp.watchSASS();
       });
 
       afterEach(() => {
@@ -212,7 +213,7 @@ describe('DevServer', () => {
       });
 
       it('starts up the watcher', () => {
-        expect(watch).calledWith('/path/to/some/directory', 'scss', cmp.compileSASS);
+        expect(watch).calledWith(cwd, 'scss', cmp.compileSASS);
       });
 
     });
@@ -268,7 +269,7 @@ describe('DevServer', () => {
       beforeEach(() => {
         stub(cmp, 'watchJS');
         stub(cmp, 'watchSASS');
-        cmp.run('/path/to/some/directory');
+        cmp.run();
       });
 
       afterEach(() => {
@@ -281,7 +282,7 @@ describe('DevServer', () => {
       });
 
       it('invokes the watchSASS method', () => {
-        expect(cmp.watchSASS).calledWith('/path/to/some/directory');
+        expect(cmp.watchSASS).called;
       });
 
     });

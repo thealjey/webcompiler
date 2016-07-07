@@ -8,7 +8,8 @@ import webpack from 'webpack';
 import {join} from 'path';
 
 const LIVERELOAD_PORT = 35729,
-  WEB_PORT = 3000;
+  WEB_PORT = 3000,
+  cwd = process.cwd();
 
 /**
  * A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
@@ -157,14 +158,13 @@ export class DevServer {
    * @memberof DevServer
    * @instance
    * @method watchSASS
-   * @param {string} watchDir - the directory in which to watch for the changes in the SASS files
    * @example
    * server.watchSASS('/path/to/some/directory');
    */
-  watchSASS(watchDir: string) {
+  watchSASS() {
     this.lr.listen(LIVERELOAD_PORT);
     this.compileSASS();
-    watch(watchDir, 'scss', this.compileSASS);
+    watch(cwd, 'scss', this.compileSASS);
   }
 
   /**
@@ -193,13 +193,12 @@ export class DevServer {
    * @memberof DevServer
    * @instance
    * @method run
-   * @param {string} watchDir - the directory in which to watch for the changes in the SASS files
    * @example
    * server.run('/path/to/some/directory');
    */
-  run(watchDir: string) {
+  run() {
     this.watchJS();
-    this.watchSASS(watchDir);
+    this.watchSASS();
   }
 
 }

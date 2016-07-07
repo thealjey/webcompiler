@@ -47,9 +47,9 @@ declare module 'webcompiler' {
 
   declare class DevServer {
     constructor(script: string, style: string, devDir: string, port: ?number, react: ?boolean): void;
-    watchSASS(watchDir: string): void;
+    watchSASS(): void;
     watchJS(): void;
-    run(watchDir: string): void;
+    run(): void;
   }
 
   declare class JSLint {
