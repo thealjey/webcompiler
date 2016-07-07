@@ -1,3 +1,13 @@
+v4.1.0 - Thu, 07 Jul 2016 16:43:49 GMT
+--------------------------------------
+
+- [a114b29](../../commit/a114b29) [fixed] documentation examples for `DevServer#watchSASS` and `DevServer#run`
+- [9da3694](../../commit/9da3694) [removed] the `watchDir` argument from `DevServer#watchSASS` and `DevServer#run`, opting into watching the CWD instead
+- [60d2bb8](../../commit/60d2bb8) [added] bootswatch to the list of default import paths of `SASSCompiler`
+- [90f5814](../../commit/90f5814) [added] `webpack.optimize.OccurrenceOrderPlugin` to the list of production plugins of `JSCompiler#fe`
+
+
+
 v4.0.8 - Sat, 02 Jul 2016 08:51:27 GMT
 --------------------------------------
 
