@@ -159,7 +159,7 @@ export class DevServer {
    * @instance
    * @method watchSASS
    * @example
-   * server.watchSASS('/path/to/some/directory');
+   * server.watchSASS();
    */
   watchSASS() {
     this.lr.listen(LIVERELOAD_PORT);
@@ -194,7 +194,7 @@ export class DevServer {
    * @instance
    * @method run
    * @example
-   * server.run('/path/to/some/directory');
+   * server.run();
    */
   run() {
     this.watchJS();
