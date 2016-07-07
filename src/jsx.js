@@ -176,7 +176,7 @@ export function flatten(...args: Array<any>): Array<any> {
  * <div>{arrayToJSX([{type: 'h1', children: ['Hello world!']}])}</div>
  */
 export function arrayToJSX(arr: Array<string|Object> = []): Array<any> {
-  return map(arr, (el, key) => {
+  return map(arr, (el, key: number) => {
     if (isString(el)) {
       return el;
     }

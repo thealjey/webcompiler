@@ -34,7 +34,7 @@ describe('SASS', () => {
       expect(cmp.compiler.compress).false;
       expect(cmp.compiler).instanceof(SASSCompiler);
       expect(cmp.compiler.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
-                                            '/path/to/a/directory']);
+                                            'node_modules/bootswatch', '/path/to/a/directory']);
       expect(cmp.compiler.importOnce).eql({index: true, css: false, bower: true});
     });
 
@@ -52,7 +52,8 @@ describe('SASS', () => {
     });
 
     it('initializes compiler', () => {
-      expect(cmp.compiler.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules']);
+      expect(cmp.compiler.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
+                                            'node_modules/bootswatch']);
       expect(cmp.compiler.importOnce).eql({index: true, css: false, bower: false});
     });
 

@@ -146,6 +146,7 @@ export class Compiler {
    * Compiler.gzip(data, callback);
    */
   static gzip(data: ProgramData, callback: ProgramDataCallback) {
+    /* @flowignore */
     gzip(data.code, (err, code) => {
       if (err) {
         return console.error(err);

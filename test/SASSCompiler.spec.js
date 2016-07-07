@@ -55,7 +55,7 @@ describe('SASSCompiler', () => {
 
     it('initializes includePaths', () => {
       expect(cmp.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
-                                   '/path/to/a/directory']);
+                                   'node_modules/bootswatch', '/path/to/a/directory']);
     });
 
     it('initializes importOnce', () => {
@@ -106,7 +106,8 @@ describe('SASSCompiler', () => {
     });
 
     it('initializes includePaths', () => {
-      expect(cmp.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules']);
+      expect(cmp.includePaths).eql(['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules',
+                                   'node_modules/bootswatch']);
     });
 
     it('initializes importOnce', () => {

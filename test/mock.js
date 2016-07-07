@@ -13,7 +13,6 @@ export const domElement = {type: 'tag', name: 'input', attribs: {}, children: [
   ]}
 ]};
 export const transformedElement = {type: 'input', props: {}, children: [
-  /* @flowignore */
   {type: 'textarea', props: {defaultValue: 'Hello world!'}, children: []}
 ]};
 export const domChildren = [
