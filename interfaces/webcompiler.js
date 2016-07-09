@@ -30,28 +30,6 @@ declare module 'webcompiler' {
   declare function watch(dir: string, type: string, callback: () => void): void;
   declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;
 
-  declare class JS {
-    constructor(compress: ?boolean, babelOptions: ?Object, lintRules: ?Object): void;
-    typecheck(callback: () => void): void;
-    lint(paths: Array<string>, callback: () => void): void;
-    be(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
-    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
-  }
-
-  declare class SASS {
-    constructor(compress: ?boolean, includePaths: ?Array<string>, excludeLinter: ?Array<string>,
-                importOnceOptions: ?Object): void;
-    lint(paths: Array<string>, callback: () => void): void;
-    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
-  }
-
-  declare class DevServer {
-    constructor(script: string, style: string, devDir: string, port: ?number, react: ?boolean): void;
-    watchSASS(): void;
-    watchJS(): void;
-    run(): void;
-  }
-
   declare class JSLint {
     constructor(rules: ?Object): void;
     run(paths: Array<string>, callback: JSLintCallback): void;
@@ -72,6 +50,30 @@ declare module 'webcompiler' {
     constructor(compress: ?boolean, includePaths: ?Array<string>, importOnceOptions: ?Object): void;
     static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
+  }
+
+  declare class JS {
+    compiler: JSCompiler;
+    constructor(compress: ?boolean, babelOptions: ?Object, lintRules: ?Object): void;
+    typecheck(callback: () => void): void;
+    lint(paths: Array<string>, callback: () => void): void;
+    be(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
+    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
+  }
+
+  declare class SASS {
+    compiler: SASSCompiler;
+    constructor(compress: ?boolean, includePaths: ?Array<string>, excludeLinter: ?Array<string>,
+                importOnceOptions: ?Object): void;
+    lint(paths: Array<string>, callback: () => void): void;
+    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
+  }
+
+  declare class DevServer {
+    constructor(script: string, style: string, devDir: string, port: ?number, react: ?boolean): void;
+    watchSASS(): void;
+    watchJS(): void;
+    run(): void;
   }
 
 }

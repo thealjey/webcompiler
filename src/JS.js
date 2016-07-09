@@ -27,7 +27,6 @@ export class JS {
    *
    * @member {JSCompiler} compiler
    * @memberof JS
-   * @private
    * @instance
    */
   compiler: JSCompiler;

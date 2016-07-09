@@ -27,7 +27,6 @@ export class SASS {
    *
    * @member {SASSCompiler} compiler
    * @memberof SASS
-   * @private
    * @instance
    */
   compiler: SASSCompiler;
