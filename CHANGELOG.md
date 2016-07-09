@@ -1,3 +1,13 @@
+v4.1.1 - Sat, 09 Jul 2016 08:26:11 GMT
+--------------------------------------
+
+- [d2cc0aa](../../commit/d2cc0aa) [fixed] lint the interface files
+- [8310319](../../commit/8310319) [added] `DefinePlugin` to the list of production plugins of `JSCompiler#fe`
+- [e1879a2](../../commit/e1879a2) [changed] `JS#compiler` and `SASS#compiler` are now public
+- [32d4b65](../../commit/32d4b65) [changed] disabled UglifyJs compressor warnings
+
+
+
 v4.1.0 - Thu, 07 Jul 2016 16:43:49 GMT
 --------------------------------------
 
