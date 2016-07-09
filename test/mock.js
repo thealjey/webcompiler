@@ -97,6 +97,8 @@ export class HotModuleReplacementPlugin {}
 
 export class NoErrorsPlugin {}
 
+export class DefinePlugin {}
+
 export class OccurrenceOrderPlugin {}
 
 export class DedupePlugin {}
@@ -107,6 +109,7 @@ export function getWebpack(c: any) {
   const wp = stub().returns(c);
 
   wp.optimize = {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin};
+  wp.DefinePlugin = DefinePlugin;
 
   return wp;
 }

@@ -104,8 +104,10 @@ import map from 'lodash/map';
 const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
   cache = {},
   fakeFS = new MemoryFS(),
-  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = webpack.optimize,
+  {optimize, DefinePlugin} = webpack,
+  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = optimize,
   productionPlugins = [
+    new DefinePlugin({'process.env': {NODE_ENV: JSON.stringify('production')}}),
     new OccurrenceOrderPlugin(),
     new DedupePlugin(),
     new UglifyJsPlugin({compress: {warnings: false}})
