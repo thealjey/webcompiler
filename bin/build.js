@@ -10,10 +10,11 @@ const rootDir = join(__dirname, '..'),
   srcDir = join(rootDir, 'src'),
   libDir = join(rootDir, 'lib'),
   testDir = join(rootDir, 'test'),
+  interfacesDir = join(rootDir, 'interfaces'),
   js = new JS(),
   npm = new NativeProcess('npm');
 
-js.be(srcDir, libDir, [testDir, binDir], () => {
+js.be(srcDir, libDir, [testDir, binDir, interfacesDir], () => {
   npm.run(stderr => {
     if (stderr) {
       return console.error(stderr);

@@ -1,5 +1,7 @@
 /* @flow */
 
+/* eslint-disable no-unused-vars */
+
 import type {ObjectOrErrorCallback} from '../src/typedef';
 import EventEmitter from 'events';
 
