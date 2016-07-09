@@ -140,7 +140,7 @@ describe('DevServer', () => {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Development server - Webcompiler</title>
+    <title>Development server - WebCompiler</title>
     <link href="/style.css" rel="stylesheet">
   </head>
   <body>
@@ -259,7 +259,7 @@ describe('DevServer', () => {
       });
 
       it('prints the successful message', () => {
-        expect(console.log).calledWith('Started the development server at localhost:3000');
+        expect(console.log).calledWith('\x1b[32mStarted the development server at localhost:%d\x1b[0m', cmp.port);
       });
 
     });

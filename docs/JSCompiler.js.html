@@ -105,7 +105,11 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
   cache = {},
   fakeFS = new MemoryFS(),
   {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = webpack.optimize,
-  productionPlugins = [new OccurrenceOrderPlugin(), new DedupePlugin(), new UglifyJsPlugin()];
+  productionPlugins = [
+    new OccurrenceOrderPlugin(),
+    new DedupePlugin(),
+    new UglifyJsPlugin({compress: {warnings: false}})
+  ];
 
 /**
  * A JavaScript compiler

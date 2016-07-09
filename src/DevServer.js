@@ -87,7 +87,8 @@ export class DevServer {
   /* eslint-disable require-jsdoc */
   constructor(script: string, style: string, devDir: string, port: number = WEB_PORT, react: boolean = true) {
     /* eslint-enable require-jsdoc */
-    const sass = new SASSCompiler(), loaders = [];
+    const sass = new SASSCompiler(),
+      loaders = [];
 
     if (react) {
       loaders.push('react-hot');
@@ -141,7 +142,7 @@ export class DevServer {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Development server - Webcompiler</title>
+    <title>Development server - WebCompiler</title>
     <link href="/style.css" rel="stylesheet">
   </head>
   <body>
@@ -183,7 +184,7 @@ export class DevServer {
       if (error) {
         return console.error(error);
       }
-      console.log(`Started the development server at localhost:${port}`);
+      console.log('\x1b[32mStarted the development server at localhost:%d\x1b[0m', port);
     });
   }
 
