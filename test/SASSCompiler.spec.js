@@ -130,12 +130,12 @@ describe('SASSCompiler', () => {
 
       beforeEach(() => {
         stub(SASSCompiler, 'autoprefix').callsArgWith(2, 'autoprefixed data');
-        stub(cmp, 'optimize');
+        stub(cmp, 'save');
       });
 
       afterEach(() => {
         SASSCompiler.autoprefix.restore();
-        cmp.optimize.restore();
+        cmp.save.restore();
       });
 
       describe('render error', () => {
@@ -208,9 +208,9 @@ describe('SASSCompiler', () => {
                                                      {code: 'css rules', map: 'source map'}, match.func);
         });
 
-        it('calls optimize', () => {
-          expect(cmp.optimize).calledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
-                                          'autoprefixed data', callback);
+        it('calls save', () => {
+          expect(cmp.save).calledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
+                                      'autoprefixed data', callback);
         });
 
       });

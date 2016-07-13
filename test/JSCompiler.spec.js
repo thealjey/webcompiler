@@ -61,11 +61,11 @@ describe('JSCompiler', () => {
 
       beforeEach(() => {
         cmp.options = {presets: ['es2015', 'es2015-loose', 'something'], some: 'options'};
-        stub(cmp, 'optimize');
+        stub(cmp, 'save');
       });
 
       afterEach(() => {
-        cmp.optimize.restore();
+        cmp.save.restore();
       });
 
       describe('development', () => {
@@ -119,8 +119,8 @@ describe('JSCompiler', () => {
           expect(console.error).calledWith('failed to compile');
         });
 
-        it('does not call cmp.optimize', () => {
-          expect(cmp.optimize).not.called;
+        it('does not call cmp.save', () => {
+          expect(cmp.save).not.called;
         });
 
       });
@@ -184,7 +184,7 @@ describe('JSCompiler', () => {
       webpack = getWebpack(compiler);
       JSCompiler = req({webpack});
       cmp = new JSCompiler();
-      stub(cmp, 'optimize');
+      stub(cmp, 'save');
       cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
     });
 
@@ -201,8 +201,8 @@ describe('JSCompiler', () => {
       expect(console.error).calledWith('happened');
     });
 
-    it('does not call cmp.optimize', () => {
-      expect(cmp.optimize).not.called;
+    it('does not call cmp.save', () => {
+      expect(cmp.save).not.called;
     });
 
   });
@@ -217,7 +217,7 @@ describe('JSCompiler', () => {
       stub(JSCompiler.prototype, 'configure');
       cmp = new JSCompiler(false, {some: 'options'});
       cmp.options = {some: 'options'};
-      stub(cmp, 'optimize');
+      stub(cmp, 'save');
       stub(MemoryFS.prototype, 'readFileSync').returnsArg(0);
     });
 
@@ -235,8 +235,8 @@ describe('JSCompiler', () => {
         cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
       });
 
-      it('calls optimize', () => {
-        expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+      it('calls save', () => {
+        expect(cmp.save).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
           {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, match.func);
       });
 
@@ -248,8 +248,8 @@ describe('JSCompiler', () => {
         cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', callback);
       });
 
-      it('calls optimize', () => {
-        expect(cmp.optimize).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
+      it('calls save', () => {
+        expect(cmp.save).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
           {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, callback);
       });
 

@@ -18,7 +18,7 @@ const precision = 8,
  *
  * @class SASSCompiler
  * @extends Compiler
- * @param {boolean}       [compress=true]        - if true `Compiler#optimize` will gzip compress the data
+ * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
  *                                                 configuration
@@ -124,7 +124,7 @@ export class SASSCompiler extends Compiler {
           error.message, error.file, error.line, error.column);
       }
       SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
-        this.optimize(inPath, outPath, data, callback);
+        this.save(inPath, outPath, data, callback);
       });
     });
   }

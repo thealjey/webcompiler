@@ -10,7 +10,7 @@ import noop from 'lodash/noop';
  * JavaScript compilation tools
  *
  * @class JS
- * @param {boolean} [compress=true]   - if true `Compiler#optimize` will gzip compress the data
+ * @param {boolean} [compress=true]   - if true `Compiler#save` will gzip compress the data
  * @param {Object}  [babelOptions={}] - allows to override the default Babel options
  * @param {Object}  [lintRules={}]    - allows to override the default linting rules
  * @example

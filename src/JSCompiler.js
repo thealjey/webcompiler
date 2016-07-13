@@ -34,7 +34,7 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
  *
  * @class JSCompiler
  * @extends Compiler
- * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data
+ * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
  * @param {Object}  [options={}]    - allows to override the default Babel options
  * @example
  * import {JSCompiler} from 'webcompiler';
@@ -290,7 +290,7 @@ export class JSCompiler extends Compiler {
           console.error(error);
         });
       }
-      this.optimize(inPath, outPath, {
+      this.save(inPath, outPath, {
         code: fakeFS.readFileSync(outPath, 'utf8'),
         map: fakeFS.readFileSync(`${outPath}.map`, 'utf8')
       }, callback);

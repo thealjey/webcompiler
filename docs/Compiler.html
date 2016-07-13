@@ -176,7 +176,7 @@
                 </td>
             
 
-            <td class="description last"><p>if true <code>Compiler#optimize</code> will gzip compress the data in production mode</p></td>
+            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in production mode</p></td>
         </tr>
 
     
@@ -679,7 +679,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-86">line 86</a>
+				 <a href="Compiler.js.html#sunlight-1-line-90">line 90</a>
 			</li>
 		</ul>
 	</dd>
@@ -847,7 +847,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-137">line 137</a>
+				 <a href="Compiler.js.html#sunlight-1-line-141">line 141</a>
 			</li>
 		</ul>
 	</dd>
@@ -872,6 +872,26 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
@@ -1015,7 +1035,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-117">line 117</a>
+				 <a href="Compiler.js.html#sunlight-1-line-121">line 121</a>
 			</li>
 		</ul>
 	</dd>
@@ -1054,7 +1074,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="optimize"><span class="type-signature">&lt;protected> </span>optimize(inPath, outPath, data, callback)</h4>
+    <h4 class="name" id="save"><span class="type-signature">&lt;protected> </span>save(inPath, outPath, data, callback)</h4>
     
     
 </dt>
@@ -1063,6 +1083,10 @@
     
     <div class="description">
         <p>G-zips the program if necessary and writes the results to disk.</p>
+<p>Skips the final write if the contents of the file have not changed since the previous write.
+Which adds a little overhead at compile time, but at the same time does not alter the last modified timestamp of
+the file unnecessarily.</p>
+<p>Good news for someone who is using that timestamp for public cache invalidation.</p>
     </div>
     
 
@@ -1231,7 +1255,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Compiler.js.html">Compiler.js</a>,
-				 <a href="Compiler.js.html#sunlight-1-line-158">line 158</a>
+				 <a href="Compiler.js.html#sunlight-1-line-198">line 198</a>
 			</li>
 		</ul>
 	</dd>
@@ -1260,7 +1284,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">compiler.optimize(&#x27;/path/to/an/input/file&#x27;, &#x27;/path/to/the/output/file&#x27;, data, callback);</pre>
+    <pre class="sunlight-highlight-javascript">compiler.save(&#x27;/path/to/an/input/file&#x27;, &#x27;/path/to/the/output/file&#x27;, data, callback);</pre>
 
 
     

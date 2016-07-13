@@ -8,7 +8,7 @@ import noop from 'lodash/noop';
  * SASS compilation tools
  *
  * @class SASS
- * @param {boolean}       [compress=true]        - if true `Compiler#optimize` will gzip compress the data
+ * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
  * @param {Array<string>} [excludeLinter=[]]     - names of linters to exclude
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver

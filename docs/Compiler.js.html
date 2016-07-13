@@ -87,8 +87,8 @@
 import type {ProgramData, ProgramDataCallback} from './typedef';
 import mkdirp from 'mkdirp';
 import {dirname} from 'path';
-import {writeFile} from 'fs';
-import {gzip} from 'zlib';
+import {writeFile, readFile} from 'fs';
+import {gzip, gunzip} from 'zlib';
 
 /* eslint-disable no-process-env */
 
@@ -99,7 +99,7 @@ let i = 0;
  *
  * @class Compiler
  * @abstract
- * @param {boolean} [compress=true] - if true `Compiler#optimize` will gzip compress the data in production mode
+ * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
  */
 export class Compiler {
   /**
@@ -115,7 +115,7 @@ export class Compiler {
   isProduction: boolean;
 
   /**
-   * if true `Compiler#optimize` will gzip compress the data
+   * if true `Compiler#save` will gzip compress the data
    *
    * @member {boolean} compress
    * @memberof Compiler
@@ -158,10 +158,14 @@ export class Compiler {
    * @param {string}      outPath  - the output path
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
+   * @return {void}
    * @example
    * Compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
   static writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
+    if (!data.code) {
+      return Compiler.done(inPath, callback);
+    }
     Compiler.fsWrite(outPath, data, () => {
       Compiler.done(inPath, callback);
     });
@@ -226,10 +230,15 @@ export class Compiler {
    * @method gzip
    * @param {ProgramData}         data     - the actual program data to auto-prefix
    * @param {ProgramDataCallback} callback - a callback function
+   * @return {void}
    * @example
    * Compiler.gzip(data, callback);
    */
   static gzip(data: ProgramData, callback: ProgramDataCallback) {
+    if (!data.code) {
+      return callback(data);
+    }
+
     /* @flowignore */
     gzip(data.code, (err, code) => {
       if (err) {
@@ -240,27 +249,71 @@ export class Compiler {
   }
 
   /**
+   * Reads the data from disk
+   *
+   * @memberOf Compiler
+   * @private
+   * @method fsRead
+   * @param {string}              path     - the input path
+   * @param {ProgramDataCallback} callback - a callback function
+   * @example
+   * Compiler.fsRead('/path/to/an/output/file', callback);
+   */
+  fsRead(path: string, callback: ProgramDataCallback) {
+    readFile(path, (scriptErr, scriptData) => {
+      readFile(`${path}.map`, 'utf8', (mapErr, mapData) => {
+        const map = mapErr ? '' : mapData;
+
+        if (scriptErr) {
+          return callback({code: '', map});
+        }
+        if (!this.compress) {
+          return callback({code: scriptData.toString('utf8'), map});
+        }
+
+        /* @flowignore */
+        gunzip(scriptData, (zipErr, zipData) => {
+          callback({code: zipErr ? '' : zipData.toString('utf8'), map});
+        });
+      });
+    });
+  }
+
+  /**
    * G-zips the program if necessary and writes the results to disk.
+   *
+   * Skips the final write if the contents of the file have not changed since the previous write.
+   * Which adds a little overhead at compile time, but at the same time does not alter the last modified timestamp of
+   * the file unnecessarily.
+   *
+   * Good news for someone who is using that timestamp for public cache invalidation.
    *
    * @memberOf Compiler
    * @instance
    * @protected
-   * @method optimize
+   * @method save
    * @param {string}      inPath   - the input path
    * @param {string}      outPath  - the output path
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
    * @example
-   * compiler.optimize('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
+   * compiler.save('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
-  optimize(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
-    if (!this.compress) {
-      Compiler.writeAndCallDone(inPath, outPath, data, callback);
+  save(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
+    this.fsRead(outPath, oldData => {
+      const newData = {
+        code: oldData.code === data.code ? '' : data.code,
+        map: oldData.map === data.map ? '' : data.map
+      };
 
-      return;
-    }
-    Compiler.gzip(data, result => {
-      Compiler.writeAndCallDone(inPath, outPath, result, callback);
+      if (!this.compress) {
+        Compiler.writeAndCallDone(inPath, outPath, newData, callback);
+
+        return;
+      }
+      Compiler.gzip(newData, result => {
+        Compiler.writeAndCallDone(inPath, outPath, result, callback);
+      });
     });
   }
 
