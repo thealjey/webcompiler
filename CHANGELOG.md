@@ -1,3 +1,11 @@
+v5.0.0 - Wed, 13 Jul 2016 20:35:51 GMT
+--------------------------------------
+
+- [c84575a](../../commit/c84575a) [fixed] `Compiler#save` now skips the final write if the contents of the file have not changed since the previous write, which means that the last modified timestamp of the file is not altered unnecessarily
+- [1b9ea9f](../../commit/1b9ea9f) [changed] `DevServer` api to better reflect the api of the underlying `WebpackDevServer`; sass compilation is now optional
+
+
+
 v4.1.1 - Sat, 09 Jul 2016 08:26:11 GMT
 --------------------------------------
 
