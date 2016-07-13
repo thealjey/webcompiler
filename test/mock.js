@@ -74,6 +74,7 @@ export class WebpackDevServer {
   webpackInstance: any;
   config: Object;
   app: Object;
+  listen: () => void;
   constructor(webpackInstance: any, config: Object) {
     this.webpackInstance = webpackInstance;
     this.config = config;
@@ -81,10 +82,11 @@ export class WebpackDevServer {
 }
 
 WebpackDevServer.prototype.app = {
-  get(route: string, handler: () => void) {
+  use(handler: () => void) {
     this.handler = handler;
   }
 };
+WebpackDevServer.prototype.listen = noop;
 
 export class Server {
   changed: () => void;

@@ -31,6 +31,22 @@ export type JSLintError = {
 };
 
 /**
+ * DevServer configuration object
+ *
+ * @typedef {Object} DevServerConfig
+ * @property {string}  [style]           - a full system path to a SASS file
+ * @property {number}  [port=3000]       - a port at which to start the dev server
+ * @property {boolean} [react=true]      - false to disable the react hot loader plugin
+ * @property {string}  [contentBase=CWD] - a full system path to the server web root
+ */
+export type DevServerConfig = {
+  style?: string;
+  port?: number;
+  react?: boolean;
+  contentBase?: string;
+};
+
+/**
  * Documentation generator configuration object
  *
  * @typedef {Object} DocumentationConfig

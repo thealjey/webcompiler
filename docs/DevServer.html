@@ -96,7 +96,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="DevServer"><span class="type-signature"></span>new DevServer(script, style, devDir [, port] [, react])</h4>
+    <h4 class="name" id="DevServer"><span class="type-signature"></span>new DevServer(script [, options])</h4>
     
     
 </dt>
@@ -183,85 +183,13 @@ updates the page.</p>
 
         <tr>
             
-                <td class="name"><code>style</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>a full system path to a SASS file</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>devDir</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>a full system path to a directory in which to put any compiled development resources</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>port</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
+<span class="param-type"><a href="global.html#DevServerConfig">DevServerConfig</a></span>
 
 
 
@@ -283,52 +211,12 @@ updates the page.</p>
             
                 <td class="default">
                 
-                    3000
+                    {}
                 
                 </td>
             
 
-            <td class="description last"><p>a port at which to start the dev server</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>react</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last"><p>false to disable the react hot loader plugin</p></td>
+            <td class="description last"><p>optional configuration</p></td>
         </tr>
 
     
@@ -373,7 +261,7 @@ updates the page.</p>
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-14">line 14</a>
+				 <a href="DevServer.js.html#sunlight-1-line-21">line 21</a>
 			</li>
 		</ul>
 	</dd>
@@ -417,11 +305,11 @@ updates the page.</p>
 // or - var DevServer = require(&#x27;webcompiler/lib/DevServer&#x27;).DevServer;
 import {join} from &#x27;path&#x27;;
 
-const rootDir = join(__dirname, &#x27;..&#x27;),
-    devDir = join(rootDir, &#x27;development&#x27;),
-    server = new DevServer(join(devDir, &#x27;script.js&#x27;), join(devDir, &#x27;app.scss&#x27;), devDir);
+const devDir = join(__dirname, &#x27;..&#x27;, &#x27;development&#x27;),
+  script = join(devDir, &#x27;script.js&#x27;),
+  style = join(devDir, &#x27;app.scss&#x27;);
 
-server.run(rootDir);
+new DevServer(script, {style}).run();
 // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )</pre>
 
 
@@ -505,7 +393,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-191">line 191</a>
+				 <a href="DevServer.js.html#sunlight-1-line-211">line 211</a>
 			</li>
 		</ul>
 	</dd>
@@ -599,7 +487,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-171">line 171</a>
+				 <a href="DevServer.js.html#sunlight-1-line-155">line 155</a>
 			</li>
 		</ul>
 	</dd>
@@ -693,7 +581,7 @@ server.run(rootDir);
 		<ul class="dummy">
 			<li>
 				<a href="DevServer.js.html">DevServer.js</a>,
-				 <a href="DevServer.js.html#sunlight-1-line-156">line 156</a>
+				 <a href="DevServer.js.html#sunlight-1-line-128">line 128</a>
 			</li>
 		</ul>
 	</dd>

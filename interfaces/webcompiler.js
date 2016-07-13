@@ -1,7 +1,7 @@
 /* @flow */
 
 import type {ProgramData, ProgramDataCallback, JSLintCallback, NativeProcessCallback,
-  ObjectOrErrorCallback} from '../src/typedef';
+  ObjectOrErrorCallback, DevServerConfig} from '../src/typedef';
 
 declare module 'webcompiler' {
 
@@ -70,7 +70,7 @@ declare module 'webcompiler' {
   }
 
   declare class DevServer {
-    constructor(script: string, style: string, devDir: string, port: ?number, react: ?boolean): void;
+    constructor(script: string, options: ?DevServerConfig): void;
     watchSASS(): void;
     watchJS(): void;
     run(): void;

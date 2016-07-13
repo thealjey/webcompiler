@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {DevServerConfig} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
 import {watch} from './watch';
 import tinylr from 'tiny-lr';
@@ -9,7 +10,13 @@ import {join} from 'path';
 
 const LIVERELOAD_PORT = 35729,
   WEB_PORT = 3000,
-  cwd = process.cwd();
+  cwd = process.cwd(),
+  {HotModuleReplacementPlugin, NoErrorsPlugin} = webpack,
+  defaultOptions = {
+    port: WEB_PORT,
+    react: true,
+    contentBase: cwd
+  };
 
 /**
  * A lightweight development server that rapidly recompiles the JavaScript and SASS files when they are edited and
@@ -22,11 +29,8 @@ const LIVERELOAD_PORT = 35729,
  * Please install and enable the LiveReload browser extension for the CSS reloading to work.
  *
  * @class DevServer
- * @param {string}  script       - a full system path to a JavaScript file
- * @param {string}  style        - a full system path to a SASS file
- * @param {string}  devDir       - a full system path to a directory in which to put any compiled development resources
- * @param {number}  [port=3000]  - a port at which to start the dev server
- * @param {boolean} [react=true] - false to disable the react hot loader plugin
+ * @param {string}  script               - a full system path to a JavaScript file
+ * @param {DevServerConfig} [options={}] - optional configuration
  * @see {@link http://webpack.github.io/docs/webpack-dev-server.html webpack-dev-server}
  * @see {@link http://gaearon.github.io/react-hot-loader/ React Hot Loader}
  * @example
@@ -36,121 +40,89 @@ const LIVERELOAD_PORT = 35729,
  * // or - var DevServer = require('webcompiler/lib/DevServer').DevServer;
  * import {join} from 'path';
  *
- * const rootDir = join(__dirname, '..'),
- *     devDir = join(rootDir, 'development'),
- *     server = new DevServer(join(devDir, 'script.js'), join(devDir, 'app.scss'), devDir);
+ * const devDir = join(__dirname, '..', 'development'),
+ *   script = join(devDir, 'script.js'),
+ *   style = join(devDir, 'app.scss');
  *
- * server.run(rootDir);
+ * new DevServer(script, {style}).run();
  * // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )
  */
 export class DevServer {
   /**
-   * a port at which to start the dev server
+   * a full system path to a JavaScript file
    *
-   * @member {number} port
+   * @member {string} script
    * @memberof DevServer
    * @private
    * @instance
    */
-  port: number;
+  script: string;
 
   /**
-   * a LiveReload server
+   * optional configuration
    *
-   * @member {tinylr.Server} lr
+   * @member {Object} options
    * @memberof DevServer
    * @private
    * @instance
    */
-  lr: tinylr.Server;
-
-  /**
-   * recompiles SASS and notifies LiveReload
-   *
-   * @method compileSASS
-   * @memberof DevServer
-   * @private
-   * @instance
-   */
-  compileSASS: () => void;
-
-  /**
-   * the Webpack development server
-   *
-   * @member {WebpackDevServer} server
-   * @memberof DevServer
-   * @private
-   * @instance
-   */
-  server: WebpackDevServer;
+  options: Object;
 
   /* eslint-disable require-jsdoc */
-  constructor(script: string, style: string, devDir: string, port: number = WEB_PORT, react: boolean = true) {
+  constructor(script: string, options: DevServerConfig = {}) {
     /* eslint-enable require-jsdoc */
-    const sass = new SASSCompiler(),
-      loaders = [];
+    this.script = script;
+    this.options = {...defaultOptions, ...options};
+  }
 
-    if (react) {
-      loaders.push('react-hot');
-    }
-    loaders.push('babel');
-
-    this.port = port;
-    this.lr = tinylr();
-    this.compileSASS = sass.fe.bind(sass, style, join(devDir, 'style.css'), () => {
-      this.lr.changed({body: {files: ['style.css']}});
-    });
-    this.server = new WebpackDevServer(webpack({
-      cache: {},
-      debug: true,
-      devtool: 'eval-source-map',
-      entry: [
-        `webpack-dev-server/client?http://localhost:${this.port}`,
-        'webpack/hot/only-dev-server',
-        script
-      ],
-      output: {
-        path: devDir,
-        filename: 'script.js',
-        publicPath: '/'
-      },
-      plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-      ],
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loaders
-        }, {
-          test: /\.json$/,
-          loader: 'json'
-        }]
-      }
-    }), {
-      contentBase: devDir,
-      publicPath: '/',
-      hot: true,
-      historyApiFallback: true
-    });
-
-    this.server.app.get('*', (req, res) => {
-      res.send(`<!DOCTYPE html>
+  /**
+   * Returns the HTML page layout
+   *
+   * @memberof DevServer
+   * @private
+   * @instance
+   * @method layout
+   * @return {string} HTML layout
+   */
+  layout(): string {
+    return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Development server - WebCompiler</title>
-    <link href="/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico">${
+      this.options.style
+        ? '\n    <link rel="stylesheet" href="/style.css">'
+        : ''
+    }
   </head>
   <body>
     <div id="app"></div>
     <script src="/script.js" async defer></script>
   </body>
-</html>`);
-    });
+</html>`;
+  }
+
+  /**
+   * Returns the JavaScript module loaders array necessary to run the server
+   *
+   * @memberof DevServer
+   * @private
+   * @instance
+   * @method loaders
+   * @return {Array<string>} JavaScript module loaders
+   */
+  loaders(): Array<string> {
+    const loaders = [];
+
+    if (this.options.react) {
+      loaders.push('react-hot');
+    }
+    loaders.push('babel');
+
+    return loaders;
   }
 
   /**
@@ -163,9 +135,21 @@ export class DevServer {
    * server.watchSASS();
    */
   watchSASS() {
-    this.lr.listen(LIVERELOAD_PORT);
-    this.compileSASS();
-    watch(cwd, 'scss', this.compileSASS);
+    const {style, contentBase} = this.options;
+
+    if (!style) {
+      return;
+    }
+
+    const sass = new SASSCompiler(false),
+      lr = tinylr(),
+      compileSASS = sass.fe.bind(sass, style, join(contentBase, 'style.css'), () => {
+        lr.changed({body: {files: ['style.css']}});
+      });
+
+    lr.listen(LIVERELOAD_PORT);
+    compileSASS();
+    watch(cwd, 'scss', compileSASS);
   }
 
   /**
@@ -178,9 +162,45 @@ export class DevServer {
    * server.watchJS();
    */
   watchJS() {
-    const port = this.port;
+    const {port, contentBase} = this.options;
 
-    this.server.listen(port, '0.0.0.0', error => {
+    const server = new WebpackDevServer(webpack({
+      cache: {},
+      debug: true,
+      devtool: 'eval-source-map',
+      entry: [
+        `webpack-dev-server/client?http://localhost:${port}`,
+        'webpack/hot/only-dev-server',
+        this.script
+      ],
+      output: {
+        path: contentBase,
+        filename: 'script.js',
+        publicPath: '/'
+      },
+      plugins: [new HotModuleReplacementPlugin(), new NoErrorsPlugin()],
+      module: {
+        loaders: [{
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loaders: this.loaders()
+        }, {
+          test: /\.json$/,
+          loader: 'json'
+        }]
+      }
+    }), {
+      contentBase,
+      publicPath: '/',
+      hot: true,
+      historyApiFallback: true
+    });
+
+    server.app.use((req, res) => {
+      res.send(this.layout());
+    });
+
+    server.listen(port, '0.0.0.0', error => {
       if (error) {
         return console.error(error);
       }
