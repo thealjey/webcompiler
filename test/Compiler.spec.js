@@ -126,6 +126,8 @@ describe('Compiler', () => {
       beforeEach(() => {
         stub(Compiler, 'fsWrite').callsArg(2);
         stub(Compiler, 'done');
+        Compiler.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
+                                  {code: 'some code', map: 'source map'}, callback);
       });
 
       afterEach(() => {
@@ -133,39 +135,13 @@ describe('Compiler', () => {
         Compiler.done.restore();
       });
 
-      describe('no code', () => {
-
-        beforeEach(() => {
-          Compiler.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
-                                    {code: '', map: 'source map'}, callback);
-        });
-
-        it('calls done', () => {
-          expect(Compiler.done).calledWith('/path/to/the/input/file', callback);
-        });
-
-        it('does not call fsWrite', () => {
-          expect(Compiler.fsWrite).not.called;
-        });
-
+      it('calls fsWrite', () => {
+        expect(Compiler.fsWrite).calledWith('/path/to/the/output/file', {code: 'some code', map: 'source map'},
+                                            match.func);
       });
 
-      describe('code', () => {
-
-        beforeEach(() => {
-          Compiler.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
-                                    {code: 'some code', map: 'source map'}, callback);
-        });
-
-        it('calls fsWrite', () => {
-          expect(Compiler.fsWrite).calledWith('/path/to/the/output/file', {code: 'some code', map: 'source map'},
-                                              match.func);
-        });
-
-        it('calls done', () => {
-          expect(Compiler.done).calledWith('/path/to/the/input/file', callback);
-        });
-
+      it('calls done', () => {
+        expect(Compiler.done).calledWith('/path/to/the/input/file', callback);
       });
 
     });
@@ -173,35 +149,114 @@ describe('Compiler', () => {
     describe('fsRead readFile error', () => {
 
       beforeEach(() => {
-        stub(fs, 'readFile', (path, options, callback) => {
-          if (!callback) {
-            callback = options;
-          }
-          callback(/\.map$/.test(path) ? 'failed to read the map file' : 'failed to read the script file');
+        stub(fs, 'readFile', (path, callback) => {
+          callback('failed to read the script file');
         });
-        stub(zlib, 'gunzip');
         cmp.fsRead('/path/to/the/output/file', callback);
       });
 
       afterEach(() => {
         fs.readFile.restore();
-        zlib.gunzip.restore();
       });
 
       it('attempt to read script', () => {
+        expect(fs.readFile).calledOnce;
         expect(fs.readFile).calledWith('/path/to/the/output/file', match.func);
-      });
-
-      it('attempt to read map', () => {
-        expect(fs.readFile).calledWith('/path/to/the/output/file.map', 'utf8', match.func);
       });
 
       it('calls the callback', () => {
         expect(callback).calledWith({code: '', map: ''});
       });
 
-      it('does not call gunzip', () => {
-        expect(zlib.gunzip).not.called;
+    });
+
+    describe('fsRead readFile map error', () => {
+
+      beforeEach(() => {
+        stub(fs, 'readFile', (path, options, callback) => {
+          if (/\.map$/.test(path)) {
+            callback('failed to read the map file');
+          } else {
+            options(null, 'some code');
+          }
+        });
+      });
+
+      afterEach(() => {
+        fs.readFile.restore();
+      });
+
+      describe('not compress', () => {
+
+        beforeEach(() => {
+          stub(zlib, 'gunzip');
+          cmp.compress = false;
+          cmp.fsRead('/path/to/the/output/file', callback);
+        });
+
+        afterEach(() => {
+          zlib.gunzip.restore();
+        });
+
+        it('attempt to read map', () => {
+          expect(fs.readFile).calledTwice;
+          expect(fs.readFile).calledWith('/path/to/the/output/file.map', 'utf8', match.func);
+        });
+
+        it('calls the callback', () => {
+          expect(callback).calledWith({code: 'some code', map: ''});
+        });
+
+        it('does not call gunzip', () => {
+          expect(zlib.gunzip).not.called;
+        });
+
+      });
+
+      describe('compress', () => {
+
+        beforeEach(() => {
+          cmp.compress = true;
+        });
+
+        describe('gunzip error', () => {
+
+          beforeEach(() => {
+            stub(zlib, 'gunzip').callsArgWith(1, 'failed to uncompress');
+            cmp.fsRead('/path/to/the/output/file', callback);
+          });
+
+          afterEach(() => {
+            zlib.gunzip.restore();
+          });
+
+          it('calls gunzip', () => {
+            expect(zlib.gunzip).calledWith('some code', match.func);
+          });
+
+          it('calls the callback', () => {
+            expect(callback).calledWith({code: '', map: ''});
+          });
+
+        });
+
+        describe('gunzip success', () => {
+
+          beforeEach(() => {
+            stub(zlib, 'gunzip').callsArgWith(1, null, 'uncompressed code');
+            cmp.fsRead('/path/to/the/output/file', callback);
+          });
+
+          afterEach(() => {
+            zlib.gunzip.restore();
+          });
+
+          it('calls the callback', () => {
+            expect(callback).calledWith({code: 'uncompressed code', map: ''});
+          });
+
+        });
+
       });
 
     });
@@ -315,6 +370,22 @@ describe('Compiler', () => {
 
       afterEach(() => {
         Compiler.mkdir.restore();
+      });
+
+      describe('no code', () => {
+
+        beforeEach(() => {
+          Compiler.fsWrite('/path/to/the/output/file', {code: ''}, callback);
+        });
+
+        it('calls the callback', () => {
+          expect(callback).called;
+        });
+
+        it('does not call mkdir', () => {
+          expect(Compiler.mkdir).not.called;
+        });
+
       });
 
       describe('script write error', () => {

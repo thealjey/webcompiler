@@ -74,14 +74,10 @@ export class Compiler {
    * @param {string}      outPath  - the output path
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
-   * @return {void}
    * @example
    * Compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
   static writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
-    if (!data.code) {
-      return Compiler.done(inPath, callback);
-    }
     Compiler.fsWrite(outPath, data, () => {
       Compiler.done(inPath, callback);
     });
@@ -96,10 +92,14 @@ export class Compiler {
    * @param {string}      path     - the output path
    * @param {ProgramData} data     - the data to write
    * @param {Function}    callback - a callback function
+   * @return {void}
    * @example
    * Compiler.fsWrite('/path/to/an/output/file', data, callback);
    */
   static fsWrite(path: string, data: ProgramData, callback: () => void) {
+    if (!data.code) {
+      return callback();
+    }
     Compiler.mkdir(path, () => {
       writeFile(path, data.code, scriptErr => {
         if (scriptErr) {
@@ -177,12 +177,12 @@ export class Compiler {
    */
   fsRead(path: string, callback: ProgramDataCallback) {
     readFile(path, (scriptErr, scriptData) => {
+      if (scriptErr) {
+        return callback({code: '', map: ''});
+      }
       readFile(`${path}.map`, 'utf8', (mapErr, mapData) => {
         const map = mapErr ? '' : mapData;
 
-        if (scriptErr) {
-          return callback({code: '', map});
-        }
         if (!this.compress) {
           return callback({code: scriptData.toString('utf8'), map});
         }
