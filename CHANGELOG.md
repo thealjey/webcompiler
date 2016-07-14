@@ -1,3 +1,10 @@
+v5.0.1 - Thu, 14 Jul 2016 07:45:03 GMT
+--------------------------------------
+
+- [730b979](../../commit/730b979) [fixed] `Compiler#fsRead` - do not proceed to reading the ".map" file after failing to read the main file
+
+
+
 v5.0.0 - Wed, 13 Jul 2016 20:35:51 GMT
 --------------------------------------
 
