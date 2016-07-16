@@ -1,3 +1,10 @@
+v5.1.0 - Sat, 16 Jul 2016 10:18:28 GMT
+--------------------------------------
+
+- [28318ef](../../commit/28318ef) [added] the `configureApplication` option to `DevServer`
+
+
+
 v5.0.1 - Thu, 14 Jul 2016 07:45:03 GMT
 --------------------------------------
 
