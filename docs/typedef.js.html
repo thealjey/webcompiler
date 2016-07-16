@@ -51,6 +51,13 @@
 				</ul>
 			</li>
 			
+			<li class="dropdown">
+				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
+				</ul>
+			</li>
+			
 		</ul>
 		<div class="col-sm-3 col-md-3">
             <form class="navbar-form" role="search">
@@ -115,19 +122,37 @@ export type JSLintError = {
 };
 
 /**
+ * Express application
+ *
+ * @external ExpressApplication
+ * @see {@link http://expressjs.com/en/4x/api.html#app Application}
+ */
+
+/**
+ * @callback ExpressApplicationCallback
+ * @param {external:ExpressApplication} app - Express application
+ */
+export type ExpressApplicationCallback = (app: ExpressApplication) => void;
+
+/**
  * DevServer configuration object
  *
  * @typedef {Object} DevServerConfig
- * @property {string}  [style]           - a full system path to a SASS file
- * @property {number}  [port=3000]       - a port at which to start the dev server
- * @property {boolean} [react=true]      - false to disable the react hot loader plugin
- * @property {string}  [contentBase=CWD] - a full system path to the server web root
+ * @property {string}                     [style]                - a full system path to a SASS file
+ * @property {number}                     [port=3000]            - a port at which to start the dev server
+ * @property {boolean}                    [react=true]           - false to disable the react hot loader plugin
+ * @property {string}                     [contentBase=CWD]      - a full system path to the server web root
+ * @property {ExpressApplicationCallback} [configureApplication] - gives you a chance to configure the underlying
+ *                                                                 Express application after the static root has been
+ *                                                                 configured, but before the "catch all" route (sends
+ *                                                                 the HTML layout) is defined
  */
 export type DevServerConfig = {
   style?: string;
   port?: number;
   react?: boolean;
   contentBase?: string;
+  configureApplication?: ExpressApplicationCallback;
 };
 
 /**

@@ -5,7 +5,8 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
-import {WebpackDevServer, Server, HotModuleReplacementPlugin, NoErrorsPlugin} from './mock';
+import {WebpackDevServer, Server, HotModuleReplacementPlugin, NoErrorsPlugin, webpackApp} from './mock';
+import noop from 'lodash/noop';
 
 chai.use(sinonChai);
 
@@ -34,7 +35,7 @@ describe('DevServer', () => {
     webpack.NoErrorsPlugin = NoErrorsPlugin;
     stub(SASSCompiler.prototype, 'fe').callsArg(2);
     spy(SASSCompiler.prototype.fe, 'bind');
-    spy(WebpackDevServer.prototype.app, 'use');
+    spy(WebpackDevServer.prototype, 'use');
     DevServer = req({'./watch': {watch}, 'tiny-lr': tinylr, 'webpack-dev-server': WebpackDevServer, webpack});
     stub(console, 'log');
     stub(console, 'error');
@@ -44,7 +45,7 @@ describe('DevServer', () => {
     /* @flowignore */
     SASSCompiler.prototype.fe.bind.restore();
     SASSCompiler.prototype.fe.restore();
-    WebpackDevServer.prototype.app.use.restore();
+    WebpackDevServer.prototype.use.restore();
     console.log.restore();
     console.error.restore();
   });
@@ -63,7 +64,8 @@ describe('DevServer', () => {
       expect(cmp.options).eql({
         port: WEB_PORT,
         react: true,
-        contentBase: cwd
+        contentBase: cwd,
+        configureApplication: noop
       });
     });
 
@@ -263,7 +265,7 @@ describe('DevServer', () => {
           debug: true,
           devtool: 'eval-source-map',
           entry: [
-            'webpack-dev-server/client?http://localhost:3000',
+            'webpack-dev-server/client?http://0.0.0.0:3000',
             'webpack/hot/only-dev-server',
             '/path/to/a/script/file.js'
           ],
@@ -290,8 +292,8 @@ describe('DevServer', () => {
       });
 
       it('creates the index route', () => {
-        expect(WebpackDevServer.prototype.app.use).calledWith(match.func);
-        WebpackDevServer.prototype.app.handler(null, {send});
+        expect(WebpackDevServer.prototype.use).calledWith(match.func);
+        webpackApp.handler(null, {send});
         expect(send).calledWith('html string');
       });
 

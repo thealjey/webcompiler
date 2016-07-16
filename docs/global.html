@@ -51,6 +51,13 @@
 				</ul>
 			</li>
 			
+			<li class="dropdown">
+				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
+				</ul>
+			</li>
+			
 		</ul>
 		<div class="col-sm-3 col-md-3">
             <form class="navbar-form" role="search">
@@ -755,6 +762,45 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>configureApplication</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ExpressApplicationCallback">ExpressApplicationCallback</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>gives you a chance to configure the underlying
+                                                                Express application after the static root has been
+                                                                configured, but before the &quot;catch all&quot; route (sends
+                                                                the HTML layout) is defined</p></td>
+        </tr>
+
+    
     </tbody>
 </table>
 </dl>
@@ -793,7 +839,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-33">line 33</a>
+				 <a href="typedef.js.html#sunlight-1-line-46">line 46</a>
 			</li>
 		</ul>
 	</dd>
@@ -1099,7 +1145,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-49">line 49</a>
+				 <a href="typedef.js.html#sunlight-1-line-67">line 67</a>
 			</li>
 		</ul>
 	</dd>
@@ -1112,6 +1158,140 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 	
 </dl>
 
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="ExpressApplicationCallback"><span class="type-signature"></span>ExpressApplicationCallback(app)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="external-ExpressApplication.html">external:ExpressApplication</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Express application</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-40">line 40</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
@@ -1233,7 +1413,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-68">line 68</a>
+				 <a href="typedef.js.html#sunlight-1-line-86">line 86</a>
 			</li>
 		</ul>
 	</dd>
@@ -1675,7 +1855,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-74">line 74</a>
+				 <a href="typedef.js.html#sunlight-1-line-92">line 92</a>
 			</li>
 		</ul>
 	</dd>
@@ -1853,7 +2033,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-81">line 81</a>
+				 <a href="typedef.js.html#sunlight-1-line-99">line 99</a>
 			</li>
 		</ul>
 	</dd>
@@ -2145,7 +2325,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-62">line 62</a>
+				 <a href="typedef.js.html#sunlight-1-line-80">line 80</a>
 			</li>
 		</ul>
 	</dd>
@@ -2279,7 +2459,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-118">line 118</a>
+				 <a href="typedef.js.html#sunlight-1-line-136">line 136</a>
 			</li>
 		</ul>
 	</dd>
@@ -2497,7 +2677,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-88">line 88</a>
+				 <a href="typedef.js.html#sunlight-1-line-106">line 106</a>
 			</li>
 		</ul>
 	</dd>
@@ -2679,7 +2859,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 		<ul class="dummy">
 			<li>
 				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-104">line 104</a>
+				 <a href="typedef.js.html#sunlight-1-line-122">line 122</a>
 			</li>
 		</ul>
 	</dd>

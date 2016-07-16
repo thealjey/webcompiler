@@ -7,6 +7,8 @@ import tinylr from 'tiny-lr';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 import {join} from 'path';
+import noop from 'lodash/noop';
+import serveStatic from 'serve-static';
 
 const LIVERELOAD_PORT = 35729,
   WEB_PORT = 3000,
@@ -15,7 +17,8 @@ const LIVERELOAD_PORT = 35729,
   defaultOptions = {
     port: WEB_PORT,
     react: true,
-    contentBase: cwd
+    contentBase: cwd,
+    configureApplication: noop
   };
 
 /**
@@ -162,14 +165,14 @@ export class DevServer {
    * server.watchJS();
    */
   watchJS() {
-    const {port, contentBase} = this.options;
+    const {port, contentBase, configureApplication} = this.options;
 
     const server = new WebpackDevServer(webpack({
       cache: {},
       debug: true,
       devtool: 'eval-source-map',
       entry: [
-        `webpack-dev-server/client?http://localhost:${port}`,
+        `webpack-dev-server/client?http://0.0.0.0:${port}`,
         'webpack/hot/only-dev-server',
         this.script
       ],
@@ -190,13 +193,14 @@ export class DevServer {
         }]
       }
     }), {
-      contentBase,
+      contentBase: false,
       publicPath: '/',
-      hot: true,
-      historyApiFallback: true
+      hot: true
     });
 
-    server.app.use((req, res) => {
+    server.use(serveStatic(contentBase));
+    configureApplication(server.app);
+    server.use((req, res) => {
       res.send(this.layout());
     });
 

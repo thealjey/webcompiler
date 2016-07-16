@@ -70,6 +70,8 @@ export class Remarkable {
 
 }
 
+export const webpackApp = {};
+
 export class WebpackDevServer {
   webpackInstance: any;
   config: Object;
@@ -79,13 +81,11 @@ export class WebpackDevServer {
     this.webpackInstance = webpackInstance;
     this.config = config;
   }
+  use(handler: () => void) {
+    webpackApp.handler = handler;
+  }
 }
 
-WebpackDevServer.prototype.app = {
-  use(handler: () => void) {
-    this.handler = handler;
-  }
-};
 WebpackDevServer.prototype.listen = noop;
 
 export class Server {

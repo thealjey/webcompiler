@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Source: SASSCompiler.js</title>
+	<title>Documentation External: ExpressApplication</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,152 +79,112 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: SASSCompiler.js</h1>
-    
+	<h1 class="page-title">External: ExpressApplication</h1>
 <section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">/* @flow */
 
-import type {ProgramData, ProgramDataCallback} from './typedef';
-import {Compiler} from './Compiler';
-import {render} from 'node-sass';
-import importer from 'node-sass-import-once';
-import postcss from 'postcss';
-import autoprefixer from 'autoprefixer';
-import forEach from 'lodash/forEach';
-import noop from 'lodash/noop';
+<header>
+    
+        <h2>
+        ExpressApplication
+        </h2>
+        
+    
+</header>
 
-const precision = 8,
-  importOnceDefaults = {index: true, css: false, bower: false},
-  defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules', 'node_modules/bootswatch'];
 
-/**
- * A SASS compiler
- *
- * @class SASSCompiler
- * @extends Compiler
- * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
- * @param {Array&lt;string>} [includePaths=[]]      - an array of additional include paths
- * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
- *                                                 configuration
- * @example
- * import {SASSCompiler} from 'webcompiler';
- * // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
- * // or - var SASSCompiler = require('webcompiler').SASSCompiler;
- * // or - var SASSCompiler = require('webcompiler/lib/SASSCompiler').SASSCompiler;
- *
- * const compiler = new SASSCompiler();
- */
-export class SASSCompiler extends Compiler {
-  /**
-   * an array of paths to search for an scss file in if it's not found in cwd
-   *
-   * @member {Array&lt;string>} includePaths
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  includePaths: Array&lt;string>;
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Express application</p></div>
+        
 
-  /**
-   * importOnce resolver configuration
-   *
-   * @member {Object} importOnce
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  importOnce: Object;
+        
+<dl class="details">
+    
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array&lt;string> = [], importOnceOptions: Object = {}) {
-    /* eslint-enable require-jsdoc */
-    super(compress);
-    this.includePaths = defaultIncludePaths.concat(includePaths);
-    this.importOnce = {...importOnceDefaults, ...importOnceOptions};
-  }
+	
 
-  /**
-   * Auto-prefixes the compiled code
-   *
-   * @memberOf SASSCompiler
-   * @static
-   * @method autoprefix
-   * @param {string}             path     - a path to the file
-   * @param {ProgramData}        data     - the actual program data to auto-prefix
-   * @param {ProgramDataCallback} callback - a callback function
-   * @example
-   * SASSCompiler.autoprefix('/path/to/the/output/file.css', data, result => {
-   *   // successfully added the vendor prefixes
-   * });
-   */
-  static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback) {
-    postcss([autoprefixer]).process(data.code, {
-      from: path,
-      to: path,
-      map: {prev: data.map}
-    }).then(result => {
-      const warnings = result.warnings();
+	
 
-      if (warnings.length) {
-        forEach(warnings, warning => {
-          console.error(warning.toString());
-        });
+	
 
-        return;
-      }
-      callback({code: result.css, map: JSON.stringify(result.map)});
-    });
-  }
+    
 
-  /**
-   * Compiles, auto-prefixes and optionally minifies and g-zips in the production mode
-   *
-   * @memberof SASSCompiler
-   * @instance
-   * @method fe
-   * @param {string}   inPath                    - a full system path to the input file
-   * @param {string}   outPath                   - a full system path to the output file
-   * @param {Function} [callback=function () {}] - a callback function
-   * @example
-   * compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', () => {
-   *   // compiled successfully
-   * });
-   */
-  fe(inPath: string, outPath: string, callback: () => void = noop) {
-    render({
-      file: inPath,
-      outFile: outPath,
-      importer,
-      precision,
-      importOnce: this.importOnce,
-      includePaths: this.includePaths,
-      sourceMap: true,
-      sourceMapContents: true,
-      outputStyle: this.isProduction ? 'compressed' : 'nested'
-    }, (error, result) => {
-      if (error) {
-        return console.log(
-          '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          error.message, error.file, error.line, error.column);
-      }
-      SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
-        this.save(inPath, outPath, data, callback);
-      });
-    });
-  }
+    
 
-}
-</pre>
-    </article>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="typedef.js.html">typedef.js</a>,
+				 <a href="typedef.js.html#sunlight-1-line-33">line 33</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="http://expressjs.com/en/4x/api.html#app">Application</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
 </section>
-
 
 
 
@@ -234,6 +194,10 @@ export class SASSCompiler extends Compiler {
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
