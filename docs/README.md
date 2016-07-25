@@ -6,7 +6,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.*
 |
 [API Docs](https://thealjey.github.io/webcompiler)
 |
-[Discord](https://discord.gg/0blXIxApyTu9qXno)
+[Discord]
 
 [![Build Status](https://travis-ci.org/thealjey/webcompiler.svg?branch=master)](https://travis-ci.org/thealjey/webcompiler)
 [![Coverage Status](https://coveralls.io/repos/thealjey/webcompiler/badge.svg?branch=master&service=github)](https://coveralls.io/github/thealjey/webcompiler?branch=master)
@@ -25,6 +25,12 @@ consuming task, which is completely impractical to perform on each project separ
 APIs are sometimes changed without any change in functionality (e.g. Babel 5 vs Babel 6).
 
 This project aims to abstract all of those problems out of the development of applications.
+
+### Feedback
+
+What did you struggle with?
+
+Any feedback on [Discord] would be greatly appreciated. It does not require registration and won't take more than a few minutes of your time.
 
 ### Prerequisites
 
@@ -74,3 +80,5 @@ additional actions will be performed by the compiler:
 The resulting JavaScript and CSS files from `fe` in `production` mode are gzip compressed for performance
 (see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
 **"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
+
+[Discord]: https://discord.gg/0blXIxApyTu9qXno
