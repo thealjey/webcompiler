@@ -1,3 +1,11 @@
+v5.1.1 - Mon, 25 Jul 2016 20:01:46 GMT
+--------------------------------------
+
+- [4e9391a](../../commit/4e9391a) [added] the "Feedback" section to README
+- [99e3d0d](../../commit/99e3d0d) [fixed] updated dependencies
+
+
+
 v5.1.0 - Sat, 16 Jul 2016 10:18:28 GMT
 --------------------------------------
 
