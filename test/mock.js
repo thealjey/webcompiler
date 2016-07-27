@@ -97,8 +97,6 @@ Server.prototype.listen = noop;
 
 export class HotModuleReplacementPlugin {}
 
-export class NoErrorsPlugin {}
-
 export class DefinePlugin {}
 
 export class OccurrenceOrderPlugin {}

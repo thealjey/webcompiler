@@ -5,7 +5,7 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
-import {WebpackDevServer, Server, HotModuleReplacementPlugin, NoErrorsPlugin, webpackApp} from './mock';
+import {WebpackDevServer, Server, HotModuleReplacementPlugin, webpackApp} from './mock';
 import noop from 'lodash/noop';
 
 chai.use(sinonChai);
@@ -32,7 +32,6 @@ describe('DevServer', () => {
     send = spy();
     watch = spy();
     webpack.HotModuleReplacementPlugin = HotModuleReplacementPlugin;
-    webpack.NoErrorsPlugin = NoErrorsPlugin;
     stub(SASSCompiler.prototype, 'fe').callsArg(2);
     spy(SASSCompiler.prototype.fe, 'bind');
     spy(WebpackDevServer.prototype, 'use');
@@ -274,10 +273,7 @@ describe('DevServer', () => {
             filename: 'script.js',
             publicPath: '/'
           },
-          plugins: [
-            match.instanceOf(HotModuleReplacementPlugin),
-            match.instanceOf(NoErrorsPlugin)
-          ],
+          plugins: [match.instanceOf(HotModuleReplacementPlugin)],
           module: {
             loaders: [{
               test: /\.js$/,

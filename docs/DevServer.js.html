@@ -104,7 +104,6 @@ import serveStatic from 'serve-static';
 const LIVERELOAD_PORT = 35729,
   WEB_PORT = 3000,
   cwd = process.cwd(),
-  {HotModuleReplacementPlugin, NoErrorsPlugin} = webpack,
   defaultOptions = {
     port: WEB_PORT,
     react: true,
@@ -272,7 +271,7 @@ export class DevServer {
         filename: 'script.js',
         publicPath: '/'
       },
-      plugins: [new HotModuleReplacementPlugin(), new NoErrorsPlugin()],
+      plugins: [new webpack.HotModuleReplacementPlugin()],
       module: {
         loaders: [{
           test: /\.js$/,
