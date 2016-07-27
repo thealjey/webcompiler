@@ -11,10 +11,25 @@ import noop from 'lodash/noop';
 
 const precision = 8,
   importOnceDefaults = {index: true, css: false, bower: false},
-  defaultIncludePaths = ['node_modules/bootstrap-sass/assets/stylesheets', 'node_modules', 'node_modules/bootswatch'];
+  defaultIncludePaths = [
+    'node_modules/bootstrap-sass/assets/stylesheets',
+    'node_modules/font-awesome/scss',
+    'node_modules',
+    'node_modules/bootswatch'
+  ];
 
 /**
  * A SASS compiler
+ *
+ * Configures the default include paths for the following popular CSS modules:
+ *
+ *  1. Bootstrap (e.g. you can write `@import "bootstrap";` in your ".scss" files)
+ *  2. Font Awesome (`@import "font-awesome";`)
+ *  3. Bootswatch (`@import "cosmo/variables"; @import "bootstrap"; @import "cosmo/bootswatch";`)
+ *
+ * Additionally, if an NPM module contains an `_index.scss` (or `_index.sass`, or `index.scss`, or `index.sass`) file in
+ * its root directory, importing its stylesheets is as easy as: `@import "<module name>";` (same as you would `import`
+ * the module in JavaScript).
  *
  * @class SASSCompiler
  * @extends Compiler

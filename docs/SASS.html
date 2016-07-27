@@ -112,6 +112,15 @@
     
     <div class="description">
         <p>SASS compilation tools</p>
+<p>Configures the default include paths for the following popular CSS modules:</p>
+<ol>
+<li>Bootstrap (e.g. you can write <code>@import &quot;bootstrap&quot;;</code> in your &quot;.scss&quot; files)</li>
+<li>Font Awesome (<code>@import &quot;font-awesome&quot;;</code>)</li>
+<li>Bootswatch (<code>@import &quot;cosmo/variables&quot;; @import &quot;bootstrap&quot;; @import &quot;cosmo/bootswatch&quot;;</code>)</li>
+</ol>
+<p>Additionally, if an NPM module contains an <code>_index.scss</code> (or <code>_index.sass</code>, or <code>index.scss</code>, or <code>index.sass</code>) file in
+its root directory, importing its stylesheets is as easy as: <code>@import &quot;&lt;module name&gt;&quot;;</code> (same as you would <code>import</code>
+the module in JavaScript).</p>
     </div>
     
 
@@ -469,7 +478,7 @@ const sass = new SASS();</pre>
 		<ul class="dummy">
 			<li>
 				<a href="SASS.js.html">SASS.js</a>,
-				 <a href="SASS.js.html#sunlight-1-line-25">line 25</a>
+				 <a href="SASS.js.html#sunlight-1-line-35">line 35</a>
 			</li>
 		</ul>
 	</dd>
@@ -733,7 +742,7 @@ const sass = new SASS();</pre>
 		<ul class="dummy">
 			<li>
 				<a href="SASS.js.html">SASS.js</a>,
-				 <a href="SASS.js.html#sunlight-1-line-52">line 52</a>
+				 <a href="SASS.js.html#sunlight-1-line-62">line 62</a>
 			</li>
 		</ul>
 	</dd>
