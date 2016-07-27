@@ -1,3 +1,12 @@
+v5.2.0 - Wed, 27 Jul 2016 19:59:54 GMT
+--------------------------------------
+
+- [a33ef4d](../../commit/a33ef4d) [added] Font Awesome to the list of default import paths of `SASSCompiler`
+- [0aca3bd](../../commit/0aca3bd) [fixed] `SASSLint` to adjust to the fact that `scss-lint` no longer prints errors to stderr, which also makes `SASS#lint` obsolete
+- [70c3625](../../commit/70c3625) [removed] `webpack.NoErrorsPlugin` from DevServer, as it is no longer required by `react-hot-loader`
+
+
+
 v5.1.1 - Mon, 25 Jul 2016 20:01:46 GMT
 --------------------------------------
 
