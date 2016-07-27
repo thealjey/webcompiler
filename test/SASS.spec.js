@@ -61,58 +61,16 @@ describe('SASS', () => {
       expect(cmp.linter.excludeLinter).equal('');
     });
 
-    describe('lint error', () => {
-
-      beforeEach(() => {
-        stub(cmp.linter, 'run').callsArgWith(1, 'failed to lint');
-        cmp.lint(['/path/to/a/directory'], callback);
-      });
-
-      afterEach(() => {
-        cmp.linter.run.restore();
-      });
-
-      it('calls linter.run', () => {
-        expect(cmp.linter.run).calledWith(['/path/to/a/directory'], match.func);
-      });
-
-      it('prints an error on screen', () => {
-        expect(console.error).calledWith('failed to lint');
-      });
-
-      it('does not call callback', () => {
-        expect(callback).not.called;
-      });
-
-    });
-
-    describe('lint success', () => {
-
-      beforeEach(() => {
-        stub(cmp.linter, 'run').callsArg(1);
-        cmp.lint(['/path/to/a/directory'], callback);
-      });
-
-      afterEach(() => {
-        cmp.linter.run.restore();
-      });
-
-      it('calls callback', () => {
-        expect(callback).called;
-      });
-
-    });
-
     describe('fe', () => {
 
       beforeEach(() => {
         stub(cmp.compiler, 'fe');
-        stub(cmp, 'lint').callsArg(1);
+        stub(cmp.linter, 'run').callsArg(1);
       });
 
       afterEach(() => {
         cmp.compiler.fe.restore();
-        cmp.lint.restore();
+        cmp.linter.run.restore();
       });
 
       describe('no lint paths or callback', () => {
@@ -122,7 +80,7 @@ describe('SASS', () => {
         });
 
         it('calls lint', () => {
-          expect(cmp.lint).calledWith(['input'], match.func);
+          expect(cmp.linter.run).calledWith(['input'], match.func);
         });
 
         it('calls compiler fe', () => {
@@ -138,7 +96,7 @@ describe('SASS', () => {
         });
 
         it('calls lint', () => {
-          expect(cmp.lint).calledWith(['lint', 'this', 'input'], match.func);
+          expect(cmp.linter.run).calledWith(['lint', 'this', 'input'], match.func);
         });
 
       });

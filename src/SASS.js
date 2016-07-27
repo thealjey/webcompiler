@@ -50,28 +50,6 @@ export class SASS {
   }
 
   /**
-   * Performs linting
-   *
-   * @memberof SASS
-   * @instance
-   * @method lint
-   * @param {Array<string>} paths    - an array of paths to lint
-   * @param {Function}      callback - a callback function
-   * @example
-   * sass.lint(['/path/to/the/input/file.scss', '/lint/this/directory/too'], () => {
-   *   // successfully linted
-   * });
-   */
-  lint(paths: Array<string>, callback: () => void) {
-    this.linter.run(paths, linterErr => {
-      if (linterErr) {
-        return console.error(linterErr);
-      }
-      callback();
-    });
-  }
-
-  /**
    * Wraps {@link SASSCompiler#fe} to add linting
    *
    * @memberof SASS
@@ -88,7 +66,7 @@ export class SASS {
    * });
    */
   fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
-    this.lint(lintPaths.concat([inPath]), () => {
+    this.linter.run(lintPaths.concat([inPath]), () => {
       this.compiler.fe(inPath, outPath, callback);
     });
   }

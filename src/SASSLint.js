@@ -1,6 +1,5 @@
 /* @flow */
 
-import type {NativeProcessCallback} from './typedef';
 import {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 
@@ -54,7 +53,7 @@ export class SASSLint {
    * @instance
    * @method run
    * @param {Array<string>} paths    - an array of paths to files/directories to lint
-   * @param {Function}      callback - a callback function, accepts 1 argument: an error message or null
+   * @param {Function}      callback - a callback function, executed only on success
    * @example
    * // lint "style.scss" as well as the entire contents of the "sass" directory
    * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], error => {
@@ -64,13 +63,17 @@ export class SASSLint {
    *   // there were no linting errors
    * });
    */
-  run(paths: Array<string>, callback: NativeProcessCallback) {
+  run(paths: Array<string>, callback: () => void) {
     const args = paths.concat(['-c', config]);
 
     if (this.excludeLinter) {
       args.push('-x', this.excludeLinter);
     }
-    this.proc.run(callback, args);
+    this.proc.run(stderr => {
+      if (null === stderr) {
+        callback();
+      }
+    }, args, {stdio: 'inherit'});
   }
 
 }
