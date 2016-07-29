@@ -1,3 +1,10 @@
+v5.2.1 - Fri, 29 Jul 2016 20:44:40 GMT
+--------------------------------------
+
+- [48dd607](../../commit/48dd607) [changed] renamed: config/scsslint.yml -> .scss-lint.yml - a useful convention for when you want editor integration for . If you don't, this change is inconsequential for you. However, if you do, and since  does not have an extend directive, you will need to symlink to this file directly; run the following command from the root directory of your project - .
+
+
+
 v5.2.0 - Wed, 27 Jul 2016 19:59:54 GMT
 --------------------------------------
 
