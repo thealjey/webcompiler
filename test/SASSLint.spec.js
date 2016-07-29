@@ -11,7 +11,7 @@ chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 
-const config = join(__dirname, '..', 'config', 'scsslint.yml');
+const config = join(__dirname, '..', '.scss-lint.yml');
 
 let cmp, callback;
 

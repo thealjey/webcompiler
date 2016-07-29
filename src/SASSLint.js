@@ -3,7 +3,7 @@
 import {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 
-const config = join(__dirname, '..', 'config', 'scsslint.yml');
+const config = join(__dirname, '..', '.scss-lint.yml');
 
 /**
  * A SASS linter
