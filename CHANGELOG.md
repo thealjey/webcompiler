@@ -1,3 +1,10 @@
+v5.2.2 - Mon, 08 Aug 2016 07:53:58 GMT
+--------------------------------------
+
+- [b01a743](../../commit/b01a743) [fixed] updated dependencies; added `extends` for `plugin:react/recommended` and `plugin:lodash/recommended` to `.eslintrc.yml`; sorted configured rules alphabetically
+
+
+
 v5.2.1 - Fri, 29 Jul 2016 20:44:40 GMT
 --------------------------------------
 
