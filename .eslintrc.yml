@@ -1,5 +1,5 @@
 ---
-extends: eslint:recommended
+extends: [ eslint:recommended, plugin:react/recommended, plugin:lodash/recommended ]
 parser: babel-eslint
 plugins: [ flow-vars, react, babel, lodash ]
 parserOptions:
@@ -7,7 +7,6 @@ parserOptions:
   sourceType: module
   ecmaFeatures:
     impliedStrict: true
-    jsx: true
     experimentalObjectRestSpread: true
 env:
   browser: true
@@ -25,147 +24,56 @@ rules:
   react/jsx-boolean-value: 2
   react/jsx-curly-spacing: 2
   react/jsx-equals-spacing: 2
-  react/jsx-indent-props: [ 2, 2 ]
   react/jsx-indent: [ 2, 2 ]
+  react/jsx-indent-props: [ 2, 2 ]
   react/jsx-key: 2
   react/jsx-no-bind: 2
-  react/jsx-no-duplicate-props: 2
-  react/jsx-no-undef: 2
+  react/jsx-no-comment-textnodes: 2
+  react/jsx-no-target-blank: 2
   react/jsx-pascal-case: 2
   react/jsx-space-before-closing: 2
-  react/jsx-uses-vars: 2
-  react/jsx-uses-react: 2
-  react/jsx-no-target-blank: 2
-  react/no-is-mounted: 2
+  react/jsx-wrap-multilines: 2
   react/no-danger: 2
-  react/no-deprecated: 2
-  react/no-did-mount-set-state: [ 2, allow-in-func ]
-  react/no-did-update-set-state: [ 2, allow-in-func ]
-  react/no-direct-mutation-state: 2
+  react/no-did-mount-set-state: 2
+  react/no-did-update-set-state: 2
   react/no-multi-comp: [ 2, { ignoreStateless: true } ]
-  react/no-unknown-property: 2
+  react/no-string-refs: 2
   react/prefer-es6-class: 2
   react/prefer-stateless-function: 2
-  react/prop-types: 2
-  react/react-in-jsx-scope: 2
-  react/require-render-return: 2
-  react/self-closing-comp: 2
-  react/wrap-multilines: 2
   react/require-optimization: 2
-  react/no-render-return-value: 2
-  react/no-comment-textnodes: 2
+  react/self-closing-comp: 2
 
   # babel
-  babel/new-cap: 2
   babel/array-bracket-spacing: 2
-  babel/object-curly-spacing: 2
-  babel/object-shorthand: 2
   babel/arrow-parens: [ 2, as-needed ]
   babel/flow-object-type: 2
   babel/func-params-comma-dangle: 2
-
-  # lodash
-  lodash/callback-binding: 2
-  lodash/collection-method-value: 2
-  lodash/collection-return: 2
-  lodash/prop-shorthand: 2
-  lodash/matches-prop-shorthand: 2
-  lodash/matches-shorthand: 2
-  lodash/no-extra-args: 2
-  lodash/preferred-alias: 2
-  lodash/prefer-reject: 2
-  lodash/prefer-filter: 2
-  lodash/prefer-compact: 2
-  lodash/prefer-map: 2
-  lodash/prefer-invoke-map: 2
-  lodash/prefer-flat-map: 2
-  lodash/prefer-lodash-method: 2
-  lodash/prefer-lodash-typecheck: 2
-  lodash/prefer-get: 2
-  lodash/prefer-matches: 2
-  lodash/prefer-times: 2
-  lodash/prefer-startswith: 2
-  lodash/prefer-noop: 2
-  lodash/prefer-constant: 2
-  lodash/prefer-includes: [ 2, { includeNative: true } ]
-  lodash/prefer-is-nil: 2
-  lodash/prefer-over-quantifier: 2
-  lodash/identity-shorthand: 2
+  babel/new-cap: 2
+  babel/object-curly-spacing: 2
+  babel/object-shorthand: 2
 
   # eslint
-  no-console: 0
-  no-extra-parens: 2
-  valid-jsdoc: [ 2, { prefer: { returns: return }, requireReturn: false } ]
   accessor-pairs: 2
   array-callback-return: 2
-  complexity: 2
-  curly: 2
-  dot-location: [ 2, property ]
-  dot-notation: 2
-  eqeqeq: 2
-  guard-for-in: 2
-  max-statements-per-line: 2
-  newline-before-return: 2
-  no-alert: 2
-  no-caller: 2
-  no-div-regex: 2
-  no-duplicate-imports: [ 2, { includeExports: true } ]
-  no-else-return: 2
-  no-empty-function: 2
-  no-eval: 2
-  no-extend-native: 2
-  no-extra-bind: 2
-  no-implicit-coercion: 2
-  no-implied-eval: 2
-  no-invalid-this: 2
-  no-iterator: 2
-  no-labels: 2
-  no-lone-blocks: 2
-  no-loop-func: 2
-  no-magic-numbers: [ 2, { ignore: [ -1, 0, 1, 2 ] } ]
-  no-multi-str: 2
-  no-new-func: 2
-  no-new-wrappers: 2
-  no-new: 2
-  no-octal-escape: 2
-  no-process-env: 2
-  no-proto: 2
-  no-return-assign: 2
-  no-script-url: 2
-  no-self-compare: 2
-  no-sequences: 2
-  no-throw-literal: 2
-  no-tabs: 2
-  no-unmodified-loop-condition: 2
-  no-unused-expressions: 2
-  no-useless-call: 2
-  no-useless-concat: 2
-  no-useless-escape: 2
-  no-useless-computed-key: 2
-  no-void: 2
-  no-warning-comments: 2
-  no-with: 2
-  radix: 2
-  wrap-iife: 2
-  yoda: [ 2, always ]
-  no-shadow-restricted-names: 2
-  no-undef-init: 2
-  no-use-before-define: [ 2, { functions: false } ]
-  global-require: 2
-  handle-callback-err: [ 2, "^err(or)?$" ]
-  no-mixed-requires: [ 2, { allowCall: true } ]
-  no-new-require: 2
-  no-path-concat: 2
-  no-process-exit: 2
-  no-sync: 2
+  arrow-body-style: 2
+  arrow-spacing: 2
   block-spacing: [ 2, never ]
   brace-style: 2
   camelcase: 2
+  comma-dangle: 2
   comma-spacing: 2
   comma-style: 2
+  complexity: 2
   computed-property-spacing: 2
   consistent-this: [ 2, me ]
+  curly: 2
+  dot-location: [ 2, property ]
+  dot-notation: 2
   eol-last: 2
+  eqeqeq: 2
+  global-require: 2
+  guard-for-in: 2
+  handle-callback-err: [ 2, "^err(or)?$" ]
   indent: [ 2, 2, { SwitchCase: 1 } ]
   jsx-quotes: 2
   key-spacing: 2
@@ -184,44 +92,96 @@ rules:
   max-len: [ 2, 120, 2, { ignoreUrls: true } ]
   max-nested-callbacks: 2
   max-params: [ 2, 5 ]
+  max-statements-per-line: 2
   new-parens: 2
   newline-after-var: 2
+  newline-before-return: 2
   newline-per-chained-call: [ 2, { ignoreChainWithDepth: 5 } ]
+  no-alert: 2
   no-array-constructor: 2
   no-bitwise: [ 2, { int32Hint: true } ]
+  no-caller: 2
+  no-console: 0
+  no-div-regex: 2
+  no-duplicate-imports: [ 2, { includeExports: true } ]
+  no-else-return: 2
+  no-empty-function: 2
+  no-eval: 2
+  no-extend-native: 2
+  no-extra-bind: 2
+  no-extra-parens: 2
+  no-implicit-coercion: 2
+  no-implied-eval: 2
   no-inline-comments: 2
+  no-invalid-this: 2
+  no-iterator: 2
+  no-labels: 2
+  no-lone-blocks: 2
   no-lonely-if: 2
+  no-loop-func: 2
+  no-magic-numbers: [ 2, { ignore: [ -1, 0, 1, 2 ] } ]
+  no-mixed-requires: [ 2, { allowCall: true } ]
+  no-multi-str: 2
   no-multiple-empty-lines: [ 2, { max: 1 } ]
   no-negated-condition: 2
   no-nested-ternary: 2
+  no-new: 2
+  no-new-func: 2
   no-new-object: 2
-  no-whitespace-before-property: 2
+  no-new-require: 2
+  no-new-wrappers: 2
+  no-octal-escape: 2
+  no-path-concat: 2
+  no-process-env: 2
+  no-process-exit: 2
+  no-proto: 2
+  no-return-assign: 2
+  no-script-url: 2
+  no-self-compare: 2
+  no-sequences: 2
+  no-shadow-restricted-names: 2
   no-spaced-func: 2
+  no-sync: 2
+  no-tabs: 2
+  no-throw-literal: 2
   no-trailing-spaces: 2
+  no-undef-init: 2
+  no-unmodified-loop-condition: 2
   no-unneeded-ternary: [ 2, { defaultAssignment: false } ]
+  no-unused-expressions: 2
+  no-use-before-define: [ 2, { functions: false } ]
+  no-useless-call: 2
+  no-useless-computed-key: 2
+  no-useless-concat: 2
+  no-useless-constructor: 2
+  no-useless-escape: 2
+  no-var: 2
+  no-void: 2
+  no-warning-comments: 2
+  no-whitespace-before-property: 2
+  no-with: 2
   operator-assignment: 2
   operator-linebreak: 2
+  prefer-arrow-callback: 2
+  prefer-const: 2
+  prefer-rest-params: 2
+  prefer-spread: 2
+  prefer-template: 2
   quote-props: [ 2, as-needed ]
   quotes: [ 2, single, avoid-escape ]
+  radix: 2
   require-jsdoc: [ 2, { require: { FunctionDeclaration: true, MethodDefinition: true, ClassDeclaration: true } } ]
-  semi-spacing: 2
+  rest-spread-spacing: 2
   semi: 2
+  semi-spacing: 2
   space-before-blocks: 2
   space-before-function-paren: [ 2, { anonymous: always, named: never } ]
   space-in-parens: 2
   space-infix-ops: [ 2, { int32Hint : true } ]
   space-unary-ops: 2
   spaced-comment: 2
-  arrow-body-style: 2
-  arrow-spacing: 2
-  no-var: 2
-  no-useless-constructor: 2
-  prefer-arrow-callback: 2
-  prefer-const: 2
-  prefer-rest-params: 2
-  prefer-spread: 2
-  prefer-template: 2
   template-curly-spacing: 2
   unicode-bom: 2
-  rest-spread-spacing: 2
-  comma-dangle: 2
+  valid-jsdoc: [ 2, { prefer: { returns: return }, requireReturn: false } ]
+  wrap-iife: 2
+  yoda: [ 2, always ]
