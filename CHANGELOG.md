@@ -1,3 +1,10 @@
+v5.2.3 - Fri, 19 Aug 2016 13:36:27 GMT
+--------------------------------------
+
+- [bf56b08](../../commit/bf56b08) [fixed] updated dependencies; removed the deprecated `eslint-plugin-flow-vars` in favor of `eslint-plugin-flowtype`; removed the deprecated babel presets made unnecessary by `babel-core@6.13.0`; added interface definitions for all of the `lodash` functions (including aliases)
+
+
+
 v5.2.2 - Mon, 08 Aug 2016 07:53:58 GMT
 --------------------------------------
 
