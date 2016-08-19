@@ -116,10 +116,10 @@ export class Compiler {
    *
    * @member {boolean} isProduction
    * @memberof Compiler
-   * @readOnly
+   * @readonly
    * @instance
    */
-  isProduction: boolean;
+  isProduction: boolean = 'production' === process.env.NODE_ENV;
 
   /**
    * if true `Compiler#save` will gzip compress the data
@@ -134,7 +134,6 @@ export class Compiler {
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true) {
     /* eslint-enable require-jsdoc */
-    this.isProduction = 'production' === process.env.NODE_ENV;
     this.compress = this.isProduction &amp;&amp; compress;
   }
 

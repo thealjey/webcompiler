@@ -1,10 +1,11 @@
 /* @flow */
 
 declare module 'react' {
-  declare function createElement(type: any, props: ?Object, ...children: Array<any>): void;
+  declare function createElement(type: any, props?: Object, ...children: any[]): void;
   declare var PropTypes: {
     instanceOf(obj: any): void;
     arrayOf(obj: any): void;
+    oneOfType(types: any[]): void;
     string: {isRequired: void};
     any: {isRequired: void};
     object: {isRequired: void};
@@ -14,6 +15,7 @@ declare module 'react' {
     func: {isRequired: void};
   };
   declare class Component {}
+  declare class PureComponent {}
 }
 
 declare module 'react/lib/shallowCompare' {

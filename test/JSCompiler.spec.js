@@ -20,7 +20,7 @@ const files = 10;
 
 let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
 
-function req(options) {
+function req(options: Object) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
 }
 
@@ -60,7 +60,7 @@ describe('JSCompiler', () => {
     describe('fe', () => {
 
       beforeEach(() => {
-        cmp.options = {presets: ['es2015', 'es2015-loose', 'something'], some: 'options'};
+        cmp.options = {presets: ['es2015', ['es2015', {loose: true}], 'something'], some: 'options'};
         stub(cmp, 'save');
       });
 
@@ -96,7 +96,7 @@ describe('JSCompiler', () => {
                 loader: 'babel',
                 query: {
                   cacheDirectory: true,
-                  presets: ['es2015-native-modules', 'es2015-loose-native-modules', 'something'],
+                  presets: [['es2015', {modules: false}], ['es2015', {loose: true, modules: false}], 'something'],
                   some: 'options'
                 }
               }, {
@@ -158,7 +158,7 @@ describe('JSCompiler', () => {
                 loader: 'babel',
                 query: {
                   cacheDirectory: true,
-                  presets: ['es2015-native-modules', 'es2015-loose-native-modules', 'something'],
+                  presets: [['es2015', {modules: false}], ['es2015', {loose: true, modules: false}], 'something'],
                   some: 'options'
                 }
               }, {

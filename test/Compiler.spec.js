@@ -15,7 +15,7 @@ chai.use(sinonChai);
 
 let cmp, mkdirp, Compiler, callback;
 
-function req(options) {
+function req(options: Object) {
   return proxyquire('../src/Compiler', options).Compiler;
 }
 

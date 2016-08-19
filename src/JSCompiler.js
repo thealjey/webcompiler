@@ -63,14 +63,13 @@ export class JSCompiler extends Compiler {
    * @private
    * @instance
    */
-  processing: number;
+  processing: number = 0;
 
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, options: Object = {}) {
     /* eslint-enable require-jsdoc */
     super(compress);
     this.configure(options);
-    this.processing = 0;
   }
 
   /**
@@ -257,10 +256,10 @@ export class JSCompiler extends Compiler {
               cacheDirectory: true,
               presets: map(presets, preset => {
                 if ('es2015' === preset) {
-                  return 'es2015-native-modules';
+                  return ['es2015', {modules: false}];
                 }
-                if ('es2015-loose' === preset) {
-                  return 'es2015-loose-native-modules';
+                if (isArray(preset) && 'es2015' === preset[0]) {
+                  return ['es2015', {...preset[1], modules: false}];
                 }
 
                 return preset;

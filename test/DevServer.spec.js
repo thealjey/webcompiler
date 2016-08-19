@@ -19,7 +19,7 @@ const WEB_PORT = 3000,
 
 let DevServer, cmp, tinylr, webpack, srv, send, watch;
 
-function req(options) {
+function req(options: Object) {
   return proxyquire('../src/DevServer', options).DevServer;
 }
 

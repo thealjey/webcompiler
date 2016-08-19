@@ -39,7 +39,7 @@ export class JS {
    * @private
    * @instance
    */
-  flow: NativeProcess;
+  flow: NativeProcess = new NativeProcess('flow');
 
   /**
    * JavaScript linter
@@ -55,7 +55,6 @@ export class JS {
   constructor(compress: boolean = true, babelOptions: Object = {}, lintRules: Object = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new JSCompiler(compress, babelOptions);
-    this.flow = new NativeProcess('flow');
     this.linter = new JSLint(lintRules);
   }
 

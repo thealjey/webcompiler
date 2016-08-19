@@ -1,5 +1,9 @@
 {
-  "presets": [ "es2015-loose", "stage-2", "react" ],
+  "presets": [
+    ["es2015", {"loose": true}],
+    "stage-2",
+    "react"
+  ],
   "plugins": [
     "transform-class-properties",
     "transform-react-display-name",

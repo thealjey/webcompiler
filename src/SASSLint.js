@@ -38,12 +38,11 @@ export class SASSLint {
    * @private
    * @instance
    */
-  proc: NativeProcess;
+  proc: NativeProcess = new NativeProcess('scss-lint');
 
   /** @constructs */
   constructor(...excludeLinter: Array<string>) {
     this.excludeLinter = excludeLinter.join(',');
-    this.proc = new NativeProcess('scss-lint');
   }
 
   /**

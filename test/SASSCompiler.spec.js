@@ -18,7 +18,7 @@ const precision = 8;
 
 let SASSCompiler, postcss, process, then, cmp, callback;
 
-function req(options) {
+function req(options: Object) {
   return proxyquire('../src/SASSCompiler', options).SASSCompiler;
 }
 
