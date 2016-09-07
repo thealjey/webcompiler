@@ -1,3 +1,10 @@
+v5.2.4 - Wed, 07 Sep 2016 11:44:30 GMT
+--------------------------------------
+
+- [502fcdb](../../commit/502fcdb) [fixed] updated dependencies; enabled the following `ESLint` rules - `flowtype/boolean-style`, `flowtype/generic-spacing`, `flowtype/semi`, `flowtype/space-before-generic-bracket`, `flowtype/union-intersection-spacing`, `react/no-unused-prop-types`, `react/style-prop-object` and `class-methods-use-this`
+
+
+
 v5.2.3 - Fri, 19 Aug 2016 13:36:27 GMT
 --------------------------------------
 
