@@ -8,7 +8,7 @@ type Assert = {
   equal(obj: any): void;
   eql(obj: any): void;
   instanceof(obj: any): void;
-  contain(obj: Object|string|number): void;
+  contain(obj: Object | string | number): void;
   returned(obj: any): void;
   calledOnce: void;
   calledTwice: void;

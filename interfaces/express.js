@@ -14,7 +14,7 @@ declare class Request {
   ip: string;
   ips: Array<string>;
   method: string;
-  params: Object|Array<any>;
+  params: Object | any[];
   path: string;
   protocol: string;
   query: Object;
@@ -24,13 +24,13 @@ declare class Request {
   stale: boolean;
   subdomains: Array<string>;
   xhr: boolean;
-  accepts(types: string|Array<string>): ?string;
+  accepts(types: string | string[]): ?string;
   acceptsCharsets(...charset: Array<string>): ?string;
   acceptsEncodings(...encoding: Array<string>): ?string;
   acceptsLanguages(...lang: Array<string>): ?string;
   get(field: string): ?string;
   is(type: string): boolean;
-  range(size: number, options?: {combine: boolean}): number|Array<{start: number; end: number}>;
+  range(size: number, options?: {combine: boolean}): number | Array<{start: number; end: number}>;
 }
 
 type CookieOptions = {
@@ -47,7 +47,7 @@ type CookieOptions = {
 type RenderCallback = (err: Error, html: string) => void;
 
 type SendFileOptions = {
-  maxAge?: number|string;
+  maxAge?: number | string;
   root?: string;
   lastModified?: boolean;
   headers?: Object;
@@ -60,9 +60,9 @@ declare class Response {
   app: ExpressApplication;
   headersSent: boolean;
   locals: Object;
-  append(field: string, value?: string|Array<string>): Response;
+  append(field: string, value?: string | string[]): Response;
   attachment(filename?: string): Response;
-  cookie(name: string, value: string|Object, options?: CookieOptions): Response;
+  cookie(name: string, value: string | Object, options?: CookieOptions): Response;
   clearCookie(name: string, options?: CookieOptions): Response;
   download(path: string): void;
   download(path: string, filename: string): void;
@@ -98,7 +98,7 @@ type ExpressMiddleware = (req: Request, res: Response, next?: Function) => void;
 
 declare class ExpressApplication extends EventEmitter {
   locals: Object;
-  mountpath: string|Array<string>;
+  mountpath: string | string[];
   all(path: string, ...callback: Array<ExpressMiddleware>): ExpressApplication;
   delete(path: string, ...callback: Array<ExpressMiddleware>): ExpressApplication;
   disable(name: string): ExpressApplication;

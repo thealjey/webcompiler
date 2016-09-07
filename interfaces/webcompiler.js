@@ -17,14 +17,14 @@ declare module 'webcompiler' {
   }
 
   declare function flatten(...args: Array<any>): Array<any>;
-  declare function arrayToJSX(arr: ?Array<string|Object>): Array<any>;
-  declare function htmlToArray(html: ?string): Array<string|Object>;
+  declare function arrayToJSX(arr: ?Array<string | Object>): Array<any>;
+  declare function htmlToArray(html: ?string): Array<string | Object>;
   declare function htmlToJSX(html: ?string): Array<any>;
-  declare function markdownToArray(markdown: ?string): Array<string|Object>;
+  declare function markdownToArray(markdown: ?string): Array<string | Object>;
   declare function markdownToJSX(markdown: ?string): Array<any>;
   declare function markdownToHTML(markdown: ?string): string;
   declare function highlightHTML(code: ?string): string;
-  declare function highlightArray(code: ?string): Array<string|Object>;
+  declare function highlightArray(code: ?string): Array<string | Object>;
   declare function highlightJSX(code: ?string): string;
 
   declare function watch(dir: string, type: string, callback: () => void): void;

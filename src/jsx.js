@@ -123,7 +123,7 @@ export function transformElement(element: Object): Object {
  * @param {Array<Object>} [elements=[]] - Cheerio Elements
  * @return {Array<string|Object>} an array of plain objects describing React Elements
  */
-export function transformElements(elements: Array<Object> = []): Array<string|Object> {
+export function transformElements(elements: Array<Object> = []): Array<string | Object> {
   return map(reject(elements, ['type', 'comment']), el => 'text' === el.type ? el.data : transformElement(el));
 }
 
@@ -175,7 +175,7 @@ export function flatten(...args: Array<any>): Array<any> {
  *
  * <div>{arrayToJSX([{type: 'h1', children: ['Hello world!']}])}</div>
  */
-export function arrayToJSX(arr: Array<string|Object> = []): Array<any> {
+export function arrayToJSX(arr: Array<string | Object> = []): Array<any> {
   return map(arr, (el, key: number) => {
     if (isString(el)) {
       return el;
@@ -202,7 +202,7 @@ export function arrayToJSX(arr: Array<string|Object> = []): Array<any> {
  *
  * htmlToArray('<h1>Hello world!</h1>'); // [{type: 'h1', children: ['Hello world!']}]
  */
-export function htmlToArray(html: string = ''): Array<string|Object> {
+export function htmlToArray(html: string = ''): Array<string | Object> {
   html = trim(html);
 
   return html ? transformElements(parseHTML(html).children) : [];

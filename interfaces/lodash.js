@@ -1,13 +1,13 @@
 /* @flow */
 
-type Comparator = (arrVal: any, othVal: any) => bool;
-type IsEqualCustomizer = (objValue: any, othValue: any, key?: number|string, object?: any, other?: any,
+type Comparator = (arrVal: any, othVal: any) => boolean;
+type IsEqualCustomizer = (objValue: any, othValue: any, key?: number | string, object?: any, other?: any,
                           stack?: any[]) => boolean;
-type TransformCallback = (accumulator: any, value: any, key: number|string, collection: any[]|Object) => any;
-type Callback = (value: any, key: number|string, collection: any[]|Object) => any;
-type Iteratee = Callback|Object|any[]|string;
-type Iterable = any[]|Object|string;
-type Path = string|string[];
+type TransformCallback = (accumulator: any, value: any, key: number | string, collection: any[] | Object) => any;
+type Callback = (value: any, key: number | string, collection: any[] | Object) => any;
+type Iteratee = Callback | Object | any[] | string;
+type Iterable = any[] | Object | string;
+type Path = string | string[];
 type DebounceOptions = {
   leading?: boolean;
   maxWait?: number;
@@ -24,7 +24,7 @@ type TemplateOptions = {
 type TruncateOptions = {
   length?: number;
   omission?: string;
-  separator?: string|RegExp;
+  separator?: string | RegExp;
 };
 
 // Array
@@ -158,7 +158,7 @@ declare module 'lodash/pullAllWith' {
 }
 
 declare module 'lodash/pullAt' {
-  declare function exports(collection: any[], ...indexes: Array<number|number[]>): any[];
+  declare function exports(collection: any[], ...indexes: Array<number | number[]>): any[];
 }
 
 declare module 'lodash/remove' {
@@ -348,7 +348,7 @@ declare module 'lodash/includes' {
 }
 
 declare module 'lodash/invokeMap' {
-  declare function exports(collection: Iterable, path: Path|Function, ...args: any[]): any[];
+  declare function exports(collection: Iterable, path: Path | Function, ...args: any[]): any[];
 }
 
 declare module 'lodash/keyBy' {
@@ -468,7 +468,7 @@ declare module 'lodash/once' {
 }
 
 declare module 'lodash/overArgs' {
-  declare function exports(func: Function, ...transforms: Array<Function|Function[]>): Function;
+  declare function exports(func: Function, ...transforms: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/partial' {
@@ -480,7 +480,7 @@ declare module 'lodash/partialRight' {
 }
 
 declare module 'lodash/rearg' {
-  declare function exports(func: Function, ...indexes: Array<number|number[]>): Function;
+  declare function exports(func: Function, ...indexes: Array<number | number[]>): Function;
 }
 
 declare module 'lodash/rest' {
@@ -912,11 +912,11 @@ declare module 'lodash/invoke' {
 }
 
 declare module 'lodash/keys' {
-  declare function exports(collection: Iterable): Array<number|string>;
+  declare function exports(collection: Iterable): Array<number | string>;
 }
 
 declare module 'lodash/keysIn' {
-  declare function exports(collection: Iterable): Array<number|string>;
+  declare function exports(collection: Iterable): Array<number | string>;
 }
 
 declare module 'lodash/mapKeys' {
@@ -936,7 +936,7 @@ declare module 'lodash/mergeWith' {
 }
 
 declare module 'lodash/omit' {
-  declare function exports(object: Object, ...props: Array<string|string[]>): Object;
+  declare function exports(object: Object, ...props: Array<string | string[]>): Object;
 }
 
 declare module 'lodash/omitBy' {
@@ -944,7 +944,7 @@ declare module 'lodash/omitBy' {
 }
 
 declare module 'lodash/pick' {
-  declare function exports(object: Object, ...props: Array<string|string[]>): Object;
+  declare function exports(object: Object, ...props: Array<string | string[]>): Object;
 }
 
 declare module 'lodash/pickBy' {
@@ -1054,7 +1054,7 @@ declare module 'lodash/repeat' {
 }
 
 declare module 'lodash/replace' {
-  declare function exports(value: string, pattern: string|RegExp, replacement: string|Function): string;
+  declare function exports(value: string, pattern: string | RegExp, replacement: string | Function): string;
 }
 
 declare module 'lodash/snakeCase' {
@@ -1062,7 +1062,7 @@ declare module 'lodash/snakeCase' {
 }
 
 declare module 'lodash/split' {
-  declare function exports(value: string, separator: string|RegExp, limit?: number): string[];
+  declare function exports(value: string, separator: string | RegExp, limit?: number): string[];
 }
 
 declare module 'lodash/startCase' {
@@ -1114,7 +1114,7 @@ declare module 'lodash/upperFirst' {
 }
 
 declare module 'lodash/words' {
-  declare function exports(value: string, pattern: string|RegExp): string[];
+  declare function exports(value: string, pattern: string | RegExp): string[];
 }
 
 // Util
@@ -1124,7 +1124,7 @@ declare module 'lodash/attempt' {
 }
 
 declare module 'lodash/bindAll' {
-  declare function exports(object: Object, ...methodNames: Array<string|string[]>): Object;
+  declare function exports(object: Object, ...methodNames: Array<string | string[]>): Object;
 }
 
 declare module 'lodash/cond' {
@@ -1144,11 +1144,11 @@ declare module 'lodash/defaultTo' {
 }
 
 declare module 'lodash/flow' {
-  declare function exports(...funcs: Array<Function|Function[]>): Function;
+  declare function exports(...funcs: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/flowRight' {
-  declare function exports(...funcs: Array<Function|Function[]>): Function;
+  declare function exports(...funcs: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/identity' {
@@ -1176,7 +1176,7 @@ declare module 'lodash/methodOf' {
 }
 
 declare module 'lodash/mixin' {
-  declare function exports(object: Object|Function, source: Object, options?: {chain?: boolean}): Object|Function;
+  declare function exports(object: Object | Function, source: Object, options?: {chain?: boolean}): Object | Function;
 }
 
 declare module 'lodash/noop' {
@@ -1188,15 +1188,15 @@ declare module 'lodash/nthArg' {
 }
 
 declare module 'lodash/over' {
-  declare function exports(...iteratees: Array<Function|Function[]>): Function;
+  declare function exports(...iteratees: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/overEvery' {
-  declare function exports(...predicates: Array<Function|Function[]>): Function;
+  declare function exports(...predicates: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/overSome' {
-  declare function exports(...predicates: Array<Function|Function[]>): Function;
+  declare function exports(...predicates: Array<Function | Function[]>): Function;
 }
 
 declare module 'lodash/property' {

@@ -54,7 +54,7 @@ export function markdownToUnwrappedHTML(markdown: string): string {
  *
  * markdownToArray('# Hello world!'); // [{type: 'h1', children: ['Hello world!']}]
  */
-export function markdownToArray(markdown: string = ''): Array<string|Object> {
+export function markdownToArray(markdown: string = ''): Array<string | Object> {
   markdown = trim(markdown);
 
   return markdown ? htmlToArray(markdownToUnwrappedHTML(markdown)) : [];

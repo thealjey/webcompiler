@@ -6,6 +6,7 @@ import constant from 'lodash/constant';
 import {htmlToArray, parseHTML, transformElements} from '../src/jsx';
 
 /* eslint-disable require-jsdoc */
+/* eslint-disable class-methods-use-this */
 
 export const domElement = {type: 'tag', name: 'input', attribs: {}, children: [
   {name: 'textarea', attribs: {}, children: [

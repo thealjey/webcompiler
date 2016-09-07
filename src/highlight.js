@@ -93,7 +93,7 @@ export function highlightHTML(code: string = ''): string {
  * highlightArray('function myScript(){return 100;}');
  * // [{type: 'pre', props: {className: 'CodeMirror-line'}, children: [...]}]
  */
-export function highlightArray(code: string = ''): Array<string|Object> {
+export function highlightArray(code: string = ''): Array<string | Object> {
   if (!code) {
     return [];
   }

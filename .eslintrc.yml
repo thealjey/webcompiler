@@ -17,12 +17,17 @@ env:
   mocha: true
 rules:
   # flow
+  flowtype/boolean-style: 2
   flowtype/define-flow-type: 2
+  flowtype/generic-spacing: 2
   flowtype/require-parameter-type: [ 2, { excludeArrowFunctions: true } ]
   flowtype/require-return-type: [ 2, { excludeArrowFunctions: true } ]
   flowtype/require-valid-file-annotation: 2
+  flowtype/semi: 2
   flowtype/space-after-type-colon: 2
+  flowtype/space-before-generic-bracket: 2
   flowtype/space-before-type-colon: 2
+  flowtype/union-intersection-spacing: 2
   flowtype/use-flow-type: 2
   flowtype/valid-syntax: 2
 
@@ -45,10 +50,12 @@ rules:
   react/no-did-update-set-state: 2
   react/no-multi-comp: [ 2, { ignoreStateless: true } ]
   react/no-string-refs: 2
+  react/no-unused-prop-types: 2
   react/prefer-es6-class: 2
   react/prefer-stateless-function: 2
   react/require-optimization: 2
   react/self-closing-comp: 2
+  react/style-prop-object: 2
 
   # babel
   babel/array-bracket-spacing: 2
@@ -67,6 +74,7 @@ rules:
   block-spacing: [ 2, never ]
   brace-style: 2
   camelcase: 2
+  class-methods-use-this: 2
   comma-dangle: 2
   comma-spacing: 2
   comma-style: 2
