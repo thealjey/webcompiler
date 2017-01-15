@@ -11,7 +11,7 @@ const npm = new NativeProcess('npm'),
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
     readMe: join(cwd, 'README.md'),
-    template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+    template: join(cwd, 'node_modules', 'docdash'),
     jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
   };
 

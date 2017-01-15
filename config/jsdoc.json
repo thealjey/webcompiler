@@ -1,11 +1,8 @@
 {
   "plugins": ["jsdocPlugin", "plugins/markdown"],
   "templates": {
-    "includeDate": false,
-    "linenums": true,
-    "outputSourceFiles": true,
-    "theme": "sandstone",
-    "inverseNav": true,
-    "syntaxTheme": "dark"
+    "default": {
+      "includeDate": false
+    }
   }
 }
