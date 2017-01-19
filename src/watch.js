@@ -1,10 +1,12 @@
 /* @flow */
 
 import type {WatchCallback} from './typedef';
+import {logError, log, consoleStyles} from './logger';
 import {Client} from 'fb-watchman';
 
 const client = new Client(),
-  ALPHANUMERIC_BASE = 36;
+  ALPHANUMERIC_BASE = 36,
+  {yellow} = consoleStyles;
 
 /**
  * Using the Facebook Watchman, watches the directory `dir` for changes of files with extension `type` and runs
@@ -31,29 +33,23 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
 
   client.capabilityCheck({}, capabilityErr => {
     if (capabilityErr) {
-      console.error(capabilityErr);
-
-      return;
+      return logError(capabilityErr);
     }
 
     client.command(['watch-project', dir], (watchErr, watchResp) => {
-      const watcher = watchResp.watch;
+      const {watch: watcher} = watchResp;
 
       if (watchErr) {
-        console.error('Error initiating watch:', watchErr);
-
-        return;
+        return logError(watchErr);
       }
 
       if (watchResp.warning) {
-        console.log('Warning:', watchResp.warning);
+        log(yellow('Warning: ', watchResp.warning));
       }
 
       client.command(['clock', watcher], (clockErr, clockResp) => {
         if (clockErr) {
-          console.error('Failed to query clock:', clockErr);
-
-          return;
+          return logError(clockErr);
         }
 
         client.command(['subscribe', watcher, subscription, {
@@ -61,7 +57,7 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
           since: clockResp.clock
         }], subscribeErr => {
           if (subscribeErr) {
-            console.error('Failed to subscribe:', subscribeErr);
+            logError(subscribeErr);
           }
         });
 

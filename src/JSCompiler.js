@@ -13,6 +13,7 @@ import get from 'lodash/get';
 import isArray from 'lodash/isArray';
 import uniq from 'lodash/uniq';
 import map from 'lodash/map';
+import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-sync */
 /* eslint-disable no-process-env */
@@ -28,6 +29,7 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
     new DedupePlugin(),
     new UglifyJsPlugin({compress: {warnings: false}})
   ];
+const {yellow, red} = consoleStyles;
 
 /**
  * A JavaScript compiler
@@ -114,7 +116,7 @@ export class JSCompiler extends Compiler {
   beDir(inPath: string, outPath: string, callback: () => void) {
     readdir(inPath, (readdirErr, files) => {
       if (readdirErr) {
-        return console.error(readdirErr);
+        return logError(readdirErr);
       }
       forEach(files, file => {
         this.beTraverse(join(inPath, file), join(outPath, file), callback);
@@ -139,7 +141,7 @@ export class JSCompiler extends Compiler {
     ++this.processing;
     transformFile(inPath, this.options, (transformFileErr, result) => {
       if (transformFileErr) {
-        return console.error(transformFileErr);
+        return logError(transformFileErr);
       }
       Compiler.fsWrite(outPath, result, callback);
     });
@@ -183,7 +185,7 @@ export class JSCompiler extends Compiler {
   beTraverse(inPath: string, outPath: string, callback: () => void) {
     stat(inPath, (statErr, stats) => {
       if (statErr) {
-        return console.error(statErr);
+        return logError(statErr);
       }
       if (stats.isDirectory()) {
         this.beDir(inPath, outPath, callback);
@@ -210,7 +212,7 @@ export class JSCompiler extends Compiler {
    */
   be(inPath: string, outPath: string, callback: () => void = noop) {
     if (this.processing) {
-      return console.error('Still working...');
+      return logError(new Error('Still working'));
     }
     this.beTraverse(inPath, outPath, () => {
       --this.processing;
@@ -277,17 +279,19 @@ export class JSCompiler extends Compiler {
 
     compiler.run((err, stats) => {
       if (err) {
-        return console.error(err);
+        return logError(err);
       }
       const {warnings, errors} = stats.toJson();
 
       forEach(warnings, warning => {
-        console.log('\x1b[33m%s\x1b[0m', warning);
+        log(yellow(warning));
       });
       if (errors.length) {
-        return forEach(errors, error => {
-          console.error(error);
+        forEach(errors, error => {
+          log(red(error));
         });
+
+        return;
       }
       this.save(inPath, outPath, {
         code: fakeFS.readFileSync(outPath, 'utf8'),

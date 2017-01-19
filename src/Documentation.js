@@ -4,6 +4,7 @@ import {NativeProcess} from './NativeProcess';
 import {stat} from 'fs';
 import {join} from 'path';
 import noop from 'lodash/noop';
+import {logError} from './logger';
 
 const npm = new NativeProcess('npm'),
   cwd = process.cwd(),
@@ -172,7 +173,7 @@ export class Documentation {
 
     jsdoc.run(stderr => {
       if (stderr) {
-        return console.error(stderr);
+        return logError(stderr);
       }
       callback();
     }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);

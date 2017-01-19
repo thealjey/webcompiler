@@ -13,21 +13,73 @@ export type ProgramData = {
 };
 
 /**
- * The JavaScript linting error object
+ * A generic linting error object
  *
- * @typedef {Object} JSLintError
- * @property {string} message  - the error message
- * @property {string} [ruleId] - the relative linting rule
- * @property {string} filePath - the path to a file
- * @property {number} line     - the offending line number
- * @property {number} column   - the offending column number
+ * @typedef {Object} LintError
+ * @property {string} file    - the path to a file
+ * @property {number} line    - the offending line number
+ * @property {number} column  - the offending column number
+ * @property {string} message - the error message
+ * @property {string} [rule]  - the name of the rule that triggered the error
  */
-export type JSLintError = {
-  message: string;
-  ruleId?: string;
-  filePath: string;
+export type LintError = {
+  file: string;
   line: number;
   column: number;
+  message: string;
+  rule?: string;
+};
+
+/**
+ * A PostCSS warning object.
+ *
+ * @typedef {Object} PostCSSWarning
+ * @property {number} column - the offending column number
+ * @property {number} line   - the offending line number
+ * @property {string} plugin - the name of the plugin that triggered the warning
+ * @property {string} text   - the warning message
+ * @property {Object} node   - the offending node description
+ */
+export type PostCSSWarning = {
+  column: number;
+  line: number;
+  plugin: string;
+  text: string;
+  node: {
+    source: {
+      input: {
+        file: string;
+      };
+    };
+  };
+};
+
+/**
+ * A Node SASS error object.
+ *
+ * @typedef {Object} NodeSassError
+ * @property {string} file    - the path to a file
+ * @property {number} line    - the offending line number
+ * @property {number} column  - the offending column number
+ * @property {string} message - the error message
+ */
+export type NodeSassError = {
+  message: string;
+  file: string;
+  line: number;
+  column: number;
+};
+
+/**
+ * A configuration object that describes a console output style.
+ *
+ * @typedef {Object} ConsoleStyleConfig
+ * @property {Array<string>} ansi - ansi start and end codes
+ * @property {string}        css  - css styles
+ */
+export type ConsoleStyleConfig = {
+  ansi: [string, string];
+  css: string;
 };
 
 /**
@@ -84,24 +136,24 @@ export type DevServerConfig = {
 export type ProgramDataCallback = (data: ProgramData) => void;
 
 /**
- * @callback JSLintCallback
- * @param {Array<JSLintError>} [errors] - a collection of error objects
+ * @callback LintCallback
+ * @param {Array<LintError>} [errors] - a collection of error objects
  */
-export type JSLintCallback = (errors: ?Array<JSLintError>) => void;
+export type LintCallback = (errors: ?LintError[]) => void;
 
 /**
  * @callback NativeProcessCallback
- * @param {string} [stderr] - an error message
- * @param {string} stdout   - the process output
+ * @param {Error} [stderr] - an error message
+ * @param {string} stdout  - the process output
  */
-export type NativeProcessCallback = (stderr: ?string, stdout: string) => void;
+export type NativeProcessCallback = (stderr: ?Error, stdout: string) => void;
 
 /**
  * @callback ObjectOrErrorCallback
- * @param {string} [error] - an error message
+ * @param {Error} [error] - an error message
  * @param {Object} result  - the resulting object
  */
-export type ObjectOrErrorCallback = (error: ?string, result: Object) => void;
+export type ObjectOrErrorCallback = (error: ?Error, result: Object) => void;
 
 /**
  * Describes a file a change in which was caught.

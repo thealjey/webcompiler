@@ -16,10 +16,11 @@ import {readFileSync} from 'fs';
  * // or - var yaml = require('webcompiler').yaml;
  * // or - var yaml = require('webcompiler/lib/yaml').yaml;
  * import {join} from 'path';
+ * import {logError} from 'webcompiler';
  *
- * yaml(join(__dirname, 'config', 'config.yml'), (error, data) => {
+ * yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
  *   if (error) {
- *     return console.error(error);
+ *     return logError(error);
  *   }
  *   // the parsed config object
  * });
@@ -30,6 +31,6 @@ export function yaml(filename: string, callback: ObjectOrErrorCallback) {
 
     callback(null, safeLoad(yamlString, {filename}));
   } catch (e) {
-    callback(e.toString(), {});
+    callback(e, {});
   }
 }

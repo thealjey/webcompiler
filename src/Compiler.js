@@ -5,8 +5,11 @@ import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 import {writeFile, readFile} from 'fs';
 import {gzip, gunzip} from 'zlib';
+import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-process-env */
+
+const {green} = consoleStyles;
 
 let i = 0;
 
@@ -58,7 +61,7 @@ export class Compiler {
    * Compiler.done('/path/to/an/input/file', callback);
    */
   static done(inPath: string, callback: () => void) {
-    console.log('\x1b[32m%s. Compiled %s\x1b[0m', ++i, inPath);
+    log(green(++i, '. Compiled ', inPath));
     callback();
   }
 
@@ -102,14 +105,14 @@ export class Compiler {
     Compiler.mkdir(path, () => {
       writeFile(path, data.code, scriptErr => {
         if (scriptErr) {
-          return console.error(scriptErr);
+          return logError(scriptErr);
         }
         if (!data.map) {
           return callback();
         }
         writeFile(`${path}.map`, data.map, mapErr => {
           if (mapErr) {
-            return console.error(mapErr);
+            return logError(mapErr);
           }
           callback();
         });
@@ -131,7 +134,7 @@ export class Compiler {
   static mkdir(path: string, callback: () => void) {
     mkdirp(dirname(path), mkdirpErr => {
       if (mkdirpErr) {
-        return console.error(mkdirpErr);
+        return logError(mkdirpErr);
       }
       callback();
     });
@@ -154,10 +157,9 @@ export class Compiler {
       return callback(data);
     }
 
-    /* @flowignore */
     gzip(data.code, (err, code) => {
       if (err) {
-        return console.error(err);
+        return logError(err);
       }
       callback({code, map: data.map});
     });
@@ -186,7 +188,6 @@ export class Compiler {
           return callback({code: scriptData.toString('utf8'), map});
         }
 
-        /* @flowignore */
         gunzip(scriptData, (zipErr, zipData) => {
           callback({code: zipErr ? '' : zipData.toString('utf8'), map});
         });

@@ -6,8 +6,8 @@ import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
-import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import {logError, logPostCSSWarnings, logSASSError} from './logger';
 
 const precision = 8,
   importOnceDefaults = {index: true, css: false, bower: false},
@@ -97,14 +97,10 @@ export class SASSCompiler extends Compiler {
       const warnings = result.warnings();
 
       if (warnings.length) {
-        forEach(warnings, warning => {
-          console.error(warning.toString());
-        });
-
-        return;
+        return logPostCSSWarnings(warnings);
       }
       callback({code: result.css, map: JSON.stringify(result.map)});
-    });
+    }, logError);
   }
 
   /**
@@ -134,9 +130,7 @@ export class SASSCompiler extends Compiler {
       outputStyle: this.isProduction ? 'compressed' : 'nested'
     }, (error, result) => {
       if (error) {
-        return console.log(
-          '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          error.message, error.file, error.line, error.column);
+        return logSASSError(error);
       }
       SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
         this.save(inPath, outPath, data, callback);

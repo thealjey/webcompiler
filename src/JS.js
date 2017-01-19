@@ -3,8 +3,8 @@
 import {JSCompiler} from './JSCompiler';
 import {NativeProcess} from './NativeProcess';
 import {JSLint} from './JSLint';
-import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import {logError, logLintingErrors} from './logger';
 
 /**
  * JavaScript compilation tools
@@ -22,6 +22,7 @@ import noop from 'lodash/noop';
  * const js = new JS();
  */
 export class JS {
+
   /**
    * JavaScript compiler
    *
@@ -73,7 +74,7 @@ export class JS {
   typecheck(callback: () => void) {
     this.flow.run((flowErr, stdout) => {
       if (flowErr) {
-        return console.error(flowErr);
+        return logError(flowErr);
       }
       if (!JSON.parse(stdout).passed) {
         return this.flow.run(noop, [], {stdio: 'inherit'});
@@ -97,15 +98,10 @@ export class JS {
    */
   lint(paths: Array<string>, callback: () => void) {
     this.linter.run(paths, linterErr => {
-      if (!linterErr) {
-        return callback();
+      if (linterErr) {
+        return logLintingErrors(linterErr, 'JavaScript');
       }
-      forEach(linterErr, e => {
-        console.log(
-          '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          e.message, e.ruleId ? ` (${e.ruleId})` : '', e.filePath, e.line, e.column);
-      });
-      console.log('JavaScript linting errors: %s', linterErr.length);
+      callback();
     });
   }
 
@@ -142,7 +138,7 @@ export class JS {
    * @param {Function}      [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
+   * compiler.be('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
@@ -164,7 +160,7 @@ export class JS {
    * @param {Function}      [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
+   * compiler.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */

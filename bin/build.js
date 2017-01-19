@@ -3,6 +3,7 @@
 import {join} from 'path';
 import {JS} from '../src/JS';
 import {NativeProcess} from '../src/NativeProcess';
+import {logError} from '../src/logger';
 import noop from 'lodash/noop';
 
 const rootDir = join(__dirname, '..'),
@@ -17,7 +18,7 @@ const rootDir = join(__dirname, '..'),
 js.be(srcDir, libDir, [testDir, binDir, interfacesDir], () => {
   npm.run(stderr => {
     if (stderr) {
-      return console.error(stderr);
+      return logError(stderr);
     }
     npm.run(noop, ['test'], {stdio: 'inherit'});
   }, ['run', 'docs-build'], {stdio: 'inherit'});

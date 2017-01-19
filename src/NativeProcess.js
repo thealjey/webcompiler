@@ -19,6 +19,7 @@ import noop from 'lodash/noop';
  * const mkdir = new NativeProcess('mkdir');
  */
 export class NativeProcess {
+
   /**
    * a process name
    *
@@ -56,16 +57,18 @@ export class NativeProcess {
    * @param  {Object}                [opts={}]                 - a configuration object for the process
    * @return {void}
    * @example
+   * import {logError} from 'webcompiler';
+   *
    * mkdir.run(error => {
    *   if (error) {
-   *     return console.error(error);
+   *     return logError(error);
    *   }
    *   // created a directory named "example" in cwd
    * }, ['example']);
    */
   run(callback: NativeProcessCallback = noop, args: Array<string> = [], opts: Object = {}) {
     if (this.proc) {
-      return callback('Still working...', '');
+      return callback(new Error('Still working'), '');
     }
     this.proc = spawn(this.task, args, opts);
 
@@ -86,7 +89,7 @@ export class NativeProcess {
     });
     this.proc.on('close', code => {
       this.proc = null;
-      callback(code ? stderr : null, stdout);
+      callback(code ? new Error(stderr) : null, stdout);
     });
   }
 

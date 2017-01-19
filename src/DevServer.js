@@ -2,6 +2,7 @@
 
 import type {DevServerConfig} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
+import {logError, log, consoleStyles} from './logger';
 import {watch} from './watch';
 import tinylr from 'tiny-lr';
 import WebpackDevServer from 'webpack-dev-server';
@@ -13,6 +14,7 @@ import serveStatic from 'serve-static';
 const LIVERELOAD_PORT = 35729,
   WEB_PORT = 3000,
   cwd = process.cwd(),
+  {green} = consoleStyles,
   defaultOptions = {
     port: WEB_PORT,
     react: true,
@@ -205,9 +207,9 @@ export class DevServer {
 
     server.listen(port, '0.0.0.0', error => {
       if (error) {
-        return console.error(error);
+        return logError(error);
       }
-      console.log('\x1b[32mStarted the development server at localhost:%d\x1b[0m', port);
+      log(green('Started the development server at localhost:', port));
     });
   }
 
