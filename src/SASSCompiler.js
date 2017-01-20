@@ -127,7 +127,7 @@ export class SASSCompiler extends Compiler {
       includePaths: this.includePaths,
       sourceMap: true,
       sourceMapContents: true,
-      outputStyle: this.isProduction ? 'compressed' : 'nested'
+      outputStyle: 'compressed'
     }, (error, result) => {
       if (error) {
         return logSASSError(error);
