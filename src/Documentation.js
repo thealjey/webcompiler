@@ -41,6 +41,7 @@ const npm = new NativeProcess('npm'),
  * const docs = new Documentation();
  */
 export class Documentation {
+
   /**
    * JSDoc3
    *
@@ -68,67 +69,28 @@ export class Documentation {
   }
 
   /**
-   * Finds a path to the JSDoc3 executable
+   * Finds a path to the project level JSDoc3 executable
    *
    * @memberof Documentation
    * @static
    * @private
    * @method findExecutable
    * @param {Function} callback - a callback function
-   * @example
-   * Documentation.findExecutable(file => {
-   *   // the jsdoc file is found
-   * });
    */
   static findExecutable(callback: Function) {
-    Documentation.checkBin(localFile => {
-      if (localFile) {
-        return callback(localFile);
-      }
-      Documentation.checkBin(globalFile => {
-        if (globalFile) {
-          return callback(globalFile);
-        }
-        console.error('Failed to locate the jsdoc executable');
-      }, true);
-    });
-  }
-
-  /**
-   * Checks the NPM bin directories to see if they contain a file named jsdoc
-   *
-   * @memberof Documentation
-   * @static
-   * @private
-   * @method checkBin
-   * @param {Function} callback              - a callback function
-   * @param {boolean}  [globalPackage=false] - if true checks the global NPM bin directory (contains the npm executable
-   *                                           itself)
-   * @example
-   * Documentation.checkBin(file => {
-   *   if (file) {
-   *     // the jsdoc file is found
-   *   }
-   * });
-   */
-  static checkBin(callback: Function, globalPackage: boolean = false) {
-    const args = ['bin'];
-
-    if (globalPackage) {
-      args.push('-g');
-    }
     npm.run((stderr, stdout) => {
       if (stderr) {
-        console.error(stderr);
-
-        return callback(null);
+        return logError(stderr);
       }
-      const path = join(stdout.replace(/\n$/, ''), 'jsdoc');
+      const path = join(stdout.trimRight(), 'jsdoc');
 
-      stat(path, err => {
-        callback(err ? null : path);
+      stat(path, statErr => {
+        if (statErr) {
+          return logError(statErr);
+        }
+        callback(path);
       });
-    }, args);
+    }, ['bin']);
   }
 
   /**
