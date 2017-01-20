@@ -1,9 +1,13 @@
 ---
-extends: [ eslint:recommended, plugin:react/recommended, plugin:lodash/recommended ]
-parser: babel-eslint
-plugins: [ flowtype, react, babel, lodash ]
+extends:
+  - eslint:recommended
+  - plugin:flowtype/recommended
+  - plugin:react/recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:lodash/recommended
+plugins: [ flowtype, react, babel, lodash, jsx-a11y ]
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 8
   sourceType: module
   ecmaFeatures:
     impliedStrict: true
@@ -15,21 +19,18 @@ env:
   shared-node-browser: true
   es6: true
   mocha: true
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
 rules:
   # flow
-  flowtype/boolean-style: 2
-  flowtype/define-flow-type: 2
-  flowtype/generic-spacing: 2
+  flowtype/no-primitive-constructor-types: 2
+  flowtype/object-type-delimiter: [ 2, semicolon ]
   flowtype/require-parameter-type: [ 2, { excludeArrowFunctions: true } ]
   flowtype/require-return-type: [ 2, { excludeArrowFunctions: true } ]
-  flowtype/require-valid-file-annotation: 2
+  flowtype/require-valid-file-annotation: [ 2, never, { annotationStyle: block } ]
   flowtype/semi: 2
-  flowtype/space-after-type-colon: 2
-  flowtype/space-before-generic-bracket: 2
-  flowtype/space-before-type-colon: 2
-  flowtype/union-intersection-spacing: 2
-  flowtype/use-flow-type: 2
-  flowtype/valid-syntax: 2
+  flowtype/valid-syntax: 0
 
   # react
   react/display-name: 0
@@ -43,33 +44,34 @@ rules:
   react/jsx-no-comment-textnodes: 2
   react/jsx-no-target-blank: 2
   react/jsx-pascal-case: 2
-  react/jsx-space-before-closing: 2
+  react/jsx-tag-spacing: 2
   react/jsx-wrap-multilines: 2
   react/no-danger: 2
   react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2
   react/no-multi-comp: [ 2, { ignoreStateless: true } ]
   react/no-string-refs: 2
+  react/no-unescaped-entities: 2
   react/no-unused-prop-types: 2
   react/prefer-es6-class: 2
   react/prefer-stateless-function: 2
+  react/require-default-props: 2
   react/require-optimization: 2
   react/self-closing-comp: 2
   react/style-prop-object: 2
 
+  # jsx-a11y
+  jsx-a11y/lang: 2
+
   # babel
-  babel/array-bracket-spacing: 2
-  babel/arrow-parens: [ 2, as-needed ]
-  babel/flow-object-type: 2
-  babel/func-params-comma-dangle: 2
-  babel/new-cap: 2
   babel/object-curly-spacing: 2
-  babel/object-shorthand: 2
 
   # eslint
   accessor-pairs: 2
+  array-bracket-spacing: 2
   array-callback-return: 2
   arrow-body-style: 2
+  arrow-parens: [ 2, as-needed ]
   arrow-spacing: 2
   block-spacing: [ 2, never ]
   brace-style: 2
@@ -105,10 +107,16 @@ rules:
       allowArrayStart: true
       allowArrayEnd: true
   max-depth: 2
-  max-len: [ 2, 120, 2, { ignoreUrls: true } ]
+  max-len:
+    - 2
+    - code: 120
+      tabWidth: 2
+      ignoreUrls: true
+      ignoreRegExpLiterals: true
   max-nested-callbacks: 2
   max-params: [ 2, 5 ]
   max-statements-per-line: 2
+  new-cap: 2
   new-parens: 2
   newline-after-var: 2
   newline-before-return: 2
@@ -117,7 +125,6 @@ rules:
   no-array-constructor: 2
   no-bitwise: [ 2, { int32Hint: true } ]
   no-caller: 2
-  no-console: 0
   no-div-regex: 2
   no-duplicate-imports: [ 2, { includeExports: true } ]
   no-else-return: 2
@@ -178,10 +185,19 @@ rules:
   no-warning-comments: 2
   no-whitespace-before-property: 2
   no-with: 2
+  object-shorthand: 2
   operator-assignment: 2
   operator-linebreak: 2
   prefer-arrow-callback: 2
   prefer-const: 2
+
+  # bring back when the authors fix the false positives
+  prefer-destructuring:
+    - 0
+    - array: true
+      object: true
+    - enforceForRenamedProperties: true
+
   prefer-rest-params: 2
   prefer-spread: 2
   prefer-template: 2

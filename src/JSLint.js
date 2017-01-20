@@ -5,7 +5,9 @@ import {CLIEngine} from 'eslint';
 import {join} from 'path';
 import forEach from 'lodash/forEach';
 
-const configFile = join(__dirname, '..', '.eslintrc.yml');
+/* eslint-disable lodash/prefer-map */
+
+const configFile = join(__dirname, '..', '.eslintrc.yaml');
 
 /**
  * A JavaScript linter
