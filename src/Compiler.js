@@ -146,7 +146,7 @@ export class Compiler {
    * @memberOf Compiler
    * @static
    * @method gzip
-   * @param {ProgramData}         data     - the actual program data to auto-prefix
+   * @param {ProgramData}         data     - the actual program data to gzip
    * @param {ProgramDataCallback} callback - a callback function
    * @return {void}
    * @example
