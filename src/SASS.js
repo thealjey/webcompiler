@@ -3,6 +3,7 @@
 import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
 import noop from 'lodash/noop';
+import {logLintingErrors} from './logger';
 
 /**
  * SASS compilation tools
@@ -20,7 +21,7 @@ import noop from 'lodash/noop';
  * @class SASS
  * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
- * @param {Array<string>} [excludeLinter=[]]     - names of linters to exclude
+ * @param {Object}        [configOverrides={}]   - an object that lets you override the default linting configuration
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
  *                                                 configuration
  * @example
@@ -32,6 +33,7 @@ import noop from 'lodash/noop';
  * const sass = new SASS();
  */
 export class SASS {
+
   /**
    * SCSS compiler
    *
@@ -52,11 +54,35 @@ export class SASS {
   linter: SASSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array<string> = [], excludeLinter: Array<string> = [],
+  constructor(compress: boolean = true, includePaths: Array<string> = [], configOverrides: Object = {},
               importOnceOptions: Object = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
-    this.linter = new SASSLint(...excludeLinter);
+    this.linter = new SASSLint(configOverrides);
+  }
+
+  /**
+   * Performs linting
+   *
+   * @memberof SASS
+   * @instance
+   * @method lint
+   * @param {Array<string>} paths    - an array of file globs. Ultimately passed to
+   *                                   [node-glob](https://github.com/isaacs/node-glob) to figure out what files you
+   *                                   want to lint.
+   * @param {Function}      callback - a callback function, invoked only when successfully linted
+   * @example
+   * js.lint(paths, () => {
+   *   // successfully linted
+   * });
+   */
+  lint(paths: Array<string>, callback: () => void) {
+    this.linter.run(paths, linterErr => {
+      if (linterErr) {
+        return logLintingErrors(linterErr, 'SASS');
+      }
+      callback();
+    });
   }
 
   /**
@@ -67,16 +93,18 @@ export class SASS {
    * @method fe
    * @param {string}        inPath                    - the input path
    * @param {string}        outPath                   - the output path
-   * @param {Array<string>} [lintPaths=[]]            - an array of paths to files/directories to lint
+   * @param {Array<string>} [lintPaths=[]]            - an array of file globs. Ultimately passed to
+   *                                                    [node-glob](https://github.com/isaacs/node-glob) to figure out
+   *                                                    what files you want to lint.
    * @param {Function}      [callback=function () {}] - a callback function
    * @return {void}
    * @example
-   * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
+   * compiler.fe(inPath, outPath, lintPaths, () => {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
   fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
-    this.linter.run(lintPaths.concat([inPath]), () => {
+    this.lint(lintPaths.concat([inPath]), () => {
       this.compiler.fe(inPath, outPath, callback);
     });
   }

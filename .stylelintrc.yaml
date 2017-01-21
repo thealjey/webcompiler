@@ -1,0 +1,30 @@
+---
+extends: stylelint-config-standard
+plugins: [ stylelint-scss ]
+rules:
+  font-family-name-quotes: always-where-recommended
+  function-url-quotes: always
+  selector-attribute-quotes: always
+  string-quotes: double
+  at-rule-no-vendor-prefix: true
+  media-feature-name-no-vendor-prefix: true
+  property-no-vendor-prefix: true
+  selector-no-vendor-prefix: true
+  value-no-vendor-prefix: true
+  selector-no-qualifying-type: true
+  max-line-length: 120
+  scss/at-extend-no-missing-placeholder: true
+  scss/at-import-no-partial-leading-underscore: true
+  scss/at-mixin-argumentless-call-parentheses: always
+  scss/dollar-variable-colon-space-after: always
+  scss/dollar-variable-colon-space-before: never
+  scss/double-slash-comment-empty-line-before: always
+  scss/double-slash-comment-inline: never
+  scss/double-slash-comment-whitespace-inside: always
+  scss/declaration-nested-properties: [ always, except: [ only-of-namespace ] ]
+  scss/declaration-nested-properties-no-divided-groups: true
+  scss/media-feature-value-dollar-variable: always
+  scss/operator-no-newline-after: true
+  scss/operator-no-newline-before: true
+  scss/operator-no-unspaced: true
+  scss/selector-no-redundant-nesting-selector: true

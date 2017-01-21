@@ -1,15 +1,21 @@
 /* @flow */
 
-import {NativeProcess} from './NativeProcess';
+import type {LintCallback} from './typedef';
 import {join} from 'path';
+import forEach from 'lodash/forEach';
+import {lint} from 'stylelint';
+import {logError} from './logger';
 
-const config = join(__dirname, '..', '.scss-lint.yml');
+/* eslint-disable lodash/prefer-map */
+
+const configFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 /**
  * A SASS linter
  *
  * @class SASSLint
- * @param {...string} excludeLinter - names of linters to exclude
+ * @param {Object} [configOverrides={}] - an object that lets you override the default linting configuration
+ * @see {@link http://stylelint.io/ stylelint}
  * @example
  * import {SASSLint} from 'webcompiler';
  * // or - import {SASSLint} from 'webcompiler/lib/SASSLint';
@@ -20,29 +26,21 @@ const config = join(__dirname, '..', '.scss-lint.yml');
  * const linter = new SASSLint();
  */
 export class SASSLint {
+
   /**
-   * a comma-separated list of linter names to exclude from execution
+   * stylelint configOverrides
    *
-   * @member {string} excludeLinter
+   * @member {Object} configOverrides
    * @memberof SASSLint
    * @private
    * @instance
    */
-  excludeLinter: string;
+  configOverrides: Object;
 
-  /**
-   * a NativeProcess instance for scss-lint
-   *
-   * @member {NativeProcess} proc
-   * @memberof SASSLint
-   * @private
-   * @instance
-   */
-  proc: NativeProcess = new NativeProcess('scss-lint');
-
-  /** @constructs */
-  constructor(...excludeLinter: Array<string>) {
-    this.excludeLinter = excludeLinter.join(',');
+  /* eslint-disable require-jsdoc */
+  constructor(configOverrides: Object = {}) {
+    /* eslint-enable require-jsdoc */
+    this.configOverrides = configOverrides;
   }
 
   /**
@@ -51,28 +49,32 @@ export class SASSLint {
    * @memberof SASSLint
    * @instance
    * @method run
-   * @param {Array<string>} paths    - an array of paths to files/directories to lint
-   * @param {Function}      callback - a callback function, executed only on success
+   * @param {Array<string>} paths    - an array of file globs. Ultimately passed to
+   *                                   [node-glob](https://github.com/isaacs/node-glob) to figure out what files you
+   *                                   want to lint.
+   * @param {LintCallback}  callback - a callback function
    * @example
+   * import {logLintingErrors} from 'webcompiler';
+   *
    * // lint "style.scss" as well as the entire contents of the "sass" directory
-   * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass')], error => {
-   *   if (error) {
-   *     return console.error(error);
+   * linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass', '**', '*.scss')], errors => {
+   *   if (errors) {
+   *     return logLintingErrors(errors);
    *   }
    *   // there were no linting errors
    * });
    */
-  run(paths: Array<string>, callback: () => void) {
-    const args = paths.concat(['-c', config]);
+  run(paths: Array<string>, callback: LintCallback) {
+    lint({configFile, configOverrides: this.configOverrides, files: paths}).then(({results}) => {
+      const errors = [];
 
-    if (this.excludeLinter) {
-      args.push('-x', this.excludeLinter);
-    }
-    this.proc.run(stderr => {
-      if (null === stderr) {
-        callback();
-      }
-    }, args, {stdio: 'inherit'});
+      forEach(results, ({source: file, warnings}) => {
+        forEach(warnings, ({line, column, text, rule}) => {
+          errors.push({file, line, column, message: text.replace(new RegExp(`\\s*\\(${rule}\\)$`), ''), rule});
+        });
+      });
+      callback(errors.length ? errors : null);
+    }).catch(logError);
   }
 
 }
