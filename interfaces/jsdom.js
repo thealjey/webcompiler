@@ -9,6 +9,7 @@ declare module 'jsdom' {
           setEnd(): void;
           setStart(): void;
           getBoundingClientRect(): Object;
+          getClientRects(): Array<any>;
         };
       };
     };

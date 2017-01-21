@@ -16,7 +16,12 @@ import {transformElements, arrayToJSX} from './jsx';
 if ('undefined' === typeof navigator) {
   global.window = jsdom().defaultView;
   global.navigator = window.navigator;
-  window.document.createRange = constant({setEnd: noop, setStart: noop, getBoundingClientRect: constant({})});
+  window.document.createRange = constant({
+    setEnd: noop,
+    setStart: noop,
+    getBoundingClientRect: constant({}),
+    getClientRects: constant([])
+  });
   global.document = window.document;
 }
 
