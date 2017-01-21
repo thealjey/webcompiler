@@ -545,10 +545,6 @@ declare module 'lodash/isArguments' {
   declare function exports(value: any): boolean;
 }
 
-declare module 'lodash/isArray' {
-  declare function exports(value: any): boolean;
-}
-
 declare module 'lodash/isArrayBuffer' {
   declare function exports(value: any): boolean;
 }

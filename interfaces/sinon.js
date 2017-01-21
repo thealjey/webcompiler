@@ -1,8 +1,8 @@
 /* @flow */
 
 type Spy = {
-  (...args: Array<any>): any,
-  callCount: number
+  (...args: Array<any>): any;
+  callCount: number;
 };
 
 type Stub = {

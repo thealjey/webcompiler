@@ -1,34 +1,16 @@
 /* @flow */
 
 import {Compiler} from './Compiler';
-import {join, extname, dirname, basename} from 'path';
-import {readdir, stat, createReadStream, createWriteStream, readFileSync} from 'fs';
+import {join, extname} from 'path';
+import {readdir, stat, createReadStream, createWriteStream} from 'fs';
 import {transformFile} from 'babel-core';
-import webpack from 'webpack';
-import MemoryFS from 'memory-fs';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
-import assignWith from 'lodash/assignWith';
-import get from 'lodash/get';
-import isArray from 'lodash/isArray';
-import uniq from 'lodash/uniq';
-import map from 'lodash/map';
+import {getCompiler, babelBEOptions} from './webpack';
 import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-sync */
-/* eslint-disable no-process-env */
 
-const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
-  cache = {},
-  fakeFS = new MemoryFS(),
-  {optimize, DefinePlugin} = webpack,
-  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = optimize,
-  productionPlugins = [
-    new DefinePlugin({'process.env': {NODE_ENV: JSON.stringify('production')}}),
-    new OccurrenceOrderPlugin(),
-    new DedupePlugin(),
-    new UglifyJsPlugin({compress: {warnings: false}})
-  ];
 const {yellow, red} = consoleStyles;
 
 /**
@@ -37,7 +19,6 @@ const {yellow, red} = consoleStyles;
  * @class JSCompiler
  * @extends Compiler
  * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
- * @param {Object}  [options={}]    - allows to override the default Babel options
  * @example
  * import {JSCompiler} from 'webcompiler';
  * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
@@ -47,15 +28,6 @@ const {yellow, red} = consoleStyles;
  * const compiler = new JSCompiler();
  */
 export class JSCompiler extends Compiler {
-  /**
-   * Babel options
-   *
-   * @member {Object} options
-   * @memberOf JSCompiler
-   * @private
-   * @instance
-   */
-  options: Object;
 
   /**
    * The number of files being compiled at the moment
@@ -66,39 +38,6 @@ export class JSCompiler extends Compiler {
    * @instance
    */
   processing: number = 0;
-
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, options: Object = {}) {
-    /* eslint-enable require-jsdoc */
-    super(compress);
-    this.configure(options);
-  }
-
-  /**
-   * Merges Babel configuration options
-   *
-   * @memberOf JSCompiler
-   * @instance
-   * @private
-   * @method configure
-   * @param {Object} options - allows to override the default Babel options
-   * @example
-   * compiler.configure(options);
-   */
-  configure(options: Object) {
-    this.options = assignWith({}, config, get(config, ['env', process.env.NODE_ENV || 'development']), options,
-      (objValue, srcValue) => {
-        if (!isArray(srcValue)) {
-          return srcValue;
-        }
-        if (!isArray(objValue)) {
-          return uniq(srcValue);
-        }
-
-        return uniq(srcValue.concat(objValue));
-      });
-    delete this.options.env;
-  }
 
   /**
    * Compiles a directory of files for the back end
@@ -139,7 +78,7 @@ export class JSCompiler extends Compiler {
    */
   beFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
-    transformFile(inPath, this.options, (transformFileErr, result) => {
+    transformFile(inPath, babelBEOptions, (transformFileErr, result) => {
       if (transformFileErr) {
         return logError(transformFileErr);
       }
@@ -235,47 +174,7 @@ export class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
-    const {presets, ...options} = this.options,
-      compiler = webpack({
-        cache,
-        debug: true,
-        devtool: 'source-map',
-        entry: inPath,
-        output: {path: dirname(outPath), filename: basename(outPath)},
-        plugins: this.isProduction ? productionPlugins : [],
-        node: {
-          fs: 'empty'
-        },
-        module: {
-          loaders: [{
-            test: /jsdom/,
-            loader: 'null'
-          }, {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true,
-              presets: map(presets, preset => {
-                if ('es2015' === preset) {
-                  return ['es2015', {modules: false}];
-                }
-                if (isArray(preset) && 'es2015' === preset[0]) {
-                  return ['es2015', {...preset[1], modules: false}];
-                }
-
-                return preset;
-              }),
-              ...options
-            }
-          }, {
-            test: /\.json$/,
-            loader: 'json'
-          }]
-        }
-      });
-
-    compiler.outputFileSystem = fakeFS;
+    const compiler = getCompiler(inPath, outPath);
 
     compiler.run((err, stats) => {
       if (err) {
@@ -294,8 +193,8 @@ export class JSCompiler extends Compiler {
         return;
       }
       this.save(inPath, outPath, {
-        code: fakeFS.readFileSync(outPath, 'utf8'),
-        map: fakeFS.readFileSync(`${outPath}.map`, 'utf8')
+        code: compiler.outputFileSystem.readFileSync(outPath, 'utf8'),
+        map: compiler.outputFileSystem.readFileSync(`${outPath}.map`, 'utf8')
       }, callback);
     });
   }

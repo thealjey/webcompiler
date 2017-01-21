@@ -6,8 +6,11 @@ type WebPackStats = {
     warnings: Array<string>;
   };
 };
-type WebPackCallback = (error: ?string, stats: WebPackStats) => void;
+type WebPackCallback = (error: ?Error, stats: WebPackStats) => void;
 
 declare module 'webpack' {
-  declare function exports(config: Object, callback: ?WebPackCallback): Object;
+  declare function exports(config: Object): {
+    run(WebPackCallback): void;
+    outputFileSystem: any;
+  };
 }

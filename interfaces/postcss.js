@@ -1,12 +1,15 @@
 /* @flow */
 
+import type {PostCSSWarning} from '../src/typedef';
+
 type PostCSSResult = {
   css: string;
   map: Object;
-  warnings(): Array<string>;
+  warnings(): Array<PostCSSWarning>;
 };
+
 type PostCSSPromise = {
-  then(callback: (result: PostCSSResult) => void): void;
+  then(onFulfilled: (result: PostCSSResult) => void, onRejected: (error: Error) => void): void;
 };
 
 declare module 'postcss' {

@@ -10,9 +10,8 @@ import {logError, logLintingErrors} from './logger';
  * JavaScript compilation tools
  *
  * @class JS
- * @param {boolean} [compress=true]   - if true `Compiler#save` will gzip compress the data
- * @param {Object}  [babelOptions={}] - allows to override the default Babel options
- * @param {Object}  [lintRules={}]    - allows to override the default linting rules
+ * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
+ * @param {Object}  [lintRules={}]  - allows to override the default linting rules
  * @example
  * import {JS} from 'webcompiler';
  * // or - import {JS} from 'webcompiler/lib/JS';
@@ -53,9 +52,9 @@ export class JS {
   linter: JSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, babelOptions: Object = {}, lintRules: Object = {}) {
+  constructor(compress: boolean = true, lintRules: Object = {}) {
     /* eslint-enable require-jsdoc */
-    this.compiler = new JSCompiler(compress, babelOptions);
+    this.compiler = new JSCompiler(compress);
     this.linter = new JSLint(lintRules);
   }
 

@@ -1,11 +1,7 @@
 /* @flow */
 
-type NodeSassError = {
-  message: string;
-  file: string;
-  line: number;
-  column: number;
-};
+import type {NodeSassError} from '../src/typedef';
+
 type NodeSassCallback = (error: ?NodeSassError, result: {css: string; map: string;}) => void;
 
 declare module 'node-sass' {

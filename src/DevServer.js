@@ -4,12 +4,10 @@ import type {DevServerConfig} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
 import {logError, log, consoleStyles} from './logger';
 import {watch} from './watch';
+import {getServer} from './webpack';
 import tinylr from 'tiny-lr';
-import WebpackDevServer from 'webpack-dev-server';
-import webpack from 'webpack';
 import {join} from 'path';
 import noop from 'lodash/noop';
-import serveStatic from 'serve-static';
 
 const LIVERELOAD_PORT = 35729,
   WEB_PORT = 3000,
@@ -52,6 +50,7 @@ const LIVERELOAD_PORT = 35729,
  * // now navigate to http://localhost:3000 using your favorite browser ( preferably Chrome :) )
  */
 export class DevServer {
+
   /**
    * a full system path to a JavaScript file
    *
@@ -110,26 +109,6 @@ export class DevServer {
   }
 
   /**
-   * Returns the JavaScript module loaders array necessary to run the server
-   *
-   * @memberof DevServer
-   * @private
-   * @instance
-   * @method loaders
-   * @return {Array<string>} JavaScript module loaders
-   */
-  loaders(): Array<string> {
-    const loaders = [];
-
-    if (this.options.react) {
-      loaders.push('react-hot');
-    }
-    loaders.push('babel');
-
-    return loaders;
-  }
-
-  /**
    * Compile SASS and start watching for file changes
    *
    * @memberof DevServer
@@ -166,41 +145,9 @@ export class DevServer {
    * server.watchJS();
    */
   watchJS() {
-    const {port, contentBase, configureApplication} = this.options;
+    const {port} = this.options,
+      server = getServer(this.script, this.options);
 
-    const server = new WebpackDevServer(webpack({
-      cache: {},
-      debug: true,
-      devtool: 'eval-source-map',
-      entry: [
-        `webpack-dev-server/client?http://0.0.0.0:${port}`,
-        'webpack/hot/only-dev-server',
-        this.script
-      ],
-      output: {
-        path: contentBase,
-        filename: 'script.js',
-        publicPath: '/'
-      },
-      plugins: [new webpack.HotModuleReplacementPlugin()],
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loaders: this.loaders()
-        }, {
-          test: /\.json$/,
-          loader: 'json'
-        }]
-      }
-    }), {
-      contentBase: false,
-      publicPath: '/',
-      hot: true
-    });
-
-    server.use(serveStatic(contentBase));
-    configureApplication(server.app);
     server.use((req, res) => {
       res.send(this.layout());
     });

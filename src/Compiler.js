@@ -21,17 +21,6 @@ let i = 0;
  * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
  */
 export class Compiler {
-  /**
-   * True if the NODE_ENV environment variable is equal to `production`.
-   *
-   * Caution: modifying it's value directly may lead to unexpected results
-   *
-   * @member {boolean} isProduction
-   * @memberof Compiler
-   * @readonly
-   * @instance
-   */
-  isProduction: boolean = 'production' === process.env.NODE_ENV;
 
   /**
    * if true `Compiler#save` will gzip compress the data
@@ -46,7 +35,7 @@ export class Compiler {
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true) {
     /* eslint-enable require-jsdoc */
-    this.compress = this.isProduction && compress;
+    this.compress = compress;
   }
 
   /**

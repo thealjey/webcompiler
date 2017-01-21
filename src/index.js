@@ -6,6 +6,7 @@ export {Documentation} from './Documentation';
 export {watch} from './watch';
 export {yaml} from './yaml';
 export {consoleStyles, log, logError, logPostCSSWarnings, logSASSError, logLintingErrors} from './logger';
+export {babelBEOptions, babelFEOptions} from './webpack';
 
 export {flatten, arrayToJSX, htmlToArray, htmlToJSX} from './jsx';
 export {markdownToArray, markdownToJSX, markdownToHTML} from './markdown';
