@@ -4,8 +4,8 @@
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=6.8.1",
-    "npm": ">=3.10.8"
+    "node": ">=6.9.4",
+    "npm": ">=3.10.10"
   },
   "scripts": {
     "test": "babel-node ./node_modules/.bin/isparta cover _mocha --root src -- -R nyan",
