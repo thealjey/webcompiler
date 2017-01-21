@@ -11,6 +11,8 @@ chai.use(sinonChai);
 
 /* eslint-disable no-sync */
 
+const error = new Error('something happened');
+
 let callback;
 
 describe('yaml', () => {
@@ -27,7 +29,7 @@ describe('yaml', () => {
   describe('throws', () => {
 
     beforeEach(() => {
-      stub(jsYaml, 'safeLoad').throws(new Error('I am sowwy'));
+      stub(jsYaml, 'safeLoad').throws(error);
       yaml('/path/to/a/file', callback);
     });
 
@@ -36,7 +38,7 @@ describe('yaml', () => {
     });
 
     it('calls spy', () => {
-      expect(callback).calledWith('Error: I am sowwy', {});
+      expect(callback).calledWith(error, {});
     });
 
   });

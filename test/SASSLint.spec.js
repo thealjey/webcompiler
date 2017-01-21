@@ -1,80 +1,94 @@
 /* @flow */
 
 import chai, {expect} from 'chai';
-import {spy, stub, match} from 'sinon';
+import {spy, stub} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {SASSLint} from '../src/SASSLint';
-import {NativeProcess} from '../src/NativeProcess';
 import {join} from 'path';
+import stylelint from 'stylelint';
+import * as logger from '../src/logger';
 
 chai.use(sinonChai);
 
-/* eslint-disable no-unused-expressions */
+const configFile = join(__dirname, '..', '.stylelintrc.yaml'),
+  error = new Error('something'),
+  catchError = stub().callsArgWith(0, error);
 
-const config = join(__dirname, '..', '.scss-lint.yml');
-
-let cmp, callback;
+let cmp, callback, then;
 
 describe('SASSLint', () => {
 
   beforeEach(() => {
     callback = spy();
+    stub(logger, 'logError');
   });
 
-  describe('no excludes', () => {
+  afterEach(() => {
+    /* @flowignore */
+    logger.logError.restore();
+  });
+
+  describe('no errors or configOverrides', () => {
 
     beforeEach(() => {
       cmp = new SASSLint();
-      stub(cmp.proc, 'run').callsArgWith(0, '');
-      cmp.run(['style.scss', 'sass'], callback);
+      then = stub().callsArgWith(0, {results: []}).returns({catch: catchError});
+      stub(stylelint, 'lint').returns({then});
+      cmp.run(['something', 'something else'], callback);
     });
 
     afterEach(() => {
-      cmp.proc.run.restore();
+      stylelint.lint.restore();
     });
 
-    it('contains an empty exclude list', () => {
-      expect(cmp.excludeLinter).equal('');
+    it('calls stylelint', () => {
+      expect(stylelint.lint).calledWith({configFile, configOverrides: {}, files: ['something', 'something else']});
     });
 
-    it('includes a correct NativeProcess instance', () => {
-      expect(cmp.proc).instanceof(NativeProcess);
-      expect(cmp.proc.task).equal('scss-lint');
+    it('calls callback', () => {
+      expect(callback).calledWith(null);
     });
 
-    it('invokes proc.run', () => {
-      expect(cmp.proc.run).calledWith(match.func, ['style.scss', 'sass', '-c', config], {stdio: 'inherit'});
-    });
-
-    it('does not call the callback', () => {
-      expect(callback).not.called;
+    it('calls logError', () => {
+      expect(logger.logError).calledWith(error);
     });
 
   });
 
-  describe('exclude some linters', () => {
+  describe('errors and configOverrides', () => {
 
     beforeEach(() => {
-      cmp = new SASSLint('QualifyingElement', 'PlaceholderInExtend');
-      stub(cmp.proc, 'run').callsArgWith(0, null);
-      cmp.run(['style.scss', 'sass'], callback);
+      cmp = new SASSLint({something: 'here'});
+      then = stub().callsArgWith(0, {
+        results: [{
+          source: 'something',
+          warnings: [{line: 1, column: 1, text: 'some problem (rule 1)', rule: 'rule 1'}]
+        }, {
+          source: 'something else',
+          warnings: [{line: 2, column: 2, text: 'some other problem (rule 2)', rule: 'rule 2'}]
+        }]
+      }).returns({catch: catchError});
+      stub(stylelint, 'lint').returns({then});
+      cmp.run(['something', 'something else'], callback);
     });
 
     afterEach(() => {
-      cmp.proc.run.restore();
+      stylelint.lint.restore();
     });
 
-    it('contains a comma-separated exclude list', () => {
-      expect(cmp.excludeLinter).equal('QualifyingElement,PlaceholderInExtend');
+    it('calls stylelint', () => {
+      expect(stylelint.lint).calledWith({
+        configFile,
+        configOverrides: {something: 'here'},
+        files: ['something', 'something else']
+      });
     });
 
-    it('supplies proc.run with the list of excluded linters', () => {
-      expect(cmp.proc.run).calledWith(match.func, ['style.scss', 'sass', '-c', config, '-x',
-                                      'QualifyingElement,PlaceholderInExtend'], {stdio: 'inherit'});
-    });
-
-    it('calls the callback', () => {
-      expect(callback).called;
+    it('calls callback', () => {
+      expect(callback).calledWith([
+        {file: 'something', line: 1, column: 1, message: 'some problem', rule: 'rule 1'},
+        {file: 'something else', line: 2, column: 2, message: 'some other problem', rule: 'rule 2'}
+      ]);
     });
 
   });

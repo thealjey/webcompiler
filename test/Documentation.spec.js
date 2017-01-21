@@ -7,6 +7,7 @@ import {Documentation} from '../src/Documentation';
 import {NativeProcess} from '../src/NativeProcess';
 import {join} from 'path';
 import fs from 'fs';
+import * as logger from '../src/logger';
 
 chai.use(sinonChai);
 
@@ -14,11 +15,12 @@ chai.use(sinonChai);
 
 const rootDir = join(__dirname, '..'),
   cwd = process.cwd(),
+  error = new Error('something happened'),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
     readMe: join(cwd, 'README.md'),
-    template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+    template: join(cwd, 'node_modules', 'docdash'),
     jsdocConfig: join(rootDir, 'config', 'jsdoc.json')
   };
 
@@ -28,11 +30,12 @@ describe('Documentation', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'error');
+    stub(logger, 'logError');
   });
 
   afterEach(() => {
-    console.error.restore();
+    /* @flowignore */
+    logger.logError.restore();
   });
 
   describe('no options', () => {
@@ -159,7 +162,7 @@ describe('Documentation', () => {
     describe('doDun error', () => {
 
       beforeEach(() => {
-        stub(jsdoc, 'run').callsArgWith(0, 'failed to generate the documentation');
+        stub(jsdoc, 'run').callsArgWith(0, error);
         cmp.doRun(jsdoc, callback);
       });
 
@@ -173,7 +176,7 @@ describe('Documentation', () => {
       });
 
       it('prints the error on screen', () => {
-        expect(console.error).calledWith('failed to generate the documentation');
+        expect(logger.logError).calledWith(error);
       });
 
       it('does not call the callback', () => {
@@ -199,79 +202,12 @@ describe('Documentation', () => {
 
     });
 
-    describe('findExecutable local file found', () => {
+    describe('findExecutable npm error', () => {
 
       beforeEach(() => {
-        stub(Documentation, 'checkBin').callsArgWith(0, '/path/to/local/jsdoc');
-        Documentation.findExecutable(callback);
-      });
-
-      afterEach(() => {
-        Documentation.checkBin.restore();
-      });
-
-      it('checks the local executable path', () => {
-        expect(Documentation.checkBin).calledOnce;
-        expect(Documentation.checkBin).calledWith(match.func);
-      });
-
-      it('calls the callback', () => {
-        expect(callback).calledWith('/path/to/local/jsdoc');
-      });
-
-    });
-
-    describe('findExecutable global file found', () => {
-
-      beforeEach(() => {
-        stub(Documentation, 'checkBin', (cb, globalPackage) => {
-          cb(globalPackage ? '/path/to/global/jsdoc' : null);
-        });
-        Documentation.findExecutable(callback);
-      });
-
-      afterEach(() => {
-        Documentation.checkBin.restore();
-      });
-
-      it('checks the local executable path', () => {
-        expect(Documentation.checkBin).calledTwice;
-        expect(Documentation.checkBin).calledWith(match.func, true);
-      });
-
-      it('calls the callback', () => {
-        expect(callback).calledWith('/path/to/global/jsdoc');
-      });
-
-      it('does not print any errors on screen', () => {
-        expect(console.error).not.called;
-      });
-
-    });
-
-    describe('findExecutable nothing found', () => {
-
-      beforeEach(() => {
-        stub(Documentation, 'checkBin').callsArg(0);
-        Documentation.findExecutable(callback);
-      });
-
-      afterEach(() => {
-        Documentation.checkBin.restore();
-      });
-
-      it('prints an error on screen', () => {
-        expect(console.error).calledWith('Failed to locate the jsdoc executable');
-      });
-
-    });
-
-    describe('checkBin npm error', () => {
-
-      beforeEach(() => {
-        stub(NativeProcess.prototype, 'run').callsArgWith(0, 'something bad happened');
+        stub(NativeProcess.prototype, 'run').callsArgWith(0, error);
         stub(fs, 'stat');
-        Documentation.checkBin(callback, true);
+        Documentation.findExecutable(callback);
       });
 
       afterEach(() => {
@@ -280,15 +216,11 @@ describe('Documentation', () => {
       });
 
       it('calls the run method', () => {
-        expect(NativeProcess.prototype.run).calledWith(match.func, ['bin', '-g']);
+        expect(NativeProcess.prototype.run).calledWith(match.func, ['bin']);
       });
 
       it('prints an error on screen', () => {
-        expect(console.error).calledWith('something bad happened');
-      });
-
-      it('calls callback', () => {
-        expect(callback).calledWith(null);
+        expect(logger.logError).calledWith(error);
       });
 
       it('does not stat', () => {
@@ -297,7 +229,7 @@ describe('Documentation', () => {
 
     });
 
-    describe('checkBin npm success', () => {
+    describe('findExecutable npm success', () => {
 
       beforeEach(() => {
         stub(NativeProcess.prototype, 'run').callsArgWith(0, null, '/path/to');
@@ -310,8 +242,8 @@ describe('Documentation', () => {
       describe('stat error', () => {
 
         beforeEach(() => {
-          stub(fs, 'stat').callsArgWith(1, 'cannot read the file');
-          Documentation.checkBin(callback);
+          stub(fs, 'stat').callsArgWith(1, error);
+          Documentation.findExecutable(callback);
         });
 
         afterEach(() => {
@@ -326,8 +258,12 @@ describe('Documentation', () => {
           expect(fs.stat).calledWith('/path/to/jsdoc', match.func);
         });
 
-        it('calls callback', () => {
-          expect(callback).calledWith(null);
+        it('prints an error on screen', () => {
+          expect(logger.logError).calledWith(error);
+        });
+
+        it('does not call the callback', () => {
+          expect(callback).not.called;
         });
 
       });
@@ -336,7 +272,7 @@ describe('Documentation', () => {
 
         beforeEach(() => {
           stub(fs, 'stat').callsArg(1);
-          Documentation.checkBin(callback);
+          Documentation.findExecutable(callback);
         });
 
         afterEach(() => {

@@ -7,12 +7,13 @@ import {JS} from '../src/JS';
 import {JSCompiler} from '../src/JSCompiler';
 import {NativeProcess} from '../src/NativeProcess';
 import {JSLint} from '../src/JSLint';
+import * as logger from '../src/logger';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 
-const ERROR_COUNT = 3;
+const error = new Error('something happened');
 
 let cmp, callback;
 
@@ -20,13 +21,16 @@ describe('JS', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'log');
-    stub(console, 'error');
+    stub(logger, 'logError');
+    stub(logger, 'logLintingErrors');
   });
 
   afterEach(() => {
-    console.log.restore();
-    console.error.restore();
+    /* @flowignore */
+    logger.logError.restore();
+
+    /* @flowignore */
+    logger.logLintingErrors.restore();
   });
 
   describe('no overrides', () => {
@@ -51,7 +55,7 @@ describe('JS', () => {
     describe('typecheck flow error', () => {
 
       beforeEach(() => {
-        stub(cmp.flow, 'run').callsArgWith(0, 'something bad happened');
+        stub(cmp.flow, 'run').callsArgWith(0, error);
         cmp.typecheck(callback);
       });
 
@@ -65,7 +69,7 @@ describe('JS', () => {
       });
 
       it('prints the error on screen', () => {
-        expect(console.error).calledWith('something bad happened');
+        expect(logger.logError).calledWith(error);
       });
 
       it('does not call the callback', () => {
@@ -131,20 +135,12 @@ describe('JS', () => {
         expect(callback).called;
       });
 
-      it('does not print anything on screen', () => {
-        expect(console.log).not.called;
-      });
-
     });
 
     describe('lint failure', () => {
 
       beforeEach(() => {
-        stub(cmp.linter, 'run').callsArgWith(1, [
-          {message: 'something', ruleId: 'some rule', filePath: '/some/file', line: 1, column: 1},
-          {message: 'bad', filePath: '/some/other/file', line: 1, column: 2},
-          {message: 'happened', ruleId: 'some other rule', filePath: '/one/more/file', line: 2, column: 1}
-        ]);
+        stub(cmp.linter, 'run').callsArgWith(1, 'linting errors');
         cmp.lint(['stuff', 'to', 'lint'], callback);
       });
 
@@ -153,16 +149,7 @@ describe('JS', () => {
       });
 
       it('prints errors on screen', () => {
-        expect(console.log).calledWith(
-          '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          'something', ' (some rule)', '/some/file', 1, 1);
-        expect(console.log).calledWith(
-          '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          'bad', '', '/some/other/file', 1, 2);
-        expect(console.log).calledWith(
-          '\x1b[41mESLint error\x1b[0m "\x1b[33m%s%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-          'happened', ' (some other rule)', '/one/more/file', 2, 1);
-        expect(console.log).calledWith('JavaScript linting errors: %s', ERROR_COUNT);
+        expect(logger.logLintingErrors).calledWith('linting errors');
       });
 
     });
@@ -303,15 +290,11 @@ describe('JS', () => {
   describe('babel overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS(false, {sample: 'babel config'});
+      cmp = new JS(false);
     });
 
     it('has the compress flag set to false', () => {
       expect(cmp.compiler.compress).false;
-    });
-
-    it('instantiates a compiler', () => {
-      expect(cmp.compiler.options).contain({sample: 'babel config'});
     });
 
   });
@@ -319,7 +302,7 @@ describe('JS', () => {
   describe('all overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS(true, {sample: 'babel config'}, {complexity: [2, 2]});
+      cmp = new JS(true, {complexity: [2, 2]});
     });
 
     it('instantiates a linter', () => {

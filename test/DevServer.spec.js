@@ -5,7 +5,7 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
-import {WebpackDevServer, Server, HotModuleReplacementPlugin, webpackApp} from './mock';
+import {Server} from './mock';
 import noop from 'lodash/noop';
 
 chai.use(sinonChai);
@@ -15,9 +15,10 @@ chai.use(sinonChai);
 
 const WEB_PORT = 3000,
   LIVERELOAD_PORT = 35729,
+  error = new Error('something happened'),
   cwd = process.cwd();
 
-let DevServer, cmp, tinylr, webpack, srv, send, watch;
+let DevServer, cmp, tinylr, srv, send, watch, logError, log, green, use, listen;
 
 function req(options: Object) {
   return proxyquire('../src/DevServer', options).DevServer;
@@ -28,25 +29,23 @@ describe('DevServer', () => {
   beforeEach(() => {
     srv = new Server();
     tinylr = stub().returns(srv);
-    webpack = stub().returns('the webpack module bundler');
     send = spy();
     watch = spy();
-    webpack.HotModuleReplacementPlugin = HotModuleReplacementPlugin;
+    use = stub().callsArgWith(0, null, {send});
+    listen = stub().callsArgWith(2, error);
+    logError = stub();
+    log = stub();
+    green = stub().returns('green text');
     stub(SASSCompiler.prototype, 'fe').callsArg(2);
     spy(SASSCompiler.prototype.fe, 'bind');
-    spy(WebpackDevServer.prototype, 'use');
-    DevServer = req({'./watch': {watch}, 'tiny-lr': tinylr, 'webpack-dev-server': WebpackDevServer, webpack});
-    stub(console, 'log');
-    stub(console, 'error');
+    DevServer = req({'./watch': {watch}, 'tiny-lr': tinylr, './webpack': {getServer: () => ({use, listen})},
+      './logger': {logError, log, consoleStyles: {green}}});
   });
 
   afterEach(() => {
     /* @flowignore */
     SASSCompiler.prototype.fe.bind.restore();
     SASSCompiler.prototype.fe.restore();
-    WebpackDevServer.prototype.use.restore();
-    console.log.restore();
-    console.error.restore();
   });
 
   describe('no options', () => {
@@ -205,104 +204,32 @@ describe('DevServer', () => {
 
     });
 
-    describe('loaders', () => {
-
-      beforeEach(() => {
-        spy(cmp, 'loaders');
-      });
-
-      afterEach(() => {
-        cmp.loaders.restore();
-      });
-
-      describe('non-react', () => {
-
-        beforeEach(() => {
-          cmp.options.react = false;
-          cmp.loaders();
-        });
-
-        it('returns result', () => {
-          expect(cmp.loaders).returned(['babel']);
-        });
-
-      });
-
-      describe('react', () => {
-
-        beforeEach(() => {
-          cmp.options.react = true;
-          cmp.loaders();
-        });
-
-        it('returns result', () => {
-          expect(cmp.loaders).returned(['react-hot', 'babel']);
-        });
-
-      });
-
-    });
-
     describe('watchJS listen error', () => {
 
       beforeEach(() => {
-        stub(cmp, 'loaders').returns('collection of loaders');
         stub(cmp, 'layout').returns('html string');
-        stub(WebpackDevServer.prototype, 'listen').callsArgWith(2, 'something bad happened');
         cmp.watchJS();
       });
 
       afterEach(() => {
-        cmp.loaders.restore();
         cmp.layout.restore();
-        WebpackDevServer.prototype.listen.restore();
-      });
-
-      it('invokes webpack', () => {
-        expect(webpack).calledWith({
-          cache: {},
-          debug: true,
-          devtool: 'eval-source-map',
-          entry: [
-            'webpack-dev-server/client?http://0.0.0.0:3000',
-            'webpack/hot/only-dev-server',
-            '/path/to/a/script/file.js'
-          ],
-          output: {
-            path: '/path/to/the/public/directory',
-            filename: 'script.js',
-            publicPath: '/'
-          },
-          plugins: [match.instanceOf(HotModuleReplacementPlugin)],
-          module: {
-            loaders: [{
-              test: /\.js$/,
-              exclude: /node_modules/,
-              loaders: 'collection of loaders'
-            }, {
-              test: /\.json$/,
-              loader: 'json'
-            }]
-          }
-        });
       });
 
       it('creates the index route', () => {
-        expect(WebpackDevServer.prototype.use).calledWith(match.func);
-        webpackApp.handler(null, {send});
+        expect(use).calledWith(match.func);
         expect(send).calledWith('html string');
       });
 
       it('invokes the server listen method', () => {
-        expect(WebpackDevServer.prototype.listen).calledWith(cmp.options.port, '0.0.0.0', match.func);
+        expect(listen).calledWith(cmp.options.port, '0.0.0.0', match.func);
       });
 
       it('prints the error on screen', () => {
-        expect(console.error).calledWith('something bad happened');
+        expect(logError).calledWith(error);
       });
 
       it('does not print the success message', () => {
-        expect(console.log).not.called;
+        expect(log).not.called;
       });
 
     });
@@ -310,21 +237,20 @@ describe('DevServer', () => {
     describe('watchJS listen success', () => {
 
       beforeEach(() => {
-        stub(WebpackDevServer.prototype, 'listen').callsArg(2);
+        listen = stub().callsArg(2);
+        DevServer = req({'./webpack': {getServer: () => ({use, listen})},
+          './logger': {logError, log, consoleStyles: {green}}});
+        cmp = new DevServer('/path/to/a/script/file.js');
         cmp.watchJS();
       });
 
-      afterEach(() => {
-        WebpackDevServer.prototype.listen.restore();
-      });
-
       it('does not print any errors', () => {
-        expect(console.error).not.called;
+        expect(logError).not.called;
       });
 
       it('prints the successful message', () => {
-        expect(console.log).calledWith('\x1b[32mStarted the development server at localhost:%d\x1b[0m',
-                                       cmp.options.port);
+        expect(green).calledWith('Started the development server at localhost:', cmp.options.port);
+        expect(log).calledWith('green text');
       });
 
     });

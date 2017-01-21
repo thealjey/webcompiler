@@ -16,7 +16,7 @@ chai.use(sinonChai);
 
 const precision = 8;
 
-let SASSCompiler, postcss, process, then, cmp, callback;
+let SASSCompiler, postcss, process, then, cmp, callback, logError, logPostCSSWarnings, logSASSError;
 
 function req(options: Object) {
   return proxyquire('../src/SASSCompiler', options).SASSCompiler;
@@ -26,13 +26,9 @@ describe('SASSCompiler', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'log');
-    stub(console, 'error');
-  });
-
-  afterEach(() => {
-    console.log.restore();
-    console.error.restore();
+    logError = stub();
+    logPostCSSWarnings = stub();
+    logSASSError = stub();
   });
 
   describe('postcss error', () => {
@@ -41,7 +37,7 @@ describe('SASSCompiler', () => {
       then = stub().callsArgWith(0, {warnings: () => ['something', 'bad', 'happened']});
       process = stub().returns({then});
       postcss = stub().returns({process});
-      SASSCompiler = req({postcss});
+      SASSCompiler = req({postcss, './logger': {logError, logPostCSSWarnings, logSASSError}});
       cmp = new SASSCompiler(false, ['/path/to/a/directory'], {bower: true});
     });
 
@@ -79,17 +75,15 @@ describe('SASSCompiler', () => {
 
       it('calls process', () => {
         expect(process).calledWith('source code', {from: '/path/to/the/output/file.css',
-                                   to: '/path/to/the/output/file.css', map: {prev: 'source map'}});
+          to: '/path/to/the/output/file.css', map: {prev: 'source map'}});
       });
 
       it('calls then', () => {
-        expect(then).calledWith(match.func);
+        expect(then).calledWith(match.func, logError);
       });
 
       it('prints errors on screen', () => {
-        expect(console.error).calledWith('something');
-        expect(console.error).calledWith('bad');
-        expect(console.error).calledWith('happened');
+        expect(logPostCSSWarnings).calledWith(['something', 'bad', 'happened']);
       });
 
       it('does not call callback', () => {
@@ -106,7 +100,7 @@ describe('SASSCompiler', () => {
       then = stub().callsArgWith(0, {warnings: () => [], css: 'css rules', map: {source: ['map', 'contents']}});
       process = stub().returns({then});
       postcss = stub().returns({process});
-      SASSCompiler = req({postcss});
+      SASSCompiler = req({postcss, './logger': {logError, logPostCSSWarnings, logSASSError}});
       cmp = new SASSCompiler();
     });
 
@@ -150,9 +144,7 @@ describe('SASSCompiler', () => {
       describe('render error', () => {
 
         beforeEach(() => {
-          stub(sass, 'render').callsArgWith(1, {message: 'something bad happened', file: '/path/to/a/file.css', line: 1,
-                                            column: 2});
-          cmp.isProduction = true;
+          stub(sass, 'render').callsArgWith(1, 'something bad happened');
           cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css');
         });
 
@@ -175,9 +167,7 @@ describe('SASSCompiler', () => {
         });
 
         it('prints the error on screen', () => {
-          expect(console.log).calledWith(
-            '\x1b[41mSASS error\x1b[0m "\x1b[33m%s\x1b[0m" in \x1b[36m%s\x1b[0m on \x1b[35m%s:%s\x1b[0m',
-            'something bad happened', '/path/to/a/file.css', 1, 2);
+          expect(logSASSError).calledWith('something bad happened');
         });
 
         it('does not call autoprefix', () => {
@@ -190,26 +180,11 @@ describe('SASSCompiler', () => {
 
         beforeEach(() => {
           stub(sass, 'render').callsArgWith(1, null, {css: 'css rules', map: 'source map'});
-          cmp.isProduction = false;
           cmp.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', callback);
         });
 
         afterEach(() => {
           sass.render.restore();
-        });
-
-        it('calls render', () => {
-          expect(sass.render).calledWith({
-            file: '/path/to/the/input/file.scss',
-            outFile: '/path/to/the/output/file.css',
-            importer,
-            importOnce: cmp.importOnce,
-            includePaths: cmp.includePaths,
-            precision,
-            sourceMap: true,
-            sourceMapContents: true,
-            outputStyle: 'nested'
-          }, match.func);
         });
 
         it('calls autoprefix', () => {

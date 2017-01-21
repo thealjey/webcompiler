@@ -54,40 +54,24 @@ export function getCodemirror() {
   return spy();
 }
 
-export class Remarkable {
-
-  preset: string;
-
-  options: Object;
-
-  constructor(preset: string, options: Object) {
-    this.preset = preset;
-    this.options = options;
-  }
-
-  render(markdown: string): string {
-    return markdown;
-  }
-
-}
-
-export const webpackApp = {};
-
 export class WebpackDevServer {
+
   webpackInstance: any;
+
   config: Object;
-  app: Object;
-  listen: () => void;
+
+  app: Object = {webpack: 'Application'};
+
+  listen = stub();
+
+  use = stub();
+
   constructor(webpackInstance: any, config: Object) {
     this.webpackInstance = webpackInstance;
     this.config = config;
   }
-  use(handler: () => void) {
-    webpackApp.handler = handler;
-  }
-}
 
-WebpackDevServer.prototype.listen = noop;
+}
 
 export class Server {
   changed: () => void;
@@ -111,6 +95,7 @@ export function getWebpack(c: any) {
 
   wp.optimize = {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin};
   wp.DefinePlugin = DefinePlugin;
+  wp.HotModuleReplacementPlugin = HotModuleReplacementPlugin;
 
   return wp;
 }

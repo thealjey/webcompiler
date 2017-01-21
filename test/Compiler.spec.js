@@ -6,12 +6,14 @@ import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import fs from 'fs';
 import zlib from 'zlib';
+import * as logger from '../src/logger';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-process-env */
 /* eslint-disable require-jsdoc */
+
+const error = new Error('something happened');
 
 let cmp, mkdirp, Compiler, callback;
 
@@ -23,32 +25,31 @@ describe('Compiler', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'log');
-    stub(console, 'error');
+    stub(logger, 'log');
+    stub(logger, 'logError');
+    stub(logger.consoleStyles, 'green').returns('green text');
   });
 
   afterEach(() => {
-    console.log.restore();
-    console.error.restore();
+    /* @flowignore */
+    logger.log.restore();
+
+    /* @flowignore */
+    logger.logError.restore();
+    logger.consoleStyles.green.restore();
   });
 
   describe('mkdirp error', () => {
 
     beforeEach(() => {
-      mkdirp = stub().callsArgWith(1, 'something bad happened');
+      mkdirp = stub().callsArgWith(1, error);
       Compiler = req({mkdirp});
     });
 
-    describe('development mode', () => {
+    describe('no compression', () => {
 
       beforeEach(() => {
-        process.env.NODE_ENV = 'development';
         cmp = new Compiler(false);
-        delete process.env.NODE_ENV;
-      });
-
-      it('has the isProduction flag set to false', () => {
-        expect(cmp.isProduction).false;
       });
 
       it('has the compress flag set to false', () => {
@@ -66,7 +67,7 @@ describe('Compiler', () => {
         });
 
         it('prints the error on screen', () => {
-          expect(console.error).calledWith('something bad happened');
+          expect(logger.logError).calledWith(error);
         });
 
         it('does not call the callback', () => {
@@ -77,16 +78,10 @@ describe('Compiler', () => {
 
     });
 
-    describe('production mode', () => {
+    describe('compression', () => {
 
       beforeEach(() => {
-        process.env.NODE_ENV = 'production';
         cmp = new Compiler();
-        delete process.env.NODE_ENV;
-      });
-
-      it('has the isProduction flag set to true', () => {
-        expect(cmp.isProduction).true;
       });
 
       it('has the compress flag set to false', () => {
@@ -112,7 +107,8 @@ describe('Compiler', () => {
       });
 
       it('logs the info to stdout', () => {
-        expect(console.log).calledWith('\x1b[32m%s. Compiled %s\x1b[0m', 1, '/path/to/the/output/file');
+        expect(logger.consoleStyles.green).calledWith(1, '. Compiled ', '/path/to/the/output/file');
+        expect(logger.log).calledWith('green text');
       });
 
       it('invokes the callback', () => {
@@ -127,7 +123,7 @@ describe('Compiler', () => {
         stub(Compiler, 'fsWrite').callsArg(2);
         stub(Compiler, 'done');
         Compiler.writeAndCallDone('/path/to/the/input/file', '/path/to/the/output/file',
-                                  {code: 'some code', map: 'source map'}, callback);
+          {code: 'some code', map: 'source map'}, callback);
       });
 
       afterEach(() => {
@@ -149,9 +145,7 @@ describe('Compiler', () => {
     describe('fsRead readFile error', () => {
 
       beforeEach(() => {
-        stub(fs, 'readFile', (path, callback) => {
-          callback('failed to read the script file');
-        });
+        stub(fs, 'readFile').callsArgWith(1, error);
         cmp.fsRead('/path/to/the/output/file', callback);
       });
 
@@ -175,7 +169,7 @@ describe('Compiler', () => {
       beforeEach(() => {
         stub(fs, 'readFile', (path, options, callback) => {
           if (/\.map$/.test(path)) {
-            callback('failed to read the map file');
+            callback(error);
           } else {
             options(null, 'some code');
           }
@@ -222,7 +216,7 @@ describe('Compiler', () => {
         describe('gunzip error', () => {
 
           beforeEach(() => {
-            stub(zlib, 'gunzip').callsArgWith(1, 'failed to uncompress');
+            stub(zlib, 'gunzip').callsArgWith(1, error);
             cmp.fsRead('/path/to/the/output/file', callback);
           });
 
@@ -307,7 +301,7 @@ describe('Compiler', () => {
         describe('gunzip error', () => {
 
           beforeEach(() => {
-            stub(zlib, 'gunzip').callsArgWith(1, 'failed to uncompress');
+            stub(zlib, 'gunzip').callsArgWith(1, error);
             cmp.fsRead('/path/to/the/output/file', callback);
           });
 
@@ -353,7 +347,7 @@ describe('Compiler', () => {
       });
 
       it('does not print any errors on screen', () => {
-        expect(console.error).not.called;
+        expect(logger.logError).not.called;
       });
 
       it('calls the callback', () => {
@@ -391,7 +385,7 @@ describe('Compiler', () => {
       describe('script write error', () => {
 
         beforeEach(() => {
-          stub(fs, 'writeFile').callsArgWith(2, 'failed to write script');
+          stub(fs, 'writeFile').callsArgWith(2, error);
           Compiler.fsWrite('/path/to/the/output/file', {code: 'some code'}, callback);
         });
 
@@ -408,7 +402,7 @@ describe('Compiler', () => {
         });
 
         it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to write script');
+          expect(logger.logError).calledWith(error);
         });
 
         it('does not call the callback', () => {
@@ -442,7 +436,7 @@ describe('Compiler', () => {
 
         beforeEach(() => {
           stub(fs, 'writeFile', (path, data, cb) => {
-            cb('/path/to/the/output/file.map' === path ? 'failed to write map' : null);
+            cb('/path/to/the/output/file.map' === path ? error : null);
           });
           Compiler.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
         });
@@ -456,7 +450,7 @@ describe('Compiler', () => {
         });
 
         it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to write map');
+          expect(logger.logError).calledWith(error);
         });
 
         it('does not call the callback', () => {
@@ -491,7 +485,7 @@ describe('Compiler', () => {
     describe('gzip error', () => {
 
       beforeEach(() => {
-        stub(zlib, 'gzip').callsArgWith(1, 'failed to compress');
+        stub(zlib, 'gzip').callsArgWith(1, error);
       });
 
       afterEach(() => {
@@ -525,7 +519,7 @@ describe('Compiler', () => {
         });
 
         it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to compress');
+          expect(logger.logError).calledWith(error);
         });
 
         it('does not call the callback', () => {

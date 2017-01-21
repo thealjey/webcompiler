@@ -34,7 +34,7 @@ describe('NativeProcess', () => {
       });
 
       it('returns an error', () => {
-        expect(callback).calledWith('Still working...', '');
+        expect(callback).calledWith(match.instanceOf(Error));
       });
 
     });
@@ -69,7 +69,7 @@ describe('NativeProcess', () => {
         });
 
         it('calls callback', () => {
-          expect(callback).calledWith('something bad happened', '');
+          expect(callback).calledWith(match.instanceOf(Error), '');
         });
 
       });
@@ -131,7 +131,7 @@ describe('NativeProcess', () => {
         });
 
         it('calls callback', () => {
-          expect(callback).calledWith('something is wrongsomething bad happened', 'the standard output');
+          expect(callback).calledWith(match.instanceOf(Error), 'the standard output');
         });
 
       });

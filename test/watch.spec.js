@@ -12,30 +12,37 @@ chai.use(sinonChai);
 /* eslint-disable require-jsdoc */
 
 const ALPHANUMERIC_BASE = 36,
-  watch = proxyquire('../src/watch', {'fb-watchman': {Client}}).watch;
+  capabilityErr = new Error('capabilityErr'),
+  watchErr = new Error('watchErr'),
+  clockErr = new Error('clockErr'),
+  subscribeErr = new Error('subscribeErr');
 
-let callback, toString;
+let callback, toString, watch, logError, log, yellow;
+
+function req(options: Object = {}) {
+  return proxyquire('../src/watch', options).watch;
+}
 
 describe('watch', () => {
 
   beforeEach(() => {
+    logError = stub();
+    log = stub();
+    yellow = stub().returns('yellow text');
+    watch = req({'fb-watchman': {Client}, './logger': {logError, log, consoleStyles: {yellow}}});
     callback = spy();
     toString = stub().returns('qwerty');
     stub(Date, 'now').returns({toString});
-    stub(console, 'log');
-    stub(console, 'error');
   });
 
   afterEach(() => {
     Date.now.restore();
-    console.log.restore();
-    console.error.restore();
   });
 
   describe('start', () => {
 
     beforeEach(() => {
-      watch('qwe', 'rty', callback);
+      watch('directory', 'type', callback);
     });
 
     it('gets the current timestamp', () => {
@@ -51,7 +58,7 @@ describe('watch', () => {
   describe('capabilityCheck error', () => {
 
     beforeEach(() => {
-      stub(Client.prototype, 'capabilityCheck').callsArgWith(1, 'something bad happened');
+      stub(Client.prototype, 'capabilityCheck').callsArgWith(1, capabilityErr);
       stub(Client.prototype, 'command');
       watch('qwe', 'rty', callback);
     });
@@ -66,7 +73,7 @@ describe('watch', () => {
     });
 
     it('prints an error on screen', () => {
-      expect(console.error).calledWith('something bad happened');
+      expect(logError).calledWith(capabilityErr);
     });
 
     it('does not call command', () => {
@@ -88,7 +95,7 @@ describe('watch', () => {
     describe('watch-project error', () => {
 
       beforeEach(() => {
-        stub(Client.prototype, 'command').callsArgWith(1, 'watch-project exception', {watch: 'a watcher instance'});
+        stub(Client.prototype, 'command').callsArgWith(1, watchErr, {watch: 'a watcher instance'});
         watch('qwe', 'rty', callback);
       });
 
@@ -101,7 +108,7 @@ describe('watch', () => {
       });
 
       it('prints an error on screen', () => {
-        expect(console.error).calledWith('Error initiating watch:', 'watch-project exception');
+        expect(logError).calledWith(watchErr);
       });
 
       it('does not execute a clock command', () => {
@@ -122,11 +129,12 @@ describe('watch', () => {
       });
 
       it('does not print an error on screen', () => {
-        expect(console.error).not.called;
+        expect(logError).not.called;
       });
 
       it('prints a warning on screen', () => {
-        expect(console.log).calledWith('Warning:', 'a warning message');
+        expect(yellow).calledWith('Warning: ', 'a warning message');
+        expect(log).calledWith('yellow text');
       });
 
     });
@@ -138,7 +146,7 @@ describe('watch', () => {
           if ('watch-project' === command[0]) {
             cb(null, {watch: 'a watcher instance'});
           } else {
-            cb('clock exception', {clock: 'clock value'});
+            cb(clockErr, {clock: 'clock value'});
           }
         });
         watch('qwe', 'rty', callback);
@@ -149,7 +157,7 @@ describe('watch', () => {
       });
 
       it('does not print a warning on screen', () => {
-        expect(console.log).not.called;
+        expect(log).not.called;
       });
 
       it('executes a clock command', () => {
@@ -157,7 +165,7 @@ describe('watch', () => {
       });
 
       it('prints an error on screen', () => {
-        expect(console.error).calledWith('Failed to query clock:', 'clock exception');
+        expect(logError).calledWith(clockErr);
       });
 
       it('does not execute a subscribe command', () => {
@@ -176,7 +184,7 @@ describe('watch', () => {
           } else if ('clock' === command[0]) {
             cb(null, {clock: 'clock value'});
           } else {
-            cb('subscribe exception');
+            cb(subscribeErr);
           }
         });
         watch('qwe', 'rty', callback);
@@ -192,7 +200,7 @@ describe('watch', () => {
       });
 
       it('prints an error on screen', () => {
-        expect(console.error).calledWith('Failed to subscribe:', 'subscribe exception');
+        expect(logError).calledWith(subscribeErr);
       });
 
     });
@@ -227,7 +235,7 @@ describe('watch', () => {
         });
 
         it('does not print an error on screen', () => {
-          expect(console.error).not.called;
+          expect(logError).not.called;
         });
 
         it('calls on', () => {

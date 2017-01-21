@@ -4,21 +4,19 @@ import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
-import MemoryFS from 'memory-fs';
 import fs from 'fs';
 import {Compiler} from '../src/Compiler';
-import {DefinePlugin, OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin, getWebpack} from './mock';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sync */
-/* eslint-disable no-process-env */
 /* eslint-disable require-jsdoc */
 
-const files = 10;
+const files = 10,
+  error = new Error('something happened');
 
-let cmp, transformFile, isDirectory, webpack, compiler, run, JSCompiler, callback, pipe;
+let cmp, transformFile, isDirectory, run, JSCompiler, callback, pipe, logError, log, yellow, red, readFileSync;
 
 function req(options: Object) {
   return proxyquire('../src/JSCompiler', options).JSCompiler;
@@ -28,147 +26,41 @@ describe('JSCompiler', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'error');
-    stub(console, 'log');
-  });
-
-  afterEach(() => {
-    console.error.restore();
-    console.log.restore();
+    logError = stub();
+    log = stub();
+    yellow = stub().returns('yellow text');
+    red = stub().returns('red text');
   });
 
   describe('webpack exception', () => {
 
     beforeEach(() => {
-      run = stub().callsArgWith(0, 'failed to compile');
-      compiler = {outputFileSystem: 'realFS', run};
-      webpack = getWebpack(compiler);
-      JSCompiler = req({webpack});
-      process.env.NODE_ENV = 'production';
-      cmp = new JSCompiler(false, {some: 'options'});
-      delete process.env.NODE_ENV;
-    });
-
-    it('has the compress flag set to false', () => {
-      expect(cmp.compress).false;
-    });
-
-    it('inits processing', () => {
-      expect(cmp.processing).equal(0);
+      run = stub().callsArgWith(0, error);
+      JSCompiler = req({'./webpack': {getCompiler: () => ({run})}, './logger': {logError}});
+      cmp = new JSCompiler();
     });
 
     describe('fe', () => {
 
       beforeEach(() => {
-        cmp.options = {presets: ['es2015', ['es2015', {loose: true}], 'something'], some: 'options'};
         stub(cmp, 'save');
+        cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
       });
 
       afterEach(() => {
         cmp.save.restore();
       });
 
-      describe('development', () => {
-
-        beforeEach(() => {
-          cmp.isProduction = false;
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-        });
-
-        it('calls webpack', () => {
-          expect(webpack).calledWith({
-            cache: {},
-            debug: true,
-            devtool: 'source-map',
-            entry: '/path/to/the/input/file.js',
-            output: {path: '/path/to/the/output', filename: 'file.js'},
-            plugins: [],
-            node: {
-              fs: 'empty'
-            },
-            module: {
-              loaders: [{
-                test: /jsdom/,
-                loader: 'null'
-              }, {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                  cacheDirectory: true,
-                  presets: [['es2015', {modules: false}], ['es2015', {loose: true, modules: false}], 'something'],
-                  some: 'options'
-                }
-              }, {
-                test: /\.json$/,
-                loader: 'json'
-              }]
-            }
-          });
-        });
-
-        it('overrides the compiler file system', () => {
-          expect(compiler.outputFileSystem).instanceof(MemoryFS);
-        });
-
-        it('calls compiler.run', () => {
-          expect(run).calledWith(match.func);
-        });
-
-        it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to compile');
-        });
-
-        it('does not call cmp.save', () => {
-          expect(cmp.save).not.called;
-        });
-
+      it('calls compiler.run', () => {
+        expect(run).calledWith(match.func);
       });
 
-      describe('production', () => {
+      it('logs the error', () => {
+        expect(logError).calledWith(error);
+      });
 
-        beforeEach(() => {
-          cmp.isProduction = true;
-          cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
-        });
-
-        it('calls webpack', () => {
-          expect(webpack).calledWith({
-            cache: {},
-            debug: true,
-            devtool: 'source-map',
-            entry: '/path/to/the/input/file.js',
-            output: {path: '/path/to/the/output', filename: 'file.js'},
-            plugins: [
-              match.instanceOf(DefinePlugin),
-              match.instanceOf(OccurrenceOrderPlugin),
-              match.instanceOf(DedupePlugin),
-              match.instanceOf(UglifyJsPlugin)
-            ],
-            node: {
-              fs: 'empty'
-            },
-            module: {
-              loaders: [{
-                test: /jsdom/,
-                loader: 'null'
-              }, {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                  cacheDirectory: true,
-                  presets: [['es2015', {modules: false}], ['es2015', {loose: true, modules: false}], 'something'],
-                  some: 'options'
-                }
-              }, {
-                test: /\.json$/,
-                loader: 'json'
-              }]
-            }
-          });
-        });
-
+      it('does not call cmp.save', () => {
+        expect(cmp.save).not.called;
       });
 
     });
@@ -178,31 +70,33 @@ describe('JSCompiler', () => {
   describe('webpack errors', () => {
 
     beforeEach(() => {
-      run = stub().callsArgWith(0, null,
-        {toJson: () => ({errors: ['something', 'bad', 'happened'], warnings: ['you', 'cannot', 'do', 'that']})});
-      compiler = {outputFileSystem: 'realFS', run};
-      webpack = getWebpack(compiler);
-      JSCompiler = req({webpack});
+      run = stub().callsArgWith(0, null, {toJson: () => ({warnings: ['something'], errors: ['happened']})});
+      JSCompiler = req({'./webpack': {getCompiler: () => ({run})}, './logger': {log, consoleStyles: {yellow, red}}});
       cmp = new JSCompiler();
-      stub(cmp, 'save');
-      cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
     });
 
-    it('prints the warnings on screen', () => {
-      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'you');
-      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'cannot');
-      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'do');
-      expect(console.log).calledWith('\x1b[33m%s\x1b[0m', 'that');
-    });
+    describe('fe', () => {
 
-    it('prints the errors on screen', () => {
-      expect(console.error).calledWith('something');
-      expect(console.error).calledWith('bad');
-      expect(console.error).calledWith('happened');
-    });
+      beforeEach(() => {
+        stub(cmp, 'save');
+        cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
+      });
 
-    it('does not call cmp.save', () => {
-      expect(cmp.save).not.called;
+      afterEach(() => {
+        cmp.save.restore();
+      });
+
+      it('logs errors', () => {
+        expect(yellow).calledWith('something');
+        expect(log).calledWith('yellow text');
+        expect(red).calledWith('happened');
+        expect(log).calledWith('red text');
+      });
+
+      it('does not call cmp.save', () => {
+        expect(cmp.save).not.called;
+      });
+
     });
 
   });
@@ -211,22 +105,14 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       run = stub().callsArgWith(0, null, {toJson: () => ({errors: [], warnings: []})});
-      compiler = {outputFileSystem: 'realFS', run};
-      webpack = getWebpack(compiler);
-      JSCompiler = req({webpack});
-      stub(JSCompiler.prototype, 'configure');
-      cmp = new JSCompiler(false, {some: 'options'});
-      cmp.options = {some: 'options'};
+      readFileSync = stub().returnsArg(0);
+      JSCompiler = req({'./webpack': {getCompiler: () => ({run, outputFileSystem: {readFileSync}})}});
+      cmp = new JSCompiler();
       stub(cmp, 'save');
-      stub(MemoryFS.prototype, 'readFileSync').returnsArg(0);
     });
 
     afterEach(() => {
-      MemoryFS.prototype.readFileSync.restore();
-    });
-
-    it('calls configure', () => {
-      expect(cmp.configure).calledWith({some: 'options'});
+      cmp.save.restore();
     });
 
     describe('no callback', () => {
@@ -260,11 +146,10 @@ describe('JSCompiler', () => {
   describe('transformFile error', () => {
 
     beforeEach(() => {
-      transformFile = stub().callsArgWith(2, 'something bad happened');
-      JSCompiler = req({'babel-core': {transformFile}});
-      process.env.NODE_ENV = 'development';
+      transformFile = stub().callsArgWith(2, error);
+      JSCompiler = req({'./webpack': {babelBEOptions: {something: 'here'}}, 'babel-core': {transformFile},
+        './logger': {logError}});
       cmp = new JSCompiler();
-      delete process.env.NODE_ENV;
       stub(Compiler, 'fsWrite').callsArg(2);
       stub(Compiler, 'done');
     });
@@ -285,11 +170,11 @@ describe('JSCompiler', () => {
       });
 
       it('calls transformFile', () => {
-        expect(transformFile).calledWith('/path/to/the/input/file.js', cmp.options, match.func);
+        expect(transformFile).calledWith('/path/to/the/input/file.js', {something: 'here'}, match.func);
       });
 
-      it('prints the error on screen', () => {
-        expect(console.error).calledWith('something bad happened');
+      it('logs the error', () => {
+        expect(logError).calledWith(error);
       });
 
       it('does not write anything to disk', () => {
@@ -304,7 +189,7 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, null, {code: 'compiled code', map: 'compiled source map'});
-      JSCompiler = req({'babel-core': {transformFile}});
+      JSCompiler = req({'babel-core': {transformFile}, './logger': {logError}});
       cmp = new JSCompiler();
       stub(Compiler, 'fsWrite').callsArg(2);
       stub(Compiler, 'done');
@@ -328,7 +213,7 @@ describe('JSCompiler', () => {
 
       it('calls fsWrite', () => {
         expect(Compiler.fsWrite).calledWith('/path/to/the/output/file.js',
-                                       {code: 'compiled code', map: 'compiled source map'}, callback);
+          {code: 'compiled code', map: 'compiled source map'}, callback);
       });
 
     });
@@ -346,7 +231,7 @@ describe('JSCompiler', () => {
       describe('readdir error', () => {
 
         beforeEach(() => {
-          stub(fs, 'readdir').callsArgWith(1, 'failed to read the directory');
+          stub(fs, 'readdir').callsArgWith(1, error);
           cmp.beDir('/path/to/the/input/directory', '/path/to/the/output/directory', callback);
         });
 
@@ -358,8 +243,8 @@ describe('JSCompiler', () => {
           expect(fs.readdir).calledWith('/path/to/the/input/directory', match.func);
         });
 
-        it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to read the directory');
+        it('logs the error', () => {
+          expect(logError).calledWith(error);
         });
 
         it('does not traverse the directory', () => {
@@ -449,7 +334,7 @@ describe('JSCompiler', () => {
 
         beforeEach(() => {
           isDirectory = spy();
-          stub(fs, 'stat').callsArgWith(1, 'failed to stat', {isDirectory});
+          stub(fs, 'stat').callsArgWith(1, error, {isDirectory});
           cmp.beTraverse('/path/to/the/input/directory', '/path/to/the/output/directory', callback);
         });
 
@@ -461,8 +346,8 @@ describe('JSCompiler', () => {
           expect(fs.stat).calledWith('/path/to/the/input/directory', match.func);
         });
 
-        it('prints the error on screen', () => {
-          expect(console.error).calledWith('failed to stat');
+        it('logs the error', () => {
+          expect(logError).calledWith(error);
         });
 
         it('does not call isDirectory', () => {
@@ -562,8 +447,8 @@ describe('JSCompiler', () => {
             cmp.be('/path/to/the/input/file.js', '/path/to/the/output/file.js');
           });
 
-          it('prints the error on screen', () => {
-            expect(console.error).calledWith('Still working...');
+          it('logs the error', () => {
+            expect(logError).calledWith(match.instanceOf(Error));
           });
 
           it('does not call beTraverse', () => {

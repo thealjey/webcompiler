@@ -1,17 +1,16 @@
 /* @flow */
 
 import chai, {expect} from 'chai';
-
 import {spy} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
-import {Remarkable, getJSX} from './mock';
+import {getJSX} from './mock';
 
 chai.use(sinonChai);
 
 /* eslint-disable require-jsdoc */
 
-const markdown = proxyquire('../src/markdown', {remarkable: Remarkable, './jsx': getJSX()});
+const markdown = proxyquire('../src/markdown', {'./jsx': getJSX()});
 
 describe('markdownToUnwrappedHTML', () => {
 
@@ -26,7 +25,7 @@ describe('markdownToUnwrappedHTML', () => {
   describe('unwrap', () => {
 
     beforeEach(() => {
-      markdown.markdownToUnwrappedHTML(' <p>something</p> ');
+      markdown.markdownToUnwrappedHTML('something');
     });
 
     it('returns result', () => {
@@ -38,7 +37,7 @@ describe('markdownToUnwrappedHTML', () => {
   describe('do not unwrap', () => {
 
     beforeEach(() => {
-      markdown.markdownToUnwrappedHTML('<h1>something</h1>');
+      markdown.markdownToUnwrappedHTML('# something');
     });
 
     it('returns result', () => {
@@ -50,11 +49,13 @@ describe('markdownToUnwrappedHTML', () => {
   describe('more than 1', () => {
 
     beforeEach(() => {
-      markdown.markdownToUnwrappedHTML('<p>something</p><h1>something</h1>');
+      markdown.markdownToUnwrappedHTML(`something
+# something`);
     });
 
     it('returns result', () => {
-      expect(markdown.markdownToUnwrappedHTML).returned('<p>something</p><h1>something</h1>');
+      expect(markdown.markdownToUnwrappedHTML).returned(`<p>something</p>
+<h1>something</h1>`);
     });
 
   });
@@ -86,7 +87,7 @@ describe('markdownToArray', () => {
   describe('arg', () => {
 
     beforeEach(() => {
-      markdown.markdownToArray('<h1>Hello world!</h1>');
+      markdown.markdownToArray('# Hello world!');
     });
 
     it('returns result', () => {
@@ -122,7 +123,7 @@ describe('markdownToJSX', () => {
   describe('arg', () => {
 
     beforeEach(() => {
-      markdown.markdownToJSX('<h1>Hello world!</h1>');
+      markdown.markdownToJSX('# Hello world!');
     });
 
     it('returns result', () => {
@@ -158,7 +159,7 @@ describe('markdownToHTML', () => {
   describe('arg', () => {
 
     beforeEach(() => {
-      markdown.markdownToHTML('<h1>Hello world!</h1>');
+      markdown.markdownToHTML('# Hello world!');
     });
 
     it('returns html', () => {

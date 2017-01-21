@@ -63,8 +63,8 @@ describe('JSLint', () => {
       });
 
       it('calls the callback', () => {
-        expect(callback).calledWith([{message: 'error message', ruleId: 'some rule', filePath: 'first file', line,
-                                    column}]);
+        expect(callback).calledWith([{message: 'error message', rule: 'some rule', file: 'first file', line,
+          column}]);
       });
 
     });

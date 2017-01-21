@@ -6,6 +6,7 @@ import sinonChai from 'sinon-chai';
 import {SASS} from '../src/SASS';
 import {SASSCompiler} from '../src/SASSCompiler';
 import {SASSLint} from '../src/SASSLint';
+import * as logger from '../src/logger';
 
 chai.use(sinonChai);
 
@@ -17,17 +18,18 @@ describe('SASS', () => {
 
   beforeEach(() => {
     callback = spy();
-    stub(console, 'error');
+    stub(logger, 'logLintingErrors');
   });
 
   afterEach(() => {
-    console.error.restore();
+    /* @flowignore */
+    logger.logLintingErrors.restore();
   });
 
   describe('arguments', () => {
 
     beforeEach(() => {
-      cmp = new SASS(false, ['/path/to/a/directory'], ['QualifyingElement', 'PlaceholderInExtend'], {bower: true});
+      cmp = new SASS(false, ['/path/to/a/directory'], {something: 'here'}, {bower: true});
     });
 
     it('initializes compiler', () => {
@@ -45,7 +47,7 @@ describe('SASS', () => {
 
     it('initializes linter', () => {
       expect(cmp.linter).instanceof(SASSLint);
-      expect(cmp.linter.excludeLinter).equal('QualifyingElement,PlaceholderInExtend');
+      expect(cmp.linter.configOverrides).eql({something: 'here'});
     });
 
   });
@@ -67,19 +69,61 @@ describe('SASS', () => {
     });
 
     it('initializes linter', () => {
-      expect(cmp.linter.excludeLinter).equal('');
+      expect(cmp.linter.configOverrides).eql({});
+    });
+
+    describe('lint success', () => {
+
+      beforeEach(() => {
+        stub(cmp.linter, 'run').callsArg(1);
+        cmp.lint(['stuff', 'to', 'lint'], callback);
+      });
+
+      afterEach(() => {
+        cmp.linter.run.restore();
+      });
+
+      it('executes the linter', () => {
+        expect(cmp.linter.run).calledWith(['stuff', 'to', 'lint'], match.func);
+      });
+
+      it('calls the callback', () => {
+        expect(callback).called;
+      });
+
+      it('does not print anything on screen', () => {
+        expect(logger.logLintingErrors).not.called;
+      });
+
+    });
+
+    describe('lint failure', () => {
+
+      beforeEach(() => {
+        stub(cmp.linter, 'run').callsArgWith(1, 'linting errors');
+        cmp.lint(['stuff', 'to', 'lint'], callback);
+      });
+
+      afterEach(() => {
+        cmp.linter.run.restore();
+      });
+
+      it('prints errors on screen', () => {
+        expect(logger.logLintingErrors).calledWith('linting errors');
+      });
+
     });
 
     describe('fe', () => {
 
       beforeEach(() => {
         stub(cmp.compiler, 'fe');
-        stub(cmp.linter, 'run').callsArg(1);
+        stub(cmp, 'lint').callsArg(1);
       });
 
       afterEach(() => {
         cmp.compiler.fe.restore();
-        cmp.linter.run.restore();
+        cmp.lint.restore();
       });
 
       describe('no lint paths or callback', () => {
@@ -89,7 +133,7 @@ describe('SASS', () => {
         });
 
         it('calls lint', () => {
-          expect(cmp.linter.run).calledWith(['input'], match.func);
+          expect(cmp.lint).calledWith(['input'], match.func);
         });
 
         it('calls compiler fe', () => {
@@ -105,7 +149,7 @@ describe('SASS', () => {
         });
 
         it('calls lint', () => {
-          expect(cmp.linter.run).calledWith(['lint', 'this', 'input'], match.func);
+          expect(cmp.lint).calledWith(['lint', 'this', 'input'], match.func);
         });
 
       });
