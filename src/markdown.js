@@ -32,7 +32,7 @@ export function markdownToUnwrappedHTML(markdown: string): string {
   if (1 !== children.length) {
     return html;
   }
-  const child = children[0],
+  const [child] = children,
     {type, name} = child;
 
   return 'tag' === type && 'p' === name ? dom(child).html() : html;
