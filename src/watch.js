@@ -9,8 +9,8 @@ const client = new Client(),
   {yellow} = consoleStyles;
 
 /**
- * Using the Facebook Watchman, watches the directory `dir` for changes of files with extension `type` and runs
- * `callback` when a change is detected.
+ * Using the [Facebook Watchman](https://facebook.github.io/watchman/), watches the directory `dir` for changes of files
+ * with extension `type` and runs `callback` when a change is detected.
  *
  * This watcher's only goal is performance, hence the simplicity.
  *

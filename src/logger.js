@@ -12,7 +12,31 @@ const pattern  = /at (?:(.*) )?\(?([^(]*):(\d+):(\d+)\)?$/,
   separatorPattern = new RegExp(sep);
 
 /**
- * Various console helpers.
+ * Dead-simple, composable, isomorphic, cross-browser wrapper for `console.log`.
+ *
+ * <style>
+ *   .console {
+ *     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+ *     font-family: Consolas, Monaco, 'Andale Mono', monospace;
+ *     font-size: 18px;
+ *   }
+ *   .console, .console .line { padding: 5px; }
+ *   .console .line .in { color: #909090; }
+ *   .console .line .out { color: #b3b3b3; }
+ *   .console .line .string { color: #c6211d; }
+ *   .console .line .bold { font-weight: bold; }
+ *   .console .line .underline { text-decoration: underline; }
+ *   .console .line .red { color: red; }
+ *   .console .line .green { color: green; }
+ *   .console .line .blue { color: blue; }
+ * </style>
+ * <div class="console"><div class="line"><span class="in">></span> log(<span
+ * class="string">'Colorful '</span>, bold(red(<span class="string">'R'</span>), green(<span
+ * class="string">'G'</span>), blue(<span class="string">'B'</span>)), <span
+ * class="string">' logs are '</span>, underline(<span class="string">'very'</span>), <span
+ * class="string">' easy!'</span>);</div><div class="line"><span class="out"><</span> Colorful <span class="bold"><span
+ * class="red">R</span></span><span class="green">G</span></span><span class="blue">B</span></span> logs are <span
+ * class="underline">very</span> easy!</div></div>
  *
  * @module logger
  */
@@ -272,9 +296,9 @@ export function formatErrorMarker(message: string = 'Error') {
  * //      var log = logger.log;
  * //      var consoleStyles = logger.consoleStyles;
  *
- * const {red, green, blue, bold} = consoleStyles;
+ * const {red, green, blue, bold, underline} = consoleStyles;
  *
- * log('Colorful ', bold(red('R'), green('G'), blue('B')), ' logs are ', bold('very'), ' easy!');
+ * log('Colorful ', bold(red('R'), green('G'), blue('B')), ' logs are ', underline('very'), ' easy!');
  */
 export function log(...messages: Array<string | number | Message>) {
   const msg = new Message({ansi: ['', ''], css: ''}).addMessages(messages);
