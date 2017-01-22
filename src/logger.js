@@ -35,7 +35,7 @@ const pattern  = /at (?:(.*) )?\(?([^(]*):(\d+):(\d+)\)?$/,
  * class="string">'G'</span>), blue(<span class="string">'B'</span>)), <span
  * class="string">' logs are '</span>, underline(<span class="string">'very'</span>), <span
  * class="string">' easy!'</span>);</div><div class="line"><span class="out"><</span> Colorful <span class="bold"><span
- * class="red">R</span></span><span class="green">G</span></span><span class="blue">B</span></span> logs are <span
+ * class="red">R</span><span class="green">G</span><span class="blue">B</span></span> logs are <span
  * class="underline">very</span> easy!</div></div>
  *
  * @module logger
