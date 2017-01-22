@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation - Documentation</title>
+    <title>Message - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Documentation</h1>
+    <h1 class="page-title">Message</h1>
     
 
     
@@ -40,7 +40,9 @@
 <header>
     
         <h2>
-        Documentation
+            <span class="ancestors"><a href="module-logger.html">logger</a>.</span>
+        
+        Message
         </h2>
         
     
@@ -53,7 +55,7 @@
 
     
 
-    <h4 class="name" id="Documentation"><span class="type-signature"></span>new Documentation<span class="signature">(config<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Message"><span class="type-signature">(protected) </span>new Message<span class="signature">(style)</span><span class="type-signature"></span></h4>
 
     
 
@@ -65,7 +67,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Documentation.js.html">Documentation.js</a>, <a href="Documentation.js.html#line18">line 18</a>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -105,17 +107,7 @@
 
 
 <div class="description">
-    <p>Generates API documentation</p>
-<p>The default JSDoc plugin specified in <code>jsdocConfig</code> strips out all of the code from a file while retaining newlines
-(unlike the built in <code>commentsOnly</code> plugin that ships with JSDoc3).</p>
-<p>That way:</p>
-<ol>
-<li>line numbers are preserved in the source view</li>
-<li>you don't need to use a pre-compiler, you will always see the same code as you wrote in the docs source view</li>
-<li>since JSDoc only sees comments you can use any code syntax you like - ES2015, ES7, JSX, it doesn't even have to be
-JavaScript.</li>
-</ol>
-<p>The markdown plugin is also included by default.</p>
+    <p>Provides the means for isomorphic styled output to the console.</p>
 </div>
 
 
@@ -124,16 +116,6 @@ JavaScript.</li>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import {Documentation} from 'webcompiler';
-// or - import {Documentation} from 'webcompiler/lib/Documentation';
-// or - var Documentation = require('webcompiler').Documentation;
-// or - var Documentation = require('webcompiler/lib/Documentation').Documentation;
-
-const docs = new Documentation();</code></pre>
 
 
 
@@ -151,11 +133,7 @@ const docs = new Documentation();</code></pre>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -167,39 +145,23 @@ const docs = new Documentation();</code></pre>
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>style</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#DocumentationConfig">DocumentationConfig</a></span>
+<span class="param-type"><a href="global.html#ConsoleStyleConfig">ConsoleStyleConfig</a></span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    <code>{}</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>a configuration object</p></td>
+            <td class="description last"><p>a style config</p></td>
         </tr>
 
     
@@ -235,18 +197,12 @@ const docs = new Documentation();</code></pre>
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
+<h4 class="name" id="message"><span class="type-signature"></span>message<span class="type-signature"> :string</span></h4>
 
-    
-
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
-
-    
 
 
 
@@ -256,7 +212,7 @@ const docs = new Documentation();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Documentation.js.html">Documentation.js</a>, <a href="Documentation.js.html#line60">line 60</a>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -296,7 +252,163 @@ const docs = new Documentation();</code></pre>
 
 
 <div class="description">
-    <p>Generate the documentation</p>
+    <p>a message string</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="styles"><span class="type-signature"></span>styles<span class="type-signature"> :Array.&lt;string></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>css style strings</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;string></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addMessage"><span class="type-signature"></span>addMessage<span class="signature">(msg)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line145">line 145</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Adds a message</p>
 </div>
 
 
@@ -305,13 +417,6 @@ const docs = new Documentation();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>docs.run(() => {
-  // generated the API documentation
-});</code></pre>
 
 
 
@@ -329,11 +434,7 @@ const docs = new Documentation();</code></pre>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -345,39 +446,162 @@ const docs = new Documentation();</code></pre>
 
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>msg</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type"><a href="module-logger.Message.html">module:logger.Message</a></span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last"><p>a message</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addMessages"><span class="type-signature"></span>addMessages<span class="signature">(messages)</span><span class="type-signature"> &rarr; {<a href="module-logger.Message.html">module:logger.Message</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line163">line 163</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Adds messages</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>messages</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">Array.&lt;(string|number|<a href="module-logger.Message.html">module:logger.Message</a>)></span>
+
+
+            
+            </td>
+
             
 
             
-                <td class="default">
-                
-                    <code>function () {}</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>a callback function</p></td>
+            <td class="description last"><p>a collection of messages</p></td>
         </tr>
 
     
@@ -400,6 +624,10 @@ const docs = new Documentation();</code></pre>
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>returns self</p>
+</div>
+
 
 
 <dl class="param-type">
@@ -408,7 +636,7 @@ const docs = new Documentation();</code></pre>
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type"><a href="module-logger.Message.html">module:logger.Message</a></span>
 
 
     </dd>

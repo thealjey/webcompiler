@@ -1,126 +1,56 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Documentation Source: JSCompiler.js</title>
+    <meta charset="utf-8">
+    <title>JSCompiler.js - Documentation</title>
 
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
-
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
 </head>
-
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-</div>
-</div>
+<label for="nav-trigger" class="overlay"></label>
 
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compiler.html">Compiler</a><ul class='methods'><li data-type='method'><a href="Compiler.html#.done">done</a></li><li data-type='method'><a href="Compiler.html#.fsWrite">fsWrite</a></li><li data-type='method'><a href="Compiler.html#.gzip">gzip</a></li><li data-type='method'><a href="Compiler.html#.mkdir">mkdir</a></li><li data-type='method'><a href="Compiler.html#save">save</a></li></ul></li><li><a href="DevServer.html">DevServer</a><ul class='methods'><li data-type='method'><a href="DevServer.html#run">run</a></li><li data-type='method'><a href="DevServer.html#watchJS">watchJS</a></li><li data-type='method'><a href="DevServer.html#watchSASS">watchSASS</a></li></ul></li><li><a href="Documentation.html">Documentation</a><ul class='methods'><li data-type='method'><a href="Documentation.html#run">run</a></li></ul></li><li><a href="JS.html">JS</a><ul class='methods'><li data-type='method'><a href="JS.html#.typecheck">typecheck</a></li><li data-type='method'><a href="JS.html#be">be</a></li><li data-type='method'><a href="JS.html#fe">fe</a></li><li data-type='method'><a href="JS.html#lint">lint</a></li></ul></li><li><a href="JSCompiler.html">JSCompiler</a><ul class='methods'><li data-type='method'><a href="JSCompiler.html#be">be</a></li><li data-type='method'><a href="JSCompiler.html#fe">fe</a></li><li data-type='method'><a href="JSCompiler.html#save">save</a></li></ul></li><li><a href="JSLint.html">JSLint</a><ul class='methods'><li data-type='method'><a href="JSLint.html#run">run</a></li></ul></li><li><a href="module-logger.Message.html">Message</a><ul class='methods'><li data-type='method'><a href="module-logger.Message.html#addMessage">addMessage</a></li><li data-type='method'><a href="module-logger.Message.html#addMessages">addMessages</a></li></ul></li><li><a href="NativeProcess.html">NativeProcess</a><ul class='methods'><li data-type='method'><a href="NativeProcess.html#kill">kill</a></li><li data-type='method'><a href="NativeProcess.html#run">run</a></li></ul></li><li><a href="SASS.html">SASS</a><ul class='methods'><li data-type='method'><a href="SASS.html#fe">fe</a></li><li data-type='method'><a href="SASS.html#lint">lint</a></li></ul></li><li><a href="SASSCompiler.html">SASSCompiler</a><ul class='methods'><li data-type='method'><a href="SASSCompiler.html#.autoprefix">autoprefix</a></li><li data-type='method'><a href="SASSCompiler.html#fe">fe</a></li><li data-type='method'><a href="SASSCompiler.html#save">save</a></li></ul></li><li><a href="SASSLint.html">SASSLint</a><ul class='methods'><li data-type='method'><a href="SASSLint.html#run">run</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-highlight.html">highlight</a><ul class='methods'><li data-type='method'><a href="module-highlight.html#.highlightArray">highlightArray</a></li><li data-type='method'><a href="module-highlight.html#.highlightHTML">highlightHTML</a></li><li data-type='method'><a href="module-highlight.html#.highlightJSX">highlightJSX</a></li></ul></li><li><a href="module-jsx.html">jsx</a><ul class='methods'><li data-type='method'><a href="module-jsx.html#.arrayToJSX">arrayToJSX</a></li><li data-type='method'><a href="module-jsx.html#.flatten">flatten</a></li><li data-type='method'><a href="module-jsx.html#.htmlToArray">htmlToArray</a></li><li data-type='method'><a href="module-jsx.html#.htmlToJSX">htmlToJSX</a></li></ul></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#.log">log</a></li><li data-type='method'><a href="module-logger.html#.logError">logError</a></li><li data-type='method'><a href="module-logger.html#.logLintingErrors">logLintingErrors</a></li><li data-type='method'><a href="module-logger.html#.logPostCSSWarnings">logPostCSSWarnings</a></li><li data-type='method'><a href="module-logger.html#.logSASSError">logSASSError</a></li></ul></li><li><a href="module-markdown.html">markdown</a><ul class='methods'><li data-type='method'><a href="module-markdown.html#.markdownToArray">markdownToArray</a></li><li data-type='method'><a href="module-markdown.html#.markdownToHTML">markdownToHTML</a></li><li data-type='method'><a href="module-markdown.html#.markdownToJSX">markdownToJSX</a></li></ul></li><li><a href="module-webpack.html">webpack</a></li></ul><h3>Externals</h3><ul><li><a href="external-ExpressApplication.html">ExpressApplication</a></li></ul><h3>Global</h3><ul><li><a href="global.html#findBinary">findBinary</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li></ul>
+</nav>
 
-<div class="container" id="toc-content">
-<div class="row">
-
-	
-	<div class="col-md-12">
-	
-		<div id="main">
-			
-
-		<h1 class="page-title">Source: JSCompiler.js</h1>
+<div id="main">
     
-<section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">/* @flow */
+    <h1 class="page-title">JSCompiler.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* @flow */
 
 import {Compiler} from './Compiler';
-import {join, extname, dirname, basename} from 'path';
-import {readdir, stat, createReadStream, createWriteStream, readFileSync} from 'fs';
+import {join, extname} from 'path';
+import {readdir, stat, createReadStream, createWriteStream} from 'fs';
 import {transformFile} from 'babel-core';
-import webpack from 'webpack';
-import MemoryFS from 'memory-fs';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
-import assignWith from 'lodash/assignWith';
-import get from 'lodash/get';
-import isArray from 'lodash/isArray';
-import uniq from 'lodash/uniq';
-import map from 'lodash/map';
+import {getCompiler, babelBEOptions} from './webpack';
+import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-sync */
-/* eslint-disable no-process-env */
 
-const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8')),
-  cache = {},
-  fakeFS = new MemoryFS(),
-  {optimize, DefinePlugin} = webpack,
-  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = optimize,
-  productionPlugins = [
-    new DefinePlugin({'process.env': {NODE_ENV: JSON.stringify('production')}}),
-    new OccurrenceOrderPlugin(),
-    new DedupePlugin(),
-    new UglifyJsPlugin({compress: {warnings: false}})
-  ];
+const {yellow, red} = consoleStyles;
 
 /**
  * A JavaScript compiler
@@ -128,7 +58,6 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
  * @class JSCompiler
  * @extends Compiler
  * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
- * @param {Object}  [options={}]    - allows to override the default Babel options
  * @example
  * import {JSCompiler} from 'webcompiler';
  * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
@@ -138,15 +67,6 @@ const config = JSON.parse(readFileSync(join(__dirname, '..', '.babelrc'), 'utf8'
  * const compiler = new JSCompiler();
  */
 export class JSCompiler extends Compiler {
-  /**
-   * Babel options
-   *
-   * @member {Object} options
-   * @memberOf JSCompiler
-   * @private
-   * @instance
-   */
-  options: Object;
 
   /**
    * The number of files being compiled at the moment
@@ -157,39 +77,6 @@ export class JSCompiler extends Compiler {
    * @instance
    */
   processing: number = 0;
-
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, options: Object = {}) {
-    /* eslint-enable require-jsdoc */
-    super(compress);
-    this.configure(options);
-  }
-
-  /**
-   * Merges Babel configuration options
-   *
-   * @memberOf JSCompiler
-   * @instance
-   * @private
-   * @method configure
-   * @param {Object} options - allows to override the default Babel options
-   * @example
-   * compiler.configure(options);
-   */
-  configure(options: Object) {
-    this.options = assignWith({}, config, get(config, ['env', process.env.NODE_ENV || 'development']), options,
-      (objValue, srcValue) => {
-        if (!isArray(srcValue)) {
-          return srcValue;
-        }
-        if (!isArray(objValue)) {
-          return uniq(srcValue);
-        }
-
-        return uniq(srcValue.concat(objValue));
-      });
-    delete this.options.env;
-  }
 
   /**
    * Compiles a directory of files for the back end
@@ -207,7 +94,7 @@ export class JSCompiler extends Compiler {
   beDir(inPath: string, outPath: string, callback: () => void) {
     readdir(inPath, (readdirErr, files) => {
       if (readdirErr) {
-        return console.error(readdirErr);
+        return logError(readdirErr);
       }
       forEach(files, file => {
         this.beTraverse(join(inPath, file), join(outPath, file), callback);
@@ -230,9 +117,9 @@ export class JSCompiler extends Compiler {
    */
   beFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
-    transformFile(inPath, this.options, (transformFileErr, result) => {
+    transformFile(inPath, babelBEOptions, (transformFileErr, result) => {
       if (transformFileErr) {
-        return console.error(transformFileErr);
+        return logError(transformFileErr);
       }
       Compiler.fsWrite(outPath, result, callback);
     });
@@ -276,7 +163,7 @@ export class JSCompiler extends Compiler {
   beTraverse(inPath: string, outPath: string, callback: () => void) {
     stat(inPath, (statErr, stats) => {
       if (statErr) {
-        return console.error(statErr);
+        return logError(statErr);
       }
       if (stats.isDirectory()) {
         this.beDir(inPath, outPath, callback);
@@ -303,7 +190,7 @@ export class JSCompiler extends Compiler {
    */
   be(inPath: string, outPath: string, callback: () => void = noop) {
     if (this.processing) {
-      return console.error('Still working...');
+      return logError(new Error('Still working'));
     }
     this.beTraverse(inPath, outPath, () => {
       --this.processing;
@@ -326,198 +213,48 @@ export class JSCompiler extends Compiler {
    * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
-    const {presets, ...options} = this.options,
-      compiler = webpack({
-        cache,
-        debug: true,
-        devtool: 'source-map',
-        entry: inPath,
-        output: {path: dirname(outPath), filename: basename(outPath)},
-        plugins: this.isProduction ? productionPlugins : [],
-        node: {
-          fs: 'empty'
-        },
-        module: {
-          loaders: [{
-            test: /jsdom/,
-            loader: 'null'
-          }, {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true,
-              presets: map(presets, preset => {
-                if ('es2015' === preset) {
-                  return ['es2015', {modules: false}];
-                }
-                if (isArray(preset) &amp;&amp; 'es2015' === preset[0]) {
-                  return ['es2015', {...preset[1], modules: false}];
-                }
-
-                return preset;
-              }),
-              ...options
-            }
-          }, {
-            test: /\.json$/,
-            loader: 'json'
-          }]
-        }
-      });
-
-    compiler.outputFileSystem = fakeFS;
+    const compiler = getCompiler(inPath, outPath);
 
     compiler.run((err, stats) => {
       if (err) {
-        return console.error(err);
+        return logError(err);
       }
       const {warnings, errors} = stats.toJson();
 
       forEach(warnings, warning => {
-        console.log('\x1b[33m%s\x1b[0m', warning);
+        log(yellow(warning));
       });
       if (errors.length) {
-        return forEach(errors, error => {
-          console.error(error);
+        forEach(errors, error => {
+          log(red(error));
         });
+
+        return;
       }
       this.save(inPath, outPath, {
-        code: fakeFS.readFileSync(outPath, 'utf8'),
-        map: fakeFS.readFileSync(`${outPath}.map`, 'utf8')
+        code: compiler.outputFileSystem.readFileSync(outPath, 'utf8'),
+        map: compiler.outputFileSystem.readFileSync(`${outPath}.map`, 'utf8')
       }, callback);
     });
   }
 
 }
-</pre>
-    </article>
-</section>
+</code></pre>
+        </article>
+    </section>
 
 
 
-
-
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-	
 
 </div>
-</div>
 
-
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
+<br class="clear">
 
 <footer>
-
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
-		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : true,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

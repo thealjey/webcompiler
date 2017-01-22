@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>logger - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compiler.html">Compiler</a><ul class='methods'><li data-type='method'><a href="Compiler.html#.done">done</a></li><li data-type='method'><a href="Compiler.html#.fsWrite">fsWrite</a></li><li data-type='method'><a href="Compiler.html#.gzip">gzip</a></li><li data-type='method'><a href="Compiler.html#.mkdir">mkdir</a></li><li data-type='method'><a href="Compiler.html#save">save</a></li></ul></li><li><a href="DevServer.html">DevServer</a><ul class='methods'><li data-type='method'><a href="DevServer.html#run">run</a></li><li data-type='method'><a href="DevServer.html#watchJS">watchJS</a></li><li data-type='method'><a href="DevServer.html#watchSASS">watchSASS</a></li></ul></li><li><a href="Documentation.html">Documentation</a><ul class='methods'><li data-type='method'><a href="Documentation.html#run">run</a></li></ul></li><li><a href="JS.html">JS</a><ul class='methods'><li data-type='method'><a href="JS.html#.typecheck">typecheck</a></li><li data-type='method'><a href="JS.html#be">be</a></li><li data-type='method'><a href="JS.html#fe">fe</a></li><li data-type='method'><a href="JS.html#lint">lint</a></li></ul></li><li><a href="JSCompiler.html">JSCompiler</a><ul class='methods'><li data-type='method'><a href="JSCompiler.html#be">be</a></li><li data-type='method'><a href="JSCompiler.html#fe">fe</a></li><li data-type='method'><a href="JSCompiler.html#save">save</a></li></ul></li><li><a href="JSLint.html">JSLint</a><ul class='methods'><li data-type='method'><a href="JSLint.html#run">run</a></li></ul></li><li><a href="module-logger.Message.html">Message</a><ul class='methods'><li data-type='method'><a href="module-logger.Message.html#addMessage">addMessage</a></li><li data-type='method'><a href="module-logger.Message.html#addMessages">addMessages</a></li></ul></li><li><a href="NativeProcess.html">NativeProcess</a><ul class='methods'><li data-type='method'><a href="NativeProcess.html#kill">kill</a></li><li data-type='method'><a href="NativeProcess.html#run">run</a></li></ul></li><li><a href="SASS.html">SASS</a><ul class='methods'><li data-type='method'><a href="SASS.html#fe">fe</a></li><li data-type='method'><a href="SASS.html#lint">lint</a></li></ul></li><li><a href="SASSCompiler.html">SASSCompiler</a><ul class='methods'><li data-type='method'><a href="SASSCompiler.html#.autoprefix">autoprefix</a></li><li data-type='method'><a href="SASSCompiler.html#fe">fe</a></li><li data-type='method'><a href="SASSCompiler.html#save">save</a></li></ul></li><li><a href="SASSLint.html">SASSLint</a><ul class='methods'><li data-type='method'><a href="SASSLint.html#run">run</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-highlight.html">highlight</a><ul class='methods'><li data-type='method'><a href="module-highlight.html#.highlightArray">highlightArray</a></li><li data-type='method'><a href="module-highlight.html#.highlightHTML">highlightHTML</a></li><li data-type='method'><a href="module-highlight.html#.highlightJSX">highlightJSX</a></li></ul></li><li><a href="module-jsx.html">jsx</a><ul class='methods'><li data-type='method'><a href="module-jsx.html#.arrayToJSX">arrayToJSX</a></li><li data-type='method'><a href="module-jsx.html#.flatten">flatten</a></li><li data-type='method'><a href="module-jsx.html#.htmlToArray">htmlToArray</a></li><li data-type='method'><a href="module-jsx.html#.htmlToJSX">htmlToJSX</a></li></ul></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#.log">log</a></li><li data-type='method'><a href="module-logger.html#.logError">logError</a></li><li data-type='method'><a href="module-logger.html#.logLintingErrors">logLintingErrors</a></li><li data-type='method'><a href="module-logger.html#.logPostCSSWarnings">logPostCSSWarnings</a></li><li data-type='method'><a href="module-logger.html#.logSASSError">logSASSError</a></li></ul></li><li><a href="module-markdown.html">markdown</a><ul class='methods'><li data-type='method'><a href="module-markdown.html#.markdownToArray">markdownToArray</a></li><li data-type='method'><a href="module-markdown.html#.markdownToHTML">markdownToHTML</a></li><li data-type='method'><a href="module-markdown.html#.markdownToJSX">markdownToJSX</a></li></ul></li><li><a href="module-webpack.html">webpack</a></li></ul><h3>Externals</h3><ul><li><a href="external-ExpressApplication.html">ExpressApplication</a></li></ul><h3>Global</h3><ul><li><a href="global.html#findBinary">findBinary</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">logger</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Dead-simple, composable, isomorphic, cross-browser wrapper for <code>console.log</code>.</p>
+<p><style>
+  .console {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 18px;
+  }
+  .console, .console .line { padding: 5px; }
+  .console .line .in { color: #909090; }
+  .console .line .out { color: #b3b3b3; }
+  .console .line .string { color: #c6211d; }
+  .console .line .bold { font-weight: bold; }
+  .console .line .underline { text-decoration: underline; }
+  .console .line .red { color: red; }
+  .console .line .green { color: green; }
+  .console .line .blue { color: blue; }
+</style></p>
+<div class="console"><div class="line"><span class="in">&gt;</span> log(<span
+class="string">'Colorful '</span>, bold(red(<span class="string">'R'</span>), green(<span
+class="string">'G'</span>), blue(<span class="string">'B'</span>)), <span
+class="string">' logs are '</span>, underline(<span class="string">'very'</span>), <span
+class="string">' easy!'</span>);</div><div class="line"><span class="out">&lt;</span> Colorful <span class="bold"><span
+class="red">R</span></span><span class="green">G</span></span><span class="blue">B</span></span> logs are <span
+class="underline">very</span> easy!</div></div></div>
+        
+
+        
+            
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-logger.Message.html">Message</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".consoleStyles"><span class="type-signature">(static) </span>consoleStyles<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bold</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>bold text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dim</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>text dimmed by 20%</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>italic</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>italic text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>underline</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>underlined text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inverse</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>inverted colors</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>invisible</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strikethrough</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>strikethrough</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>black</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>black text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>red</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>red text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>green</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>green text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yellow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>yellow text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>blue text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>magenta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>magenta text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cyan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cyan text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>white</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>white text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>gray text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>grey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>gray text color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgBlack</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>black background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgRed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>red background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgGreen</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>green background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgYellow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>yellow background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgBlue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>blue background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgMagenta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>magenta background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgCyan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cyan background color</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgWhite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-logger.html#.ConsoleStyle">module:logger.ConsoleStyle</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>white background color</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    <p>Console style helpers.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".log"><span class="type-signature">(static) </span>log<span class="signature">(&hellip;messages)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line283">line 283</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Log colorful messages out to the console on Node.js as well as in a browser in the simplest and most composable way.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {log, consoleStyles} from 'webcompiler';
+// or - import {log, consoleStyles} from 'webcompiler/lib/logger';
+// or - var webcompiler = require('webcompiler');
+//      var log = webcompiler.log;
+//      var consoleStyles = webcompiler.consoleStyles;
+// or - var logger = require('webcompiler/lib/logger');
+//      var log = logger.log;
+//      var consoleStyles = logger.consoleStyles;
+
+const {red, green, blue, bold, underline} = consoleStyles;
+
+log('Colorful ', bold(red('R'), green('G'), blue('B')), ' logs are ', underline('very'), ' easy!');</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>messages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type"><a href="module-logger.Message.html">module:logger.Message</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>messages to log</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".logError"><span class="type-signature">(static) </span>logError<span class="signature">(error)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line309">line 309</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Prints an Error object out to the console.</p>
+<p>Removes irrelevant entries from its stack trace that point to Node.js system files that you would never debug anyway
+and hence are irrelevant.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {logError} from 'webcompiler';
+// or - import {logError} from 'webcompiler/lib/logger';
+// or - var logError = require('webcompiler').logError;
+// or - var logError = require('webcompiler/lib/logger').logError;
+
+logError(new Error('Some error message'));</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>an error object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".logLintingErrors"><span class="type-signature">(static) </span>logLintingErrors<span class="signature">(errors, prefix<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line403">line 403</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Prints linting errors out to the console.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {logLintingErrors} from 'webcompiler';
+// or - import {logLintingErrors} from 'webcompiler/lib/logger';
+// or - var logLintingErrors = require('webcompiler').logLintingErrors;
+// or - var logLintingErrors = require('webcompiler/lib/logger').logLintingErrors;
+
+logLintingErrors(errors);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>errors</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#LintError">LintError</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>error objects</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prefix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>will be printed on the last line along with the total number of messages</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".logPostCSSWarnings"><span class="type-signature">(static) </span>logPostCSSWarnings<span class="signature">(warnings)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line346">line 346</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Prints PostCSS Warning objects out to the console.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {logPostCSSWarnings} from 'webcompiler';
+// or - import {logPostCSSWarnings} from 'webcompiler/lib/logger';
+// or - var logPostCSSWarnings = require('webcompiler').logPostCSSWarnings;
+// or - var logPostCSSWarnings = require('webcompiler/lib/logger').logPostCSSWarnings;
+import postcss from 'postcss';
+
+postcss(...).process(...).then(result => {
+  const warnings = result.warnings();
+
+  if (warnings.length) {
+    return logPostCSSWarnings(warnings);
+  }
+  ...
+});</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>warnings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#PostCSSWarning">PostCSSWarning</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>warning objects</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".logSASSError"><span class="type-signature">(static) </span>logSASSError<span class="signature">(error)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line377">line 377</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Prints a Node SASS error object out to the console.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {logSASSError} from 'webcompiler';
+// or - import {logSASSError} from 'webcompiler/lib/logger';
+// or - var logSASSError = require('webcompiler').logSASSError;
+// or - var logSASSError = require('webcompiler/lib/logger').logSASSError;
+import {render} from 'node-sass';
+
+render(..., (error, result) => {
+  if (error) {
+    return logSASSError(error);
+  }
+  ...
+});</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#NodeSassError">NodeSassError</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>error object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+    
+
+    <h4 class="name" id=".ConsoleStyle"><span class="type-signature"></span>ConsoleStyle<span class="signature">(&hellip;messages)</span><span class="type-signature"> &rarr; {<a href="module-logger.Message.html">module:logger.Message</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="logger.js.html">logger.js</a>, <a href="logger.js.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>messages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+|
+
+<span class="param-type"><a href="module-logger.Message.html">module:logger.Message</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>messages to log</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>a styled message</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-logger.Message.html">module:logger.Message</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

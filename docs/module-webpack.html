@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation - Documentation</title>
+    <title>webpack - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Documentation</h1>
+    <h1 class="page-title">webpack</h1>
     
 
     
@@ -39,9 +39,8 @@
 
 <header>
     
-        <h2>
-        Documentation
-        </h2>
+        
+            
         
     
 </header>
@@ -50,12 +49,12 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Webpack helpers. Mostly for internal use.</p>
+<p>You can use it to tweak the Babel options.</p></div>
+        
 
-    
-
-    <h4 class="name" id="Documentation"><span class="type-signature"></span>new Documentation<span class="signature">(config<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
+        
+            
 
 
 
@@ -65,7 +64,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Documentation.js.html">Documentation.js</a>, <a href="Documentation.js.html#line18">line 18</a>
+        <a href="webpack.js.html">webpack.js</a>, <a href="webpack.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -104,19 +103,6 @@
 
 
 
-<div class="description">
-    <p>Generates API documentation</p>
-<p>The default JSDoc plugin specified in <code>jsdocConfig</code> strips out all of the code from a file while retaining newlines
-(unlike the built in <code>commentsOnly</code> plugin that ships with JSDoc3).</p>
-<p>That way:</p>
-<ol>
-<li>line numbers are preserved in the source view</li>
-<li>you don't need to use a pre-compiler, you will always see the same code as you wrote in the docs source view</li>
-<li>since JSDoc only sees comments you can use any code syntax you like - ES2015, ES7, JSX, it doesn't even have to be
-JavaScript.</li>
-</ol>
-<p>The markdown plugin is also included by default.</p>
-</div>
 
 
 
@@ -126,101 +112,22 @@ JavaScript.</li>
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import {Documentation} from 'webcompiler';
-// or - import {Documentation} from 'webcompiler/lib/Documentation';
-// or - var Documentation = require('webcompiler').Documentation;
-// or - var Documentation = require('webcompiler/lib/Documentation').Documentation;
-
-const docs = new Documentation();</code></pre>
 
 
 
 
-    <h5>Parameters:</h5>
-    
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
 
-        <th>Type</th>
+
+
+
+
+
+
+
+
 
         
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DocumentationConfig">DocumentationConfig</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>{}</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>a configuration object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     </div>
 
@@ -235,18 +142,12 @@ const docs = new Documentation();</code></pre>
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
+<h4 class="name" id=".babelBEOptions"><span class="type-signature">(static) </span>babelBEOptions<span class="type-signature"> :Object</span></h4>
 
-    
-
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
-
-    
 
 
 
@@ -256,7 +157,7 @@ const docs = new Documentation();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Documentation.js.html">Documentation.js</a>, <a href="Documentation.js.html#line60">line 60</a>
+        <a href="webpack.js.html">webpack.js</a>, <a href="webpack.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -296,12 +197,20 @@ const docs = new Documentation();</code></pre>
 
 
 <div class="description">
-    <p>Generate the documentation</p>
+    <p>Babel configuration for the Node.js.</p>
 </div>
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
 
+
+        </li>
+    </ul>
 
 
 
@@ -309,115 +218,101 @@ const docs = new Documentation();</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>docs.run(() => {
-  // generated the API documentation
-});</code></pre>
+    <pre class="prettyprint"><code>import {babelBEOptions} from 'webcompiler';
+// or - import {babelBEOptions} from 'webcompiler/lib/webpack';
+// or - var babelBEOptions = require('webcompiler').babelBEOptions;
+// or - var babelBEOptions = require('webcompiler/lib/webpack').babelBEOptions;
+
+babelFEOptions.presets.push('my-custom-preset');</code></pre>
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
 
         
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
             
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
+<h4 class="name" id=".babelFEOptions"><span class="type-signature">(static) </span>babelFEOptions<span class="type-signature"> :Object</span></h4>
 
 
-            
-            </td>
 
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
 
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>function () {}</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>a callback function</p></td>
-        </tr>
+<dl class="details">
 
     
-    </tbody>
-</table>
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webpack.js.html">webpack.js</a>, <a href="webpack.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-<h5>Returns:</h5>
+    
 
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
+    
 </dl>
 
+
+
+
+
+<div class="description">
+    <p>Babel configuration for the browser.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
     
+    <pre class="prettyprint"><code>import {babelFEOptions} from 'webcompiler';
+// or - import {babelFEOptions} from 'webcompiler/lib/webpack';
+// or - var babelFEOptions = require('webcompiler').babelFEOptions;
+// or - var babelFEOptions = require('webcompiler/lib/webpack').babelFEOptions;
+
+babelFEOptions.presets.push('my-custom-preset');</code></pre>
+
 
 
         
+    
+
     
 
     

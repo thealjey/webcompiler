@@ -1,110 +1,56 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Documentation Source: Documentation.js</title>
+    <meta charset="utf-8">
+    <title>Documentation.js - Documentation</title>
 
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
-
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
 </head>
-
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-</div>
-</div>
+<label for="nav-trigger" class="overlay"></label>
 
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compiler.html">Compiler</a><ul class='methods'><li data-type='method'><a href="Compiler.html#.done">done</a></li><li data-type='method'><a href="Compiler.html#.fsWrite">fsWrite</a></li><li data-type='method'><a href="Compiler.html#.gzip">gzip</a></li><li data-type='method'><a href="Compiler.html#.mkdir">mkdir</a></li><li data-type='method'><a href="Compiler.html#save">save</a></li></ul></li><li><a href="DevServer.html">DevServer</a><ul class='methods'><li data-type='method'><a href="DevServer.html#run">run</a></li><li data-type='method'><a href="DevServer.html#watchJS">watchJS</a></li><li data-type='method'><a href="DevServer.html#watchSASS">watchSASS</a></li></ul></li><li><a href="Documentation.html">Documentation</a><ul class='methods'><li data-type='method'><a href="Documentation.html#run">run</a></li></ul></li><li><a href="JS.html">JS</a><ul class='methods'><li data-type='method'><a href="JS.html#.typecheck">typecheck</a></li><li data-type='method'><a href="JS.html#be">be</a></li><li data-type='method'><a href="JS.html#fe">fe</a></li><li data-type='method'><a href="JS.html#lint">lint</a></li></ul></li><li><a href="JSCompiler.html">JSCompiler</a><ul class='methods'><li data-type='method'><a href="JSCompiler.html#be">be</a></li><li data-type='method'><a href="JSCompiler.html#fe">fe</a></li><li data-type='method'><a href="JSCompiler.html#save">save</a></li></ul></li><li><a href="JSLint.html">JSLint</a><ul class='methods'><li data-type='method'><a href="JSLint.html#run">run</a></li></ul></li><li><a href="module-logger.Message.html">Message</a><ul class='methods'><li data-type='method'><a href="module-logger.Message.html#addMessage">addMessage</a></li><li data-type='method'><a href="module-logger.Message.html#addMessages">addMessages</a></li></ul></li><li><a href="NativeProcess.html">NativeProcess</a><ul class='methods'><li data-type='method'><a href="NativeProcess.html#kill">kill</a></li><li data-type='method'><a href="NativeProcess.html#run">run</a></li></ul></li><li><a href="SASS.html">SASS</a><ul class='methods'><li data-type='method'><a href="SASS.html#fe">fe</a></li><li data-type='method'><a href="SASS.html#lint">lint</a></li></ul></li><li><a href="SASSCompiler.html">SASSCompiler</a><ul class='methods'><li data-type='method'><a href="SASSCompiler.html#.autoprefix">autoprefix</a></li><li data-type='method'><a href="SASSCompiler.html#fe">fe</a></li><li data-type='method'><a href="SASSCompiler.html#save">save</a></li></ul></li><li><a href="SASSLint.html">SASSLint</a><ul class='methods'><li data-type='method'><a href="SASSLint.html#run">run</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-highlight.html">highlight</a><ul class='methods'><li data-type='method'><a href="module-highlight.html#.highlightArray">highlightArray</a></li><li data-type='method'><a href="module-highlight.html#.highlightHTML">highlightHTML</a></li><li data-type='method'><a href="module-highlight.html#.highlightJSX">highlightJSX</a></li></ul></li><li><a href="module-jsx.html">jsx</a><ul class='methods'><li data-type='method'><a href="module-jsx.html#.arrayToJSX">arrayToJSX</a></li><li data-type='method'><a href="module-jsx.html#.flatten">flatten</a></li><li data-type='method'><a href="module-jsx.html#.htmlToArray">htmlToArray</a></li><li data-type='method'><a href="module-jsx.html#.htmlToJSX">htmlToJSX</a></li></ul></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#.log">log</a></li><li data-type='method'><a href="module-logger.html#.logError">logError</a></li><li data-type='method'><a href="module-logger.html#.logLintingErrors">logLintingErrors</a></li><li data-type='method'><a href="module-logger.html#.logPostCSSWarnings">logPostCSSWarnings</a></li><li data-type='method'><a href="module-logger.html#.logSASSError">logSASSError</a></li></ul></li><li><a href="module-markdown.html">markdown</a><ul class='methods'><li data-type='method'><a href="module-markdown.html#.markdownToArray">markdownToArray</a></li><li data-type='method'><a href="module-markdown.html#.markdownToHTML">markdownToHTML</a></li><li data-type='method'><a href="module-markdown.html#.markdownToJSX">markdownToJSX</a></li></ul></li><li><a href="module-webpack.html">webpack</a></li></ul><h3>Externals</h3><ul><li><a href="external-ExpressApplication.html">ExpressApplication</a></li></ul><h3>Global</h3><ul><li><a href="global.html#findBinary">findBinary</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li></ul>
+</nav>
 
-<div class="container" id="toc-content">
-<div class="row">
-
-	
-	<div class="col-md-12">
-	
-		<div id="main">
-			
-
-		<h1 class="page-title">Source: Documentation.js</h1>
+<div id="main">
     
-<section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">/* @flow */
+    <h1 class="page-title">Documentation.js</h1>
+    
 
-import {NativeProcess} from './NativeProcess';
-import {stat} from 'fs';
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* @flow */
+
+import type {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 import noop from 'lodash/noop';
+import {logError} from './logger';
+import {findBinary} from './findBinary';
 
-const npm = new NativeProcess('npm'),
-  cwd = process.cwd(),
+const cwd = process.cwd(),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
     readMe: join(cwd, 'README.md'),
-    template: join(cwd, 'node_modules', 'ink-docstrap', 'template'),
+    template: join(cwd, 'node_modules', 'docdash'),
     jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
   };
 
@@ -133,15 +79,6 @@ const npm = new NativeProcess('npm'),
  * const docs = new Documentation();
  */
 export class Documentation {
-  /**
-   * JSDoc3
-   *
-   * @member {NativeProcess} jsdoc
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  jsdoc: ?NativeProcess;
 
   /**
    * documentation generator configuration object
@@ -160,70 +97,6 @@ export class Documentation {
   }
 
   /**
-   * Finds a path to the JSDoc3 executable
-   *
-   * @memberof Documentation
-   * @static
-   * @private
-   * @method findExecutable
-   * @param {Function} callback - a callback function
-   * @example
-   * Documentation.findExecutable(file => {
-   *   // the jsdoc file is found
-   * });
-   */
-  static findExecutable(callback: Function) {
-    Documentation.checkBin(localFile => {
-      if (localFile) {
-        return callback(localFile);
-      }
-      Documentation.checkBin(globalFile => {
-        if (globalFile) {
-          return callback(globalFile);
-        }
-        console.error('Failed to locate the jsdoc executable');
-      }, true);
-    });
-  }
-
-  /**
-   * Checks the NPM bin directories to see if they contain a file named jsdoc
-   *
-   * @memberof Documentation
-   * @static
-   * @private
-   * @method checkBin
-   * @param {Function} callback              - a callback function
-   * @param {boolean}  [globalPackage=false] - if true checks the global NPM bin directory (contains the npm executable
-   *                                           itself)
-   * @example
-   * Documentation.checkBin(file => {
-   *   if (file) {
-   *     // the jsdoc file is found
-   *   }
-   * });
-   */
-  static checkBin(callback: Function, globalPackage: boolean = false) {
-    const args = ['bin'];
-
-    if (globalPackage) {
-      args.push('-g');
-    }
-    npm.run((stderr, stdout) => {
-      if (stderr) {
-        console.error(stderr);
-
-        return callback(null);
-      }
-      const path = join(stdout.replace(/\n$/, ''), 'jsdoc');
-
-      stat(path, err => {
-        callback(err ? null : path);
-      });
-    }, args);
-  }
-
-  /**
    * Generate the documentation
    *
    * @memberof Documentation
@@ -237,169 +110,38 @@ export class Documentation {
    * });
    */
   run(callback: () => void = noop) {
-    if (this.jsdoc) {
-      return this.doRun(this.jsdoc, callback);
-    }
-    Documentation.findExecutable(file => {
-      this.jsdoc = new NativeProcess(file);
-      this.doRun(this.jsdoc, callback);
+    findBinary('jsdoc', (error, jsdoc: NativeProcess) => {
+      if (error) {
+        return logError(error);
+      }
+      const {inputDir, outputDir, readMe, template, jsdocConfig} = this.options;
+
+      jsdoc.run(stderr => {
+        if (stderr) {
+          return logError(stderr);
+        }
+        callback();
+      }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
     });
   }
 
-  /**
-   * Given a JSDoc3 executable, generate the documentation
-   *
-   * @memberof Documentation
-   * @instance
-   * @private
-   * @method doRun
-   * @param {NativeProcess} jsdoc    - JSDoc3
-   * @param {Function}      callback - a callback function
-   * @example
-   * docs.doRun(jsdoc, () => {
-   *   // generated the API documentation
-   * });
-   */
-  doRun(jsdoc: NativeProcess, callback: () => void) {
-    const {inputDir, outputDir, readMe, template, jsdocConfig} = this.options;
-
-    jsdoc.run(stderr => {
-      if (stderr) {
-        return console.error(stderr);
-      }
-      callback();
-    }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
-  }
-
 }
-</pre>
-    </article>
-</section>
+</code></pre>
+        </article>
+    </section>
 
 
 
-
-
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-	
 
 </div>
-</div>
 
-
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
+<br class="clear">
 
 <footer>
-
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
-		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : true,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

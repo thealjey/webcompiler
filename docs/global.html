@@ -1,92 +1,40 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Documentation Global</title>
+    <meta charset="utf-8">
+    <title>Global - Documentation</title>
 
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
-
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
 </head>
-
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-</div>
-</div>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compiler.html">Compiler</a><ul class='methods'><li data-type='method'><a href="Compiler.html#.done">done</a></li><li data-type='method'><a href="Compiler.html#.fsWrite">fsWrite</a></li><li data-type='method'><a href="Compiler.html#.gzip">gzip</a></li><li data-type='method'><a href="Compiler.html#.mkdir">mkdir</a></li><li data-type='method'><a href="Compiler.html#save">save</a></li></ul></li><li><a href="DevServer.html">DevServer</a><ul class='methods'><li data-type='method'><a href="DevServer.html#run">run</a></li><li data-type='method'><a href="DevServer.html#watchJS">watchJS</a></li><li data-type='method'><a href="DevServer.html#watchSASS">watchSASS</a></li></ul></li><li><a href="Documentation.html">Documentation</a><ul class='methods'><li data-type='method'><a href="Documentation.html#run">run</a></li></ul></li><li><a href="JS.html">JS</a><ul class='methods'><li data-type='method'><a href="JS.html#.typecheck">typecheck</a></li><li data-type='method'><a href="JS.html#be">be</a></li><li data-type='method'><a href="JS.html#fe">fe</a></li><li data-type='method'><a href="JS.html#lint">lint</a></li></ul></li><li><a href="JSCompiler.html">JSCompiler</a><ul class='methods'><li data-type='method'><a href="JSCompiler.html#be">be</a></li><li data-type='method'><a href="JSCompiler.html#fe">fe</a></li><li data-type='method'><a href="JSCompiler.html#save">save</a></li></ul></li><li><a href="JSLint.html">JSLint</a><ul class='methods'><li data-type='method'><a href="JSLint.html#run">run</a></li></ul></li><li><a href="module-logger.Message.html">Message</a><ul class='methods'><li data-type='method'><a href="module-logger.Message.html#addMessage">addMessage</a></li><li data-type='method'><a href="module-logger.Message.html#addMessages">addMessages</a></li></ul></li><li><a href="NativeProcess.html">NativeProcess</a><ul class='methods'><li data-type='method'><a href="NativeProcess.html#kill">kill</a></li><li data-type='method'><a href="NativeProcess.html#run">run</a></li></ul></li><li><a href="SASS.html">SASS</a><ul class='methods'><li data-type='method'><a href="SASS.html#fe">fe</a></li><li data-type='method'><a href="SASS.html#lint">lint</a></li></ul></li><li><a href="SASSCompiler.html">SASSCompiler</a><ul class='methods'><li data-type='method'><a href="SASSCompiler.html#.autoprefix">autoprefix</a></li><li data-type='method'><a href="SASSCompiler.html#fe">fe</a></li><li data-type='method'><a href="SASSCompiler.html#save">save</a></li></ul></li><li><a href="SASSLint.html">SASSLint</a><ul class='methods'><li data-type='method'><a href="SASSLint.html#run">run</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-highlight.html">highlight</a><ul class='methods'><li data-type='method'><a href="module-highlight.html#.highlightArray">highlightArray</a></li><li data-type='method'><a href="module-highlight.html#.highlightHTML">highlightHTML</a></li><li data-type='method'><a href="module-highlight.html#.highlightJSX">highlightJSX</a></li></ul></li><li><a href="module-jsx.html">jsx</a><ul class='methods'><li data-type='method'><a href="module-jsx.html#.arrayToJSX">arrayToJSX</a></li><li data-type='method'><a href="module-jsx.html#.flatten">flatten</a></li><li data-type='method'><a href="module-jsx.html#.htmlToArray">htmlToArray</a></li><li data-type='method'><a href="module-jsx.html#.htmlToJSX">htmlToJSX</a></li></ul></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#.log">log</a></li><li data-type='method'><a href="module-logger.html#.logError">logError</a></li><li data-type='method'><a href="module-logger.html#.logLintingErrors">logLintingErrors</a></li><li data-type='method'><a href="module-logger.html#.logPostCSSWarnings">logPostCSSWarnings</a></li><li data-type='method'><a href="module-logger.html#.logSASSError">logSASSError</a></li></ul></li><li><a href="module-markdown.html">markdown</a><ul class='methods'><li data-type='method'><a href="module-markdown.html#.markdownToArray">markdownToArray</a></li><li data-type='method'><a href="module-markdown.html#.markdownToHTML">markdownToHTML</a></li><li data-type='method'><a href="module-markdown.html#.markdownToJSX">markdownToJSX</a></li></ul></li><li><a href="module-webpack.html">webpack</a></li></ul><h3>Externals</h3><ul><li><a href="external-ExpressApplication.html">ExpressApplication</a></li></ul><h3>Global</h3><ul><li><a href="global.html#findBinary">findBinary</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Global</h1>
+    
+
+    
 
 
-<div class="container" id="toc-content">
-<div class="row">
 
-	
-	<div class="col-md-8">
-	
-		<div id="main">
-			
 
-	<h1 class="page-title">Global</h1>
 <section>
 
 <header>
@@ -98,21 +46,12 @@
     
 </header>
 
-
 <article>
     <div class="container-overview">
     
         
 
-        
 <dl class="details">
-    
-
-	
-
-	
-
-	
 
     
 
@@ -122,27 +61,35 @@
 
     
 
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
 
+    
 
+    
 
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
+
+    
 </dl>
 
+
+
+
+        
 
         
     
@@ -154,7 +101,7 @@
 
     
 
-    
+     
 
     
 
@@ -163,34 +110,293 @@
     
         <h3 class="subsection-title">Methods</h3>
 
-        <dl>
+        
             
-<hr>
-<dt>
-    <h4 class="name" id="watch"><span class="type-signature"></span>watch(dir, type, callback)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Using the Facebook Watchman, watches the directory <code>dir</code> for changes of files with extension <code>type</code> and runs
-<code>callback</code> when a change is detected.</p>
-<p>This watcher's only goal is performance, hence the simplicity.</p>
-    </div>
-    
 
     
 
+    <h4 class="name" id="findBinary"><span class="type-signature"></span>findBinary<span class="signature">(name, callback)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="findBinary.js.html">findBinary.js</a>, <a href="findBinary.js.html#line11">line 11</a>
+    </li></ul></dd>
     
 
     
+
     
-        <h5>Parameters:</h5>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Finds the path to a project level binary, creates a <a href="NativeProcess.html">NativeProcess</a> for that binary, caches it for all
+subsequent invocations, and provides it to the callback.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {findBinary, logError} from 'webcompiler';
+// or - import {findBinary} from 'webcompiler/lib/findBinary';
+// or - var findBinary = require('webcompiler').findBinary;
+// or - var findBinary = require('webcompiler/lib/findBinary').findBinary;
+// import logError somehow
+
+findBinary('something', (error, binary) => {
+  if (error) {
+    return logError(error);
+  }
+  binary.run(() => {
+    // called the `something` binary from the local project level "node_modules/.bin" directory
+  });
+});</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
         
 
-<table class="params table table-striped">
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the binary name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ResultOrErrorCallback">ResultOrErrorCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a callback function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="watch"><span class="type-signature"></span>watch<span class="signature">(dir, type, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="watch.js.html">watch.js</a>, <a href="watch.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://facebook.github.io/watchman/">Watchman</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Using the <a href="https://facebook.github.io/watchman/">Facebook Watchman</a>, watches the directory <code>dir</code> for changes of files
+with extension <code>type</code> and runs <code>callback</code> when a change is detected.</p>
+<p>This watcher's only goal is performance, hence the simplicity.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {watch} from 'webcompiler';
+// or - import {watch} from 'webcompiler/lib/watch';
+// or - var watch = require('webcompiler').watch;
+// or - var watch = require('webcompiler/lib/watch').watch;
+import {join} from 'path';
+
+watch(join(__dirname, 'src'), 'js', someFunction);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -221,7 +427,6 @@
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -243,7 +448,6 @@
             
                 
 <span class="param-type">string</span>
-
 
 
             
@@ -269,7 +473,6 @@
 <span class="param-type"><a href="global.html#WatchCallback">WatchCallback</a></span>
 
 
-
             
             </td>
 
@@ -284,118 +487,112 @@
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="watch.js.html">watch.js</a>,
-				 <a href="watch.js.html#sunlight-1-line-9">line 9</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="https://facebook.github.io/watchman/">Watchman</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">import {watch} from &#x27;webcompiler&#x27;;
-// or - import {watch} from &#x27;webcompiler/lib/watch&#x27;;
-// or - var watch = require(&#x27;webcompiler&#x27;).watch;
-// or - var watch = require(&#x27;webcompiler/lib/watch&#x27;).watch;
-import {join} from &#x27;path&#x27;;
-
-watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
 
 
-    
-</dd>
+
+
+
+
+
+
+
 
         
             
-<hr>
-<dt>
-    <h4 class="name" id="yaml"><span class="type-signature"></span>yaml(filename, callback)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Read the contents of a YAML file</p>
-    </div>
-    
 
     
 
+    <h4 class="name" id="yaml"><span class="type-signature"></span>yaml<span class="signature">(filename, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="yaml.js.html">yaml.js</a>, <a href="yaml.js.html#line7">line 7</a>
+    </li></ul></dd>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Read the contents of a YAML file</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {yaml} from 'webcompiler';
+// or - import {yaml} from 'webcompiler/lib/yaml';
+// or - var yaml = require('webcompiler').yaml;
+// or - var yaml = require('webcompiler/lib/yaml').yaml;
+import {join} from 'path';
+import {logError} from 'webcompiler';
+
+yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
+  if (error) {
+    return logError(error);
+  }
+  // the parsed config object
+});</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -426,7 +623,6 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -450,7 +646,6 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
 <span class="param-type"><a href="global.html#ObjectOrErrorCallback">ObjectOrErrorCallback</a></span>
 
 
-
             
             </td>
 
@@ -465,133 +660,82 @@ watch(join(__dirname, &#x27;src&#x27;), &#x27;js&#x27;, someFunction);</pre>
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="yaml.js.html">yaml.js</a>,
-				 <a href="yaml.js.html#sunlight-1-line-7">line 7</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-        <h5>Example</h5>
+
+
+
+
         
-    <pre class="sunlight-highlight-javascript">import {yaml} from &#x27;webcompiler&#x27;;
-// or - import {yaml} from &#x27;webcompiler/lib/yaml&#x27;;
-// or - var yaml = require(&#x27;webcompiler&#x27;).yaml;
-// or - var yaml = require(&#x27;webcompiler/lib/yaml&#x27;).yaml;
-import {join} from &#x27;path&#x27;;
-
-yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) =&gt; {
-  if (error) {
-    return console.error(error);
-  }
-  // the parsed config object
-});</pre>
-
-
-    
-</dd>
-
-        </dl>
     
 
     
         <h3 class="subsection-title">Type Definitions</h3>
 
-        <dl>
+        
                 
-<hr>
-<dt class="name" id="DevServerConfig">
-    <h4 id="DevServerConfig">DevServerConfig</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>DevServer configuration object</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
+<h4 class="name" id="ConsoleStyleConfig">ConsoleStyleConfig</h4>
 
 
 
-            </li>
-        </ul>
-    
 
-    
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -601,7 +745,155 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ansi</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ansi start and end codes</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>css</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>css styles</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    <p>A configuration object that describes a console output style.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="DevServerConfig">DevServerConfig</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
         
 
         
@@ -624,7 +916,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 
 <span class="param-type">string</span>
-
 
 
             
@@ -662,7 +953,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">number</span>
 
 
-
             
             </td>
 
@@ -679,7 +969,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    3000
+                    <code>3000</code>
                 
                 </td>
             
@@ -700,7 +990,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">boolean</span>
 
 
-
             
             </td>
 
@@ -717,7 +1006,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    true
+                    <code>true</code>
                 
                 </td>
             
@@ -738,7 +1027,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -755,7 +1043,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    CWD
+                    <code>CWD</code>
                 
                 </td>
             
@@ -774,7 +1062,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 
 <span class="param-type"><a href="global.html#ExpressApplicationCallback">ExpressApplicationCallback</a></span>
-
 
 
             
@@ -805,96 +1092,88 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-46">line 46</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
 
+<div class="description">
+    <p>DevServer configuration object</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-                
-<hr>
-<dt class="name" id="DocumentationConfig">
-    <h4 id="DocumentationConfig">DocumentationConfig</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Documentation generator configuration object</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
 <span class="param-type">Object</span>
 
 
+        </li>
+    </ul>
 
-            </li>
-        </ul>
-    
 
-    
+
+
+
+
+            
+                
+<h4 class="name" id="DocumentationConfig">DocumentationConfig</h4>
+
+
+
+
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -904,7 +1183,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -929,7 +1208,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -946,7 +1224,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    "src"
+                    <code>"src"</code>
                 
                 </td>
             
@@ -967,7 +1245,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -984,7 +1261,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    "docs"
+                    <code>"docs"</code>
                 
                 </td>
             
@@ -1005,7 +1282,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -1022,7 +1298,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    "README.md"
+                    <code>"README.md"</code>
                 
                 </td>
             
@@ -1043,7 +1319,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -1060,7 +1335,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    "node_modules/ink-docstrap/template"
+                    <code>"node_modules/ink-docstrap/template"</code>
                 
                 </td>
             
@@ -1082,7 +1357,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -1099,7 +1373,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 <td class="default">
                 
-                    "&lt;webcompiler root>/config/jsdoc.json"
+                    <code>"&lt;webcompiler root>/config/jsdoc.json"</code>
                 
                 </td>
             
@@ -1111,68 +1385,53 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-67">line 67</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
+
+<div class="description">
+    <p>Documentation generator configuration object</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="ExpressApplicationCallback"><span class="type-signature"></span>ExpressApplicationCallback(app)</h4>
+
     
+
+    <h4 class="name" id="ExpressApplicationCallback"><span class="type-signature"></span>ExpressApplicationCallback<span class="signature">(app)</span><span class="type-signature"></span></h4>
+
     
-</dt>
-<dd>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
 
     
 
@@ -1181,11 +1440,48 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -1216,7 +1512,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type"><a href="external-ExpressApplication.html">external:ExpressApplication</a></span>
 
 
-
             
             </td>
 
@@ -1231,82 +1526,41 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-40">line 40</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-</dd>
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="JSLintCallback"><span class="type-signature"></span>JSLintCallback( [errors])</h4>
+
     
+
+    <h4 class="name" id="LintCallback"><span class="type-signature"></span>LintCallback<span class="signature">(errors<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
     
-</dt>
-<dd>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line138">line 138</a>
+    </li></ul></dd>
+    
 
     
 
@@ -1315,11 +1569,48 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -1329,7 +1620,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -1349,8 +1640,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="global.html#JSLintError">JSLintError</a>></span>
-
+<span class="param-type">Array.&lt;<a href="global.html#LintError">LintError</a>></span>
 
 
             
@@ -1377,110 +1667,76 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-86">line 86</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-</dd>
+
+
+
 
             
                 
-<hr>
-<dt class="name" id="JSLintError">
-    <h4 id="JSLintError">JSLintError</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The JavaScript linting error object</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
+<h4 class="name" id="LintError">LintError</h4>
 
 
 
-            </li>
-        </ul>
-    
 
-    
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -1490,7 +1746,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -1504,76 +1760,13 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
         <tr>
             
-                <td class="name"><code>message</code></td>
+                <td class="name"><code>file</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the error message</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ruleId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the relative linting rule</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>filePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
 
 
             
@@ -1605,7 +1798,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">number</span>
 
 
-
             
             </td>
 
@@ -1635,7 +1827,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">number</span>
 
 
-
             
             </td>
 
@@ -1653,70 +1844,111 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the error message</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rule</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the name of the rule that triggered the error</p></td>
+        </tr>
+
+    
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-15">line 15</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
+
+<div class="description">
+    <p>A generic linting error object</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="NativeProcessCallback"><span class="type-signature"></span>NativeProcessCallback( [stderr], stdout)</h4>
+<h4 class="name" id="NodeSassError">NodeSassError</h4>
+
+
+
+
+
+<dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line57">line 57</a>
+    </li></ul></dd>
     
-</dt>
-<dd>
 
     
 
@@ -1725,11 +1957,37 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
     <thead>
     <tr>
         
@@ -1738,8 +1996,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
         <th>Type</th>
 
-        
-        <th>Argument</th>
         
 
         
@@ -1753,7 +2009,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
         <tr>
             
-                <td class="name"><code>stderr</code></td>
+                <td class="name"><code>file</code></td>
             
 
             <td class="type">
@@ -1762,32 +2018,67 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>an error message</p></td>
+            <td class="description last"><p>the path to a file</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>stdout</code></td>
+                <td class="name"><code>line</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the offending line number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>column</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the offending column number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
             
 
             <td class="type">
@@ -1796,105 +2087,66 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>the process output</p></td>
+            <td class="description last"><p>the error message</p></td>
         </tr>
 
     
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-92">line 92</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
+<div class="description">
+    <p>A Node SASS error object.</p>
+</div>
 
-    
 
-    
 
-    
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
 
-    
 
-    
+        </li>
+    </ul>
 
-    
-</dd>
+
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="ObjectOrErrorCallback"><span class="type-signature"></span>ObjectOrErrorCallback( [error], result)</h4>
+
     
+
+    <h4 class="name" id="ObjectOrErrorCallback"><span class="type-signature"></span>ObjectOrErrorCallback<span class="signature">(error<span class="signature-attributes">opt</span>, result)</span><span class="type-signature"></span></h4>
+
     
-</dt>
-<dd>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
 
     
 
@@ -1903,11 +2155,48 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -1917,7 +2206,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -1937,8 +2226,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
+<span class="param-type">Error</span>
 
 
             
@@ -1958,7 +2246,7 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
             
 
-            <td class="description last"><p>an error message</p></td>
+            <td class="description last"><p>an error object</p></td>
         </tr>
 
     
@@ -1972,7 +2260,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 
 <span class="param-type">Object</span>
-
 
 
             
@@ -1997,110 +2284,293 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-99">line 99</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-</dd>
+
+
+
 
             
                 
-<hr>
-<dt class="name" id="ProgramData">
-    <h4 id="ProgramData">ProgramData</h4>
+<h4 class="name" id="PostCSSWarning">PostCSSWarning</h4>
+
+
+
+
+
+<dl class="details">
 
     
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Processed application code with source maps</p>
-    </div>
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line33">line 33</a>
+    </li></ul></dd>
     
 
     
-        <h5>Type:</h5>
-        <ul>
-            <li>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>column</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the offending column number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>line</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the offending line number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>plugin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the name of the plugin that triggered the warning</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the warning message</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
                 
 <span class="param-type">Object</span>
 
 
+            
+            </td>
 
-            </li>
-        </ul>
-    
+            
+
+            
+
+            <td class="description last"><p>the offending node description</p></td>
+        </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    <p>A PostCSS warning object.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="ProgramData">ProgramData</h4>
+
+
+
+
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -2131,7 +2601,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -2155,7 +2624,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -2169,68 +2637,53 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-3">line 3</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
+
+<div class="description">
+    <p>Processed application code with source maps</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="ProgramDataCallback"><span class="type-signature"></span>ProgramDataCallback(data)</h4>
+
     
+
+    <h4 class="name" id="ProgramDataCallback"><span class="type-signature"></span>ProgramDataCallback<span class="signature">(data)</span><span class="type-signature"></span></h4>
+
     
-</dt>
-<dd>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line132">line 132</a>
+    </li></ul></dd>
+    
 
     
 
@@ -2239,11 +2692,48 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -2274,7 +2764,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type"><a href="global.html#ProgramData">ProgramData</a></span>
 
 
-
             
             </td>
 
@@ -2289,82 +2778,41 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-80">line 80</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-</dd>
+
+
+
 
             
                 
-<hr>
-<dt>
-    <h4 class="name" id="WatchCallback"><span class="type-signature"></span>WatchCallback(response)</h4>
+
     
+
+    <h4 class="name" id="ResultOrErrorCallback"><span class="type-signature"></span>ResultOrErrorCallback<span class="signature">(error<span class="signature-attributes">opt</span>, result)</span><span class="type-signature"></span></h4>
+
     
-</dt>
-<dd>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line158">line 158</a>
+    </li></ul></dd>
+    
 
     
 
@@ -2373,11 +2821,392 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
 
     
+
     
-        <h5>Parameters:</h5>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
         
 
-<table class="params table table-striped">
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>an error object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the resulting value</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="StringOrErrorCallback"><span class="type-signature"></span>StringOrErrorCallback<span class="signature">(error<span class="signature-attributes">opt</span>, result)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>an error object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the resulting string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="WatchCallback"><span class="type-signature"></span>WatchCallback<span class="signature">(response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -2408,7 +3237,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type"><a href="global.html#WatchmanResponse">WatchmanResponse</a></span>
 
 
-
             
             </td>
 
@@ -2423,110 +3251,76 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-136">line 136</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-</dd>
+
+
+
 
             
                 
-<hr>
-<dt class="name" id="WatchmanFile">
-    <h4 id="WatchmanFile">WatchmanFile</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Describes a file a change in which was caught.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
+<h4 class="name" id="WatchmanFile">WatchmanFile</h4>
 
 
 
-            </li>
-        </ul>
-    
 
-    
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -2557,7 +3351,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -2579,7 +3372,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 
 <span class="param-type">number</span>
-
 
 
             
@@ -2605,7 +3397,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">boolean</span>
 
 
-
             
             </td>
 
@@ -2629,7 +3420,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -2643,96 +3433,88 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-106">line 106</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
 
+<div class="description">
+    <p>Describes a file a change in which was caught.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-                
-<hr>
-<dt class="name" id="WatchmanResponse">
-    <h4 id="WatchmanResponse">WatchmanResponse</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A watchman response object.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
 <span class="param-type">Object</span>
 
 
+        </li>
+    </ul>
 
-            </li>
-        </ul>
-    
 
-    
+
+
+
+
+            
+                
+<h4 class="name" id="WatchmanResponse">WatchmanResponse</h4>
+
+
+
+
+
 <dl class="details">
+
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
     <h5 class="subsection-title">Properties:</h5>
 
-    <dl>
+    
 
-<table class="props table table-striped">
+<table class="props">
     <thead>
     <tr>
         
@@ -2763,7 +3545,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -2785,7 +3566,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
             
                 
 <span class="param-type">string</span>
-
 
 
             
@@ -2811,7 +3591,6 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 <span class="param-type">Array.&lt;<a href="global.html#WatchmanFile">WatchmanFile</a>></span>
 
 
-
             
             </td>
 
@@ -2825,60 +3604,34 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
     
     </tbody>
 </table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="typedef.js.html">typedef.js</a>,
-				 <a href="typedef.js.html#sunlight-1-line-122">line 122</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
-</dd>
 
-            </dl>
+<div class="description">
+    <p>A watchman response object.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
     
 
     
@@ -2889,130 +3642,15 @@ yaml(join(__dirname, &#x27;config&#x27;, &#x27;config.yml&#x27;), (error, data) 
 
 
 
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
-	
-
-</div>
 </div>
 
-
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
+<br class="clear">
 
 <footer>
-
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
-		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : true,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

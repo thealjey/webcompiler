@@ -1,98 +1,49 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Documentation Module: markdown</title>
+    <meta charset="utf-8">
+    <title>markdown - Documentation</title>
 
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.sandstone.css">
-
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
 </head>
-
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-highlight.html">highlight</a></li><li><a href="module-jsx.html">jsx</a></li><li><a href="module-markdown.html">markdown</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Compiler.html">Compiler</a></li><li><a href="DevServer.html">DevServer</a></li><li><a href="Documentation.html">Documentation</a></li><li><a href="JS.html">JS</a></li><li><a href="JSCompiler.html">JSCompiler</a></li><li><a href="JSLint.html">JSLint</a></li><li><a href="NativeProcess.html">NativeProcess</a></li><li><a href="SASS.html">SASS</a></li><li><a href="SASSCompiler.html">SASSCompiler</a></li><li><a href="SASSLint.html">SASSLint</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="external-ExpressApplication.html">ExpressApplication</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-</div>
-</div>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compiler.html">Compiler</a><ul class='methods'><li data-type='method'><a href="Compiler.html#.done">done</a></li><li data-type='method'><a href="Compiler.html#.fsWrite">fsWrite</a></li><li data-type='method'><a href="Compiler.html#.gzip">gzip</a></li><li data-type='method'><a href="Compiler.html#.mkdir">mkdir</a></li><li data-type='method'><a href="Compiler.html#save">save</a></li></ul></li><li><a href="DevServer.html">DevServer</a><ul class='methods'><li data-type='method'><a href="DevServer.html#run">run</a></li><li data-type='method'><a href="DevServer.html#watchJS">watchJS</a></li><li data-type='method'><a href="DevServer.html#watchSASS">watchSASS</a></li></ul></li><li><a href="Documentation.html">Documentation</a><ul class='methods'><li data-type='method'><a href="Documentation.html#run">run</a></li></ul></li><li><a href="JS.html">JS</a><ul class='methods'><li data-type='method'><a href="JS.html#.typecheck">typecheck</a></li><li data-type='method'><a href="JS.html#be">be</a></li><li data-type='method'><a href="JS.html#fe">fe</a></li><li data-type='method'><a href="JS.html#lint">lint</a></li></ul></li><li><a href="JSCompiler.html">JSCompiler</a><ul class='methods'><li data-type='method'><a href="JSCompiler.html#be">be</a></li><li data-type='method'><a href="JSCompiler.html#fe">fe</a></li><li data-type='method'><a href="JSCompiler.html#save">save</a></li></ul></li><li><a href="JSLint.html">JSLint</a><ul class='methods'><li data-type='method'><a href="JSLint.html#run">run</a></li></ul></li><li><a href="module-logger.Message.html">Message</a><ul class='methods'><li data-type='method'><a href="module-logger.Message.html#addMessage">addMessage</a></li><li data-type='method'><a href="module-logger.Message.html#addMessages">addMessages</a></li></ul></li><li><a href="NativeProcess.html">NativeProcess</a><ul class='methods'><li data-type='method'><a href="NativeProcess.html#kill">kill</a></li><li data-type='method'><a href="NativeProcess.html#run">run</a></li></ul></li><li><a href="SASS.html">SASS</a><ul class='methods'><li data-type='method'><a href="SASS.html#fe">fe</a></li><li data-type='method'><a href="SASS.html#lint">lint</a></li></ul></li><li><a href="SASSCompiler.html">SASSCompiler</a><ul class='methods'><li data-type='method'><a href="SASSCompiler.html#.autoprefix">autoprefix</a></li><li data-type='method'><a href="SASSCompiler.html#fe">fe</a></li><li data-type='method'><a href="SASSCompiler.html#save">save</a></li></ul></li><li><a href="SASSLint.html">SASSLint</a><ul class='methods'><li data-type='method'><a href="SASSLint.html#run">run</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-highlight.html">highlight</a><ul class='methods'><li data-type='method'><a href="module-highlight.html#.highlightArray">highlightArray</a></li><li data-type='method'><a href="module-highlight.html#.highlightHTML">highlightHTML</a></li><li data-type='method'><a href="module-highlight.html#.highlightJSX">highlightJSX</a></li></ul></li><li><a href="module-jsx.html">jsx</a><ul class='methods'><li data-type='method'><a href="module-jsx.html#.arrayToJSX">arrayToJSX</a></li><li data-type='method'><a href="module-jsx.html#.flatten">flatten</a></li><li data-type='method'><a href="module-jsx.html#.htmlToArray">htmlToArray</a></li><li data-type='method'><a href="module-jsx.html#.htmlToJSX">htmlToJSX</a></li></ul></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#.log">log</a></li><li data-type='method'><a href="module-logger.html#.logError">logError</a></li><li data-type='method'><a href="module-logger.html#.logLintingErrors">logLintingErrors</a></li><li data-type='method'><a href="module-logger.html#.logPostCSSWarnings">logPostCSSWarnings</a></li><li data-type='method'><a href="module-logger.html#.logSASSError">logSASSError</a></li></ul></li><li><a href="module-markdown.html">markdown</a><ul class='methods'><li data-type='method'><a href="module-markdown.html#.markdownToArray">markdownToArray</a></li><li data-type='method'><a href="module-markdown.html#.markdownToHTML">markdownToHTML</a></li><li data-type='method'><a href="module-markdown.html#.markdownToJSX">markdownToJSX</a></li></ul></li><li><a href="module-webpack.html">webpack</a></li></ul><h3>Externals</h3><ul><li><a href="external-ExpressApplication.html">ExpressApplication</a></li></ul><h3>Global</h3><ul><li><a href="global.html#findBinary">findBinary</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#yaml">yaml</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">markdown</h1>
+    
+
+    
 
 
-<div class="container" id="toc-content">
-<div class="row">
 
-	
-	<div class="col-md-8">
-	
-		<div id="main">
-			
 
-	<h1 class="page-title">Module: markdown</h1>
 <section>
 
 <header>
     
+        
+            
+        
+    
 </header>
-
 
 <article>
     <div class="container-overview">
@@ -102,53 +53,77 @@
         
 
         
+            
+
+
+
+
 <dl class="details">
-    
-
-	
-
-	
-
-	
 
     
-
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="markdown.js.html">markdown.js</a>, <a href="markdown.js.html#line9">line 9</a>
+    </li></ul></dd>
     
 
     
 
     
 
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
 
+    
 
+    
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="markdown.js.html">markdown.js</a>,
-				 <a href="markdown.js.html#sunlight-1-line-9">line 9</a>
-			</li>
-		</ul>
-	</dd>
-	
+    
 
-	
+    
 
-	
+    
 
-	
+    
+
+    
+
+    
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -161,7 +136,7 @@
 
     
 
-    
+     
 
     
 
@@ -170,33 +145,91 @@
     
         <h3 class="subsection-title">Methods</h3>
 
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id=".markdownToArray"><span class="type-signature">&lt;static> </span>markdownToArray( [markdown])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Converts an arbitrary Markdown string to an array of plain objects describing React Elements for easy
-serialization/unserialization.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
         
+            
 
-<table class="params table table-striped">
+    
+
+    <h4 class="name" id=".markdownToArray"><span class="type-signature">(static) </span>markdownToArray<span class="signature">(markdown<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;(string|Object)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="markdown.js.html">markdown.js</a>, <a href="markdown.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Converts an arbitrary Markdown string to an array of plain objects describing React Elements for easy
+serialization/unserialization.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {markdownToArray} from 'webcompiler';
+// or - import {markdownToArray} from 'webcompiler/lib/markdown';
+// or - var markdownToArray = require('webcompiler').markdownToArray;
+// or - var markdownToArray = require('webcompiler/lib/markdown').markdownToArray;
+
+markdownToArray('# Hello world!'); // [{type: 'h1', children: ['Hello world!']}]</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -206,7 +239,7 @@ serialization/unserialization.</p>
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -231,7 +264,6 @@ serialization/unserialization.</p>
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -250,7 +282,7 @@ serialization/unserialization.</p>
             
                 <td class="default">
                 
-                    ""
+                    <code>""</code>
                 
                 </td>
             
@@ -262,79 +294,29 @@ serialization/unserialization.</p>
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="markdown.js.html">markdown.js</a>,
-				 <a href="markdown.js.html#sunlight-1-line-41">line 41</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     <p>an array of plain objects describing React Elements</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -343,53 +325,96 @@ serialization/unserialization.</p>
 <span class="param-type">Array.&lt;(string|Object)></span>
 
 
-
     </dd>
 </dl>
 
-
-        
-
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">import {markdownToArray} from &#x27;webcompiler&#x27;;
-// or - import {markdownToArray} from &#x27;webcompiler/lib/markdown&#x27;;
-// or - var markdownToArray = require(&#x27;webcompiler&#x27;).markdownToArray;
-// or - var markdownToArray = require(&#x27;webcompiler/lib/markdown&#x27;).markdownToArray;
 
-markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children: [&#x27;Hello world!&#x27;]}]</pre>
-
-
-    
-</dd>
 
         
             
-<hr>
-<dt>
-    <h4 class="name" id=".markdownToHTML"><span class="type-signature">&lt;static> </span>markdownToHTML( [markdown])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Converts an arbitrary Markdown string to an HTML string</p>
-    </div>
-    
 
     
 
+    <h4 class="name" id=".markdownToHTML"><span class="type-signature">(static) </span>markdownToHTML<span class="signature">(markdown<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="markdown.js.html">markdown.js</a>, <a href="markdown.js.html#line84">line 84</a>
+    </li></ul></dd>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Converts an arbitrary Markdown string to an HTML string</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {markdownToHTML} from 'webcompiler';
+// or - import {markdownToHTML} from 'webcompiler/lib/markdown';
+// or - var markdownToHTML = require('webcompiler').markdownToHTML;
+// or - var markdownToHTML = require('webcompiler/lib/markdown').markdownToHTML;
+
+markdownToHTML('# Hello world!'); // &lt;h1>Hello world!&lt;/h1></code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -399,7 +424,7 @@ markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -424,7 +449,6 @@ markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -443,7 +467,7 @@ markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children
             
                 <td class="default">
                 
-                    ""
+                    <code>""</code>
                 
                 </td>
             
@@ -455,79 +479,29 @@ markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="markdown.js.html">markdown.js</a>,
-				 <a href="markdown.js.html#sunlight-1-line-84">line 84</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     <p>an HTML string</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -536,53 +510,96 @@ markdownToArray(&#x27;# Hello world!&#x27;); // [{type: &#x27;h1&#x27;, children
 <span class="param-type">string</span>
 
 
-
     </dd>
 </dl>
 
-
-        
-
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">import {markdownToHTML} from &#x27;webcompiler&#x27;;
-// or - import {markdownToHTML} from &#x27;webcompiler/lib/markdown&#x27;;
-// or - var markdownToHTML = require(&#x27;webcompiler&#x27;).markdownToHTML;
-// or - var markdownToHTML = require(&#x27;webcompiler/lib/markdown&#x27;).markdownToHTML;
 
-markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;</pre>
-
-
-    
-</dd>
 
         
             
-<hr>
-<dt>
-    <h4 class="name" id=".markdownToJSX"><span class="type-signature">&lt;static> </span>markdownToJSX( [markdown])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Converts an arbitrary Markdown string to an array of React Elements</p>
-    </div>
-    
 
     
 
+    <h4 class="name" id=".markdownToJSX"><span class="type-signature">(static) </span>markdownToJSX<span class="signature">(markdown<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;ReactElement>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="markdown.js.html">markdown.js</a>, <a href="markdown.js.html#line63">line 63</a>
+    </li></ul></dd>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Converts an arbitrary Markdown string to an array of React Elements</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {markdownToJSX} from 'webcompiler';
+// or - import {markdownToJSX} from 'webcompiler/lib/markdown';
+// or - var markdownToJSX = require('webcompiler').markdownToJSX;
+// or - var markdownToJSX = require('webcompiler/lib/markdown').markdownToJSX;
+
+&lt;div>{markdownToJSX('# Hello world!')}&lt;/div></code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -592,7 +609,7 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
         <th>Type</th>
 
         
-        <th>Argument</th>
+        <th>Attributes</th>
         
 
         
@@ -617,7 +634,6 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
 <span class="param-type">string</span>
 
 
-
             
             </td>
 
@@ -636,7 +652,7 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
             
                 <td class="default">
                 
-                    ""
+                    <code>""</code>
                 
                 </td>
             
@@ -648,79 +664,29 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
 
 
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="markdown.js.html">markdown.js</a>,
-				 <a href="markdown.js.html#sunlight-1-line-63">line 63</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
 
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     <p>an array of React Elements</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -729,28 +695,13 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
 <span class="param-type">Array.&lt;ReactElement></span>
 
 
-
     </dd>
 </dl>
 
+    
+
 
         
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">import {markdownToJSX} from &#x27;webcompiler&#x27;;
-// or - import {markdownToJSX} from &#x27;webcompiler/lib/markdown&#x27;;
-// or - var markdownToJSX = require(&#x27;webcompiler&#x27;).markdownToJSX;
-// or - var markdownToJSX = require(&#x27;webcompiler/lib/markdown&#x27;).markdownToJSX;
-
-&lt;div&gt;{markdownToJSX(&#x27;# Hello world!&#x27;)}&lt;/div&gt;</pre>
-
-
-    
-</dd>
-
-        </dl>
     
 
     
@@ -763,130 +714,15 @@ markdownToHTML(&#x27;# Hello world!&#x27;); // &lt;h1&gt;Hello world!&lt;/h1&gt;
 
 
 
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
-	
-
-</div>
 </div>
 
-
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
+<br class="clear">
 
 <footer>
-
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
-		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : true,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>
