@@ -1,3 +1,26 @@
+v6.0.0 - Sun, 22 Jan 2017 09:11:37 GMT
+--------------------------------------
+
+- [099ccd4](../../commit/099ccd4) [fixed] updated docs
+- [2eff57a](../../commit/2eff57a) [fixed] updated dependencies
+- [c793ee3](../../commit/c793ee3) [added] `findBinary` function; switched Flow from a global prerequisite to a local `webcompiler` managed dependency - "flow-bin" (yay!)
+- [b77144e](../../commit/b77144e) [fixed] typo in `consoleStyles.red` definition
+- [c4f9f5b](../../commit/c4f9f5b) [fixed] increased the requirement for the Node.js version to >=6.9.4 (Latest LTS: Boron), from now on `webcompiler` will always require at least the latest LTS version of Node.js
+- [8f4fad2](../../commit/8f4fad2) [fixed] updated tests
+- [8b79091](../../commit/8b79091) [changed] extracted the common webpack related logic into a single centalized `webpack` module
+- [91d2857](../../commit/91d2857) [changed] support only Node.js versions >=6.8.1, to remove the need to transpile ES2015 syntax on Node.js almost completely
+- [47a689d](../../commit/47a689d) [fixed] use destructuring instead of `[0]` to retrieve the first element of an array
+- [5669a2e](../../commit/5669a2e) [fixed] added `getClientRects` mock to `window.document.createRange` for `CodeMirror` in the `highlight` module
+- [b54893e](../../commit/b54893e) [changed] switched from [scss-lint](https://github.com/brigade/scss-lint) to [stylelint](http://stylelint.io/), no more ruby dependencies (yay!)
+- [0ce882d](../../commit/0ce882d) [fixed] only use the compressed outputStyle for sass, as mested is meaningless with source maps always enabled
+- [836dd03](../../commit/836dd03) [changed] renamed .eslintrc.yml -> .eslintrc.yaml, to use the standard and recommended extension for YAML files
+- [cf14cab](../../commit/cf14cab) [changed] `Documentation` only uses the local project level `jsdoc` executable, and throws if it is not found ignoring the global one, for a more fine-grained control over versioning
+- [61e77ad](../../commit/61e77ad) [fixed] documentation of `Compiler#gzip`
+- [bff7641](../../commit/bff7641) [added] the `logger` module, the isomorphic wrapper for `console.log` with ANSI 16 styles
+- [8d12a47](../../commit/8d12a47) [changed] switched to [docdash](https://www.npmjs.com/package/docdash) as the new default documentation template
+
+
+
 v5.2.4 - Wed, 07 Sep 2016 11:44:30 GMT
 --------------------------------------
 
