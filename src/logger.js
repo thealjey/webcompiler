@@ -201,7 +201,7 @@ export const consoleStyles = transform({
   hidden: {ansi: ['\u001b[8m', '\u001b[28m'], css: 'visibility: hidden;'},
   strikethrough: {ansi: ['\u001b[9m', '\u001b[29m'], css: 'text-decoration: line-through;'},
   black: {ansi: ['\u001b[30m', '\u001b[39m'], css: 'color: black;'},
-  red: {ansi: ['\u001b[31m', '\u001b[39m'], css: 'color: color: red;'},
+  red: {ansi: ['\u001b[31m', '\u001b[39m'], css: 'color: red;'},
   green: {ansi: ['\u001b[32m', '\u001b[39m'], css: 'color: green;'},
   yellow: {ansi: ['\u001b[33m', '\u001b[39m'], css: 'color: yellow;'},
   blue: {ansi: ['\u001b[34m', '\u001b[39m'], css: 'color: blue;'},
