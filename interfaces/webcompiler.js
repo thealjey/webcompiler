@@ -1,13 +1,13 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback, NativeProcessCallback,
+import type {ProgramData, ProgramDataCallback, StringOrErrorCallback, ResultOrErrorCallback,
   ObjectOrErrorCallback, DevServerConfig, LintError, LintCallback, PostCSSWarning, NodeSassError} from '../src/typedef';
 
 declare module 'webcompiler' {
 
   declare class NativeProcess {
     constructor(task: string): void;
-    run(callback: ?NativeProcessCallback, args: ?Array<string>, opts: ?Object): void;
+    run(callback: ?StringOrErrorCallback, args: ?Array<string>, opts: ?Object): void;
     kill(): void;
   }
 
@@ -29,6 +29,7 @@ declare module 'webcompiler' {
 
   declare function watch(dir: string, type: string, callback: () => void): void;
   declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;
+  declare function findBinary(name: string, callback: ResultOrErrorCallback): void;
 
   declare class Message {}
 

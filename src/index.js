@@ -5,6 +5,7 @@ export {Documentation} from './Documentation';
 
 export {watch} from './watch';
 export {yaml} from './yaml';
+export {findBinary} from './findBinary';
 export {consoleStyles, log, logError, logPostCSSWarnings, logSASSError, logLintingErrors} from './logger';
 export {babelBEOptions, babelFEOptions} from './webpack';
 

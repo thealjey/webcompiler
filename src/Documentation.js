@@ -1,13 +1,12 @@
 /* @flow */
 
-import {NativeProcess} from './NativeProcess';
-import {stat} from 'fs';
+import type {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 import noop from 'lodash/noop';
 import {logError} from './logger';
+import {findBinary} from './findBinary';
 
-const npm = new NativeProcess('npm'),
-  cwd = process.cwd(),
+const cwd = process.cwd(),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
@@ -43,16 +42,6 @@ const npm = new NativeProcess('npm'),
 export class Documentation {
 
   /**
-   * JSDoc3
-   *
-   * @member {NativeProcess} jsdoc
-   * @memberof Documentation
-   * @private
-   * @instance
-   */
-  jsdoc: ?NativeProcess;
-
-  /**
    * documentation generator configuration object
    *
    * @member {DocumentationConfig} options
@@ -69,31 +58,6 @@ export class Documentation {
   }
 
   /**
-   * Finds a path to the project level JSDoc3 executable
-   *
-   * @memberof Documentation
-   * @static
-   * @private
-   * @method findExecutable
-   * @param {Function} callback - a callback function
-   */
-  static findExecutable(callback: Function) {
-    npm.run((stderr, stdout) => {
-      if (stderr) {
-        return logError(stderr);
-      }
-      const path = join(stdout.trimRight(), 'jsdoc');
-
-      stat(path, statErr => {
-        if (statErr) {
-          return logError(statErr);
-        }
-        callback(path);
-      });
-    }, ['bin']);
-  }
-
-  /**
    * Generate the documentation
    *
    * @memberof Documentation
@@ -107,38 +71,19 @@ export class Documentation {
    * });
    */
   run(callback: () => void = noop) {
-    if (this.jsdoc) {
-      return this.doRun(this.jsdoc, callback);
-    }
-    Documentation.findExecutable(file => {
-      this.jsdoc = new NativeProcess(file);
-      this.doRun(this.jsdoc, callback);
-    });
-  }
-
-  /**
-   * Given a JSDoc3 executable, generate the documentation
-   *
-   * @memberof Documentation
-   * @instance
-   * @private
-   * @method doRun
-   * @param {NativeProcess} jsdoc    - JSDoc3
-   * @param {Function}      callback - a callback function
-   * @example
-   * docs.doRun(jsdoc, () => {
-   *   // generated the API documentation
-   * });
-   */
-  doRun(jsdoc: NativeProcess, callback: () => void) {
-    const {inputDir, outputDir, readMe, template, jsdocConfig} = this.options;
-
-    jsdoc.run(stderr => {
-      if (stderr) {
-        return logError(stderr);
+    findBinary('jsdoc', (error, jsdoc: NativeProcess) => {
+      if (error) {
+        return logError(error);
       }
-      callback();
-    }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
+      const {inputDir, outputDir, readMe, template, jsdocConfig} = this.options;
+
+      jsdoc.run(stderr => {
+        if (stderr) {
+          return logError(stderr);
+        }
+        callback();
+      }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
+    });
   }
 
 }

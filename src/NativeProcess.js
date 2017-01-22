@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {NativeProcessCallback} from './typedef';
+import type {StringOrErrorCallback} from './typedef';
 import {spawn} from 'child_process';
 import noop from 'lodash/noop';
 
@@ -52,7 +52,7 @@ export class NativeProcess {
    * @memberof NativeProcess
    * @instance
    * @method run
-   * @param  {NativeProcessCallback} [callback=function () {}] - a callback function
+   * @param  {StringOrErrorCallback} [callback=function () {}] - a callback function
    * @param  {Array<string>}         [args=[]]                 - an array of arguments to pass to the process
    * @param  {Object}                [opts={}]                 - a configuration object for the process
    * @return {void}
@@ -66,7 +66,7 @@ export class NativeProcess {
    *   // created a directory named "example" in cwd
    * }, ['example']);
    */
-  run(callback: NativeProcessCallback = noop, args: Array<string> = [], opts: Object = {}) {
+  run(callback: StringOrErrorCallback = noop, args: Array<string> = [], opts: Object = {}) {
     if (this.proc) {
       return callback(new Error('Still working'), '');
     }

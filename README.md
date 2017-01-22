@@ -34,8 +34,7 @@ Any feedback on [Discord] would be greatly appreciated. It does not require regi
 
 ### Prerequisites
 
-1. [Facebook Flow](http://flowtype.org/)
-2. [Watchman](https://facebook.github.io/watchman/)
+1. [Watchman](https://facebook.github.io/watchman/)
 
 ### A note about [Facebook Flow](http://flowtype.org/)
 

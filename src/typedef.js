@@ -142,18 +142,25 @@ export type ProgramDataCallback = (data: ProgramData) => void;
 export type LintCallback = (errors: ?LintError[]) => void;
 
 /**
- * @callback NativeProcessCallback
- * @param {Error} [stderr] - an error message
- * @param {string} stdout  - the process output
+ * @callback StringOrErrorCallback
+ * @param {Error}  [error] - an error object
+ * @param {string} result  - the resulting string
  */
-export type NativeProcessCallback = (stderr: ?Error, stdout: string) => void;
+export type StringOrErrorCallback = (error: ?Error, result: string) => void;
 
 /**
  * @callback ObjectOrErrorCallback
- * @param {Error} [error] - an error message
+ * @param {Error}  [error] - an error object
  * @param {Object} result  - the resulting object
  */
 export type ObjectOrErrorCallback = (error: ?Error, result: Object) => void;
+
+/**
+ * @callback ResultOrErrorCallback
+ * @param {Error} [error] - an error object
+ * @param {*}     result  - the resulting value
+ */
+export type ResultOrErrorCallback = (error: ?Error, result: any) => void;
 
 /**
  * Describes a file a change in which was caught.

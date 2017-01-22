@@ -5,9 +5,9 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {JS} from '../src/JS';
 import {JSCompiler} from '../src/JSCompiler';
-import {NativeProcess} from '../src/NativeProcess';
 import {JSLint} from '../src/JSLint';
 import * as logger from '../src/logger';
+import * as binaryFinder from '../src/findBinary';
 
 chai.use(sinonChai);
 
@@ -15,7 +15,7 @@ chai.use(sinonChai);
 
 const error = new Error('something happened');
 
-let cmp, callback;
+let cmp, callback, run;
 
 describe('JS', () => {
 
@@ -43,75 +43,105 @@ describe('JS', () => {
       expect(cmp.compiler).instanceof(JSCompiler);
     });
 
-    it('instantiates a type checker', () => {
-      expect(cmp.flow).instanceof(NativeProcess);
-      expect(cmp.flow.task).equal('flow');
-    });
-
     it('instantiates a linter', () => {
       expect(cmp.linter).instanceof(JSLint);
     });
 
-    describe('typecheck flow error', () => {
+    describe('typecheck', () => {
 
-      beforeEach(() => {
-        stub(cmp.flow, 'run').callsArgWith(0, error);
-        cmp.typecheck(callback);
+      describe('findBinary error', () => {
+
+        beforeEach(() => {
+          stub(binaryFinder, 'findBinary').callsArgWith(1, error);
+          JS.typecheck(callback);
+        });
+
+        afterEach(() => {
+          /* @flowignore */
+          binaryFinder.findBinary.restore();
+        });
+
+        it('logs error', () => {
+          expect(logger.logError).calledWith(error);
+        });
+
       });
 
-      afterEach(() => {
-        cmp.flow.run.restore();
-      });
+      describe('findBinary success', () => {
 
-      it('executes flow once', () => {
-        expect(cmp.flow.run).calledWith(match.func, ['--json']);
-        expect(cmp.flow.run).calledOnce;
-      });
+        describe('run error', () => {
 
-      it('prints the error on screen', () => {
-        expect(logger.logError).calledWith(error);
-      });
+          beforeEach(() => {
+            run = stub().callsArgWith(0, error);
+            stub(binaryFinder, 'findBinary').callsArgWith(1, null, {run});
+            JS.typecheck(callback);
+          });
 
-      it('does not call the callback', () => {
-        expect(callback).not.called;
-      });
+          afterEach(() => {
+            /* @flowignore */
+            binaryFinder.findBinary.restore();
+          });
 
-    });
+          it('calls run', () => {
+            expect(run).calledWith(match.func, ['--json']);
+          });
 
-    describe('typecheck failure', () => {
+          it('logs error', () => {
+            expect(logger.logError).calledWith(error);
+          });
 
-      beforeEach(() => {
-        stub(cmp.flow, 'run').callsArgWith(0, null, '{"passed": false}');
-        cmp.typecheck(callback);
-      });
+          it('does not call callback', () => {
+            expect(callback).not.called;
+          });
 
-      afterEach(() => {
-        cmp.flow.run.restore();
-      });
+        });
 
-      it('executes flow once', () => {
-        expect(cmp.flow.run).calledWith(match.func, [], {stdio: 'inherit'});
-      });
+        describe('run success', () => {
 
-      it('does not call the callback', () => {
-        expect(callback).not.called;
-      });
+          describe('typecheck failed', () => {
 
-    });
+            beforeEach(() => {
+              run = stub().callsArgWith(0, null, '{"passed": false}');
+              stub(binaryFinder, 'findBinary').callsArgWith(1, null, {run});
+              JS.typecheck(callback);
+            });
 
-    describe('typecheck success', () => {
+            afterEach(() => {
+              /* @flowignore */
+              binaryFinder.findBinary.restore();
+            });
 
-      beforeEach(() => {
-        stub(cmp.flow, 'run').callsArgWith(0, null, '{"passed": true}');
-        cmp.typecheck(callback);
-      });
+            it('no error', () => {
+              expect(logger.logError).not.called;
+            });
 
-      afterEach(() => {
-        cmp.flow.run.restore();
-      });
+            it('calls run', () => {
+              expect(run).calledWith(match.func, [], {stdio: 'inherit'});
+            });
 
-      it('calls the callback', () => {
-        expect(callback).called;
+          });
+
+          describe('typecheck passed', () => {
+
+            beforeEach(() => {
+              run = stub().callsArgWith(0, null, '{"passed": true}');
+              stub(binaryFinder, 'findBinary').callsArgWith(1, null, {run});
+              JS.typecheck(callback);
+            });
+
+            afterEach(() => {
+              /* @flowignore */
+              binaryFinder.findBinary.restore();
+            });
+
+            it('calls callback', () => {
+              expect(callback).called;
+            });
+
+          });
+
+        });
+
       });
 
     });
@@ -157,18 +187,18 @@ describe('JS', () => {
     describe('validate', () => {
 
       beforeEach(() => {
-        stub(cmp, 'typecheck').callsArg(0);
+        stub(JS, 'typecheck').callsArg(0);
         stub(cmp, 'lint');
         cmp.validate('lint', ['stuff', 'to'], callback);
       });
 
       afterEach(() => {
-        cmp.typecheck.restore();
+        JS.typecheck.restore();
         cmp.lint.restore();
       });
 
       it('calls typecheck', () => {
-        expect(cmp.typecheck).calledWith(match.func);
+        expect(JS.typecheck).calledWith(match.func);
       });
 
       it('calls lint', () => {

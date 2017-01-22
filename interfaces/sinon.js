@@ -6,6 +6,7 @@ type Spy = {
 };
 
 type Stub = {
+  (...args: Array<any>): any;
   returns(obj: any): any;
   returnsArg(i: number): any;
   throws(err: Error): any;

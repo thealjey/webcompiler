@@ -1,10 +1,11 @@
 /* @flow */
 
 import {JSCompiler} from './JSCompiler';
-import {NativeProcess} from './NativeProcess';
+import type {NativeProcess} from './NativeProcess';
 import {JSLint} from './JSLint';
 import noop from 'lodash/noop';
 import {logError, logLintingErrors} from './logger';
+import {findBinary} from './findBinary';
 
 /**
  * JavaScript compilation tools
@@ -32,16 +33,6 @@ export class JS {
   compiler: JSCompiler;
 
   /**
-   * flow static analyzer
-   *
-   * @member {NativeProcess} flow
-   * @memberof JS
-   * @private
-   * @instance
-   */
-  flow: NativeProcess = new NativeProcess('flow');
-
-  /**
    * JavaScript linter
    *
    * @member {JSLint} linter
@@ -62,24 +53,29 @@ export class JS {
    * Performs static analysis
    *
    * @memberof JS
-   * @instance
+   * @static
    * @method typecheck
    * @param {Function} callback - a callback function, invoked only when successfully typechecked
    * @example
-   * js.typecheck(() => {
+   * JS.typecheck(() => {
    *   // successfully typechecked
    * });
    */
-  typecheck(callback: () => void) {
-    this.flow.run((flowErr, stdout) => {
-      if (flowErr) {
-        return logError(flowErr);
+  static typecheck(callback: () => void) {
+    findBinary('flow', (error, flow: NativeProcess) => {
+      if (error) {
+        return logError(error);
       }
-      if (!JSON.parse(stdout).passed) {
-        return this.flow.run(noop, [], {stdio: 'inherit'});
-      }
-      callback();
-    }, ['--json']);
+      flow.run((flowErr, stdout) => {
+        if (flowErr) {
+          return logError(flowErr);
+        }
+        if (!JSON.parse(stdout).passed) {
+          return flow.run(noop, [], {stdio: 'inherit'});
+        }
+        callback();
+      }, ['--json']);
+    });
   }
 
   /**
@@ -120,7 +116,7 @@ export class JS {
    * });
    */
   validate(inPath: string, lintPaths: Array<string>, callback: () => void) {
-    this.typecheck(() => {
+    JS.typecheck(() => {
       this.lint(lintPaths.concat([inPath]), callback);
     });
   }
