@@ -19,7 +19,8 @@ import {logLintingErrors} from './logger';
  * the module in JavaScript).
  *
  * @class SASS
- * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
+ * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data in production
+ *                                                 mode
  * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
  * @param {Object}        [configOverrides={}]   - an object that lets you override the default linting configuration
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver

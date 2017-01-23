@@ -11,7 +11,7 @@ import {findBinary} from './findBinary';
  * JavaScript compilation tools
  *
  * @class JS
- * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
+ * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
  * @param {Object}  [lintRules={}]  - allows to override the default linting rules
  * @example
  * import {JS} from 'webcompiler';

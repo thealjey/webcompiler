@@ -72,7 +72,8 @@ const precision = 8,
  *
  * @class SASSCompiler
  * @extends Compiler
- * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data
+ * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data in production
+ *                                                 mode
  * @param {Array&lt;string>} [includePaths=[]]      - an array of additional include paths
  * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
  *                                                 configuration

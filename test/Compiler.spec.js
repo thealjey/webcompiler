@@ -85,7 +85,7 @@ describe('Compiler', () => {
       });
 
       it('has the compress flag set to false', () => {
-        expect(cmp.compress).true;
+        expect(cmp.compress).false;
       });
 
     });
@@ -96,8 +96,12 @@ describe('Compiler', () => {
 
     beforeEach(() => {
       mkdirp = stub().callsArg(1);
-      Compiler = req({mkdirp});
-      cmp = new Compiler();
+      Compiler = req({mkdirp, './webpack': {isProduction: true}});
+      cmp = new Compiler(true);
+    });
+
+    it('has the compress flag set to true', () => {
+      expect(cmp.compress).true;
     });
 
     describe('done', () => {

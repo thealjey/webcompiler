@@ -50,7 +50,6 @@ import serveStatic from 'serve-static';
 
 const cache = {},
   fakeFS = new MemoryFS(),
-  isProduction = 'production' === process.env.NODE_ENV,
   {optimize, DefinePlugin, HotModuleReplacementPlugin} = webpack,
   {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = optimize,
   productionPlugins = [
@@ -68,6 +67,14 @@ const cache = {},
  *
  * @module webpack
  */
+
+/**
+ * `true` if the `NODE_ENV` environment variable is set to `'production'`
+ *
+ * @memberof module:webpack
+ * @constant {boolean} isProduction
+ */
+export const isProduction = 'production' === process.env.NODE_ENV;
 
 /**
  * Babel configuration for the Node.js.

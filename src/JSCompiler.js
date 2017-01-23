@@ -18,7 +18,7 @@ const {yellow, red} = consoleStyles;
  *
  * @class JSCompiler
  * @extends Compiler
- * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data
+ * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
  * @example
  * import {JSCompiler} from 'webcompiler';
  * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';

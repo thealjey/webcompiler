@@ -6,6 +6,7 @@ import {dirname} from 'path';
 import {writeFile, readFile} from 'fs';
 import {gzip, gunzip} from 'zlib';
 import {logError, log, consoleStyles} from './logger';
+import {isProduction} from './webpack';
 
 /* eslint-disable no-process-env */
 
@@ -35,7 +36,7 @@ export class Compiler {
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true) {
     /* eslint-enable require-jsdoc */
-    this.compress = compress;
+    this.compress = isProduction && compress;
   }
 
   /**
