@@ -1,3 +1,11 @@
+v6.0.2 - Mon, 23 Jan 2017 06:48:44 GMT
+--------------------------------------
+
+- [323a94e](../../commit/323a94e) [fixed] updated autoprefixer
+- [282e763](../../commit/282e763) [fixed] regression in v6.0.0, which could cause `Compiler` to gzip compress in development mode
+
+
+
 v6.0.1 - Sun, 22 Jan 2017 09:22:06 GMT
 --------------------------------------
 
