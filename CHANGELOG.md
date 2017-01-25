@@ -1,3 +1,12 @@
+v6.0.3 - Wed, 25 Jan 2017 17:19:16 GMT
+--------------------------------------
+
+- [3da0682](../../commit/3da0682) [fixed] escape the Windows directory separator in the `logger` module
+- [544f08b](../../commit/544f08b) [fixed] updated dependencies
+- [91ffe22](../../commit/91ffe22) [fixed] updated the "files" entry in package.json
+
+
+
 v6.0.2 - Mon, 23 Jan 2017 06:48:44 GMT
 --------------------------------------
 
