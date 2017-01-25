@@ -9,7 +9,7 @@ import transform from 'lodash/transform';
 /* eslint-disable no-console */
 
 const pattern  = /at (?:(.*) )?\(?([^(]*):(\d+):(\d+)\)?$/,
-  separatorPattern = new RegExp(sep);
+  separatorPattern = new RegExp(sep.replace('\\', '\\\\'));
 
 /**
  * Dead-simple, composable, isomorphic, cross-browser wrapper for `console.log`.
