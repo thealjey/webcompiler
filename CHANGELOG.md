@@ -1,3 +1,10 @@
+v6.1.0 - Thu, 26 Jan 2017 20:15:27 GMT
+--------------------------------------
+
+- [053de5d](../../commit/053de5d) [changed] `JSLint` and `SASSLint` (also affects `JS` and `SASS`) constructors now both accept a single argument - `configFile`, which is a path to the respective configuration files of `ESLint` and `stylelint`. They both support extends, so any other configuration options are redundant.
+
+
+
 v6.0.3 - Wed, 25 Jan 2017 17:19:16 GMT
 --------------------------------------
 
