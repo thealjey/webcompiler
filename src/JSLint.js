@@ -7,13 +7,13 @@ import forEach from 'lodash/forEach';
 
 /* eslint-disable lodash/prefer-map */
 
-const configFile = join(__dirname, '..', '.eslintrc.yaml');
+const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
 
 /**
  * A JavaScript linter
  *
  * @class JSLint
- * @param {Object} [rules={}] - an object that lets you override default linting rules
+ * @param {string} [configFile="webcompiler/.eslintrc.yaml"] - path to the ESLint configuration file
  * @see {@link http://eslint.org/ ESLint}
  * @example
  * import {JSLint} from 'webcompiler';
@@ -37,9 +37,9 @@ export class JSLint {
   linter: CLIEngine;
 
   /* eslint-disable require-jsdoc */
-  constructor(rules: Object = {}) {
+  constructor(configFile: string = defaultConfigFile) {
     /* eslint-enable require-jsdoc */
-    this.linter = new CLIEngine({configFile, rules});
+    this.linter = new CLIEngine({configFile});
   }
 
   /**

@@ -70,7 +70,7 @@
     "cheerio": "^0.22.0",
     "codemirror": "^5.23.0",
     "docdash": "^0.4.0",
-    "eslint": "^3.14.0",
+    "eslint": "^3.14.1",
     "eslint-plugin-babel": "^4.0.1",
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
@@ -107,7 +107,7 @@
     "isparta": "^4.0.0",
     "mocha": "^3.2.0",
     "mt-changelog": "^0.6.2",
-    "proxyquire": "^1.7.10",
+    "proxyquire": "^1.7.11",
     "release-script": "^1.0.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0"

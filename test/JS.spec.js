@@ -332,11 +332,11 @@ describe('JS', () => {
   describe('all overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS(true, {complexity: [2, 2]});
+      cmp = new JS(true, 'configuration file');
     });
 
     it('instantiates a linter', () => {
-      expect(cmp.linter.linter.options.rules).eql({complexity: [2, 2]});
+      expect(cmp.linter.linter.options.configFile).eql('configuration file');
     });
 
   });

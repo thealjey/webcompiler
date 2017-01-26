@@ -53,7 +53,7 @@
 
     
 
-    <h4 class="name" id="JSLint"><span class="type-signature"></span>new JSLint<span class="signature">(rules<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="JSLint"><span class="type-signature"></span>new JSLint<span class="signature">(configFile<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -165,13 +165,13 @@ const linter = new JSLint();</code></pre>
 
         <tr>
             
-                <td class="name"><code>rules</code></td>
+                <td class="name"><code>configFile</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -192,12 +192,12 @@ const linter = new JSLint();</code></pre>
             
                 <td class="default">
                 
-                    <code>{}</code>
+                    <code>"webcompiler/.eslintrc.yaml"</code>
                 
                 </td>
             
 
-            <td class="description last"><p>an object that lets you override default linting rules</p></td>
+            <td class="description last"><p>path to the ESLint configuration file</p></td>
         </tr>
 
     

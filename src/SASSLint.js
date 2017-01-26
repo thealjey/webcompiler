@@ -8,13 +8,13 @@ import {logError} from './logger';
 
 /* eslint-disable lodash/prefer-map */
 
-const configFile = join(__dirname, '..', '.stylelintrc.yaml');
+const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 /**
  * A SASS linter
  *
  * @class SASSLint
- * @param {Object} [configOverrides={}] - an object that lets you override the default linting configuration
+ * @param {string} [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
  * @see {@link http://stylelint.io/ stylelint}
  * @example
  * import {SASSLint} from 'webcompiler';
@@ -28,19 +28,19 @@ const configFile = join(__dirname, '..', '.stylelintrc.yaml');
 export class SASSLint {
 
   /**
-   * stylelint configOverrides
+   * path to the stylelint configuration file
    *
-   * @member {Object} configOverrides
+   * @member {string} configFile
    * @memberof SASSLint
    * @private
    * @instance
    */
-  configOverrides: Object;
+  configFile: string;
 
   /* eslint-disable require-jsdoc */
-  constructor(configOverrides: Object = {}) {
+  constructor(configFile: string = defaultConfigFile) {
     /* eslint-enable require-jsdoc */
-    this.configOverrides = configOverrides;
+    this.configFile = configFile;
   }
 
   /**
@@ -65,7 +65,7 @@ export class SASSLint {
    * });
    */
   run(paths: Array<string>, callback: LintCallback) {
-    lint({configFile, configOverrides: this.configOverrides, files: paths}).then(({results}) => {
+    lint({configFile: this.configFile, files: paths}).then(({results}) => {
       const errors = [];
 
       forEach(results, ({source: file, warnings}) => {

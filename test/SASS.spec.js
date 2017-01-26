@@ -7,10 +7,13 @@ import {SASS} from '../src/SASS';
 import {SASSCompiler} from '../src/SASSCompiler';
 import {SASSLint} from '../src/SASSLint';
 import * as logger from '../src/logger';
+import {join} from 'path';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+
+const configFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 let cmp, callback;
 
@@ -29,7 +32,7 @@ describe('SASS', () => {
   describe('arguments', () => {
 
     beforeEach(() => {
-      cmp = new SASS(false, ['/path/to/a/directory'], {something: 'here'}, {bower: true});
+      cmp = new SASS(false, ['/path/to/a/directory'], 'configuration file', {bower: true});
     });
 
     it('initializes compiler', () => {
@@ -47,7 +50,7 @@ describe('SASS', () => {
 
     it('initializes linter', () => {
       expect(cmp.linter).instanceof(SASSLint);
-      expect(cmp.linter.configOverrides).eql({something: 'here'});
+      expect(cmp.linter.configFile).eql('configuration file');
     });
 
   });
@@ -69,7 +72,7 @@ describe('SASS', () => {
     });
 
     it('initializes linter', () => {
-      expect(cmp.linter.configOverrides).eql({});
+      expect(cmp.linter.configFile).eql(configFile);
     });
 
     describe('lint success', () => {

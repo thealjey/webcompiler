@@ -42,7 +42,7 @@ describe('SASSLint', () => {
     });
 
     it('calls stylelint', () => {
-      expect(stylelint.lint).calledWith({configFile, configOverrides: {}, files: ['something', 'something else']});
+      expect(stylelint.lint).calledWith({configFile, files: ['something', 'something else']});
     });
 
     it('calls callback', () => {
@@ -58,7 +58,7 @@ describe('SASSLint', () => {
   describe('errors and configOverrides', () => {
 
     beforeEach(() => {
-      cmp = new SASSLint({something: 'here'});
+      cmp = new SASSLint('configuration file');
       then = stub().callsArgWith(0, {
         results: [{
           source: 'something',
@@ -78,8 +78,7 @@ describe('SASSLint', () => {
 
     it('calls stylelint', () => {
       expect(stylelint.lint).calledWith({
-        configFile,
-        configOverrides: {something: 'here'},
+        configFile: 'configuration file',
         files: ['something', 'something else']
       });
     });

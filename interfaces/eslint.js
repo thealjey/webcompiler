@@ -14,7 +14,7 @@ type ESLintResult = {
 
 declare module 'eslint' {
   declare class CLIEngine {
-    options: {rules: Object};
+    options: {configFile: string};
     constructor(config: Object): void;
     executeOnFiles(files: Array<string>): {results: Array<ESLintResult>};
   }

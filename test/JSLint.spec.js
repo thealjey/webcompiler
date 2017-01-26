@@ -8,9 +8,7 @@ import {CLIEngine} from 'eslint';
 
 chai.use(sinonChai);
 
-const MAX_COMPLEXITY = 4,
-  props = {complexity: [2, MAX_COMPLEXITY]},
-  line = 1,
+const line = 1,
   column = 3;
 
 let cmp, callback;
@@ -36,11 +34,11 @@ describe('JSLint', () => {
   describe('props', () => {
 
     beforeEach(() => {
-      cmp = new JSLint(props);
+      cmp = new JSLint('configuration file');
     });
 
     it('should have easily configurable rules', () => {
-      expect(cmp.linter.options.rules).contain(props);
+      expect(cmp.linter.options.configFile).contain('configuration file');
     });
 
     describe('executeOnFiles error', () => {

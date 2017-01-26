@@ -6,13 +6,17 @@ import {JSLint} from './JSLint';
 import noop from 'lodash/noop';
 import {logError, logLintingErrors} from './logger';
 import {findBinary} from './findBinary';
+import {join} from 'path';
+
+const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
 
 /**
  * JavaScript compilation tools
  *
  * @class JS
- * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
- * @param {Object}  [lintRules={}]  - allows to override the default linting rules
+ * @param {boolean} [compress=true]                           - if true `Compiler#save` will gzip compress the data in
+ *                                                              production mode
+ * @param {string}  [configFile="webcompiler/.eslintrc.yaml"] - path to the ESLint configuration file
  * @example
  * import {JS} from 'webcompiler';
  * // or - import {JS} from 'webcompiler/lib/JS';
@@ -43,10 +47,10 @@ export class JS {
   linter: JSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, lintRules: Object = {}) {
+  constructor(compress: boolean = true, configFile: string = defaultConfigFile) {
     /* eslint-enable require-jsdoc */
     this.compiler = new JSCompiler(compress);
-    this.linter = new JSLint(lintRules);
+    this.linter = new JSLint(configFile);
   }
 
   /**

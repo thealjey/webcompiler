@@ -53,7 +53,7 @@
 
     
 
-    <h4 class="name" id="SASS"><span class="type-signature"></span>new SASS<span class="signature">(compress<span class="signature-attributes">opt</span>, includePaths<span class="signature-attributes">opt</span>, configOverrides<span class="signature-attributes">opt</span>, importOnceOptions<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SASS"><span class="type-signature"></span>new SASS<span class="signature">(compress<span class="signature-attributes">opt</span>, includePaths<span class="signature-attributes">opt</span>, configFile<span class="signature-attributes">opt</span>, importOnceOptions<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -65,7 +65,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line8">line 8</a>
+        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -198,8 +198,8 @@ const sass = new SASS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in production
-                                                mode</p></td>
+            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the
+                                                                      data in production mode</p></td>
         </tr>
 
     
@@ -245,13 +245,13 @@ const sass = new SASS();</code></pre>
 
         <tr>
             
-                <td class="name"><code>configOverrides</code></td>
+                <td class="name"><code>configFile</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -272,12 +272,12 @@ const sass = new SASS();</code></pre>
             
                 <td class="default">
                 
-                    <code>{}</code>
+                    <code>"webcompiler/.stylelintrc.yaml"</code>
                 
                 </td>
             
 
-            <td class="description last"><p>an object that lets you override the default linting configuration</p></td>
+            <td class="description last"><p>path to the stylelint configuration file</p></td>
         </tr>
 
     
@@ -316,8 +316,8 @@ const sass = new SASS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>an object that lets you override default importOnce resolver
-                                                configuration</p></td>
+            <td class="description last"><p>an object that lets you override default
+                                                                      importOnce resolver configuration</p></td>
         </tr>
 
     
@@ -368,7 +368,7 @@ const sass = new SASS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line38">line 38</a>
+        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -451,7 +451,7 @@ const sass = new SASS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line89">line 89</a>
+        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -740,7 +740,7 @@ const sass = new SASS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line65">line 65</a>
+        <a href="SASS.js.html">SASS.js</a>, <a href="SASS.js.html#line68">line 68</a>
     </li></ul></dd>
     
 

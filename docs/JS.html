@@ -53,7 +53,7 @@
 
     
 
-    <h4 class="name" id="JS"><span class="type-signature"></span>new JS<span class="signature">(compress<span class="signature-attributes">opt</span>, lintRules<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="JS"><span class="type-signature"></span>new JS<span class="signature">(compress<span class="signature-attributes">opt</span>, configFile<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -65,7 +65,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line10">line 10</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -189,20 +189,21 @@ const js = new JS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in production mode</p></td>
+            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in
+                                                             production mode</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lintRules</code></td>
+                <td class="name"><code>configFile</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -223,12 +224,12 @@ const js = new JS();</code></pre>
             
                 <td class="default">
                 
-                    <code>{}</code>
+                    <code>"webcompiler/.eslintrc.yaml"</code>
                 
                 </td>
             
 
-            <td class="description last"><p>allows to override the default linting rules</p></td>
+            <td class="description last"><p>path to the ESLint configuration file</p></td>
         </tr>
 
     
@@ -279,7 +280,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line26">line 26</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -362,7 +363,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line52">line 52</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -502,7 +503,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line124">line 124</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -789,7 +790,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line146">line 146</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -1076,7 +1077,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line81">line 81</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line85">line 85</a>
     </li></ul></dd>
     
 

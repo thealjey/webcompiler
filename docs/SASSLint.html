@@ -53,7 +53,7 @@
 
     
 
-    <h4 class="name" id="SASSLint"><span class="type-signature"></span>new SASSLint<span class="signature">(configOverrides<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SASSLint"><span class="type-signature"></span>new SASSLint<span class="signature">(configFile<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -165,13 +165,13 @@ const linter = new SASSLint();</code></pre>
 
         <tr>
             
-                <td class="name"><code>configOverrides</code></td>
+                <td class="name"><code>configFile</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -192,12 +192,12 @@ const linter = new SASSLint();</code></pre>
             
                 <td class="default">
                 
-                    <code>{}</code>
+                    <code>"webcompiler/.stylelintrc.yaml"</code>
                 
                 </td>
             
 
-            <td class="description last"><p>an object that lets you override the default linting configuration</p></td>
+            <td class="description last"><p>path to the stylelint configuration file</p></td>
         </tr>
 
     

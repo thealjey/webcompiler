@@ -4,6 +4,9 @@ import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
 import noop from 'lodash/noop';
 import {logLintingErrors} from './logger';
+import {join} from 'path';
+
+const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 /**
  * SASS compilation tools
@@ -19,12 +22,12 @@ import {logLintingErrors} from './logger';
  * the module in JavaScript).
  *
  * @class SASS
- * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data in production
- *                                                 mode
- * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
- * @param {Object}        [configOverrides={}]   - an object that lets you override the default linting configuration
- * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
- *                                                 configuration
+ * @param {boolean}       [compress=true]                              - if true `Compiler#save` will gzip compress the
+ *                                                                       data in production mode
+ * @param {Array<string>} [includePaths=[]]                            - an array of additional include paths
+ * @param {string}        [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
+ * @param {Object}        [importOnceOptions={}]                       - an object that lets you override default
+ *                                                                       importOnce resolver configuration
  * @example
  * import {SASS} from 'webcompiler';
  * // or - import {SASS} from 'webcompiler/lib/SASS';
@@ -55,11 +58,11 @@ export class SASS {
   linter: SASSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array<string> = [], configOverrides: Object = {},
+  constructor(compress: boolean = true, includePaths: Array<string> = [], configFile: string = defaultConfigFile,
               importOnceOptions: Object = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
-    this.linter = new SASSLint(configOverrides);
+    this.linter = new SASSLint(configFile);
   }
 
   /**
