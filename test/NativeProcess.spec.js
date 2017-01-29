@@ -11,7 +11,7 @@ chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 
-let cmp, callback, on, kill, stdoutOn, stderrOn;
+let cmp, callback, on, kill, stdoutOn, stderrOn, errorResult;
 
 describe('NativeProcess', () => {
 
@@ -22,6 +22,35 @@ describe('NativeProcess', () => {
 
   it('sets the task prop', () => {
     expect(cmp.task).equal('script');
+  });
+
+  describe('stderrToError plain error message', () => {
+
+    beforeEach(() => {
+      errorResult = NativeProcess.stderrToError('something is wrong');
+    });
+
+    it('returns result', () => {
+      expect(errorResult.name).equal('Error');
+      expect(errorResult.message).equal('something is wrong');
+    });
+
+  });
+
+  describe('stderrToError matches format of `Error.prototype.toString()`', () => {
+
+    beforeEach(() => {
+      errorResult = NativeProcess.stderrToError(`Something unusable SyntaxError: something is wrong again
+    at <anonymous>:1:1`);
+    });
+
+    it('returns result', () => {
+      expect(errorResult.name).equal('SyntaxError');
+      expect(errorResult.message).equal('something is wrong again');
+      expect(errorResult.stack).equal(`SyntaxError: something is wrong again
+    at <anonymous>:1:1`);
+    });
+
   });
 
   describe('run', () => {

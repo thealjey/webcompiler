@@ -4,6 +4,8 @@ import type {StringOrErrorCallback} from './typedef';
 import {spawn} from 'child_process';
 import noop from 'lodash/noop';
 
+const errorPattern = /([^\s]*Error): (.*)[\s\S]*/;
+
 /**
  * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess ChildProcess}
  * instance of a `task`
@@ -44,6 +46,32 @@ export class NativeProcess {
   constructor(task: string) {
     /* eslint-enable require-jsdoc */
     this.task = task;
+  }
+
+  /**
+   * If the `stderr` string matches the return format of `Error.prototype.toString()`, turns it into an actual error
+   * instance, preserving all of the underlying information.
+   *
+   * @memberOf NativeProcess
+   * @static
+   * @private
+   * @method stderrToError
+   * @param {string} stderr - error output
+   * @return {Error} an error instance
+   */
+  static stderrToError(stderr: string): Error {
+    const matched = stderr.match(errorPattern);
+
+    if (!matched) {
+      return new Error(stderr);
+    }
+    const [stack, name, message] = matched,
+      error = new Error(message);
+
+    error.name = name;
+    error.stack = stack;
+
+    return error;
   }
 
   /**
@@ -89,7 +117,7 @@ export class NativeProcess {
     });
     this.proc.on('close', code => {
       this.proc = null;
-      callback(code ? new Error(stderr) : null, stdout);
+      callback(code ? NativeProcess.stderrToError(stderr) : null, stdout);
     });
   }
 
