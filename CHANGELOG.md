@@ -1,3 +1,13 @@
+v6.2.0 - Sun, 29 Jan 2017 20:57:13 GMT
+--------------------------------------
+
+- [ebe1b12](../../commit/ebe1b12) [fixed] `logger.logError` is now truly cross platform and cross browser, with a cleaner stack trace
+- [42d1413](../../commit/42d1413) [changed] `NativeProcess` converts `stderr` strings that look like the output of `Error.prototype.toString()` into actual error instances, preserving all of the underlying information
+- [aae39ea](../../commit/aae39ea) [fixed] `NativeProcess` no longer converts the error object "toString()" in the process "error" event handler
+- [6b6e2ff](../../commit/6b6e2ff) [changed] got rid of the "config" directory, moved its contents into the root directory, renamed the plugin to `commentsOnly`, as its only purpose is to replicate and enhance the standard plugin with the same name
+
+
+
 v6.1.2 - Sun, 29 Jan 2017 16:14:20 GMT
 --------------------------------------
 
