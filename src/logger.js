@@ -301,9 +301,9 @@ export function formatErrorMarker(message: string = 'Error') {
  * log('Colorful ', bold(red('R'), green('G'), blue('B')), ' logs are ', underline('very'), ' easy!');
  */
 export function log(...messages: Array<string | number | Message>) {
-  const msg = new Message({ansi: ['', ''], css: ''}).addMessages(messages);
+  const {message, styles} = new Message({ansi: ['', ''], css: ''}).addMessages(messages);
 
-  console.log(msg.message, ...msg.styles);
+  console.log(message, ...styles);
 }
 
 /**
@@ -323,9 +323,8 @@ export function log(...messages: Array<string | number | Message>) {
  *
  * logError(new Error('Some error message'));
  */
-export function logError(error: Error) {
-  const {message, stack} = error,
-    lines = stack.split('\n'),
+export function logError({message, stack}: Error) {
+  const lines = stack.split('\n'),
     {length} = lines;
 
   log(formatErrorMarker(), ': ', message);
@@ -366,9 +365,7 @@ export function logError(error: Error) {
  * });
  */
 export function logPostCSSWarnings(warnings: PostCSSWarning[]) {
-  forEach(warnings, w => {
-    const {text, plugin, node, line, column} = w;
-
+  forEach(warnings, ({text, plugin, node, line, column}) => {
     log(formatErrorMarker('Warning'), ': ', ...formatLine(`${text}(${plugin})`, node.source.input.file, line, column));
   });
   log('PostCSS warnings: ', warnings.length);
@@ -394,9 +391,7 @@ export function logPostCSSWarnings(warnings: PostCSSWarning[]) {
  *   ...
  * });
  */
-export function logSASSError(error: NodeSassError) {
-  const {message, file, line, column} = error;
-
+export function logSASSError({message, file, line, column}: NodeSassError) {
   log(formatErrorMarker('SASS error'), ': ', ...formatLine(message, file, line, column));
 }
 
@@ -416,9 +411,7 @@ export function logSASSError(error: NodeSassError) {
  * logLintingErrors(errors);
  */
 export function logLintingErrors(errors: LintError[], prefix: ?string = null) {
-  forEach(errors, e => {
-    const {message, rule, file, line, column} = e;
-
+  forEach(errors, ({message, rule, file, line, column}) => {
     log(formatErrorMarker(), ': ', ...formatLine(`${message}${rule ? ` (${rule})` : ''}`, file, line, column));
   });
   log(prefix ? `${prefix} l` : 'L', 'inting errors: ', errors.length);

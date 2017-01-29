@@ -62,10 +62,10 @@ export class JSLint {
    * });
    */
   run(paths: Array<string>, callback: LintCallback) {
-    const report = this.linter.executeOnFiles(paths),
+    const {results} = this.linter.executeOnFiles(paths),
       errors = [];
 
-    forEach(report.results, ({messages, filePath: file}) => {
+    forEach(results, ({messages, filePath: file}) => {
       forEach(messages, ({line, column, message, ruleId: rule}) => {
         errors.push({file, line, column, message, rule});
       });

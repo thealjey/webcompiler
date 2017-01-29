@@ -132,24 +132,22 @@ export function rename(object: Object, fromKey: string, toKey: string) {
  * @param {Object} element - a Cheerio Element
  * @return {Object} a plain object describing a React Element
  */
-export function transformElement(element: Object): Object {
-  const {name, attribs, children} = element;
-
-  transformStyle(attribs);
-  rename(attribs, 'for', 'htmlFor');
-  rename(attribs, 'class', 'className');
-  if ('input' === name) {
-    rename(attribs, 'checked', 'defaultChecked');
-    rename(attribs, 'value', 'defaultValue');
+export function transformElement({name: type, attribs: props, children: childElements}: Object): Object {
+  transformStyle(props);
+  rename(props, 'for', 'htmlFor');
+  rename(props, 'class', 'className');
+  if ('input' === type) {
+    rename(props, 'checked', 'defaultChecked');
+    rename(props, 'value', 'defaultValue');
   }
-  let childElements = transformElements(children);
+  let children = transformElements(childElements);
 
-  if ('textarea' === name &amp;&amp; childElements.length) {
-    attribs.defaultValue = childElements[0];
-    childElements = [];
+  if ('textarea' === type &amp;&amp; children.length) {
+    props.defaultValue = children[0];
+    children = [];
   }
 
-  return {type: name, props: attribs, children: childElements};
+  return {type, props, children};
 }
 
 /**
