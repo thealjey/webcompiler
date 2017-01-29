@@ -20,7 +20,7 @@ const rootDir = join(__dirname, '..'),
     outputDir: join(cwd, 'docs'),
     readMe: join(cwd, 'README.md'),
     template: join(cwd, 'node_modules', 'docdash'),
-    jsdocConfig: join(rootDir, 'config', 'jsdoc.json')
+    jsdocConfig: join(rootDir, 'jsdoc.json')
   },
   options = {
     inputDir: '/path/to/the/input/directory',

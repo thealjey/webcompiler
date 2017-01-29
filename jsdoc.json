@@ -1,5 +1,5 @@
 {
-  "plugins": ["jsdocPlugin", "plugins/markdown"],
+  "plugins": ["commentsOnly", "plugins/markdown"],
   "templates": {
     "default": {
       "includeDate": false

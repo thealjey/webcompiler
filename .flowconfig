@@ -1,7 +1,6 @@
 [ignore]
 .*/node_modules/*
 .*/lib/*
-.*/config/*
 .*/coverage/*
 .*/docs/*
 

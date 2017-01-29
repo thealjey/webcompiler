@@ -25,9 +25,10 @@
     ".eslintrc.yaml",
     ".stylelintrc.yaml",
     ".babelrc",
+    "commentsOnly.js",
+    "jsdoc.json",
     "src/typedef.js",
     "lib",
-    "config",
     "interfaces"
   ],
   "keywords": [

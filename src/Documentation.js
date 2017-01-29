@@ -12,7 +12,7 @@ const cwd = process.cwd(),
     outputDir: join(cwd, 'docs'),
     readMe: join(cwd, 'README.md'),
     template: join(cwd, 'node_modules', 'docdash'),
-    jsdocConfig: join(__dirname, '..', 'config', 'jsdoc.json')
+    jsdocConfig: join(__dirname, '..', 'jsdoc.json')
   };
 
 /**
