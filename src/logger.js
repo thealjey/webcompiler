@@ -1,15 +1,13 @@
 /* @flow */
 
 import type {LintError, ConsoleStyleConfig, PostCSSWarning, NodeSassError} from './typedef';
-import {sep} from 'path';
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
 import transform from 'lodash/transform';
+import ErrorStackParser from 'error-stack-parser';
+import cleanStack from 'clean-stack';
 
 /* eslint-disable no-console */
-
-const pattern  = /at (?:(.*) )?\(?([^(]*):(\d+):(\d+)\)?$/,
-  separatorPattern = new RegExp(sep.replace('\\', '\\\\'));
 
 /**
  * Dead-simple, composable, isomorphic, cross-browser wrapper for `console.log`.
@@ -323,23 +321,16 @@ export function log(...messages: Array<string | number | Message>) {
  *
  * logError(new Error('Some error message'));
  */
-export function logError({message, stack}: Error) {
-  const lines = stack.split('\n'),
-    {length} = lines;
+export function logError(error: Error) {
+  const {name, message, stack} = error;
 
-  log(formatErrorMarker(), ': ', message);
+  log(formatErrorMarker(name), ': ', message);
 
-  for (let i = 1; i < length; ++i) {
-    const parts = lines[i].match(pattern);
+  error.stack = cleanStack(stack);
 
-    if (parts) {
-      const [, method, file, line, column] = parts;
-
-      if (separatorPattern.test(file)) {
-        log('  • ', ...formatLine(method || 'unknown', file, line, column));
-      }
-    }
-  }
+  forEach(ErrorStackParser.parse(error), ({functionName = 'unknown', fileName, lineNumber, columnNumber}) => {
+    log('  • ', ...formatLine(functionName, fileName, lineNumber, columnNumber));
+  });
 }
 
 /**
