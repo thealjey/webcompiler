@@ -85,7 +85,7 @@ export class NativeProcess {
       });
     }
     this.proc.on('error', error => {
-      stderr += error.toString();
+      callback(error, stdout);
     });
     this.proc.on('close', code => {
       this.proc = null;
