@@ -1,3 +1,11 @@
+v6.1.1 - Sun, 29 Jan 2017 15:20:19 GMT
+--------------------------------------
+
+- [cc32687](../../commit/cc32687) [fixed] updated dependencies
+- [4a5d4f3](../../commit/4a5d4f3) [fixed] Github Pages can now read a subfolder contents on a `master` branch, no need for `gh-pages` anymore
+
+
+
 v6.1.0 - Thu, 26 Jan 2017 20:15:27 GMT
 --------------------------------------
 
