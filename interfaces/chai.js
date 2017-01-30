@@ -3,7 +3,7 @@
 type Assert = {
   not: Assert;
   a(type: string): void;
-  calledWith(...args: Array<any>): void;
+  calledWith(...args: any[]): void;
   called: void;
   equal(obj: any): void;
   eql(obj: any): void;

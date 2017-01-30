@@ -123,6 +123,6 @@ export function highlightArray(code: string = ''): Array<string | Object> {
  *
  * <div className="CodeMirror cm-s-monokai">{highlightJSX('function myScript(){return 100;}')}</div>
  */
-export function highlightJSX(code: string = ''): Array<any> {
+export function highlightJSX(code: string = ''): any[] {
   return arrayToJSX(highlightArray(code));
 }

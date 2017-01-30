@@ -189,7 +189,7 @@ export type WatchmanFile = {
 export type WatchmanResponse = {
   root: string;
   subscription: string;
-  files: Array<WatchmanFile>;
+  files: WatchmanFile[];
 };
 
 /**

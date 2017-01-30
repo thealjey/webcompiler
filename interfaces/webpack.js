@@ -2,8 +2,8 @@
 
 type WebPackStats = {
   toJson(): {
-    errors: Array<string>;
-    warnings: Array<string>;
+    errors: string[];
+    warnings: string[];
   };
 };
 type WebPackCallback = (error: ?Error, stats: WebPackStats) => void;

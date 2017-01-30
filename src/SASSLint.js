@@ -64,7 +64,7 @@ export class SASSLint {
    *   // there were no linting errors
    * });
    */
-  run(paths: Array<string>, callback: LintCallback) {
+  run(paths: string[], callback: LintCallback) {
     lint({configFile: this.configFile, files: paths}).then(({results}) => {
       const errors = [];
 

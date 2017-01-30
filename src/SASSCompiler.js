@@ -55,7 +55,7 @@ export class SASSCompiler extends Compiler {
    * @private
    * @instance
    */
-  includePaths: Array<string>;
+  includePaths: string[];
 
   /**
    * importOnce resolver configuration
@@ -68,7 +68,7 @@ export class SASSCompiler extends Compiler {
   importOnce: Object;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array<string> = [], importOnceOptions: Object = {}) {
+  constructor(compress: boolean = true, includePaths: string[] = [], importOnceOptions: Object = {}) {
     /* eslint-enable require-jsdoc */
     super(compress);
     this.includePaths = defaultIncludePaths.concat(includePaths);

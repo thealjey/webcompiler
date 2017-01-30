@@ -75,7 +75,7 @@ export function markdownToArray(markdown: string = ''): Array<string | Object> {
  *
  * <div>{markdownToJSX('# Hello world!')}</div>
  */
-export function markdownToJSX(markdown: string = ''): Array<any> {
+export function markdownToJSX(markdown: string = ''): any[] {
   markdown = trim(markdown);
 
   return markdown ? htmlToJSX(markdownToUnwrappedHTML(markdown)) : [];

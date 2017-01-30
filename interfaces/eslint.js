@@ -9,13 +9,13 @@ type ESLintMessage = {
 };
 type ESLintResult = {
   filePath: string;
-  messages: Array<ESLintMessage>;
+  messages: ESLintMessage[];
 };
 
 declare module 'eslint' {
   declare class CLIEngine {
     options: {configFile: string};
     constructor(config: Object): void;
-    executeOnFiles(files: Array<string>): {results: Array<ESLintResult>};
+    executeOnFiles(files: string[]): {results: ESLintResult[]};
   }
 }

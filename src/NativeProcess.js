@@ -94,7 +94,7 @@ export class NativeProcess {
    *   // created a directory named "example" in cwd
    * }, ['example']);
    */
-  run(callback: StringOrErrorCallback = noop, args: Array<string> = [], opts: Object = {}) {
+  run(callback: StringOrErrorCallback = noop, args: string[] = [], opts: Object = {}) {
     if (this.proc) {
       return callback(new Error('Still working'), '');
     }

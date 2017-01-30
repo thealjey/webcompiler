@@ -8,6 +8,6 @@ import EventEmitter from 'events';
 declare module 'fb-watchman' {
   declare class Client extends EventEmitter {
     capabilityCheck(config: Object, callback: (error: ?Error) => void): void;
-    command(cmd: Array<any>, callback: ObjectOrErrorCallback): void;
+    command(cmd: any[], callback: ObjectOrErrorCallback): void;
   }
 }

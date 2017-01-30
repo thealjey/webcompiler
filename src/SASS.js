@@ -58,7 +58,7 @@ export class SASS {
   linter: SASSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: Array<string> = [], configFile: string = defaultConfigFile,
+  constructor(compress: boolean = true, includePaths: string[] = [], configFile: string = defaultConfigFile,
               importOnceOptions: Object = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
@@ -80,7 +80,7 @@ export class SASS {
    *   // successfully linted
    * });
    */
-  lint(paths: Array<string>, callback: () => void) {
+  lint(paths: string[], callback: () => void) {
     this.linter.run(paths, linterErr => {
       if (linterErr) {
         return logLintingErrors(linterErr, 'SASS');
@@ -107,7 +107,7 @@ export class SASS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
+  fe(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.lint(lintPaths.concat([inPath]), () => {
       this.compiler.fe(inPath, outPath, callback);
     });

@@ -4,7 +4,7 @@ declare module 'serve-static' {
   declare function exports(root: string, options?: {
     dotfiles?: string;
     etag?: boolean;
-    extensions?: boolean | Array<string>;
+    extensions?: boolean | string[];
     fallthrough?: boolean;
     index?: any;
     lastModified?: boolean;

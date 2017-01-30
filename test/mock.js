@@ -34,7 +34,7 @@ dom.html = constant('html string');
 
 const cheerioLoad = constant(dom);
 
-function createElement(...args: Array<any>) {
+function createElement(...args: any[]) {
   return args;
 }
 

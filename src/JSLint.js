@@ -61,7 +61,7 @@ export class JSLint {
    *   // there were no linting errors
    * });
    */
-  run(paths: Array<string>, callback: LintCallback) {
+  run(paths: string[], callback: LintCallback) {
     const {results} = this.linter.executeOnFiles(paths),
       errors = [];
 

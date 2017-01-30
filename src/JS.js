@@ -95,7 +95,7 @@ export class JS {
    *   // successfully linted
    * });
    */
-  lint(paths: Array<string>, callback: () => void) {
+  lint(paths: string[], callback: () => void) {
     this.linter.run(paths, linterErr => {
       if (linterErr) {
         return logLintingErrors(linterErr, 'JavaScript');
@@ -119,7 +119,7 @@ export class JS {
    *   // successfully validated
    * });
    */
-  validate(inPath: string, lintPaths: Array<string>, callback: () => void) {
+  validate(inPath: string, lintPaths: string[], callback: () => void) {
     JS.typecheck(() => {
       this.lint(lintPaths.concat([inPath]), callback);
     });
@@ -141,7 +141,7 @@ export class JS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  be(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
+  be(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {
       this.compiler.be(inPath, outPath, callback);
     });
@@ -163,7 +163,7 @@ export class JS {
    *   // the code has passed all the checks and has been compiled successfully
    * });
    */
-  fe(inPath: string, outPath: string, lintPaths: Array<string> = [], callback: () => void = noop) {
+  fe(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {
       this.compiler.fe(inPath, outPath, callback);
     });

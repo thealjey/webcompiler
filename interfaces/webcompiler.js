@@ -7,7 +7,7 @@ declare module 'webcompiler' {
 
   declare class NativeProcess {
     constructor(task: string): void;
-    run(callback: ?StringOrErrorCallback, args: ?Array<string>, opts: ?Object): void;
+    run(callback: ?StringOrErrorCallback, args: ?string[], opts: ?Object): void;
     kill(): void;
   }
 
@@ -16,12 +16,12 @@ declare module 'webcompiler' {
     run(callback: () => void): void;
   }
 
-  declare function flatten(...args: Array<any>): Array<any>;
-  declare function arrayToJSX(arr: ?Array<string | Object>): Array<any>;
+  declare function flatten(...args: any[]): any[];
+  declare function arrayToJSX(arr: ?Array<string | Object>): any[];
   declare function htmlToArray(html: ?string): Array<string | Object>;
-  declare function htmlToJSX(html: ?string): Array<any>;
+  declare function htmlToJSX(html: ?string): any[];
   declare function markdownToArray(markdown: ?string): Array<string | Object>;
-  declare function markdownToJSX(markdown: ?string): Array<any>;
+  declare function markdownToJSX(markdown: ?string): any[];
   declare function markdownToHTML(markdown: ?string): string;
   declare function highlightHTML(code: ?string): string;
   declare function highlightArray(code: ?string): Array<string | Object>;
@@ -72,7 +72,7 @@ declare module 'webcompiler' {
 
   declare class JSLint {
     constructor(rules: ?Object): void;
-    run(paths: Array<string>, callback: LintCallback): void;
+    run(paths: string[], callback: LintCallback): void;
   }
 
   declare class JSCompiler {
@@ -83,7 +83,7 @@ declare module 'webcompiler' {
 
   declare class SASSLint {
     constructor(...excludeLinter: Array<string>): void;
-    run(paths: Array<string>, callback: LintCallback): void;
+    run(paths: string[], callback: LintCallback): void;
   }
 
   declare class SASSCompiler {
@@ -96,17 +96,17 @@ declare module 'webcompiler' {
     compiler: JSCompiler;
     constructor(compress: ?boolean, lintRules: ?Object): void;
     typecheck(callback: () => void): void;
-    lint(paths: Array<string>, callback: () => void): void;
-    be(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
-    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
+    lint(paths: string[], callback: () => void): void;
+    be(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
+    fe(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
   }
 
   declare class SASS {
     compiler: SASSCompiler;
     constructor(compress: ?boolean, includePaths: ?Array<string>, excludeLinter: ?Array<string>,
                 importOnceOptions: ?Object): void;
-    lint(paths: Array<string>, callback: () => void): void;
-    fe(inPath: string, outPath: string, lintPaths: ?Array<string>, callback: ?() => void): void;
+    lint(paths: string[], callback: () => void): void;
+    fe(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
   }
 
   declare class DevServer {

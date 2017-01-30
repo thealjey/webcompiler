@@ -5,7 +5,7 @@ import type {PostCSSWarning} from '../src/typedef';
 type PostCSSResult = {
   css: string;
   map: Object;
-  warnings(): Array<PostCSSWarning>;
+  warnings(): PostCSSWarning[];
 };
 
 type PostCSSPromise = {
@@ -13,5 +13,5 @@ type PostCSSPromise = {
 };
 
 declare module 'postcss' {
-  declare function exports(plugins: Array<any>): {process: (code: string, config: Object) => PostCSSPromise};
+  declare function exports(plugins: any[]): {process: (code: string, config: Object) => PostCSSPromise};
 }

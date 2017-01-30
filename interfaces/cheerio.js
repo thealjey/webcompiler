@@ -1,7 +1,7 @@
 /* @flow */
 
 type DOM = {
-  toArray(): Array<Object>;
+  toArray(): Object[];
   html(): string;
   children(): DOM;
   each(iteratee: (i: number, el: Object) => any): DOM;
