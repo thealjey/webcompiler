@@ -20,13 +20,9 @@ exports.handlers = {
     }
     const comments = source.match(cmt);
 
-    if (!comments) {
-      e.source = source.replace(notN, '');
-
-      return;
-    }
-
-    e.source = source.split(cmt).reduce((result, source, i) => result + source.replace(notN, '') + comments[i], '');
+    e.source = comments
+      ? source.split(cmt).reduce((res, src, i) => res + src.replace(notN, '') + comments[i], '')
+      : source.replace(notN, '');
   }
 
 };
