@@ -1,3 +1,14 @@
+v6.3.0 - Mon, 30 Jan 2017 20:40:29 GMT
+--------------------------------------
+
+- [87854f3](../../commit/87854f3) [added] the `addPostcssPlugins` method to `SASSCompiler`
+- [e3bdece](../../commit/e3bdece) [fixed] updated the interface declaration for `JSLint` and `SASSLint`
+- [a7faf64](../../commit/a7faf64) [fixed] updated autoprefixer
+- [e56d58c](../../commit/e56d58c) [fixed] flowtype - prefer shorthand array
+- [33a0c97](../../commit/33a0c97) [fixed] small formatting issues in commentsOnly.js
+
+
+
 v6.2.0 - Sun, 29 Jan 2017 20:57:13 GMT
 --------------------------------------
 
