@@ -63,10 +63,10 @@ describe('SASSCompiler', () => {
       expect(cmp.importOnce).eql({index: true, css: false, bower: true});
     });
 
-    describe('autoprefix', () => {
+    describe('postcss', () => {
 
       beforeEach(() => {
-        SASSCompiler.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
+        cmp.postcss('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
       });
 
       it('calls postcss', () => {
@@ -117,10 +117,10 @@ describe('SASSCompiler', () => {
       expect(cmp.importOnce).eql({index: true, css: false, bower: false});
     });
 
-    describe('autoprefix', () => {
+    describe('postcss', () => {
 
       beforeEach(() => {
-        SASSCompiler.autoprefix('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
+        cmp.postcss('/path/to/the/output/file.css', {code: 'source code', map: 'source map'}, callback);
       });
 
       it('calls callback', () => {
@@ -132,12 +132,12 @@ describe('SASSCompiler', () => {
     describe('fe', () => {
 
       beforeEach(() => {
-        stub(SASSCompiler, 'autoprefix').callsArgWith(2, 'autoprefixed data');
+        stub(cmp, 'postcss').callsArgWith(2, 'autoprefixed data');
         stub(cmp, 'save');
       });
 
       afterEach(() => {
-        SASSCompiler.autoprefix.restore();
+        cmp.postcss.restore();
         cmp.save.restore();
       });
 
@@ -170,8 +170,8 @@ describe('SASSCompiler', () => {
           expect(logSASSError).calledWith('something bad happened');
         });
 
-        it('does not call autoprefix', () => {
-          expect(SASSCompiler.autoprefix).not.called;
+        it('does not call postcss', () => {
+          expect(cmp.postcss).not.called;
         });
 
       });
@@ -187,14 +187,35 @@ describe('SASSCompiler', () => {
           sass.render.restore();
         });
 
-        it('calls autoprefix', () => {
-          expect(SASSCompiler.autoprefix).calledWith('/path/to/the/output/file.css',
+        it('calls postcss', () => {
+          expect(cmp.postcss).calledWith('/path/to/the/output/file.css',
                                                      {code: 'css rules', map: 'source map'}, match.func);
         });
 
         it('calls save', () => {
           expect(cmp.save).calledWith('/path/to/the/input/file.scss', '/path/to/the/output/file.css',
                                       'autoprefixed data', callback);
+        });
+
+      });
+
+      describe('addPostcssPlugins', () => {
+
+        beforeEach(() => {
+          spy(cmp, 'addPostcssPlugins');
+          cmp.addPostcssPlugins('something', 'something else');
+        });
+
+        afterEach(() => {
+          cmp.addPostcssPlugins.restore();
+        });
+
+        it('add plugins to the list', () => {
+          expect(cmp.postcssPlugins).eql([autoprefixer, 'something', 'something else']);
+        });
+
+        it('returns self', () => {
+          expect(cmp.addPostcssPlugins).returned(cmp);
         });
 
       });

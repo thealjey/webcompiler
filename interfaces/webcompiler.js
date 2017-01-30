@@ -87,8 +87,9 @@ declare module 'webcompiler' {
   }
 
   declare class SASSCompiler {
-    constructor(compress: ?boolean, includePaths: ?Array<string>, importOnceOptions: ?Object): void;
-    static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback): void;
+    constructor(compress: ?boolean, includePaths: ?string[], importOnceOptions: ?Object): void;
+    addPostcssPlugins(...plugins: any[]): SASSCompiler;
+    postcss(path: string, data: ProgramData, callback: ProgramDataCallback): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
   }
 

@@ -67,6 +67,16 @@ export class SASSCompiler extends Compiler {
    */
   importOnce: Object;
 
+  /**
+   * postcss plugins
+   *
+   * @member {Array<*>} postcssPlugins
+   * @memberof SASSCompiler
+   * @private
+   * @instance
+   */
+  postcssPlugins: any[] = [autoprefixer];
+
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, includePaths: string[] = [], importOnceOptions: Object = {}) {
     /* eslint-enable require-jsdoc */
@@ -76,21 +86,38 @@ export class SASSCompiler extends Compiler {
   }
 
   /**
-   * Auto-prefixes the compiled code
+   * Adds postcss plugins (autoprefixer is included by default).
+   *
+   * @memberof SASSCompiler
+   * @instance
+   * @method addPostcssPlugins
+   * @param {...*} plugins - postcss plugins
+   * @return {SASSCompiler} self
+   * @example
+   * compiler.addPostcssPlugins(someplugin, someotherplugin, ...);
+   */
+  addPostcssPlugins(...plugins: any[]) {
+    this.postcssPlugins.push(...plugins);
+
+    return this;
+  }
+
+  /**
+   * Runs the compiled code through the list of configured postcss plugins.
    *
    * @memberOf SASSCompiler
-   * @static
-   * @method autoprefix
+   * @instance
+   * @method postcss
    * @param {string}             path     - a path to the file
    * @param {ProgramData}        data     - the actual program data to auto-prefix
    * @param {ProgramDataCallback} callback - a callback function
    * @example
-   * SASSCompiler.autoprefix('/path/to/the/output/file.css', data, result => {
-   *   // successfully added the vendor prefixes
+   * compiler.postcss('/path/to/the/output/file.css', data, result => {
+   *   // successfully processed by postcss
    * });
    */
-  static autoprefix(path: string, data: ProgramData, callback: ProgramDataCallback) {
-    postcss([autoprefixer]).process(data.code, {
+  postcss(path: string, data: ProgramData, callback: ProgramDataCallback) {
+    postcss(this.postcssPlugins).process(data.code, {
       from: path,
       to: path,
       map: {prev: data.map}
@@ -133,7 +160,7 @@ export class SASSCompiler extends Compiler {
       if (error) {
         return logSASSError(error);
       }
-      SASSCompiler.autoprefix(outPath, {code: result.css, map: result.map.toString()}, data => {
+      this.postcss(outPath, {code: result.css, map: result.map.toString()}, data => {
         this.save(inPath, outPath, data, callback);
       });
     });
