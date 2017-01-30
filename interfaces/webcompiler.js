@@ -71,7 +71,7 @@ declare module 'webcompiler' {
   declare var babelFEOptions: Object;
 
   declare class JSLint {
-    constructor(rules: ?Object): void;
+    constructor(configFile: ?string): void;
     run(paths: string[], callback: LintCallback): void;
   }
 
@@ -82,7 +82,7 @@ declare module 'webcompiler' {
   }
 
   declare class SASSLint {
-    constructor(...excludeLinter: Array<string>): void;
+    constructor(configFile: ?string): void;
     run(paths: string[], callback: LintCallback): void;
   }
 
@@ -94,7 +94,7 @@ declare module 'webcompiler' {
 
   declare class JS {
     compiler: JSCompiler;
-    constructor(compress: ?boolean, lintRules: ?Object): void;
+    constructor(compress: ?boolean, configFile: ?string): void;
     typecheck(callback: () => void): void;
     lint(paths: string[], callback: () => void): void;
     be(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
@@ -103,8 +103,7 @@ declare module 'webcompiler' {
 
   declare class SASS {
     compiler: SASSCompiler;
-    constructor(compress: ?boolean, includePaths: ?Array<string>, excludeLinter: ?Array<string>,
-                importOnceOptions: ?Object): void;
+    constructor(compress: ?boolean, includePaths: ?string[], configFile: ?string, importOnceOptions: ?Object): void;
     lint(paths: string[], callback: () => void): void;
     fe(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
   }
