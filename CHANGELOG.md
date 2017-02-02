@@ -1,3 +1,11 @@
+v6.3.1 - Thu, 02 Feb 2017 19:13:11 GMT
+--------------------------------------
+
+- [ae764a9](../../commit/ae764a9) [fixed] updated dependencies
+- [bb07c67](../../commit/bb07c67) [fixed] updated documentation
+
+
+
 v6.3.0 - Mon, 30 Jan 2017 20:40:29 GMT
 --------------------------------------
 
