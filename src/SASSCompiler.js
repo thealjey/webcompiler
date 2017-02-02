@@ -47,6 +47,7 @@ const precision = 8,
  * const compiler = new SASSCompiler();
  */
 export class SASSCompiler extends Compiler {
+
   /**
    * an array of paths to search for an scss file in if it's not found in cwd
    *
@@ -108,8 +109,8 @@ export class SASSCompiler extends Compiler {
    * @memberOf SASSCompiler
    * @instance
    * @method postcss
-   * @param {string}             path     - a path to the file
-   * @param {ProgramData}        data     - the actual program data to auto-prefix
+   * @param {string}              path     - a path to the file
+   * @param {ProgramData}         data     - the actual program data to auto-prefix
    * @param {ProgramDataCallback} callback - a callback function
    * @example
    * compiler.postcss('/path/to/the/output/file.css', data, result => {
@@ -132,7 +133,7 @@ export class SASSCompiler extends Compiler {
   }
 
   /**
-   * Compiles, auto-prefixes and optionally minifies and g-zips in the production mode
+   * Compiles, runs postcss on the result and, optionally, g-zips in the production mode.
    *
    * @memberof SASSCompiler
    * @instance
