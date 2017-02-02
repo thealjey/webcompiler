@@ -26,7 +26,7 @@ APIs are sometimes changed without any change in functionality (e.g. Babel 5 vs 
 
 This project aims to abstract all of those problems out of the development of applications and provide the simplest possible interface, pre-configured with everything set up and ready to use right after the installation.
 
-`babel-polyfill`, `autoprefixer`, fast rebuilds with caching in development, production tree shaking, optimizations and compression that care even about your users public cache, everything completely completely automatic and baked into the library.
+`babel-polyfill`, `autoprefixer`, fast rebuilds with caching in development, production tree shaking, optimizations and compression that care even about your users public cache, everything completely automatic and baked into the library.
 
 Have fun :)
 

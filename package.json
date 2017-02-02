@@ -4,7 +4,7 @@
   "description": "Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as NodeJS; lint, compile, auto-prefix, minify and gzip SASS.",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=6.9.4",
+    "node": ">=6.9.5",
     "npm": ">=3.10.10"
   },
   "scripts": {
