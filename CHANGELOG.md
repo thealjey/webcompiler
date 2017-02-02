@@ -1,3 +1,10 @@
+v6.3.2 - Thu, 02 Feb 2017 19:26:00 GMT
+--------------------------------------
+
+- [9c06c47](../../commit/9c06c47) [fixed] typo in README, increased the minimally required Node.js verion to 6.9.5
+
+
+
 v6.3.1 - Thu, 02 Feb 2017 19:13:11 GMT
 --------------------------------------
 
