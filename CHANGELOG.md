@@ -1,3 +1,14 @@
+v6.4.0 - Sun, 05 Feb 2017 13:45:59 GMT
+--------------------------------------
+
+- [2402d0e](../../commit/2402d0e) [fixed] documentation tweaks
+- [38b5f13](../../commit/38b5f13) [changed] enabled the `template-tag-spacing` ESLint rule
+- [15de846](../../commit/15de846) [fixed] updated dependencies
+- [bbafa14](../../commit/bbafa14) [fixed] added missing "keywords" to package.json
+- [7957472](../../commit/7957472) [fixed] clarified the Watchman prerequisite in README.md
+
+
+
 v6.3.2 - Thu, 02 Feb 2017 19:26:00 GMT
 --------------------------------------
 
