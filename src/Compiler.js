@@ -47,8 +47,6 @@ export class Compiler {
    * @method done
    * @param {string}   inPath   - the input path
    * @param {Function} callback - a callback function
-   * @example
-   * Compiler.done('/path/to/an/input/file', callback);
    */
   static done(inPath: string, callback: () => void) {
     log(green(++i, '. Compiled ', inPath));
@@ -66,8 +64,6 @@ export class Compiler {
    * @param {string}      outPath  - the output path
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
-   * @example
-   * Compiler.writeAndCallDone('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
   static writeAndCallDone(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
     Compiler.fsWrite(outPath, data, () => {
@@ -85,8 +81,6 @@ export class Compiler {
    * @param {ProgramData} data     - the data to write
    * @param {Function}    callback - a callback function
    * @return {void}
-   * @example
-   * Compiler.fsWrite('/path/to/an/output/file', data, callback);
    */
   static fsWrite(path: string, data: ProgramData, callback: () => void) {
     if (!data.code) {
@@ -118,8 +112,6 @@ export class Compiler {
    * @method mkdir
    * @param {string}   path     - a path to a file
    * @param {Function} callback - a callback function
-   * @example
-   * Compiler.mkdir('/path/to/a/file', callback);
    */
   static mkdir(path: string, callback: () => void) {
     mkdirp(dirname(path), mkdirpErr => {
@@ -139,8 +131,6 @@ export class Compiler {
    * @param {ProgramData}         data     - the actual program data to gzip
    * @param {ProgramDataCallback} callback - a callback function
    * @return {void}
-   * @example
-   * Compiler.gzip(data, callback);
    */
   static gzip(data: ProgramData, callback: ProgramDataCallback) {
     if (!data.code) {
@@ -163,8 +153,6 @@ export class Compiler {
    * @method fsRead
    * @param {string}              path     - the input path
    * @param {ProgramDataCallback} callback - a callback function
-   * @example
-   * Compiler.fsRead('/path/to/an/output/file', callback);
    */
   fsRead(path: string, callback: ProgramDataCallback) {
     readFile(path, (scriptErr, scriptData) => {
@@ -202,8 +190,6 @@ export class Compiler {
    * @param {string}      outPath  - the output path
    * @param {ProgramData} data     - processed application code with source maps
    * @param {Function}    callback - a callback function
-   * @example
-   * compiler.save('/path/to/an/input/file', '/path/to/the/output/file', data, callback);
    */
   save(inPath: string, outPath: string, data: ProgramData, callback: () => void) {
     this.fsRead(outPath, oldData => {

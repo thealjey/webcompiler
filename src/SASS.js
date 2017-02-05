@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {ImportOnceOptions} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
 import noop from 'lodash/noop';
@@ -9,7 +10,9 @@ import {join} from 'path';
 const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 /**
- * SASS compilation tools
+ * SASS compilation tools.
+ *
+ * Wraps {@link SASSCompiler} to add linting. If you don't want that, use {@link SASSCompiler} directly.
  *
  * Configures the default include paths for the following popular CSS modules:
  *
@@ -22,19 +25,26 @@ const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
  * the module in JavaScript).
  *
  * @class SASS
- * @param {boolean}       [compress=true]                              - if true `Compiler#save` will gzip compress the
- *                                                                       data in production mode
- * @param {Array<string>} [includePaths=[]]                            - an array of additional include paths
- * @param {string}        [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
- * @param {Object}        [importOnceOptions={}]                       - an object that lets you override default
- *                                                                       importOnce resolver configuration
+ * @param {boolean}           [compress=true]                              - if true `Compiler#save` will gzip compress
+ *                                                                           the data in production mode
+ * @param {Array<string>}     [includePaths=[]]                            - an array of additional include paths
+ * @param {string}            [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
+ * @param {ImportOnceOptions} [importOnceOptions={}]                       - an object that lets you override default
+ *                                                                           importOnce resolver configuration
  * @example
  * import {SASS} from 'webcompiler';
  * // or - import {SASS} from 'webcompiler/lib/SASS';
  * // or - var SASS = require('webcompiler').SASS;
  * // or - var SASS = require('webcompiler/lib/SASS').SASS;
+ * import {join} from 'path';
+ *
+ * const scssDir = join(__dirname, 'scss'),
+ *   cssDir = join(__dirname, 'css');
  *
  * const sass = new SASS();
+ *
+ * // compile for the browser
+ * sass.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));
  */
 export class SASS {
 
@@ -43,6 +53,7 @@ export class SASS {
    *
    * @member {SASSCompiler} compiler
    * @memberof SASS
+   * @private
    * @instance
    */
   compiler: SASSCompiler;
@@ -59,7 +70,7 @@ export class SASS {
 
   /* eslint-disable require-jsdoc */
   constructor(compress: boolean = true, includePaths: string[] = [], configFile: string = defaultConfigFile,
-              importOnceOptions: Object = {}) {
+              importOnceOptions: ImportOnceOptions = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
     this.linter = new SASSLint(configFile);
@@ -75,10 +86,6 @@ export class SASS {
    *                                   [node-glob](https://github.com/isaacs/node-glob) to figure out what files you
    *                                   want to lint.
    * @param {Function}      callback - a callback function, invoked only when successfully linted
-   * @example
-   * js.lint(paths, () => {
-   *   // successfully linted
-   * });
    */
   lint(paths: string[], callback: () => void) {
     this.linter.run(paths, linterErr => {
@@ -95,17 +102,12 @@ export class SASS {
    * @memberof SASS
    * @instance
    * @method fe
-   * @param {string}        inPath                    - the input path
-   * @param {string}        outPath                   - the output path
+   * @param {string}        inPath                    - the input file path
+   * @param {string}        outPath                   - the output file path
    * @param {Array<string>} [lintPaths=[]]            - an array of file globs. Ultimately passed to
    *                                                    [node-glob](https://github.com/isaacs/node-glob) to figure out
    *                                                    what files you want to lint.
    * @param {Function}      [callback=function () {}] - a callback function
-   * @return {void}
-   * @example
-   * compiler.fe(inPath, outPath, lintPaths, () => {
-   *   // the code has passed all the checks and has been compiled successfully
-   * });
    */
   fe(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.lint(lintPaths.concat([inPath]), () => {

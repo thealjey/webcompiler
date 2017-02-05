@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback} from './typedef';
+import type {ProgramData, ProgramDataCallback, ImportOnceOptions} from './typedef';
 import {Compiler} from './Compiler';
 import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
@@ -33,18 +33,25 @@ const precision = 8,
  *
  * @class SASSCompiler
  * @extends Compiler
- * @param {boolean}       [compress=true]        - if true `Compiler#save` will gzip compress the data in production
- *                                                 mode
- * @param {Array<string>} [includePaths=[]]      - an array of additional include paths
- * @param {Object}        [importOnceOptions={}] - an object that lets you override default importOnce resolver
- *                                                 configuration
+ * @param {boolean}           [compress=true]        - if true `Compiler#save` will gzip compress the data in production
+ *                                                     mode
+ * @param {Array<string>}     [includePaths=[]]      - an array of additional include paths
+ * @param {ImportOnceOptions} [importOnceOptions={}] - an object that lets you override default importOnce resolver
+ *                                                     configuration
  * @example
  * import {SASSCompiler} from 'webcompiler';
  * // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
  * // or - var SASSCompiler = require('webcompiler').SASSCompiler;
  * // or - var SASSCompiler = require('webcompiler/lib/SASSCompiler').SASSCompiler;
+ * import {join} from 'path';
+ *
+ * const scssDir = join(__dirname, 'scss'),
+ *   cssDir = join(__dirname, 'css');
  *
  * const compiler = new SASSCompiler();
+ *
+ * // compile for the browser
+ * compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));
  */
 export class SASSCompiler extends Compiler {
 
@@ -61,12 +68,12 @@ export class SASSCompiler extends Compiler {
   /**
    * importOnce resolver configuration
    *
-   * @member {Object} importOnce
+   * @member {ImportOnceOptions} importOnce
    * @memberof SASSCompiler
    * @private
    * @instance
    */
-  importOnce: Object;
+  importOnce: ImportOnceOptions;
 
   /**
    * postcss plugins
@@ -79,7 +86,7 @@ export class SASSCompiler extends Compiler {
   postcssPlugins: any[] = [autoprefixer];
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: string[] = [], importOnceOptions: Object = {}) {
+  constructor(compress: boolean = true, includePaths: string[] = [], importOnceOptions: ImportOnceOptions = {}) {
     /* eslint-enable require-jsdoc */
     super(compress);
     this.includePaths = defaultIncludePaths.concat(includePaths);
@@ -94,8 +101,6 @@ export class SASSCompiler extends Compiler {
    * @method addPostcssPlugins
    * @param {...*} plugins - postcss plugins
    * @return {SASSCompiler} self
-   * @example
-   * compiler.addPostcssPlugins(someplugin, someotherplugin, ...);
    */
   addPostcssPlugins(...plugins: any[]) {
     this.postcssPlugins.push(...plugins);
@@ -110,12 +115,8 @@ export class SASSCompiler extends Compiler {
    * @instance
    * @method postcss
    * @param {string}              path     - a path to the file
-   * @param {ProgramData}         data     - the actual program data to auto-prefix
+   * @param {ProgramData}         data     - the actual program data to execute postcss on
    * @param {ProgramDataCallback} callback - a callback function
-   * @example
-   * compiler.postcss('/path/to/the/output/file.css', data, result => {
-   *   // successfully processed by postcss
-   * });
    */
   postcss(path: string, data: ProgramData, callback: ProgramDataCallback) {
     postcss(this.postcssPlugins).process(data.code, {
@@ -141,10 +142,6 @@ export class SASSCompiler extends Compiler {
    * @param {string}   inPath                    - a full system path to the input file
    * @param {string}   outPath                   - a full system path to the output file
    * @param {Function} [callback=function () {}] - a callback function
-   * @example
-   * compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', () => {
-   *   // compiled successfully
-   * });
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
     render({

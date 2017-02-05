@@ -11,7 +11,9 @@ import {join} from 'path';
 const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
 
 /**
- * JavaScript compilation tools
+ * JavaScript compilation tools.
+ *
+ * Wraps {@link JSCompiler} to add static analysis and linting. If you don't want that, use {@link JSCompiler} directly.
  *
  * @class JS
  * @param {boolean} [compress=true]                           - if true `Compiler#save` will gzip compress the data in
@@ -22,8 +24,21 @@ const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
  * // or - import {JS} from 'webcompiler/lib/JS';
  * // or - var JS = require('webcompiler').JS;
  * // or - var JS = require('webcompiler/lib/JS').JS;
+ * import {join} from 'path';
+ *
+ * const srcDir = join(__dirname, 'src'),
+ *   libDir = join(__dirname, 'lib');
  *
  * const js = new JS();
+ *
+ * // compile for the browser
+ * js.fe(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+ *
+ * // compile for Node.js
+ * js.be(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+ *
+ * // compile entire directories for Node.js (non-JavaScript files are simply copied over)
+ * js.be(srcDir, libDir);
  */
 export class JS {
 
@@ -32,6 +47,7 @@ export class JS {
    *
    * @member {JSCompiler} compiler
    * @memberof JS
+   * @private
    * @instance
    */
   compiler: JSCompiler;
@@ -60,10 +76,6 @@ export class JS {
    * @static
    * @method typecheck
    * @param {Function} callback - a callback function, invoked only when successfully typechecked
-   * @example
-   * JS.typecheck(() => {
-   *   // successfully typechecked
-   * });
    */
   static typecheck(callback: () => void) {
     findBinary('flow', (error, flow: NativeProcess) => {
@@ -90,10 +102,6 @@ export class JS {
    * @method lint
    * @param {Array<string>} paths    - an array of paths to files/directories to lint
    * @param {Function}      callback - a callback function, invoked only when successfully linted
-   * @example
-   * js.lint(['/path/to/the/input/file.js', '/lint/this/directory/too'], () => {
-   *   // successfully linted
-   * });
    */
   lint(paths: string[], callback: () => void) {
     this.linter.run(paths, linterErr => {
@@ -114,10 +122,6 @@ export class JS {
    * @param {string}        inPath    - the input file (will also be linted)
    * @param {Array<string>} lintPaths - an array of paths to files/directories to lint
    * @param {Function}      callback  - a callback function, invoked only when successfully validated
-   * @example
-   * js.validate('/path/to/the/input/file.js', ['/lint/this/directory/too'], () => {
-   *   // successfully validated
-   * });
    */
   validate(inPath: string, lintPaths: string[], callback: () => void) {
     JS.typecheck(() => {
@@ -126,20 +130,17 @@ export class JS {
   }
 
   /**
-   * Wraps {@link JSCompiler#be} to add static analysis and linting
+   * Wraps {@link JSCompiler#be} to add static analysis and linting.
+   *
+   * If `inPath` is a directory, `outPath` has to be also.
    *
    * @memberOf JS
    * @instance
    * @method be
-   * @param {string}        inPath                    - the input path
-   * @param {string}        outPath                   - the output path
+   * @param {string}        inPath                    - the input file/directory path
+   * @param {string}        outPath                   - the output file/directory path
    * @param {Array<string>} [lintPaths=[]]            - an array of paths to files/directories to lint
    * @param {Function}      [callback=function () {}] - a callback function
-   * @return {void}
-   * @example
-   * compiler.be('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
-   *   // the code has passed all the checks and has been compiled successfully
-   * });
    */
   be(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {
@@ -153,15 +154,10 @@ export class JS {
    * @memberOf JS
    * @instance
    * @method fe
-   * @param {string}        inPath                    - the input path
-   * @param {string}        outPath                   - the output path
+   * @param {string}        inPath                    - the input file path
+   * @param {string}        outPath                   - the output file path
    * @param {Array<string>} [lintPaths=[]]            - an array of paths to files/directories to lint
    * @param {Function}      [callback=function () {}] - a callback function
-   * @return {void}
-   * @example
-   * compiler.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
-   *   // the code has passed all the checks and has been compiled successfully
-   * });
    */
   fe(inPath: string, outPath: string, lintPaths: string[] = [], callback: () => void = noop) {
     this.validate(inPath, lintPaths, () => {

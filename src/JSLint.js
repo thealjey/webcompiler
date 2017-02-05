@@ -20,7 +20,6 @@ const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
  * // or - import {JSLint} from 'webcompiler/lib/JSLint';
  * // or - var JSLint = require('webcompiler').JSLint;
  * // or - var JSLint = require('webcompiler/lib/JSLint').JSLint;
- * import {join} from 'path';
  *
  * const linter = new JSLint();
  */
@@ -51,6 +50,7 @@ export class JSLint {
    * @param {Array<string>} paths    - an array of paths to files/directories to lint
    * @param {LintCallback}  callback - a callback function
    * @example
+   * import {join} from 'path';
    * import {logLintingErrors} from 'webcompiler';
    *
    * // lint "index.js" as well as the entire contents of the "src" directory

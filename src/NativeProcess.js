@@ -127,8 +127,6 @@ export class NativeProcess {
    * @memberof NativeProcess
    * @instance
    * @method kill
-   * @example
-   * someEpensiveProcess.kill();
    */
   kill() {
     if (this.proc) {

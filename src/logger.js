@@ -398,8 +398,6 @@ export function logSASSError({message, file, line, column}: NodeSassError) {
  * // or - import {logLintingErrors} from 'webcompiler/lib/logger';
  * // or - var logLintingErrors = require('webcompiler').logLintingErrors;
  * // or - var logLintingErrors = require('webcompiler/lib/logger').logLintingErrors;
- *
- * logLintingErrors(errors);
  */
 export function logLintingErrors(errors: LintError[], prefix: ?string = null) {
   forEach(errors, ({message, rule, file, line, column}) => {

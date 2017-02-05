@@ -24,8 +24,21 @@ const {yellow, red} = consoleStyles;
  * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
  * // or - var JSCompiler = require('webcompiler').JSCompiler;
  * // or - var JSCompiler = require('webcompiler/lib/JSCompiler').JSCompiler;
+ * import {join} from 'path';
+ *
+ * const srcDir = join(__dirname, 'src'),
+ *   libDir = join(__dirname, 'lib');
  *
  * const compiler = new JSCompiler();
+ *
+ * // compile for the browser
+ * compiler.fe(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+ *
+ * // compile for Node.js
+ * compiler.be(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+ *
+ * // compile entire directories for Node.js (non-JavaScript files are simply copied over)
+ * compiler.be(srcDir, libDir);
  */
 export class JSCompiler extends Compiler {
 
@@ -46,11 +59,9 @@ export class JSCompiler extends Compiler {
    * @instance
    * @private
    * @method beDir
-   * @param {string}   inPath   - the input path
-   * @param {string}   outPath  - the output path
+   * @param {string}   inPath   - the input directory path
+   * @param {string}   outPath  - the output directory path
    * @param {Function} callback - a callback function
-   * @example
-   * compiler.beDir('/path/to/an/input/directory', '/path/to/the/output/directory', callback);
    */
   beDir(inPath: string, outPath: string, callback: () => void) {
     readdir(inPath, (readdirErr, files) => {
@@ -70,11 +81,9 @@ export class JSCompiler extends Compiler {
    * @instance
    * @private
    * @method beFile
-   * @param {string}   inPath   - the input path
-   * @param {string}   outPath  - the output path
+   * @param {string}   inPath   - the input file path
+   * @param {string}   outPath  - the output file path
    * @param {Function} callback - a callback function
-   * @example
-   * compiler.beFile('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   beFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
@@ -93,11 +102,9 @@ export class JSCompiler extends Compiler {
    * @instance
    * @private
    * @method copyFile
-   * @param {string}   inPath   - the input path
-   * @param {string}   outPath  - the output path
+   * @param {string}   inPath   - the input file path
+   * @param {string}   outPath  - the output file path
    * @param {Function} callback - a callback function
-   * @example
-   * compiler.copyFile('/path/to/an/input/file', '/path/to/the/output/file', callback);
    */
   copyFile(inPath: string, outPath: string, callback: () => void) {
     ++this.processing;
@@ -115,11 +122,9 @@ export class JSCompiler extends Compiler {
    * @instance
    * @private
    * @method beTraverse
-   * @param {string}   inPath   - the input path
-   * @param {string}   outPath  - the output path
+   * @param {string}   inPath   - the input file/directory path
+   * @param {string}   outPath  - the output file/directory path
    * @param {Function} callback - a callback function
-   * @example
-   * compiler.beTraverse('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   beTraverse(inPath: string, outPath: string, callback: () => void) {
     stat(inPath, (statErr, stats) => {
@@ -139,15 +144,15 @@ export class JSCompiler extends Compiler {
   /**
    * Compiles a JavaScript file or a directory for the back end. Non-JavaScript files are simply copied over.
    *
+   * If `inPath` is a directory, `outPath` has to be also.
+   *
    * @memberOf JSCompiler
    * @instance
    * @method be
-   * @param {string}   inPath                    - the input path
-   * @param {string}   outPath                   - the output path
+   * @param {string}   inPath                    - the input file/directory path
+   * @param {string}   outPath                   - the output file/directory path
    * @param {Function} [callback=function () {}] - a callback function
    * @return {void}
-   * @example
-   * compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   be(inPath: string, outPath: string, callback: () => void = noop) {
     if (this.processing) {
@@ -167,11 +172,9 @@ export class JSCompiler extends Compiler {
    * @memberOf JSCompiler
    * @instance
    * @method fe
-   * @param {string}   inPath                    - the input path
-   * @param {string}   outPath                   - the output path
+   * @param {string}   inPath                    - the input file path
+   * @param {string}   outPath                   - the output file path
    * @param {Function} [callback=function () {}] - a callback function
-   * @example
-   * compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
     const compiler = getCompiler(inPath, outPath);
