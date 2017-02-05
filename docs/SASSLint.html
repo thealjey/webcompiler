@@ -129,7 +129,6 @@
 // or - import {SASSLint} from 'webcompiler/lib/SASSLint';
 // or - var SASSLint = require('webcompiler').SASSLint;
 // or - var SASSLint = require('webcompiler/lib/SASSLint').SASSLint;
-import {join} from 'path';
 
 const linter = new SASSLint();</code></pre>
 
@@ -254,7 +253,7 @@ const linter = new SASSLint();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSLint.js.html">SASSLint.js</a>, <a href="SASSLint.js.html#line46">line 46</a>
+        <a href="SASSLint.js.html">SASSLint.js</a>, <a href="SASSLint.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -307,7 +306,8 @@ const linter = new SASSLint();</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import {logLintingErrors} from 'webcompiler';
+    <pre class="prettyprint"><code>import {join} from 'path';
+import {logLintingErrors} from 'webcompiler';
 
 // lint "style.scss" as well as the entire contents of the "sass" directory
 linter.run([join(__dirname, 'style.scss'), join(__dirname, 'sass', '**', '*.scss')], errors => {

@@ -129,7 +129,6 @@
 // or - import {JSLint} from 'webcompiler/lib/JSLint';
 // or - var JSLint = require('webcompiler').JSLint;
 // or - var JSLint = require('webcompiler/lib/JSLint').JSLint;
-import {join} from 'path';
 
 const linter = new JSLint();</code></pre>
 
@@ -254,7 +253,7 @@ const linter = new JSLint();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JSLint.js.html">JSLint.js</a>, <a href="JSLint.js.html#line45">line 45</a>
+        <a href="JSLint.js.html">JSLint.js</a>, <a href="JSLint.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -307,7 +306,8 @@ const linter = new JSLint();</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import {logLintingErrors} from 'webcompiler';
+    <pre class="prettyprint"><code>import {join} from 'path';
+import {logLintingErrors} from 'webcompiler';
 
 // lint "index.js" as well as the entire contents of the "src" directory
 linter.run([join(__dirname, 'index.js'), join(__dirname, 'src')], errors => {

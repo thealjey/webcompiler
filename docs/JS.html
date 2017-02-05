@@ -105,7 +105,8 @@
 
 
 <div class="description">
-    <p>JavaScript compilation tools</p>
+    <p>JavaScript compilation tools.</p>
+<p>Wraps <a href="JSCompiler.html">JSCompiler</a> to add static analysis and linting. If you don't want that, use <a href="JSCompiler.html">JSCompiler</a> directly.</p>
 </div>
 
 
@@ -122,8 +123,21 @@
 // or - import {JS} from 'webcompiler/lib/JS';
 // or - var JS = require('webcompiler').JS;
 // or - var JS = require('webcompiler/lib/JS').JS;
+import {join} from 'path';
 
-const js = new JS();</code></pre>
+const srcDir = join(__dirname, 'src'),
+  libDir = join(__dirname, 'lib');
+
+const js = new JS();
+
+// compile for the browser
+js.fe(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+
+// compile for Node.js
+js.be(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+
+// compile entire directories for Node.js (non-JavaScript files are simply copied over)
+js.be(srcDir, libDir);</code></pre>
 
 
 
@@ -265,83 +279,6 @@ const js = new JS();</code></pre>
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="compiler"><span class="type-signature"></span>compiler<span class="type-signature"> :<a href="JSCompiler.html">JSCompiler</a></span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line30">line 30</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>JavaScript compiler</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="JSCompiler.html">JSCompiler</a></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -363,7 +300,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line56">line 56</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -412,13 +349,6 @@ const js = new JS();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>JS.typecheck(() => {
-  // successfully typechecked
-});</code></pre>
 
 
 
@@ -491,7 +421,7 @@ const js = new JS();</code></pre>
 
     
 
-    <h4 class="name" id="be"><span class="type-signature"></span>be<span class="signature">(inPath, outPath, lintPaths<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="be"><span class="type-signature"></span>be<span class="signature">(inPath, outPath, lintPaths<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -503,7 +433,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line128">line 128</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -543,7 +473,8 @@ const js = new JS();</code></pre>
 
 
 <div class="description">
-    <p>Wraps <a href="JSCompiler.html#be">JSCompiler#be</a> to add static analysis and linting</p>
+    <p>Wraps <a href="JSCompiler.html#be">JSCompiler#be</a> to add static analysis and linting.</p>
+<p>If <code>inPath</code> is a directory, <code>outPath</code> has to be also.</p>
 </div>
 
 
@@ -552,13 +483,6 @@ const js = new JS();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.be('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
-  // the code has passed all the checks and has been compiled successfully
-});</code></pre>
 
 
 
@@ -620,7 +544,7 @@ const js = new JS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the input path</p></td>
+            <td class="description last"><p>the input file/directory path</p></td>
         </tr>
 
     
@@ -655,7 +579,7 @@ const js = new JS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the output path</p></td>
+            <td class="description last"><p>the output file/directory path</p></td>
         </tr>
 
     
@@ -753,24 +677,6 @@ const js = new JS();</code></pre>
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
         
@@ -778,7 +684,7 @@ const js = new JS();</code></pre>
 
     
 
-    <h4 class="name" id="fe"><span class="type-signature"></span>fe<span class="signature">(inPath, outPath, lintPaths<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="fe"><span class="type-signature"></span>fe<span class="signature">(inPath, outPath, lintPaths<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -790,7 +696,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line150">line 150</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -841,13 +747,6 @@ const js = new JS();</code></pre>
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', ['/lint/this/directory/too'], () => {
-  // the code has passed all the checks and has been compiled successfully
-});</code></pre>
-
-
 
 
     <h5>Parameters:</h5>
@@ -907,7 +806,7 @@ const js = new JS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the input path</p></td>
+            <td class="description last"><p>the input file path</p></td>
         </tr>
 
     
@@ -942,7 +841,7 @@ const js = new JS();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the output path</p></td>
+            <td class="description last"><p>the output file path</p></td>
         </tr>
 
     
@@ -1040,24 +939,6 @@ const js = new JS();</code></pre>
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
         
@@ -1077,7 +958,7 @@ const js = new JS();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line85">line 85</a>
+        <a href="JS.js.html">JS.js</a>, <a href="JS.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -1126,13 +1007,6 @@ const js = new JS();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>js.lint(['/path/to/the/input/file.js', '/lint/this/directory/too'], () => {
-  // successfully linted
-});</code></pre>
 
 
 

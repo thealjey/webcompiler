@@ -122,8 +122,21 @@
 // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
 // or - var JSCompiler = require('webcompiler').JSCompiler;
 // or - var JSCompiler = require('webcompiler/lib/JSCompiler').JSCompiler;
+import {join} from 'path';
 
-const compiler = new JSCompiler();</code></pre>
+const srcDir = join(__dirname, 'src'),
+  libDir = join(__dirname, 'lib');
+
+const compiler = new JSCompiler();
+
+// compile for the browser
+compiler.fe(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+
+// compile for Node.js
+compiler.be(join(srcDir, 'script.js'), join(libDir, 'script.js'));
+
+// compile entire directories for Node.js (non-JavaScript files are simply copied over)
+compiler.be(srcDir, libDir);</code></pre>
 
 
 
@@ -257,7 +270,7 @@ const compiler = new JSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JSCompiler.js.html">JSCompiler.js</a>, <a href="JSCompiler.js.html#line139">line 139</a>
+        <a href="JSCompiler.js.html">JSCompiler.js</a>, <a href="JSCompiler.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -298,6 +311,7 @@ const compiler = new JSCompiler();</code></pre>
 
 <div class="description">
     <p>Compiles a JavaScript file or a directory for the back end. Non-JavaScript files are simply copied over.</p>
+<p>If <code>inPath</code> is a directory, <code>outPath</code> has to be also.</p>
 </div>
 
 
@@ -306,11 +320,6 @@ const compiler = new JSCompiler();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.be('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);</code></pre>
 
 
 
@@ -372,7 +381,7 @@ const compiler = new JSCompiler();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the input path</p></td>
+            <td class="description last"><p>the input file/directory path</p></td>
         </tr>
 
     
@@ -407,7 +416,7 @@ const compiler = new JSCompiler();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the output path</p></td>
+            <td class="description last"><p>the output file/directory path</p></td>
         </tr>
 
     
@@ -503,7 +512,7 @@ const compiler = new JSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="JSCompiler.js.html">JSCompiler.js</a>, <a href="JSCompiler.js.html#line164">line 164</a>
+        <a href="JSCompiler.js.html">JSCompiler.js</a>, <a href="JSCompiler.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -552,11 +561,6 @@ const compiler = new JSCompiler();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.fe('/path/to/an/input/file.js', '/path/to/the/output/file.js', callback);</code></pre>
 
 
 
@@ -618,7 +622,7 @@ const compiler = new JSCompiler();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the input path</p></td>
+            <td class="description last"><p>the input file path</p></td>
         </tr>
 
     
@@ -653,7 +657,7 @@ const compiler = new JSCompiler();</code></pre>
                 </td>
             
 
-            <td class="description last"><p>the output path</p></td>
+            <td class="description last"><p>the output file path</p></td>
         </tr>
 
     
@@ -731,7 +735,7 @@ const compiler = new JSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line188">line 188</a>
+        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -789,11 +793,6 @@ the file unnecessarily.</p>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.save('/path/to/an/input/file', '/path/to/the/output/file', data, callback);</code></pre>
 
 
 

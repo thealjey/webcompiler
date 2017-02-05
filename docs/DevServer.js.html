@@ -74,6 +74,7 @@ const LIVERELOAD_PORT = 35729,
  * @param {DevServerConfig} [options={}] - optional configuration
  * @see {@link http://webpack.github.io/docs/webpack-dev-server.html webpack-dev-server}
  * @see {@link http://gaearon.github.io/react-hot-loader/ React Hot Loader}
+ * @see {@link https://facebook.github.io/watchman/ Watchman}
  * @example
  * import {DevServer} from 'webcompiler';
  * // or - import {DevServer} from 'webcompiler/lib/DevServer';
@@ -153,8 +154,6 @@ export class DevServer {
    * @memberof DevServer
    * @instance
    * @method watchSASS
-   * @example
-   * server.watchSASS();
    */
   watchSASS() {
     const {style, contentBase} = this.options;
@@ -180,8 +179,6 @@ export class DevServer {
    * @memberof DevServer
    * @instance
    * @method watchJS
-   * @example
-   * server.watchJS();
    */
   watchJS() {
     const {port} = this.options,
@@ -200,13 +197,12 @@ export class DevServer {
   }
 
   /**
-   * Starts the Webpack development server, compiles SASS and starts watching for file changes
+   * Starts the Webpack development server, compiles SASS and starts watching for file changes (only if the `style`
+   * option was specified)
    *
    * @memberof DevServer
    * @instance
    * @method run
-   * @example
-   * server.run();
    */
   run() {
     this.watchJS();

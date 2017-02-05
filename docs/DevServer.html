@@ -102,6 +102,8 @@
             <li><a href="http://webpack.github.io/docs/webpack-dev-server.html">webpack-dev-server</a></li>
         
             <li><a href="http://gaearon.github.io/react-hot-loader/">React Hot Loader</a></li>
+        
+            <li><a href="https://facebook.github.io/watchman/">Watchman</a></li>
         </ul>
     </dd>
     
@@ -300,7 +302,7 @@ new DevServer(script, {style}).run();
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line163">line 163</a>
+        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -340,7 +342,8 @@ new DevServer(script, {style}).run();
 
 
 <div class="description">
-    <p>Starts the Webpack development server, compiles SASS and starts watching for file changes</p>
+    <p>Starts the Webpack development server, compiles SASS and starts watching for file changes (only if the <code>style</code>
+option was specified)</p>
 </div>
 
 
@@ -349,11 +352,6 @@ new DevServer(script, {style}).run();
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>server.run();</code></pre>
 
 
 
@@ -389,7 +387,7 @@ new DevServer(script, {style}).run();
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line138">line 138</a>
+        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -440,11 +438,6 @@ new DevServer(script, {style}).run();
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>server.watchJS();</code></pre>
-
-
 
 
 
@@ -478,7 +471,7 @@ new DevServer(script, {style}).run();
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line111">line 111</a>
+        <a href="DevServer.js.html">DevServer.js</a>, <a href="DevServer.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -527,11 +520,6 @@ new DevServer(script, {style}).run();
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>server.watchSASS();</code></pre>
 
 
 

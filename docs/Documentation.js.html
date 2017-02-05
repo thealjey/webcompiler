@@ -77,6 +77,8 @@ const cwd = process.cwd(),
  * // or - var Documentation = require('webcompiler/lib/Documentation').Documentation;
  *
  * const docs = new Documentation();
+ *
+ * docs.run();
  */
 export class Documentation {
 
@@ -103,11 +105,6 @@ export class Documentation {
    * @instance
    * @method run
    * @param {Function} [callback=function () {}] - a callback function
-   * @return {void}
-   * @example
-   * docs.run(() => {
-   *   // generated the API documentation
-   * });
    */
   run(callback: () => void = noop) {
     findBinary('jsdoc', (error, jsdoc: NativeProcess) => {

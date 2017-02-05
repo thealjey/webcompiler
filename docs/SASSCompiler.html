@@ -131,8 +131,15 @@ the module in JavaScript).</p>
 // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
 // or - var SASSCompiler = require('webcompiler').SASSCompiler;
 // or - var SASSCompiler = require('webcompiler/lib/SASSCompiler').SASSCompiler;
+import {join} from 'path';
 
-const compiler = new SASSCompiler();</code></pre>
+const scssDir = join(__dirname, 'scss'),
+  cssDir = join(__dirname, 'css');
+
+const compiler = new SASSCompiler();
+
+// compile for the browser
+compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre>
 
 
 
@@ -199,7 +206,7 @@ const compiler = new SASSCompiler();</code></pre>
             
 
             <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in production
-                                                mode</p></td>
+                                                    mode</p></td>
         </tr>
 
     
@@ -251,7 +258,7 @@ const compiler = new SASSCompiler();</code></pre>
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ImportOnceOptions">ImportOnceOptions</a></span>
 
 
             
@@ -278,7 +285,7 @@ const compiler = new SASSCompiler();</code></pre>
             
 
             <td class="description last"><p>an object that lets you override default importOnce resolver
-                                                configuration</p></td>
+                                                    configuration</p></td>
         </tr>
 
     
@@ -346,7 +353,7 @@ const compiler = new SASSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line89">line 89</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -395,11 +402,6 @@ const compiler = new SASSCompiler();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.addPostcssPlugins(someplugin, someotherplugin, ...);</code></pre>
 
 
 
@@ -518,7 +520,7 @@ const compiler = new SASSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line135">line 135</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -567,13 +569,6 @@ const compiler = new SASSCompiler();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.fe('/path/to/the/input/file.scss', '/path/to/the/output/file.css', () => {
-  // compiled successfully
-});</code></pre>
 
 
 
@@ -748,7 +743,7 @@ const compiler = new SASSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line106">line 106</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -797,13 +792,6 @@ const compiler = new SASSCompiler();</code></pre>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.postcss('/path/to/the/output/file.css', data, result => {
-  // successfully processed by postcss
-});</code></pre>
 
 
 
@@ -872,7 +860,7 @@ const compiler = new SASSCompiler();</code></pre>
 
             
 
-            <td class="description last"><p>the actual program data to auto-prefix</p></td>
+            <td class="description last"><p>the actual program data to execute postcss on</p></td>
         </tr>
 
     
@@ -934,7 +922,7 @@ const compiler = new SASSCompiler();</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line188">line 188</a>
+        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -992,11 +980,6 @@ the file unnecessarily.</p>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>compiler.save('/path/to/an/input/file', '/path/to/the/output/file', data, callback);</code></pre>
 
 
 

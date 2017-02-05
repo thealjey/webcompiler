@@ -60,7 +60,6 @@ const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
  * // or - import {SASSLint} from 'webcompiler/lib/SASSLint';
  * // or - var SASSLint = require('webcompiler').SASSLint;
  * // or - var SASSLint = require('webcompiler/lib/SASSLint').SASSLint;
- * import {join} from 'path';
  *
  * const linter = new SASSLint();
  */
@@ -93,6 +92,7 @@ export class SASSLint {
    *                                   want to lint.
    * @param {LintCallback}  callback - a callback function
    * @example
+   * import {join} from 'path';
    * import {logLintingErrors} from 'webcompiler';
    *
    * // lint "style.scss" as well as the entire contents of the "sass" directory

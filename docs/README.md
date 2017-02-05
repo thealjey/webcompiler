@@ -38,7 +38,7 @@ Any feedback on **[Discord]** would be greatly appreciated. It does not require 
 
 ### Prerequisites
 
-1. [Watchman](https://facebook.github.io/watchman/). Only required by the `DevServer` class.
+1. [Watchman](https://facebook.github.io/watchman/docs/install.html) (only required by the `watch` function and the `DevServer` class; you don't need to know how it works, all you need to do is install it)
 
 ### A note about [Facebook Flow]
 

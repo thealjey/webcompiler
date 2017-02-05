@@ -40,6 +40,23 @@
             <pre class="prettyprint source linenums"><code>/* @flow */
 
 /**
+ * `node-sass-import-once` options
+ *
+ * @typedef {Object} ImportOnceOptions
+ * @property {boolean} [index=true]  - allows folders to contain an index file (index.scss, index.sass, _index.scss,
+ *                                     _index.sass) that will automatically be imported if just the folder name is
+ *                                     imported
+ * @property {boolean} [css=false]   - allows a CSS file to be imported directly into your Sass files. Simply don't
+ *                                     include a file extension, and if it's available as a CSS file it'll be imported
+ * @property {boolean} [bower=false] - automatically parses your Bower directory for the files you've requested
+ */
+export type ImportOnceOptions = {
+  index?: boolean;
+  css?: boolean;
+  bower?: boolean;
+};
+
+/**
  * Processed application code with source maps
  *
  * @typedef {Object} ProgramData
