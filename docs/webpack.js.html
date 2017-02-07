@@ -41,7 +41,6 @@
 
 import webpack from 'webpack';
 import {dirname, basename} from 'path';
-import combineLoaders from 'webpack-combine-loaders';
 import WebpackDevServer from 'webpack-dev-server';
 import MemoryFS from 'memory-fs';
 import serveStatic from 'serve-static';
@@ -119,47 +118,41 @@ export const babelFEOptions = {
 };
 
 /**
- * Returns the default set of JavaScript loaders.
- *
- * @memberof module:webpack
- * @private
- * @method getLoaders
- * @return {Array&lt;string | Object>} webpack JavaScript loaders
- */
-export function getLoaders(): Array&lt;string | Object> {
-  return [{
-    loader: 'babel',
-    query: babelFEOptions
-  }];
-}
-
-/**
  * Returns a webpack configuration object.
  *
  * @memberof module:webpack
  * @private
  * @method getConfig
- * @param {Array&lt;string | Object>} loaders - the JavaScript loaders array
+ * @param {boolean} react - true if the react loader is needed
  * @return {Object} webpack configuration object
  */
-export function getConfig(loaders: Array&lt;string | Object>): Object {
+export function getConfig(react: boolean): Object {
+  const loaders = [{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'babel',
+    query: babelFEOptions
+  }, {
+    test: /\.json$/,
+    loader: 'json'
+  }, {
+    test: /jsdom/,
+    loader: 'null'
+  }];
+
+  if (react) {
+    loaders.unshift({
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'react-hot'
+    });
+  }
+
   return {
     cache,
     debug: true,
     node: {fs: 'empty'},
-    module: {
-      loaders: [{
-        test: /jsdom/,
-        loader: 'null'
-      }, {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: combineLoaders(loaders)
-      }, {
-        test: /\.json$/,
-        loader: 'json'
-      }]
-    }
+    module: {loaders}
   };
 }
 
@@ -175,7 +168,7 @@ export function getConfig(loaders: Array&lt;string | Object>): Object {
  */
 export function getCompiler(inPath: string, outPath: string): Object {
   const compiler = webpack({
-    ...getConfig(getLoaders()),
+    ...getConfig(false),
     devtool: 'source-map',
     entry: ['babel-polyfill', inPath],
     output: {path: dirname(outPath), filename: basename(outPath), publicPath: '/'},
@@ -198,15 +191,10 @@ export function getCompiler(inPath: string, outPath: string): Object {
  * @return {Object} an instance of the webpack development server
  */
 export function getServer(inPath: string, options: Object) {
-  const {react, port, contentBase, configureApplication} = options,
-    loaders = getLoaders();
-
-  if (react) {
-    loaders.unshift('react-hot');
-  }
+  const {react, port, contentBase, configureApplication} = options;
 
   const server = new WebpackDevServer(webpack({
-    ...getConfig(loaders),
+    ...getConfig(react),
     devtool: 'eval-source-map',
     entry: [
       `webpack-dev-server/client?http://0.0.0.0:${port}`,
