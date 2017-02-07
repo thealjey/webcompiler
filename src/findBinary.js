@@ -21,7 +21,7 @@ const npm = new NativeProcess('npm'),
  * // or - import {findBinary} from 'webcompiler/lib/findBinary';
  * // or - var findBinary = require('webcompiler').findBinary;
  * // or - var findBinary = require('webcompiler/lib/findBinary').findBinary;
- * // import logError somehow
+ * import {logError} from 'webcompiler';
  *
  * findBinary('something', (error, binary) => {
  *   if (error) {
