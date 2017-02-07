@@ -29,59 +29,78 @@ describe('webpack', () => {
       webpack = req();
     });
 
-    describe('getLoaders', () => {
-
-      beforeEach(() => {
-        spy(webpack, 'getLoaders');
-        webpack.getLoaders();
-      });
-
-      afterEach(() => {
-        webpack.getLoaders.restore();
-      });
-
-      it('returns result', () => {
-        expect(webpack.getLoaders).returned([{
-          loader: 'babel',
-          query: webpack.babelFEOptions
-        }]);
-      });
-
-    });
-
     describe('getConfig', () => {
 
       beforeEach(() => {
         spy(webpack, 'getConfig');
-        webpack.getConfig([
-          'react-hot',
-          {loader: 'babel', query: {something: 'here'}}
-        ]);
       });
 
       afterEach(() => {
         webpack.getConfig.restore();
       });
 
-      it('returns result', () => {
-        expect(webpack.getConfig).returned({
-          cache: {},
-          debug: true,
-          node: {fs: 'empty'},
-          module: {
-            loaders: [{
-              test: /jsdom/,
-              loader: 'null'
-            }, {
-              test: /\.js$/,
-              exclude: /node_modules/,
-              loader: 'react-hot!babel?something=here'
-            }, {
-              test: /\.json$/,
-              loader: 'json'
-            }]
-          }
+      describe('no react', () => {
+
+        beforeEach(() => {
+          webpack.getConfig(false);
         });
+
+        it('returns result', () => {
+          expect(webpack.getConfig).returned({
+            cache: {},
+            debug: true,
+            node: {fs: 'empty'},
+            module: {
+              loaders: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: webpack.babelFEOptions
+              }, {
+                test: /\.json$/,
+                loader: 'json'
+              }, {
+                test: /jsdom/,
+                loader: 'null'
+              }]
+            }
+          });
+        });
+
+      });
+
+      describe('react', () => {
+
+        beforeEach(() => {
+          webpack.getConfig(true);
+        });
+
+        it('returns result', () => {
+          expect(webpack.getConfig).returned({
+            cache: {},
+            debug: true,
+            node: {fs: 'empty'},
+            module: {
+              loaders: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'react-hot'
+              }, {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: webpack.babelFEOptions
+              }, {
+                test: /\.json$/,
+                loader: 'json'
+              }, {
+                test: /jsdom/,
+                loader: 'null'
+              }]
+            }
+          });
+        });
+
       });
 
     });
@@ -103,7 +122,7 @@ describe('webpack', () => {
 
     it('calls webpack', () => {
       expect(webpackFn).calledWith({
-        ...webpack.getConfig(webpack.getLoaders()),
+        ...webpack.getConfig(false),
         devtool: 'source-map',
         entry: ['babel-polyfill', 'in'],
         output: {path: 'out', filename: 'file', publicPath: '/'},
@@ -137,7 +156,7 @@ describe('webpack', () => {
 
     it('calls webpack', () => {
       expect(webpackFn).calledWith({
-        ...webpack.getConfig(webpack.getLoaders()),
+        ...webpack.getConfig(false),
         devtool: 'source-map',
         entry: ['babel-polyfill', 'in'],
         output: {path: 'out', filename: 'file', publicPath: '/'},
@@ -169,7 +188,7 @@ describe('webpack', () => {
 
       it('calls webpack', () => {
         expect(webpackFn).calledWith({
-          ...webpack.getConfig(webpack.getLoaders()),
+          ...webpack.getConfig(false),
           devtool: 'eval-source-map',
           entry: [
             `webpack-dev-server/client?http://0.0.0.0:${WEB_PORT}`,
@@ -209,7 +228,7 @@ describe('webpack', () => {
 
       it('calls webpack', () => {
         expect(webpackFn).calledWith({
-          ...webpack.getConfig(['react-hot', ...webpack.getLoaders()]),
+          ...webpack.getConfig(true),
           devtool: 'eval-source-map',
           entry: [
             `webpack-dev-server/client?http://0.0.0.0:${WEB_PORT}`,
