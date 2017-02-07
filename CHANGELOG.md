@@ -1,3 +1,12 @@
+v6.5.0 - Tue, 07 Feb 2017 20:04:12 GMT
+--------------------------------------
+
+- [fde1a96](../../commit/fde1a96) [fixed] undated dependencies
+- [d5f38d2](../../commit/d5f38d2) [fixed] removed the unreliable `webpack-combine-loaders` that broke `JSCompiler#fe` in v6
+- [6d21f9e](../../commit/6d21f9e) [fixed] minor documentation issue
+
+
+
 v6.4.0 - Sun, 05 Feb 2017 13:45:59 GMT
 --------------------------------------
 
