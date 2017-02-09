@@ -5,7 +5,7 @@
 Lint, type-check, compile, package and gzip JavaScript (ES6 + Flow static types + JSX), for the browser as well as
 NodeJS; lint, compile, auto-prefix, minify and gzip SASS.
 
-**[Project Home](https://github.com/thealjey/webcompiler) | [API Docs](https://thealjey.github.io/webcompiler) | [Discord]**
+**[Project Home](https://github.com/thealjey/webcompiler) | [API Docs](https://thealjey.github.io/webcompiler) | [Changelog](https://github.com/thealjey/webcompiler/blob/master/CHANGELOG.md) | [Discord]**
 
 [![Node.js](https://img.shields.io/node/v/webcompiler.svg)](https://www.npmjs.com/package/webcompiler)
 [![Version](https://badge.fury.io/js/webcompiler.svg)](https://badge.fury.io/js/webcompiler)
