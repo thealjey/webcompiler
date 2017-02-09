@@ -1,3 +1,11 @@
+v6.6.0 - Thu, 09 Feb 2017 19:50:39 GMT
+--------------------------------------
+
+- [ccc6661](../../commit/ccc6661) [fixed] a very long standing issue (it basically existed from the very beginning) by ignoring ".babelrc" files and enabling the ES2015 module syntax transpilation; tree shaking will be available again when both `webpack` 2.3 and `webpack-hot-loader` 3.0 come out
+- [5396dbb](../../commit/5396dbb) [fixed] added a link to the Changelog to README.md
+
+
+
 v6.5.0 - Tue, 07 Feb 2017 20:04:12 GMT
 --------------------------------------
 
