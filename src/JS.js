@@ -6,9 +6,6 @@ import {JSLint} from './JSLint';
 import noop from 'lodash/noop';
 import {logError, logLintingErrors} from './logger';
 import {findBinary} from './findBinary';
-import {join} from 'path';
-
-const defaultConfigFile = join(__dirname, '..', '.eslintrc.yaml');
 
 /**
  * JavaScript compilation tools.
@@ -63,7 +60,7 @@ export class JS {
   linter: JSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, configFile: string = defaultConfigFile) {
+  constructor(compress: boolean = true, configFile?: string) {
     /* eslint-enable require-jsdoc */
     this.compiler = new JSCompiler(compress);
     this.linter = new JSLint(configFile);

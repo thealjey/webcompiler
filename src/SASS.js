@@ -5,9 +5,6 @@ import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
 import noop from 'lodash/noop';
 import {logLintingErrors} from './logger';
-import {join} from 'path';
-
-const defaultConfigFile = join(__dirname, '..', '.stylelintrc.yaml');
 
 /**
  * SASS compilation tools.
@@ -69,7 +66,7 @@ export class SASS {
   linter: SASSLint;
 
   /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: string[] = [], configFile: string = defaultConfigFile,
+  constructor(compress: boolean = true, includePaths: string[] = [], configFile?: string,
               importOnceOptions: ImportOnceOptions = {}) {
     /* eslint-enable require-jsdoc */
     this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
