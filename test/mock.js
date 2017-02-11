@@ -104,7 +104,9 @@ export class Client {
   capabilityCheck: () => void;
   command: () => void;
   on: () => void;
+  end: () => void;
 }
 Client.prototype.capabilityCheck = noop;
 Client.prototype.command = noop;
 Client.prototype.on = noop;
+Client.prototype.end = noop;

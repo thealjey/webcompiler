@@ -10,6 +10,7 @@ chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable require-jsdoc */
+/* eslint-disable camelcase */
 
 const ALPHANUMERIC_BASE = 36,
   capabilityErr = new Error('capabilityErr'),
@@ -69,7 +70,7 @@ describe('watch', () => {
     });
 
     it('calls capabilityCheck', () => {
-      expect(Client.prototype.capabilityCheck).calledWith({}, match.func);
+      expect(Client.prototype.capabilityCheck).calledWith({optional: [], required: ['relative_root']}, match.func);
     });
 
     it('prints an error on screen', () => {
@@ -180,7 +181,7 @@ describe('watch', () => {
       beforeEach(() => {
         stub(Client.prototype, 'command', (command, cb) => {
           if ('watch-project' === command[0]) {
-            cb(null, {watch: 'a watcher instance'});
+            cb(null, {watch: 'a watcher instance', relative_path: 'relative path'});
           } else if ('clock' === command[0]) {
             cb(null, {clock: 'clock value'});
           } else {
@@ -196,7 +197,7 @@ describe('watch', () => {
 
       it('executes a subscribe command', () => {
         expect(Client.prototype.command).calledWith(['subscribe', 'a watcher instance', 'qwerty',
-          {expression: ['suffix', 'rty'], since: 'clock value'}], match.func);
+          {expression: ['suffix', 'rty'], since: 'clock value', relative_root: 'relative path'}], match.func);
       });
 
       it('prints an error on screen', () => {
