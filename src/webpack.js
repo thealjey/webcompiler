@@ -136,7 +136,7 @@ export function getConfig(react: boolean): Object {
 export function getCompiler(inPath: string, outPath: string): Object {
   const compiler = webpack({
     ...getConfig(false),
-    devtool: 'source-map',
+    devtool: isProduction ? 'source-map' : 'eval-source-map',
     entry: ['babel-polyfill', inPath],
     output: {path: dirname(outPath), filename: basename(outPath), publicPath: '/'},
     plugins: isProduction ? productionPlugins : []
