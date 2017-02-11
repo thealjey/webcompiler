@@ -5,14 +5,8 @@ import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 import {writeFile, readFile} from 'fs';
 import {gzip, gunzip} from 'zlib';
-import {logError, log, consoleStyles} from './logger';
 import {isProduction} from './webpack';
-
-/* eslint-disable no-process-env */
-
-const {green} = consoleStyles;
-
-let i = 0;
+import {logError, logSequentialSuccessMessage} from './logger';
 
 /**
  * The base compiler class
@@ -49,7 +43,7 @@ export class Compiler {
    * @param {Function} callback - a callback function
    */
   static done(inPath: string, callback: () => void) {
-    log(green(++i, '. Compiled ', inPath));
+    logSequentialSuccessMessage(`Compiled ${inPath}`);
     callback();
   }
 

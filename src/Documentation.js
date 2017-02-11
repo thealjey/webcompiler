@@ -3,7 +3,7 @@
 import type {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 import noop from 'lodash/noop';
-import {logError} from './logger';
+import {logError, logSequentialSuccessMessage} from './logger';
 import {findBinary} from './findBinary';
 import {watch} from './watch';
 import tinylr from 'tiny-lr';
@@ -81,6 +81,7 @@ export class Documentation {
         if (stderr) {
           return logError(stderr);
         }
+        logSequentialSuccessMessage(`Generated API documentation for ${inputDir}`);
         callback();
       }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
     });

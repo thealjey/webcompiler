@@ -9,6 +9,8 @@ import cleanStack from 'clean-stack';
 
 /* eslint-disable no-console */
 
+let i = 0;
+
 /**
  * Dead-simple, composable, isomorphic, cross-browser wrapper for `console.log`.
  *
@@ -404,4 +406,23 @@ export function logLintingErrors(errors: LintError[], prefix: ?string = null) {
     log(formatErrorMarker(), ': ', ...formatLine(`${message}${rule ? ` (${rule})` : ''}`, file, line, column));
   });
   log(prefix ? `${prefix} l` : 'L', 'inting errors: ', errors.length);
+}
+
+/**
+ * Within the current process logs green colored messages out to the console prepending a sequential a number starting
+ * with "1." to the message, to make it easier to distinguish messages containing the same text.
+ *
+ * @memberof module:logger
+ * @function logSequentialSuccessMessage
+ * @param {string} message - a message to log
+ * @example
+ * import {logSequentialSuccessMessage} from 'webcompiler';
+ * // or - import {logSequentialSuccessMessage} from 'webcompiler/lib/logger';
+ * // or - var logSequentialSuccessMessage = require('webcompiler').logSequentialSuccessMessage;
+ * // or - var logSequentialSuccessMessage = require('webcompiler/lib/logger').logSequentialSuccessMessage;
+ */
+export function logSequentialSuccessMessage(message: string) {
+  const {green} = consoleStyles;
+
+  log(green(++i, '. ', message));
 }
