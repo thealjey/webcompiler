@@ -1,3 +1,14 @@
+v6.7.0 - Sat, 11 Feb 2017 17:30:06 GMT
+--------------------------------------
+
+- [7c8ae19](../../commit/7c8ae19) [changed] created a new module `util`; made the `webpack` module private
+- [e0e7a60](../../commit/e0e7a60) [added] function `logSequentialSuccessMessage` to the `logger` module
+- [1e86281](../../commit/1e86281) [fixed] use cheaper `"eval-source-map"` in development mode when constructing a webpack compiler for faster rebuilds
+- [a507dbb](../../commit/a507dbb) [fixed] removed duplicated declaration for `defaultConfigFile`
+- [5520224](../../commit/5520224) [added] the `watch` method to the `Documentation` class
+
+
+
 v6.6.1 - Sat, 11 Feb 2017 09:55:59 GMT
 --------------------------------------
 
