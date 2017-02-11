@@ -92,7 +92,16 @@ additional actions will be performed by the compiler:</p>
 </ol>
 <h3>Important!</h3><p>The resulting JavaScript and CSS files from <code>fe</code> in <code>production</code> mode are gzip compressed for performance
 (see <a href="https://developer.yahoo.com/performance/rules.html#gzip">Gzip Components</a>), so make sure to provide a
-<strong>&quot;Content-Encoding&quot;</strong> header to the browser (e.g. <code>res.setHeader('Content-Encoding', 'gzip');</code>).</p></article>
+<strong>&quot;Content-Encoding&quot;</strong> header to the browser (e.g. <code>res.setHeader('Content-Encoding', 'gzip');</code>).</p>
+<h3>Troubleshooting</h3><h4><code>watch</code></h4><ol>
+<li>If you've installed <a href="https://facebook.github.io/watchman/docs/install.html">Watchman</a> on OSX with homebrew and you notice that it suddenly stopped working, try the following:<ul>
+<li><code>launchctl unload -F ~/Library/LaunchAgents/com.github.facebook.watchman.plist</code></li>
+<li><code>rm -rf /usr/local/var/run/watchman/</code></li>
+<li>reinstall <a href="https://facebook.github.io/watchman/docs/install.html">Watchman</a> completely</li>
+<li>if that does not solve your problem or the above steps do not apply to you report a bug describing your operating system version, <a href="https://facebook.github.io/watchman/docs/install.html">Watchman</a> version, webcompiler version, and your specific problem</li>
+</ul>
+</li>
+</ol></article>
     </section>
 
 

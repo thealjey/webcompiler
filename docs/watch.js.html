@@ -43,6 +43,8 @@ import type {WatchCallback} from './typedef';
 import {logError, log, consoleStyles} from './logger';
 import {Client} from 'fb-watchman';
 
+/* eslint-disable camelcase */
+
 const client = new Client(),
   ALPHANUMERIC_BASE = 36,
   {yellow} = consoleStyles;
@@ -70,13 +72,15 @@ const client = new Client(),
 export function watch(dir: string, type: string, callback: WatchCallback) {
   const subscription = Date.now().toString(ALPHANUMERIC_BASE);
 
-  client.capabilityCheck({}, capabilityErr => {
+  client.capabilityCheck({optional: [], required: ['relative_root']}, capabilityErr => {
     if (capabilityErr) {
+      client.end();
+
       return logError(capabilityErr);
     }
 
     client.command(['watch-project', dir], (watchErr, watchResp) => {
-      const {watch: watcher} = watchResp;
+      const {watch: watcher, relative_path: relative_root} = watchResp;
 
       if (watchErr) {
         return logError(watchErr);
@@ -93,7 +97,8 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
 
         client.command(['subscribe', watcher, subscription, {
           expression: ['suffix', type],
-          since: clockResp.clock
+          since: clockResp.clock,
+          relative_root
         }], subscribeErr => {
           if (subscribeErr) {
             logError(subscribeErr);

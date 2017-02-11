@@ -38,7 +38,7 @@ Any feedback on **[Discord]** would be greatly appreciated. It does not require 
 
 ### Prerequisites
 
-1. [Watchman](https://facebook.github.io/watchman/docs/install.html) (only required by the `watch` function and the `DevServer` class; you don't need to know how it works, all you need to do is install it)
+1. [Watchman] \(only required by the `watch` function and the `DevServer` class; you don't need to know how it works, all you need to do is install it)
 
 ### A note about [Facebook Flow]
 
@@ -83,5 +83,16 @@ The resulting JavaScript and CSS files from `fe` in `production` mode are gzip c
 (see [Gzip Components](https://developer.yahoo.com/performance/rules.html#gzip)), so make sure to provide a
 **"Content-Encoding"** header to the browser (e.g. `res.setHeader('Content-Encoding', 'gzip');`).
 
+### Troubleshooting
+
+#### `watch`
+
+1. If you've installed [Watchman] on OSX with homebrew and you notice that it suddenly stopped working, try the following:
+  * `launchctl unload -F ~/Library/LaunchAgents/com.github.facebook.watchman.plist`
+  * `rm -rf /usr/local/var/run/watchman/`
+  * reinstall [Watchman] completely
+  * if that does not solve your problem or the above steps do not apply to you report a bug describing your operating system version, [Watchman] version, webcompiler version, and your specific problem
+
 [Discord]: https://discord.gg/0blXIxApyTu9qXno
 [Facebook Flow]: http://flowtype.org/
+[Watchman]: https://facebook.github.io/watchman/docs/install.html
