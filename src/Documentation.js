@@ -5,8 +5,11 @@ import {join} from 'path';
 import noop from 'lodash/noop';
 import {logError} from './logger';
 import {findBinary} from './findBinary';
+import {watch} from './watch';
+import tinylr from 'tiny-lr';
 
-const cwd = process.cwd(),
+const LIVERELOAD_PORT = 35729,
+  cwd = process.cwd(),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
@@ -81,6 +84,31 @@ export class Documentation {
         callback();
       }, [inputDir, '-d', outputDir, '-R', readMe, '-c', jsdocConfig, '-t', template]);
     });
+  }
+
+  /**
+   * Watch for changes and automatically re-build the documentation.
+   *
+   * Please install, enable and, optionally, allow access to file urls (if you want to be able to browse the generated
+   * documentation without the need for a server) to the LiveReload browser extension.
+   *
+   * @memberof Documentation
+   * @instance
+   * @method watch
+   * @param {Function} [callback=function () {}] - a callback function
+   */
+  watch(callback: () => void = noop) {
+    const lr = tinylr();
+
+    lr.listen(LIVERELOAD_PORT);
+
+    watch(this.options.inputDir, 'js', () => {
+      this.run(() => {
+        callback();
+        lr.changed({body: {files: '*'}});
+      });
+    });
+    this.run(callback);
   }
 
 }

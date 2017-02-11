@@ -2,4 +2,4 @@
 
 import {Documentation} from '../src/Documentation';
 
-new Documentation().run();
+new Documentation().watch();
