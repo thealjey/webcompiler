@@ -1,6 +1,11 @@
 {
+  "opts": {
+    "recurse": true
+  },
   "plugins": ["commentsOnly", "plugins/markdown"],
   "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true,
     "default": {
       "includeDate": false
     }
