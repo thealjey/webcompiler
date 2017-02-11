@@ -1,3 +1,12 @@
+v6.6.1 - Sat, 11 Feb 2017 09:55:59 GMT
+--------------------------------------
+
+- [d31bb2b](../../commit/d31bb2b) [added] the "Troubleshooting" section to README.md
+- [2e62ccb](../../commit/2e62ccb) [changed] added the check for the "relative_root" watchman server capability; also added client disconnection on error
+- [b4de55c](../../commit/b4de55c) [fixed] updated default jsdoc configuration
+
+
+
 v6.6.0 - Thu, 09 Feb 2017 19:50:39 GMT
 --------------------------------------
 
