@@ -147,7 +147,7 @@ describe('JSCompiler', () => {
 
     beforeEach(() => {
       transformFile = stub().callsArgWith(2, error);
-      JSCompiler = req({'./webpack': {babelBEOptions: {something: 'here'}}, 'babel-core': {transformFile},
+      JSCompiler = req({'./util': {babelBEOptions: {something: 'here'}}, 'babel-core': {transformFile},
         './logger': {logError}});
       cmp = new JSCompiler();
       stub(Compiler, 'fsWrite').callsArg(2);

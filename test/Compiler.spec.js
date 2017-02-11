@@ -27,6 +27,7 @@ describe('Compiler', () => {
     callback = spy();
     stub(logger, 'log');
     stub(logger, 'logError');
+    stub(logger, 'logSequentialSuccessMessage');
     stub(logger.consoleStyles, 'green').returns('green text');
   });
 
@@ -36,6 +37,9 @@ describe('Compiler', () => {
 
     /* @flowignore */
     logger.logError.restore();
+
+    /* @flowignore */
+    logger.logSequentialSuccessMessage.restore();
     logger.consoleStyles.green.restore();
   });
 
@@ -96,7 +100,7 @@ describe('Compiler', () => {
 
     beforeEach(() => {
       mkdirp = stub().callsArg(1);
-      Compiler = req({mkdirp, './webpack': {isProduction: true}});
+      Compiler = req({mkdirp, './util': {isProduction: true}});
       cmp = new Compiler(true);
     });
 
@@ -111,8 +115,7 @@ describe('Compiler', () => {
       });
 
       it('logs the info to stdout', () => {
-        expect(logger.consoleStyles.green).calledWith(1, '. Compiled ', '/path/to/the/output/file');
-        expect(logger.log).calledWith('green text');
+        expect(logger.logSequentialSuccessMessage).calledWith('Compiled /path/to/the/output/file');
       });
 
       it('invokes the callback', () => {

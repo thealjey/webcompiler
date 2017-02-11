@@ -177,12 +177,7 @@ describe('DevServer', () => {
     describe('watchSASS', () => {
 
       beforeEach(() => {
-        stub(srv, 'listen');
         cmp.watchSASS();
-      });
-
-      afterEach(() => {
-        srv.listen.restore();
       });
 
       it('calls tinylr', () => {

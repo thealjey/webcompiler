@@ -7,6 +7,7 @@ import proxyquire from 'proxyquire';
 import MemoryFS from 'memory-fs';
 import {WebpackDevServer, DefinePlugin, OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin, HotModuleReplacementPlugin,
   getWebpack} from './mock';
+import * as util from '../src/util';
 
 /* eslint-disable no-process-env */
 /* eslint-disable require-jsdoc */
@@ -55,7 +56,7 @@ describe('webpack', () => {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
-                query: webpack.babelFEOptions
+                query: util.babelFEOptions
               }, {
                 test: /\.json$/,
                 loader: 'json'
@@ -89,7 +90,7 @@ describe('webpack', () => {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
-                query: webpack.babelFEOptions
+                query: util.babelFEOptions
               }, {
                 test: /\.json$/,
                 loader: 'json'
@@ -123,7 +124,7 @@ describe('webpack', () => {
     it('calls webpack', () => {
       expect(webpackFn).calledWith({
         ...webpack.getConfig(false),
-        devtool: 'source-map',
+        devtool: 'eval-source-map',
         entry: ['babel-polyfill', 'in'],
         output: {path: 'out', filename: 'file', publicPath: '/'},
         plugins: []
@@ -142,7 +143,8 @@ describe('webpack', () => {
   describe('getCompiler production', () => {
 
     beforeEach(() => {
-      process.env.NODE_ENV = 'production';
+      /* @flowignore */
+      util.isProduction = true;
       webpackFn = getWebpack({webpack: 'Compiler'});
       webpack = req({webpack: webpackFn});
       spy(webpack, 'getCompiler');
@@ -150,7 +152,8 @@ describe('webpack', () => {
     });
 
     afterEach(() => {
-      delete process.env.NODE_ENV;
+      /* @flowignore */
+      util.isProduction = false;
       webpack.getCompiler.restore();
     });
 

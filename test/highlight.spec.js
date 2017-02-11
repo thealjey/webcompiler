@@ -9,133 +9,158 @@ import {getCheerio, getJSX, getCodemirror, dom, domLines, transformedChildren} f
 chai.use(sinonChai);
 
 /* eslint-disable require-jsdoc */
+/* eslint-disable no-unused-expressions */
 
-const highlight = proxyquire('../src/highlight', {
-  cheerio: getCheerio(),
-  './jsx': getJSX(),
-  codemirror: getCodemirror(),
-  'codemirror/mode/jsx/jsx': {}
-});
+let highlight;
 
-describe('highlight', () => {
-
-  before(() => {
-    spy(highlight, 'highlight');
-    highlight.highlight('function myScript(){return 100;}');
-  });
-
-  after(() => {
-    highlight.highlight.restore();
-  });
-
-  it('returns result', () => {
-    expect(highlight.highlight).returned({dom, lines: domLines});
-  });
-
-});
-
-describe('highlightHTML', () => {
+describe('not node', () => {
 
   beforeEach(() => {
-    spy(highlight, 'highlightHTML');
+    global.window = undefined;
+    global.navigator = undefined;
+    global.document = undefined;
+    proxyquire('../src/highlight', {'./util': {isNode: false}});
   });
 
-  afterEach(() => {
-    highlight.highlightHTML.restore();
-  });
-
-  describe('no arg', () => {
-
-    beforeEach(() => {
-      highlight.highlightHTML();
-    });
-
-    it('returns result', () => {
-      expect(highlight.highlightHTML).returned('');
-    });
-
-  });
-
-  describe('arg', () => {
-
-    beforeEach(() => {
-      highlight.highlightHTML('function myScript(){return 100;}');
-    });
-
-    it('returns result', () => {
-      expect(highlight.highlightHTML).returned('html string');
-    });
-
+  it('window is undefined', () => {
+    expect(global.window).undefined;
   });
 
 });
 
-describe('highlightArray', () => {
+describe('node', () => {
 
   beforeEach(() => {
-    spy(highlight, 'highlightArray');
+    highlight = proxyquire('../src/highlight', {
+      cheerio: getCheerio(),
+      './jsx': getJSX(),
+      codemirror: getCodemirror(),
+      'codemirror/mode/jsx/jsx': {},
+      './util': {isNode: true}
+    });
   });
 
-  afterEach(() => {
-    highlight.highlightArray.restore();
-  });
-
-  describe('no arg', () => {
+  describe('highlight', () => {
 
     beforeEach(() => {
-      highlight.highlightArray();
+      spy(highlight, 'highlight');
+      highlight.highlight('function myScript(){return 100;}');
+    });
+
+    afterEach(() => {
+      highlight.highlight.restore();
     });
 
     it('returns result', () => {
-      expect(highlight.highlightArray).returned([]);
+      expect(highlight.highlight).returned({dom, lines: domLines});
     });
 
   });
 
-  describe('arg', () => {
+  describe('highlightHTML', () => {
 
     beforeEach(() => {
-      highlight.highlightArray('function myScript(){return 100;}');
+      spy(highlight, 'highlightHTML');
     });
 
-    it('returns result', () => {
-      expect(highlight.highlightArray).returned(transformedChildren);
+    afterEach(() => {
+      highlight.highlightHTML.restore();
+    });
+
+    describe('no arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightHTML();
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightHTML).returned('');
+      });
+
+    });
+
+    describe('arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightHTML('function myScript(){return 100;}');
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightHTML).returned('html string');
+      });
+
     });
 
   });
 
-});
-
-describe('highlightJSX', () => {
-
-  beforeEach(() => {
-    spy(highlight, 'highlightJSX');
-  });
-
-  afterEach(() => {
-    highlight.highlightJSX.restore();
-  });
-
-  describe('no arg', () => {
+  describe('highlightArray', () => {
 
     beforeEach(() => {
-      highlight.highlightJSX();
+      spy(highlight, 'highlightArray');
     });
 
-    it('returns result', () => {
-      expect(highlight.highlightJSX).returned([[]]);
+    afterEach(() => {
+      highlight.highlightArray.restore();
+    });
+
+    describe('no arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightArray();
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightArray).returned([]);
+      });
+
+    });
+
+    describe('arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightArray('function myScript(){return 100;}');
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightArray).returned(transformedChildren);
+      });
+
     });
 
   });
 
-  describe('arg', () => {
+  describe('highlightJSX', () => {
 
     beforeEach(() => {
-      highlight.highlightJSX('function myScript(){return 100;}');
+      spy(highlight, 'highlightJSX');
     });
 
-    it('returns result', () => {
-      expect(highlight.highlightJSX).returned([transformedChildren]);
+    afterEach(() => {
+      highlight.highlightJSX.restore();
+    });
+
+    describe('no arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightJSX();
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightJSX).returned([[]]);
+      });
+
+    });
+
+    describe('arg', () => {
+
+      beforeEach(() => {
+        highlight.highlightJSX('function myScript(){return 100;}');
+      });
+
+      it('returns result', () => {
+        expect(highlight.highlightJSX).returned([transformedChildren]);
+      });
+
     });
 
   });

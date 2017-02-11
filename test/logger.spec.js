@@ -4,6 +4,7 @@ import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import * as logger from '../src/logger';
+import * as util from '../src/util';
 
 chai.use(sinonChai);
 
@@ -42,11 +43,13 @@ describe('logger', () => {
       describe('browser', () => {
 
         beforeEach(() => {
-          Message.isNode = false;
+          /* @flowignore */
+          util.isNode = false;
         });
 
         afterEach(() => {
-          Message.isNode = true;
+          /* @flowignore */
+          util.isNode = true;
         });
 
         it('Message', () => {
@@ -134,6 +137,11 @@ describe('logger', () => {
         '\u001b[41m\u001b[1m\u001b[37mError\u001b[39m\u001b[22m\u001b[49m: something happened');
       expect(console.log).calledWith('  • "\u001b[33munknown\u001b[39m" in \u001b[36m/some/local/file.js\u001b[39m ' +
         'on \u001b[35m1\u001b[39m:\u001b[35m1\u001b[39m');
+    });
+
+    it('logSequentialSuccessMessage', () => {
+      logger.logSequentialSuccessMessage('success');
+      expect(console.log).calledWith('\u001b[32m1\u001b[39m\u001b[32m. \u001b[39m\u001b[32msuccess\u001b[39m');
     });
 
     it('logPostCSSWarnings', () => {

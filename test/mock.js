@@ -74,11 +74,9 @@ export class WebpackDevServer {
 }
 
 export class Server {
-  changed: () => void;
-  listen: () => void;
+  changed = stub();
+  listen = stub();
 }
-Server.prototype.changed = noop;
-Server.prototype.listen = noop;
 
 export class HotModuleReplacementPlugin {}
 

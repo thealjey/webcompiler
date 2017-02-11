@@ -15,6 +15,7 @@ type Assert = {
   null: void;
   false: void;
   true: void;
+  undefined: void;
 };
 
 declare module 'chai' {

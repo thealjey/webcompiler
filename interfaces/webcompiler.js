@@ -14,6 +14,7 @@ declare module 'webcompiler' {
   declare class Documentation {
     constructor(config: ?Object): void;
     run(callback: () => void): void;
+    watch(callback: () => void): void;
   }
 
   declare function flatten(...args: any[]): any[];
@@ -66,7 +67,10 @@ declare module 'webcompiler' {
   declare function logPostCSSWarnings(warnings: PostCSSWarning[]): void;
   declare function logSASSError(error: NodeSassError): void;
   declare function logLintingErrors(errors: LintError[], prefix: ?string): void;
+  declare function logSequentialSuccessMessage(message: string): void;
 
+  declare var isNode: boolean;
+  declare var isProduction: boolean;
   declare var babelBEOptions: Object;
   declare var babelFEOptions: Object;
 
