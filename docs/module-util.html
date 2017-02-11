@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>yaml.js - Documentation</title>
+    <title>util - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,55 +27,457 @@
 
 <div id="main">
     
-    <h1 class="page-title">yaml.js</h1>
+    <h1 class="page-title">util</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/* @flow */
+        
+            
+        
+    
+</header>
 
-import type {ObjectOrErrorCallback} from './typedef';
-import {safeLoad} from 'js-yaml';
-import {readFileSync} from 'fs';
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Generic utilities and configuration objects.</p></div>
+        
 
-/**
- * Read the contents of a YAML file
- *
- * @function yaml
- * @param {string}                filename - the full system path to a YAML file
- * @param {ObjectOrErrorCallback} callback - a callback function
- * @example
- * import {yaml} from 'webcompiler';
- * // or - import {yaml} from 'webcompiler/lib/yaml';
- * // or - var yaml = require('webcompiler').yaml;
- * // or - var yaml = require('webcompiler/lib/yaml').yaml;
- * import {join} from 'path';
- * import {logError} from 'webcompiler';
- *
- * yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
- *   if (error) {
- *     return logError(error);
- *   }
- *   // the parsed config object
- * });
- */
-export function yaml(filename: string, callback: ObjectOrErrorCallback) {
-  try {
-    const yamlString: string = readFileSync(filename, 'utf8');
+        
+            
 
-    callback(null, safeLoad(yamlString, {filename}));
-  } catch (e) {
-    callback(e, {});
-  }
-}
-</code></pre>
-        </article>
-    </section>
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".babelBEOptions"><span class="type-signature">(static) </span>babelBEOptions<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Babel configuration for the Node.js.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {babelBEOptions} from 'webcompiler';
+// or - import {babelBEOptions} from 'webcompiler/lib/util';
+// or - var babelBEOptions = require('webcompiler').babelBEOptions;
+// or - var babelBEOptions = require('webcompiler/lib/util').babelBEOptions;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".babelFEOptions"><span class="type-signature">(static) </span>babelFEOptions<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line56">line 56</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Babel configuration for the browser.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {babelFEOptions} from 'webcompiler';
+// or - import {babelFEOptions} from 'webcompiler/lib/util';
+// or - var babelFEOptions = require('webcompiler').babelFEOptions;
+// or - var babelFEOptions = require('webcompiler/lib/util').babelFEOptions;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".isNode"><span class="type-signature">(static, constant) </span>isNode<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p><code>true</code> on Node.js</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {isNode} from 'webcompiler';
+// or - import {isNode} from 'webcompiler/lib/util';
+// or - var isNode = require('webcompiler').isNode;
+// or - var isNode = require('webcompiler/lib/util').isNode;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".isProduction"><span class="type-signature">(static, constant) </span>isProduction<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p><code>true</code> if the <code>NODE_ENV</code> environment variable is set to <code>&quot;production&quot;</code></p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import {isProduction} from 'webcompiler';
+// or - import {isProduction} from 'webcompiler/lib/util';
+// or - var isProduction = require('webcompiler').isProduction;
+// or - var isProduction = require('webcompiler/lib/util').isProduction;</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
