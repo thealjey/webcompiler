@@ -6,7 +6,8 @@ import {readdir, stat, createReadStream, createWriteStream} from 'fs';
 import {transformFile} from 'babel-core';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
-import {getCompiler, babelBEOptions} from './webpack';
+import {getCompiler} from './webpack';
+import {babelBEOptions} from './util';
 import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-sync */

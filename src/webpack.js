@@ -5,6 +5,7 @@ import {dirname, basename} from 'path';
 import WebpackDevServer from 'webpack-dev-server';
 import MemoryFS from 'memory-fs';
 import serveStatic from 'serve-static';
+import {isProduction, babelFEOptions} from './util';
 
 /* eslint-disable no-process-env */
 
@@ -26,63 +27,8 @@ const cache = {},
  * You can use it to tweak the Babel options.
  *
  * @module webpack
+ * @private
  */
-
-/**
- * `true` if the `NODE_ENV` environment variable is set to `'production'`
- *
- * @memberof module:webpack
- * @constant {boolean} isProduction
- */
-export const isProduction = 'production' === process.env.NODE_ENV;
-
-/**
- * Babel configuration for the Node.js.
- *
- * @memberof module:webpack
- * @member {Object} babelBEOptions
- * @example
- * import {babelBEOptions} from 'webcompiler';
- * // or - import {babelBEOptions} from 'webcompiler/lib/webpack';
- * // or - var babelBEOptions = require('webcompiler').babelBEOptions;
- * // or - var babelBEOptions = require('webcompiler/lib/webpack').babelBEOptions;
- *
- * babelFEOptions.presets.push('my-custom-preset');
- */
-export const babelBEOptions = {
-  babelrc: false,
-  presets: ['es2016', 'es2017', 'stage-2', 'react'],
-  plugins: [
-    ['transform-es2015-modules-commonjs', {loose: true}]
-  ]
-};
-
-/**
- * Babel configuration for the browser.
- *
- * @memberof module:webpack
- * @member {Object} babelFEOptions
- * @example
- * import {babelFEOptions} from 'webcompiler';
- * // or - import {babelFEOptions} from 'webcompiler/lib/webpack';
- * // or - var babelFEOptions = require('webcompiler').babelFEOptions;
- * // or - var babelFEOptions = require('webcompiler/lib/webpack').babelFEOptions;
- *
- * babelFEOptions.presets.push('my-custom-preset');
- */
-export const babelFEOptions = {
-  cacheDirectory: true,
-  babelrc: false,
-  presets: [
-    ['es2015', {
-      // temporarily disabled until `webpack` 2.3 and `webpack-hot-loader` 3.0 are available
-      // modules: false,
-      loose: true
-    }],
-    'es2016', 'es2017', 'stage-2', 'react'
-  ],
-  plugins: ['transform-runtime']
-};
 
 /**
  * Returns a webpack configuration object.

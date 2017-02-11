@@ -5,6 +5,7 @@ import noop from 'lodash/noop';
 import constant from 'lodash/constant';
 import {load} from 'cheerio';
 import {transformElements, arrayToJSX} from './jsx';
+import {isNode} from './util';
 
 /**
  * CodeMirror syntax highlighting that works in the browser and on Node.js
@@ -12,8 +13,8 @@ import {transformElements, arrayToJSX} from './jsx';
  * @module highlight
  */
 
-// when not in the browser, polyfill specific DOM requirements of CodeMirror
-if ('undefined' === typeof navigator) {
+// on Node.js, polyfill specific DOM requirements of CodeMirror
+if (isNode) {
   global.window = jsdom().defaultView;
   global.navigator = window.navigator;
   window.document.createRange = constant({

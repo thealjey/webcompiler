@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 import {writeFile, readFile} from 'fs';
 import {gzip, gunzip} from 'zlib';
-import {isProduction} from './webpack';
+import {isProduction} from './util';
 import {logError, logSequentialSuccessMessage} from './logger';
 
 /**

@@ -6,6 +6,7 @@ import map from 'lodash/map';
 import transform from 'lodash/transform';
 import ErrorStackParser from 'error-stack-parser';
 import cleanStack from 'clean-stack';
+import {isNode} from './util';
 
 /* eslint-disable no-console */
 
@@ -50,16 +51,6 @@ let i = 0;
  * @param {ConsoleStyleConfig} style - a style config
  */
 export class Message {
-
-  /**
-   * true on Node.js
-   *
-   * @member {boolean} isNode
-   * @memberof module:logger.Message
-   * @private
-   * @static
-   */
-  static isNode: boolean = 'undefined' !== typeof process && 'node' === process.release.name;
 
   /**
    * a style config
@@ -151,7 +142,7 @@ export class Message {
    * @param {string | number | module:logger.Message} msg - a message
    */
   addMessage(msg: string | number | Message) {
-    if (Message.isNode) {
+    if (isNode) {
       this.addBEMessage(msg);
     } else if (msg instanceof Message) {
       this.addFEMessageInstance(msg);

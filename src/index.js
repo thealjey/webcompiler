@@ -6,9 +6,9 @@ export {Documentation} from './Documentation';
 export {watch} from './watch';
 export {yaml} from './yaml';
 export {findBinary} from './findBinary';
-export {babelBEOptions, babelFEOptions} from './webpack';
 export {consoleStyles, log, logError, logPostCSSWarnings, logSASSError, logLintingErrors,
   logSequentialSuccessMessage} from './logger';
+export {isNode, isProduction, babelBEOptions, babelFEOptions} from './util';
 
 export {flatten, arrayToJSX, htmlToArray, htmlToJSX} from './jsx';
 export {markdownToArray, markdownToJSX, markdownToHTML} from './markdown';
