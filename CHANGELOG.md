@@ -1,3 +1,13 @@
+v6.8.0 - Mon, 13 Feb 2017 19:48:24 GMT
+--------------------------------------
+
+- [9895f9e](../../commit/9895f9e) [fixed] typo
+- [f367a00](../../commit/f367a00) [added] the `livereload` helper function
+- [6f1d890](../../commit/6f1d890) [fixed] added a temporary hack/fix for `react-hot-loader`, while the stable version v3 is not out yet
+- [60a0dc8](../../commit/60a0dc8) [fixed] link to the license in readme
+
+
+
 v6.7.0 - Sat, 11 Feb 2017 17:30:06 GMT
 --------------------------------------
 
