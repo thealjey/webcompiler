@@ -65,7 +65,14 @@ export function getConfig(react: boolean): Object {
     cache,
     debug: true,
     node: {fs: 'empty'},
-    module: {loaders}
+    module: {loaders},
+
+    // temporary hack while `react-hot-loader` v3 is not out
+    resolve: {
+      alias: {
+        'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+      }
+    }
   };
 }
 
