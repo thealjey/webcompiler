@@ -5,7 +5,6 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import proxyquire from 'proxyquire';
 import {SASSCompiler} from '../src/SASSCompiler';
-import {Server} from './mock';
 import noop from 'lodash/noop';
 
 chai.use(sinonChai);
@@ -14,11 +13,10 @@ chai.use(sinonChai);
 /* eslint-disable require-jsdoc */
 
 const WEB_PORT = 3000,
-  LIVERELOAD_PORT = 35729,
   error = new Error('something happened'),
   cwd = process.cwd();
 
-let DevServer, cmp, tinylr, srv, send, watch, logError, log, green, use, listen;
+let DevServer, cmp, livereload, lr, send, watch, logError, log, green, use, listen;
 
 function req(options: Object) {
   return proxyquire('../src/DevServer', options).DevServer;
@@ -27,8 +25,8 @@ function req(options: Object) {
 describe('DevServer', () => {
 
   beforeEach(() => {
-    srv = new Server();
-    tinylr = stub().returns(srv);
+    lr = stub();
+    livereload = stub().returns(lr);
     send = spy();
     watch = spy();
     use = stub().callsArgWith(0, null, {send});
@@ -38,7 +36,7 @@ describe('DevServer', () => {
     green = stub().returns('green text');
     stub(SASSCompiler.prototype, 'fe').callsArg(2);
     spy(SASSCompiler.prototype.fe, 'bind');
-    DevServer = req({'./watch': {watch}, 'tiny-lr': tinylr, './webpack': {getServer: () => ({use, listen})},
+    DevServer = req({'./watch': {watch}, './livereload': {livereload}, './webpack': {getServer: () => ({use, listen})},
       './logger': {logError, log, consoleStyles: {green}}});
   });
 
@@ -180,17 +178,13 @@ describe('DevServer', () => {
         cmp.watchSASS();
       });
 
-      it('calls tinylr', () => {
-        expect(tinylr).called;
+      it('starts up LiveReload', () => {
+        expect(livereload).called;
       });
 
       it('binds the sass compiler', () => {
         expect(SASSCompiler.prototype.fe.bind).calledWith(match.instanceOf(SASSCompiler), '/path/to/a/style/file.scss',
                                                           '/path/to/the/public/directory/style.css', match.func);
-      });
-
-      it('starts up LiveReload', () => {
-        expect(srv.listen).calledWith(LIVERELOAD_PORT);
       });
 
       it('starts up the watcher', () => {

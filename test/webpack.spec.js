@@ -51,6 +51,11 @@ describe('webpack', () => {
             cache: {},
             debug: true,
             node: {fs: 'empty'},
+            resolve: {
+              alias: {
+                'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+              }
+            },
             module: {
               loaders: [{
                 test: /\.js$/,
@@ -81,6 +86,11 @@ describe('webpack', () => {
             cache: {},
             debug: true,
             node: {fs: 'empty'},
+            resolve: {
+              alias: {
+                'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+              }
+            },
             module: {
               loaders: [{
                 test: /\.js$/,

@@ -7,7 +7,6 @@ import {join} from 'path';
 import * as logger from '../src/logger';
 import * as binaryFinder from '../src/findBinary';
 import proxyquire from 'proxyquire';
-import {Server} from './mock';
 
 chai.use(sinonChai);
 
@@ -20,7 +19,6 @@ function req(options: Object = {}) {
 
 const rootDir = join(__dirname, '..'),
   cwd = process.cwd(),
-  LIVERELOAD_PORT = 35729,
   error = new Error('something happened'),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
@@ -37,7 +35,7 @@ const rootDir = join(__dirname, '..'),
     jsdocConfig: '/path/to/jsdoc.json'
   };
 
-let cmp, callback, run,  Documentation, tinylr, srv, watch;
+let cmp, callback, run,  Documentation, livereload, lr, watch;
 
 describe('Documentation', () => {
 
@@ -160,9 +158,9 @@ describe('Documentation', () => {
 
     beforeEach(() => {
       watch = stub().callsArg(2);
-      srv = new Server();
-      tinylr = stub().returns(srv);
-      Documentation = req({'tiny-lr': tinylr, './watch': {watch}});
+      lr = stub();
+      livereload = stub().returns(lr);
+      Documentation = req({'./livereload': {livereload}, './watch': {watch}});
       cmp = new Documentation();
       stub(cmp, 'run').callsArg(0);
       cmp.watch(callback);
@@ -173,7 +171,7 @@ describe('Documentation', () => {
     });
 
     it('starts up LiveReload', () => {
-      expect(srv.listen).calledWith(LIVERELOAD_PORT);
+      expect(livereload).called;
     });
 
     it('starts up the watcher', () => {
@@ -190,7 +188,7 @@ describe('Documentation', () => {
     });
 
     it('notifies LiveReload', () => {
-      expect(srv.changed).calledWith({body: {files: '*'}});
+      expect(lr).called;
     });
 
   });
