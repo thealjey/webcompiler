@@ -4,12 +4,11 @@ import type {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 import noop from 'lodash/noop';
 import {logError, logSequentialSuccessMessage} from './logger';
+import {livereload} from './livereload';
 import {findBinary} from './findBinary';
 import {watch} from './watch';
-import tinylr from 'tiny-lr';
 
-const LIVERELOAD_PORT = 35729,
-  cwd = process.cwd(),
+const cwd = process.cwd(),
   defaultOptions = {
     inputDir: join(cwd, 'src'),
     outputDir: join(cwd, 'docs'),
@@ -99,14 +98,12 @@ export class Documentation {
    * @param {Function} [callback=function () {}] - a callback function
    */
   watch(callback: () => void = noop) {
-    const lr = tinylr();
-
-    lr.listen(LIVERELOAD_PORT);
+    const lr = livereload();
 
     watch(this.options.inputDir, 'js', () => {
       this.run(() => {
         callback();
-        lr.changed({body: {files: '*'}});
+        lr();
       });
     });
     this.run(callback);

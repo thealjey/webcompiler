@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback, StringOrErrorCallback, ResultOrErrorCallback,
+import type {ProgramData, ProgramDataCallback, StringOrErrorCallback, ResultOrErrorCallback, LiveReloadTrigger,
   ObjectOrErrorCallback, DevServerConfig, LintError, LintCallback, PostCSSWarning, NodeSassError} from '../src/typedef';
 
 declare module 'webcompiler' {
@@ -31,6 +31,7 @@ declare module 'webcompiler' {
   declare function watch(dir: string, type: string, callback: () => void): void;
   declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;
   declare function findBinary(name: string, callback: ResultOrErrorCallback): void;
+  declare function livereload(): LiveReloadTrigger;
 
   declare class Message {}
 

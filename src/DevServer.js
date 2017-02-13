@@ -3,14 +3,13 @@
 import type {DevServerConfig} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
 import {logError, log, consoleStyles} from './logger';
+import {livereload} from './livereload';
 import {watch} from './watch';
 import {getServer} from './webpack';
-import tinylr from 'tiny-lr';
 import {join} from 'path';
 import noop from 'lodash/noop';
 
-const LIVERELOAD_PORT = 35729,
-  WEB_PORT = 3000,
+const WEB_PORT = 3000,
   cwd = process.cwd(),
   {green} = consoleStyles,
   defaultOptions = {
@@ -124,12 +123,11 @@ export class DevServer {
     }
 
     const sass = new SASSCompiler(false),
-      lr = tinylr(),
+      lr = livereload(),
       compileSASS = sass.fe.bind(sass, style, join(contentBase, 'style.css'), () => {
-        lr.changed({body: {files: ['style.css']}});
+        lr('/style.css');
       });
 
-    lr.listen(LIVERELOAD_PORT);
     compileSASS();
     watch(cwd, 'scss', compileSASS);
   }

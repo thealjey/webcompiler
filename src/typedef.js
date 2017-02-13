@@ -214,3 +214,10 @@ export type WatchmanResponse = {
  * @param {WatchmanResponse} response - a watchman response object
  */
 export type WatchCallback = (response: WatchmanResponse) => void;
+
+/**
+ * @callback LiveReloadTrigger
+ * @param {string} [file="*"] - a file to reload (same path as written in the HTML document that includes it) or `"*"`
+ *                              for a full page refresh
+ */
+export type LiveReloadTrigger = (file?: string) => void;
