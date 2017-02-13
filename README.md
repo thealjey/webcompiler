@@ -14,7 +14,7 @@ NodeJS; lint, compile, auto-prefix, minify and gzip SASS.
 [![Code Climate](https://codeclimate.com/github/thealjey/webcompiler/badges/gpa.svg)](https://codeclimate.com/github/thealjey/webcompiler)
 [![Dependency Status](https://www.versioneye.com/user/projects/589118066a0b7c003b834564/badge.svg)](https://www.versioneye.com/user/projects/589118066a0b7c003b834564)
 [![Downloads](https://img.shields.io/npm/dm/webcompiler.svg)](https://www.npmjs.com/package/webcompiler)
-[![License](https://img.shields.io/npm/l/webcompiler.svg)](https://www.npmjs.com/package/webcompiler)
+[![License](https://img.shields.io/npm/l/webcompiler.svg)](https://opensource.org/licenses/MIT)
 
 Webpack is an amazing tool, however it requires a lot of boilerplate to properly setup and configure, especially when
 you use it on more than one project.
