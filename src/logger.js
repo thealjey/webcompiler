@@ -400,7 +400,7 @@ export function logLintingErrors(errors: LintError[], prefix: ?string = null) {
 }
 
 /**
- * Within the current process logs green colored messages out to the console prepending a sequential a number starting
+ * Within the current process logs green colored messages out to the console prepending a sequential number starting
  * with "1." to the message, to make it easier to distinguish messages containing the same text.
  *
  * @memberof module:logger
