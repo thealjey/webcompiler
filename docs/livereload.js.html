@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>yaml.js - Documentation</title>
+    <title>livereload.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">yaml.js</h1>
+    <h1 class="page-title">livereload.js</h1>
     
 
     
@@ -39,39 +39,49 @@
         <article>
             <pre class="prettyprint source linenums"><code>/* @flow */
 
-import type {ObjectOrErrorCallback} from './typedef';
-import {safeLoad} from 'js-yaml';
-import {readFileSync} from 'fs';
+import type {LiveReloadTrigger} from './typedef';
+import tinylr from 'tiny-lr';
+
+const LIVERELOAD_PORT = 35729;
+
+let reloadFn;
 
 /**
- * Read the contents of a YAML file
+ * Starts a LiveReload server and returns a function that triggers the reload.
  *
- * @function yaml
- * @param {string}                filename - the full system path to a YAML file
- * @param {ObjectOrErrorCallback} callback - a callback function
+ * @function livereload
+ * @return {LiveReloadTrigger} the trigger function
  * @example
- * import {yaml} from 'webcompiler';
- * // or - import {yaml} from 'webcompiler/lib/yaml';
- * // or - var yaml = require('webcompiler').yaml;
- * // or - var yaml = require('webcompiler/lib/yaml').yaml;
- * import {join} from 'path';
- * import {logError} from 'webcompiler';
+ * &lt;link rel="stylesheet" href="css/style.css">
+ * @example
+ * import {livereload} from 'webcompiler';
+ * // or - import {livereload} from 'webcompiler/lib/livereload';
+ * // or - var livereload = require('webcompiler').livereload;
+ * // or - var livereload = require('webcompiler/lib/livereload').livereload;
  *
- * yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
- *   if (error) {
- *     return logError(error);
- *   }
- *   // the parsed config object
- * });
+ * // initialize the server
+ * const lr = livereload();
+ *
+ * // only reload the styles
+ * lr('css/style.css');
+ *
+ * // refresh the whole page
+ * lr('*');
+ * // or simply
+ * lr();
  */
-export function yaml(filename: string, callback: ObjectOrErrorCallback) {
-  try {
-    const yamlString: string = readFileSync(filename, 'utf8');
+export function livereload(): LiveReloadTrigger {
+  if (!reloadFn) {
+    const lr = tinylr();
 
-    callback(null, safeLoad(yamlString, {filename}));
-  } catch (e) {
-    callback(e, {});
+    lr.listen(LIVERELOAD_PORT);
+
+    reloadFn = (file: string = '*') => {
+      lr.changed({body: {files: [file]}});
+    };
   }
+
+  return reloadFn;
 }
 </code></pre>
         </article>
