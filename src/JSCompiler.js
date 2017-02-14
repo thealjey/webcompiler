@@ -7,7 +7,7 @@ import {transformFile} from 'babel-core';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import {getCompiler} from './webpack';
-import {babelBEOptions} from './util';
+import {babelBEOptions, isProduction} from './util';
 import {logError, log, consoleStyles} from './logger';
 
 /* eslint-disable no-sync */
@@ -198,7 +198,7 @@ export class JSCompiler extends Compiler {
       }
       this.save(inPath, outPath, {
         code: compiler.outputFileSystem.readFileSync(outPath, 'utf8'),
-        map: compiler.outputFileSystem.readFileSync(`${outPath}.map`, 'utf8')
+        map: isProduction ? compiler.outputFileSystem.readFileSync(`${outPath}.map`, 'utf8') : ''
       }, callback);
     });
   }
