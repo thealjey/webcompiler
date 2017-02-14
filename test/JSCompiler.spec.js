@@ -106,19 +106,22 @@ describe('JSCompiler', () => {
     beforeEach(() => {
       run = stub().callsArgWith(0, null, {toJson: () => ({errors: [], warnings: []})});
       readFileSync = stub().returnsArg(0);
-      JSCompiler = req({'./webpack': {getCompiler: () => ({run, outputFileSystem: {readFileSync}})}});
-      cmp = new JSCompiler();
-      stub(cmp, 'save');
-    });
-
-    afterEach(() => {
-      cmp.save.restore();
     });
 
     describe('no callback', () => {
 
       beforeEach(() => {
+        JSCompiler = req({
+          './webpack': {getCompiler: () => ({run, outputFileSystem: {readFileSync}})},
+          './util': {isProduction: true}
+        });
+        cmp = new JSCompiler();
+        stub(cmp, 'save');
         cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js');
+      });
+
+      afterEach(() => {
+        cmp.save.restore();
       });
 
       it('calls save', () => {
@@ -131,12 +134,22 @@ describe('JSCompiler', () => {
     describe('callback', () => {
 
       beforeEach(() => {
+        JSCompiler = req({
+          './webpack': {getCompiler: () => ({run, outputFileSystem: {readFileSync}})},
+          './util': {isProduction: false}
+        });
+        cmp = new JSCompiler();
+        stub(cmp, 'save');
         cmp.fe('/path/to/the/input/file.js', '/path/to/the/output/file.js', callback);
+      });
+
+      afterEach(() => {
+        cmp.save.restore();
       });
 
       it('calls save', () => {
         expect(cmp.save).calledWith('/path/to/the/input/file.js', '/path/to/the/output/file.js',
-          {code: '/path/to/the/output/file.js', map: '/path/to/the/output/file.js.map'}, callback);
+          {code: '/path/to/the/output/file.js', map: ''}, callback);
       });
 
     });
