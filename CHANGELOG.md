@@ -1,7 +1,7 @@
 v6.8.1 - Tue, 14 Feb 2017 23:26:37 GMT
 --------------------------------------
 
-- [50b24dd](../../commit/50b24dd) [fixed] in production mode there is no longer a separate source map file (for performance reasons), do not attempt to read it from `memory-fs`
+- [50b24dd](../../commit/50b24dd) [fixed] in development mode there is no longer a separate source map file (for performance reasons), do not attempt to read it from `memory-fs`
 
 
 
