@@ -4,7 +4,7 @@ import type {StringOrErrorCallback} from './typedef';
 import spawn from 'cross-spawn';
 import noop from 'lodash/noop';
 
-const errorPattern = /([^\s]*Error): (.*)[\s\S]*/;
+const errorPattern = /(\w*Error): (.*)[\s\S]*/;
 
 /**
  * Encapsulates a {@link https://nodejs.org/api/child_process.html#child_process_class_childprocess ChildProcess}
