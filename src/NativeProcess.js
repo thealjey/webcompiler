@@ -1,7 +1,7 @@
 /* @flow */
 
 import type {StringOrErrorCallback} from './typedef';
-import {spawn} from 'child_process';
+import spawn from 'cross-spawn';
 import noop from 'lodash/noop';
 
 const errorPattern = /([^\s]*Error): (.*)[\s\S]*/;
