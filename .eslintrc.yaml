@@ -59,6 +59,7 @@ rules:
   react/require-optimization: 2
   react/self-closing-comp: 2
   react/style-prop-object: 2
+  react/void-dom-elements-no-children: 2
 
   # jsx-a11y
   jsx-a11y/lang: 2

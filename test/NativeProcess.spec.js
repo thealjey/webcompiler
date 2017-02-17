@@ -3,19 +3,24 @@
 import chai, {expect} from 'chai';
 import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
-import {NativeProcess} from '../src/NativeProcess';
-import proc from 'child_process';
 import constant from 'lodash/constant';
+import proxyquire from 'proxyquire';
 
 chai.use(sinonChai);
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable require-jsdoc */
 
-let cmp, callback, on, kill, stdoutOn, stderrOn, errorResult;
+let cmp, callback, on, kill, stdoutOn, stderrOn, errorResult, NativeProcess, spawn;
+
+function req(options: Object) {
+  return proxyquire('../src/NativeProcess', options).NativeProcess;
+}
 
 describe('NativeProcess', () => {
 
   beforeEach(() => {
+    NativeProcess = req({});
     callback = spy();
     cmp = new NativeProcess('script');
   });
@@ -76,16 +81,14 @@ describe('NativeProcess', () => {
           on = spy((event, cb) => {
             cb('close' === event ? 1 : {toString: constant('something bad happened')});
           });
-          stub(proc, 'spawn').returns({on});
+          spawn = stub().returns({on});
+          NativeProcess = req({'cross-spawn': spawn});
+          cmp = new NativeProcess('script');
           cmp.run(callback);
         });
 
-        afterEach(() => {
-          proc.spawn.restore();
-        });
-
         it('calls spawn', () => {
-          expect(proc.spawn).calledWith(cmp.task, [], {});
+          expect(spawn).calledWith(cmp.task, [], {});
         });
 
         it('calls on', () => {
@@ -109,12 +112,10 @@ describe('NativeProcess', () => {
           on = spy((event, cb) => {
             cb('close' === event ? 0 : {toString: constant('something bad happened')});
           });
-          stub(proc, 'spawn').returns({on});
+          spawn = stub().returns({on});
+          NativeProcess = req({'cross-spawn': spawn});
+          cmp = new NativeProcess('script');
           cmp.run(callback);
-        });
-
-        afterEach(() => {
-          proc.spawn.restore();
         });
 
         it('calls callback', () => {
@@ -133,12 +134,10 @@ describe('NativeProcess', () => {
         on = spy((event, cb) => {
           cb('close' === event ? 1 : {toString: constant('something bad happened')});
         });
-        stub(proc, 'spawn').returns({on, stdout: {on: stdoutOn}, stderr: {on: stderrOn}});
+        spawn = stub().returns({on, stdout: {on: stdoutOn}, stderr: {on: stderrOn}});
+        NativeProcess = req({'cross-spawn': spawn});
+        cmp = new NativeProcess('script');
         cmp.run();
-      });
-
-      afterEach(() => {
-        proc.spawn.restore();
       });
 
       it('calls stdout.on', () => {
@@ -156,7 +155,7 @@ describe('NativeProcess', () => {
         });
 
         it('calls spawn', () => {
-          expect(proc.spawn).calledWith(cmp.task, ['params', 'here'], {some: 'options'});
+          expect(spawn).calledWith(cmp.task, ['params', 'here'], {some: 'options'});
         });
 
         it('calls callback', () => {
