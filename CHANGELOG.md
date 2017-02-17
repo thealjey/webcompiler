@@ -1,3 +1,10 @@
+v6.8.3 - Fri, 17 Feb 2017 16:41:37 GMT
+--------------------------------------
+
+- [da39703](../../commit/da39703) [fixed] simplified regexp pattern for error detection in `NativeProcess`
+
+
+
 v6.8.2 - Fri, 17 Feb 2017 16:23:24 GMT
 --------------------------------------
 
