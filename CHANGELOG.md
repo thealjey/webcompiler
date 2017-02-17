@@ -1,3 +1,10 @@
+v6.8.2 - Fri, 17 Feb 2017 16:23:24 GMT
+--------------------------------------
+
+- [528c86d](../../commit/528c86d) [fixed] used `cross-spawn` instead of `child_process` in `NativeProcess` for compatibility with the Windows operating system
+
+
+
 v6.8.1 - Tue, 14 Feb 2017 23:26:37 GMT
 --------------------------------------
 
