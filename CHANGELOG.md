@@ -1,3 +1,13 @@
+v6.8.4 - Mon, 13 Mar 2017 16:35:32 GMT
+--------------------------------------
+
+- [1090c8f](../../commit/1090c8f) [changed] display relative file paths when logging errors
+- [5802023](../../commit/5802023) [fixed] updated dependencies
+- [7d08bf9](../../commit/7d08bf9) [fixed] renamed type `Iterable` -> `IterableCollection` in the lodash interface file to make it work with Flow >=0.38.0
+- [8da6ce7](../../commit/8da6ce7) [fixed] switched from `no-invalid-this` and `semi` ESLint rules to the same rules in the `eslint-plugin-babel` package
+
+
+
 v6.8.3 - Fri, 17 Feb 2017 16:41:37 GMT
 --------------------------------------
 
