@@ -6,7 +6,7 @@ type IsEqualCustomizer = (objValue: any, othValue: any, key?: number | string, o
 type TransformCallback = (accumulator: any, value: any, key: number | string, collection: any[] | Object) => any;
 type Callback = (value: any, key: number | string, collection: any[] | Object) => any;
 type Iteratee = Callback | Object | any[] | string;
-type Iterable = any[] | Object | string;
+type IterableCollection = any[] | Object | string;
 type Path = string | string[];
 type DebounceOptions = {
   leading?: boolean;
@@ -292,115 +292,115 @@ declare module 'lodash/zipWith' {
 // Collection
 
 declare module 'lodash/countBy' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Object;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): Object;
 }
 
 declare module 'lodash/each' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Iterable;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): IterableCollection;
 }
 
 declare module 'lodash/eachRight' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Iterable;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): IterableCollection;
 }
 
 declare module 'lodash/every' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): boolean;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): boolean;
 }
 
 declare module 'lodash/filter' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/find' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee, fromIndex?: number): any;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee, fromIndex?: number): any;
 }
 
 declare module 'lodash/findLast' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee, fromIndex?: number): any;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee, fromIndex?: number): any;
 }
 
 declare module 'lodash/flatMap' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/flatMapDeep' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/flatMapDepth' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee, depth?: number): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee, depth?: number): any[];
 }
 
 declare module 'lodash/forEach' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Iterable;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): IterableCollection;
 }
 
 declare module 'lodash/forEachRight' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Iterable;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): IterableCollection;
 }
 
 declare module 'lodash/groupBy' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Object;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): Object;
 }
 
 declare module 'lodash/includes' {
-  declare function exports(collection: Iterable, value: any, fromIndex?: number): boolean;
+  declare function exports(collection: IterableCollection, value: any, fromIndex?: number): boolean;
 }
 
 declare module 'lodash/invokeMap' {
-  declare function exports(collection: Iterable, path: Path | Function, ...args: any[]): any[];
+  declare function exports(collection: IterableCollection, path: Path | Function, ...args: any[]): any[];
 }
 
 declare module 'lodash/keyBy' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): Object;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): Object;
 }
 
 declare module 'lodash/map' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/orderBy' {
-  declare function exports(collection: Iterable, iteratees?: Iteratee[], orders?: string[]): any[];
+  declare function exports(collection: IterableCollection, iteratees?: Iteratee[], orders?: string[]): any[];
 }
 
 declare module 'lodash/partition' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/reduce' {
-  declare function exports(collection: Iterable, iteratee?: TransformCallback, accumulator?: any): any;
+  declare function exports(collection: IterableCollection, iteratee?: TransformCallback, accumulator?: any): any;
 }
 
 declare module 'lodash/reduceRight' {
-  declare function exports(collection: Iterable, iteratee?: TransformCallback, accumulator?: any): any;
+  declare function exports(collection: IterableCollection, iteratee?: TransformCallback, accumulator?: any): any;
 }
 
 declare module 'lodash/reject' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): any[];
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): any[];
 }
 
 declare module 'lodash/sample' {
-  declare function exports(collection: Iterable): any;
+  declare function exports(collection: IterableCollection): any;
 }
 
 declare module 'lodash/sampleSize' {
-  declare function exports(collection: Iterable, n?: number): any[];
+  declare function exports(collection: IterableCollection, n?: number): any[];
 }
 
 declare module 'lodash/shuffle' {
-  declare function exports(collection: Iterable): any[];
+  declare function exports(collection: IterableCollection): any[];
 }
 
 declare module 'lodash/size' {
-  declare function exports(collection: Iterable): number;
+  declare function exports(collection: IterableCollection): number;
 }
 
 declare module 'lodash/some' {
-  declare function exports(collection: Iterable, iteratee?: Iteratee): boolean;
+  declare function exports(collection: IterableCollection, iteratee?: Iteratee): boolean;
 }
 
 declare module 'lodash/sortBy' {
-  declare function exports(collection: Iterable, iteratees?: Iteratee[]): any[];
+  declare function exports(collection: IterableCollection, iteratees?: Iteratee[]): any[];
 }
 
 // Date
@@ -836,11 +836,11 @@ declare module 'lodash/defaultsDeep' {
 }
 
 declare module 'lodash/entries' {
-  declare function exports(collection: Iterable): any[];
+  declare function exports(collection: IterableCollection): any[];
 }
 
 declare module 'lodash/entriesIn' {
-  declare function exports(collection: Iterable): any[];
+  declare function exports(collection: IterableCollection): any[];
 }
 
 declare module 'lodash/extend' {
@@ -908,11 +908,11 @@ declare module 'lodash/invoke' {
 }
 
 declare module 'lodash/keys' {
-  declare function exports(collection: Iterable): Array<number | string>;
+  declare function exports(collection: IterableCollection): Array<number | string>;
 }
 
 declare module 'lodash/keysIn' {
-  declare function exports(collection: Iterable): Array<number | string>;
+  declare function exports(collection: IterableCollection): Array<number | string>;
 }
 
 declare module 'lodash/mapKeys' {
@@ -968,7 +968,7 @@ declare module 'lodash/toPairsIn' {
 }
 
 declare module 'lodash/transform' {
-  declare function exports(collection: Iterable, iteratee?: TransformCallback, accumulator?: any): any;
+  declare function exports(collection: IterableCollection, iteratee?: TransformCallback, accumulator?: any): any;
 }
 
 declare module 'lodash/unset' {
