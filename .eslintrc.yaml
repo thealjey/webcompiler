@@ -65,7 +65,9 @@ rules:
   jsx-a11y/lang: 2
 
   # babel
+  babel/no-invalid-this: 2
   babel/object-curly-spacing: 2
+  babel/semi: 2
 
   # eslint
   accessor-pairs: 2
@@ -138,7 +140,6 @@ rules:
   no-implicit-coercion: 2
   no-implied-eval: 2
   no-inline-comments: 2
-  no-invalid-this: 2
   no-iterator: 2
   no-labels: 2
   no-lone-blocks: 2
@@ -207,7 +208,6 @@ rules:
   radix: 2
   require-jsdoc: [ 2, { require: { FunctionDeclaration: true, MethodDefinition: true, ClassDeclaration: true } } ]
   rest-spread-spacing: 2
-  semi: 2
   semi-spacing: 2
   space-before-blocks: 2
   space-before-function-paren: [ 2, { anonymous: always, named: never } ]
