@@ -5,6 +5,7 @@ import {spy, stub, match} from 'sinon';
 import sinonChai from 'sinon-chai';
 import * as logger from '../src/logger';
 import * as util from '../src/util';
+import path from 'path';
 
 chai.use(sinonChai);
 
@@ -116,10 +117,12 @@ describe('logger', () => {
 
     beforeEach(() => {
       stub(console, 'log');
+      stub(path, 'relative').returnsArg(1);
     });
 
     afterEach(() => {
       console.log.restore();
+      path.relative.restore();
     });
 
     it('log', () => {

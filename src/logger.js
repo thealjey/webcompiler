@@ -7,6 +7,7 @@ import transform from 'lodash/transform';
 import ErrorStackParser from 'error-stack-parser';
 import cleanStack from 'clean-stack';
 import {isNode} from './util';
+import {relative} from 'path';
 
 /* eslint-disable no-console */
 
@@ -253,7 +254,7 @@ export function formatLine(message: string, file: string, line: number | string,
                            column: number | string): Array<string | Message> {
   const {yellow, cyan, magenta} = consoleStyles;
 
-  return ['"', yellow(message), '" in ', cyan(file), ' on ', magenta(line), ':', magenta(column)];
+  return ['"', yellow(message), '" in ', cyan(relative('', file)), ' on ', magenta(line), ':', magenta(column)];
 }
 
 /**
