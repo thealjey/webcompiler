@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {DocumentationConfig} from './typedef';
 import type {NativeProcess} from './NativeProcess';
 import {join} from 'path';
 import noop from 'lodash/noop';
@@ -55,9 +56,8 @@ export class Documentation {
    */
   options: Object;
 
-  /* eslint-disable require-jsdoc */
-  constructor(options: Object = {}) {
-    /* eslint-enable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
+  constructor(options: DocumentationConfig = {}) {
     this.options = {...defaultOptions, ...options};
   }
 
