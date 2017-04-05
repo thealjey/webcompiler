@@ -38,11 +38,11 @@ describe('SASSCompiler', () => {
       process = stub().returns({then});
       postcss = stub().returns({process});
       SASSCompiler = req({postcss, './logger': {logError, logPostCSSWarnings, logSASSError}});
-      cmp = new SASSCompiler(false, ['/path/to/a/directory'], {bower: true});
+      cmp = new SASSCompiler({compress: false, includePaths: ['/path/to/a/directory'], importOnce: {bower: true}});
     });
 
     it('has the compress flag set to false', () => {
-      expect(cmp.compress).false;
+      expect(cmp.options.compress).false;
     });
 
     it('extends Compiler', () => {
@@ -50,7 +50,7 @@ describe('SASSCompiler', () => {
     });
 
     it('initializes includePaths', () => {
-      expect(cmp.includePaths).eql([
+      expect(cmp.options.includePaths).eql([
         'node_modules/bootstrap-sass/assets/stylesheets',
         'node_modules/font-awesome/scss',
         'node_modules',
@@ -60,7 +60,7 @@ describe('SASSCompiler', () => {
     });
 
     it('initializes importOnce', () => {
-      expect(cmp.importOnce).eql({index: true, css: false, bower: true});
+      expect(cmp.options.importOnce).eql({index: true, css: false, bower: true});
     });
 
     describe('postcss', () => {
@@ -105,7 +105,7 @@ describe('SASSCompiler', () => {
     });
 
     it('initializes includePaths', () => {
-      expect(cmp.includePaths).eql([
+      expect(cmp.options.includePaths).eql([
         'node_modules/bootstrap-sass/assets/stylesheets',
         'node_modules/font-awesome/scss',
         'node_modules',
@@ -114,7 +114,7 @@ describe('SASSCompiler', () => {
     });
 
     it('initializes importOnce', () => {
-      expect(cmp.importOnce).eql({index: true, css: false, bower: false});
+      expect(cmp.options.importOnce).eql({index: true, css: false, bower: false});
     });
 
     describe('postcss', () => {
@@ -157,8 +157,8 @@ describe('SASSCompiler', () => {
             file: '/path/to/the/input/file.scss',
             outFile: '/path/to/the/output/file.css',
             importer,
-            importOnce: cmp.importOnce,
-            includePaths: cmp.includePaths,
+            importOnce: cmp.options.importOnce,
+            includePaths: cmp.options.includePaths,
             precision,
             sourceMap: true,
             sourceMapContents: true,

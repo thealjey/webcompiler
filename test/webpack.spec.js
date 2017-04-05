@@ -124,7 +124,7 @@ describe('webpack', () => {
       webpackFn = getWebpack({webpack: 'Compiler'});
       webpack = req({webpack: webpackFn});
       spy(webpack, 'getCompiler');
-      webpack.getCompiler('in', 'out/file');
+      webpack.getCompiler('in', 'out/file', {library: 'library', libraryTarget: 'libraryTarget'});
     });
 
     afterEach(() => {
@@ -136,7 +136,7 @@ describe('webpack', () => {
         ...webpack.getConfig(false),
         devtool: 'eval-source-map',
         entry: ['babel-polyfill', 'in'],
-        output: {path: 'out', filename: 'file', publicPath: '/'},
+        output: {path: 'out', filename: 'file', publicPath: '/', library: 'library', libraryTarget: 'libraryTarget'},
         plugins: []
       });
     });
@@ -158,7 +158,7 @@ describe('webpack', () => {
       webpackFn = getWebpack({webpack: 'Compiler'});
       webpack = req({webpack: webpackFn});
       spy(webpack, 'getCompiler');
-      webpack.getCompiler('in', 'out/file');
+      webpack.getCompiler('in', 'out/file', {library: 'library', libraryTarget: 'libraryTarget'});
     });
 
     afterEach(() => {
@@ -172,7 +172,7 @@ describe('webpack', () => {
         ...webpack.getConfig(false),
         devtool: 'source-map',
         entry: ['babel-polyfill', 'in'],
-        output: {path: 'out', filename: 'file', publicPath: '/'},
+        output: {path: 'out', filename: 'file', publicPath: '/', library: 'library', libraryTarget: 'libraryTarget'},
         plugins: [
           match.instanceOf(DefinePlugin),
           match.instanceOf(OccurrenceOrderPlugin),

@@ -810,6 +810,142 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
 
         
                 
+<h4 class="name" id="CompilerConfig">CompilerConfig</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line139">line 139</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>compress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if true <a href="Compiler.html#save"><code>Compiler#save</code></a> will gzip compress the data
+                                 (defaults to true in a production mode)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    <p>Base compiler configuration object</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
 <h4 class="name" id="ConsoleStyleConfig">ConsoleStyleConfig</h4>
 
 
@@ -821,7 +957,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line90">line 90</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -969,7 +1105,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line115">line 115</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line98">line 98</a>
     </li></ul></dd>
     
 
@@ -1259,7 +1395,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line136">line 136</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -1556,7 +1692,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line109">line 109</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -1670,7 +1806,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
 
             
                 
-<h4 class="name" id="ImportOnceOptions">ImportOnceOptions</h4>
+<h4 class="name" id="JSCompilerConfig">JSCompilerConfig</h4>
 
 
 
@@ -1681,7 +1817,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line3">line 3</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -1748,7 +1884,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>compress</code></td>
             
 
             <td class="type">
@@ -1773,27 +1909,24 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
             
                 <td class="default">
                 
-                    <code>true</code>
-                
                 </td>
             
 
-            <td class="description last"><p>allows folders to contain an index file (index.scss, index.sass, _index.scss,
-                                    _index.sass) that will automatically be imported if just the folder name is
-                                    imported</p></td>
+            <td class="description last"><p>if true <a href="Compiler.html#save"><code>Compiler#save</code></a> will gzip compress the data
+                                            (defaults to true in a production mode)</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>css</code></td>
+                <td class="name"><code>library</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
@@ -1812,26 +1945,23 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
             
                 <td class="default">
                 
-                    <code>false</code>
-                
                 </td>
             
 
-            <td class="description last"><p>allows a CSS file to be imported directly into your Sass files. Simply don't
-                                    include a file extension, and if it's available as a CSS file it'll be imported</p></td>
+            <td class="description last"><p>serves the same purpose as the option with the same name in webpack</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>bower</code></td>
+                <td class="name"><code>libraryTarget</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
@@ -1850,12 +1980,12 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
             
                 <td class="default">
                 
-                    <code>false</code>
+                    <code>"var"</code>
                 
                 </td>
             
 
-            <td class="description last"><p>automatically parses your Bower directory for the files you've requested</p></td>
+            <td class="description last"><p>serves the same purpose as the option with the same name in webpack</p></td>
         </tr>
 
     
@@ -1868,7 +1998,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
 
 
 <div class="description">
-    <p><code>node-sass-import-once</code> options</p>
+    <p>Base compiler configuration object</p>
 </div>
 
 
@@ -1905,7 +2035,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line155">line 155</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line193">line 193</a>
     </li></ul></dd>
     
 
@@ -2042,7 +2172,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line32">line 32</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -2297,7 +2427,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line218">line 218</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line256">line 256</a>
     </li></ul></dd>
     
 
@@ -2443,7 +2573,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line74">line 74</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -2641,7 +2771,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line168">line 168</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -2809,7 +2939,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line50">line 50</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -3026,7 +3156,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line20">line 20</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -3178,7 +3308,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line149">line 149</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -3307,7 +3437,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line175">line 175</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -3464,6 +3594,225 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
 
             
                 
+<h4 class="name" id="SASSCompilerConfig">SASSCompilerConfig</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>compress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>if true <a href="Compiler.html#save"><code>Compiler#save</code></a> will gzip compress the data
+                                         (defaults to true in a production mode)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includePaths</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>[]</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>add additional include paths (by default includes
+                                         <code>'node_modules/bootstrap-sass/assets/stylesheets'</code>,
+                                         <code>'node_modules/font-awesome/scss'</code>, <code>'node_modules'</code> and
+                                         <code>'node_modules/bootswatch'</code>)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importOnce</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{index: true, css: false, bower: false}</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>import once plugin options</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    <p>Base compiler configuration object</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
 
     
 
@@ -3479,7 +3828,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line161">line 161</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line199">line 199</a>
     </li></ul></dd>
     
 
@@ -3651,7 +4000,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line212">line 212</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line250">line 250</a>
     </li></ul></dd>
     
 
@@ -3776,7 +4125,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line182">line 182</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line220">line 220</a>
     </li></ul></dd>
     
 
@@ -3970,7 +4319,7 @@ yaml(join(__dirname, 'config', 'config.yaml'), (error, data) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line198">line 198</a>
+        <a href="typedef.js.html">typedef.js</a>, <a href="typedef.js.html#line236">line 236</a>
     </li></ul></dd>
     
 

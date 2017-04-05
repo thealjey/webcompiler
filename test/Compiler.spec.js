@@ -53,11 +53,11 @@ describe('Compiler', () => {
     describe('no compression', () => {
 
       beforeEach(() => {
-        cmp = new Compiler(false);
+        cmp = new Compiler({compress: false});
       });
 
       it('has the compress flag set to false', () => {
-        expect(cmp.compress).false;
+        expect(cmp.options.compress).false;
       });
 
       describe('mkdir', () => {
@@ -89,7 +89,7 @@ describe('Compiler', () => {
       });
 
       it('has the compress flag set to false', () => {
-        expect(cmp.compress).false;
+        expect(cmp.options.compress).false;
       });
 
     });
@@ -101,11 +101,11 @@ describe('Compiler', () => {
     beforeEach(() => {
       mkdirp = stub().callsArg(1);
       Compiler = req({mkdirp, './util': {isProduction: true}});
-      cmp = new Compiler(true);
+      cmp = new Compiler({compress: true});
     });
 
     it('has the compress flag set to true', () => {
-      expect(cmp.compress).true;
+      expect(cmp.options.compress).true;
     });
 
     describe('done', () => {
@@ -174,7 +174,7 @@ describe('Compiler', () => {
     describe('fsRead readFile map error', () => {
 
       beforeEach(() => {
-        stub(fs, 'readFile', (path, options, callback) => {
+        stub(fs, 'readFile').callsFake((path, options, callback) => {
           if (/\.map$/.test(path)) {
             callback(error);
           } else {
@@ -191,7 +191,7 @@ describe('Compiler', () => {
 
         beforeEach(() => {
           stub(zlib, 'gunzip');
-          cmp.compress = false;
+          cmp.options.compress = false;
           cmp.fsRead('/path/to/the/output/file', callback);
         });
 
@@ -217,7 +217,7 @@ describe('Compiler', () => {
       describe('compress', () => {
 
         beforeEach(() => {
-          cmp.compress = true;
+          cmp.options.compress = true;
         });
 
         describe('gunzip error', () => {
@@ -265,7 +265,7 @@ describe('Compiler', () => {
     describe('fsRead readFile success', () => {
 
       beforeEach(() => {
-        stub(fs, 'readFile', (path, options, callback) => {
+        stub(fs, 'readFile').callsFake((path, options, callback) => {
           if (!callback) {
             callback = options;
           }
@@ -281,7 +281,7 @@ describe('Compiler', () => {
 
         beforeEach(() => {
           stub(zlib, 'gunzip');
-          cmp.compress = false;
+          cmp.options.compress = false;
           cmp.fsRead('/path/to/the/output/file', callback);
         });
 
@@ -302,7 +302,7 @@ describe('Compiler', () => {
       describe('compress', () => {
 
         beforeEach(() => {
-          cmp.compress = true;
+          cmp.options.compress = true;
         });
 
         describe('gunzip error', () => {
@@ -442,7 +442,7 @@ describe('Compiler', () => {
       describe('map error', () => {
 
         beforeEach(() => {
-          stub(fs, 'writeFile', (path, data, cb) => {
+          stub(fs, 'writeFile').callsFake((path, data, cb) => {
             cb('/path/to/the/output/file.map' === path ? error : null);
           });
           Compiler.fsWrite('/path/to/the/output/file', {code: 'some code', map: 'source map'}, callback);
@@ -559,7 +559,7 @@ describe('Compiler', () => {
       beforeEach(() => {
         stub(Compiler, 'writeAndCallDone');
         stub(cmp, 'fsRead').callsArgWith(1, {code: 'old code', map: 'old source map'});
-        stub(Compiler, 'gzip', (data, callback) => {
+        stub(Compiler, 'gzip').callsFake((data, callback) => {
           callback(data.code ? {code: 'compressed code', map: data.map} : data);
         });
       });
@@ -573,7 +573,7 @@ describe('Compiler', () => {
       describe('not compress', () => {
 
         beforeEach(() => {
-          cmp.compress = false;
+          cmp.options.compress = false;
           cmp.save('/path/to/the/input/file', '/path/to/the/output/file', {code: 'some code', map: 'source map'},
                    callback);
         });
@@ -596,7 +596,7 @@ describe('Compiler', () => {
       describe('compress', () => {
 
         beforeEach(() => {
-          cmp.compress = true;
+          cmp.options.compress = true;
           cmp.save('/path/to/the/input/file', '/path/to/the/output/file', {code: 'old code', map: 'old source map'},
                    callback);
         });

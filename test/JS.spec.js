@@ -69,33 +69,6 @@ describe('JS', () => {
 
       describe('findBinary success', () => {
 
-        describe('run error', () => {
-
-          beforeEach(() => {
-            run = stub().callsArgWith(0, error);
-            stub(binaryFinder, 'findBinary').callsArgWith(1, null, {run});
-            JS.typecheck(callback);
-          });
-
-          afterEach(() => {
-            /* @flowignore */
-            binaryFinder.findBinary.restore();
-          });
-
-          it('calls run', () => {
-            expect(run).calledWith(match.func, ['--json']);
-          });
-
-          it('logs error', () => {
-            expect(logger.logError).calledWith(error);
-          });
-
-          it('does not call callback', () => {
-            expect(callback).not.called;
-          });
-
-        });
-
         describe('run success', () => {
 
           describe('typecheck failed', () => {
@@ -320,11 +293,11 @@ describe('JS', () => {
   describe('babel overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS(false);
+      cmp = new JS({compress: false});
     });
 
     it('has the compress flag set to false', () => {
-      expect(cmp.compiler.compress).false;
+      expect(cmp.compiler.options.compress).false;
     });
 
   });
@@ -332,7 +305,7 @@ describe('JS', () => {
   describe('all overrides', () => {
 
     beforeEach(() => {
-      cmp = new JS(true, 'configuration file');
+      cmp = new JS({compress: true}, 'configuration file');
     });
 
     it('instantiates a linter', () => {

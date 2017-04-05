@@ -32,20 +32,24 @@ describe('SASS', () => {
   describe('arguments', () => {
 
     beforeEach(() => {
-      cmp = new SASS(false, ['/path/to/a/directory'], 'configuration file', {bower: true});
+      cmp = new SASS({
+        compress: false,
+        includePaths: ['/path/to/a/directory'],
+        importOnce: {bower: true}
+      }, 'configuration file');
     });
 
     it('initializes compiler', () => {
-      expect(cmp.compiler.compress).false;
+      expect(cmp.compiler.options.compress).false;
       expect(cmp.compiler).instanceof(SASSCompiler);
-      expect(cmp.compiler.includePaths).eql([
+      expect(cmp.compiler.options.includePaths).eql([
         'node_modules/bootstrap-sass/assets/stylesheets',
         'node_modules/font-awesome/scss',
         'node_modules',
         'node_modules/bootswatch',
         '/path/to/a/directory'
       ]);
-      expect(cmp.compiler.importOnce).eql({index: true, css: false, bower: true});
+      expect(cmp.compiler.options.importOnce).eql({index: true, css: false, bower: true});
     });
 
     it('initializes linter', () => {
@@ -62,13 +66,13 @@ describe('SASS', () => {
     });
 
     it('initializes compiler', () => {
-      expect(cmp.compiler.includePaths).eql([
+      expect(cmp.compiler.options.includePaths).eql([
         'node_modules/bootstrap-sass/assets/stylesheets',
         'node_modules/font-awesome/scss',
         'node_modules',
         'node_modules/bootswatch'
       ]);
-      expect(cmp.compiler.importOnce).eql({index: true, css: false, bower: false});
+      expect(cmp.compiler.options.importOnce).eql({index: true, css: false, bower: false});
     });
 
     it('initializes linter', () => {

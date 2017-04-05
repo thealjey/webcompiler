@@ -443,7 +443,7 @@ describe('JSCompiler', () => {
       describe('not the last file', () => {
 
         beforeEach(() => {
-          stub(cmp, 'beTraverse', (inPath, outPath, cb) => {
+          stub(cmp, 'beTraverse').callsFake((inPath, outPath, cb) => {
             cmp.processing = files;
             cb();
           });
@@ -513,7 +513,7 @@ describe('JSCompiler', () => {
 
         beforeEach(() => {
           cmp.processing = 0;
-          stub(cmp, 'beTraverse', (inPath, outPath, cb) => {
+          stub(cmp, 'beTraverse').callsFake((inPath, outPath, cb) => {
             cmp.processing = 1;
             cb();
           });

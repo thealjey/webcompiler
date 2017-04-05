@@ -143,7 +143,7 @@ describe('watch', () => {
     describe('clock error', () => {
 
       beforeEach(() => {
-        stub(Client.prototype, 'command', (command, cb) => {
+        stub(Client.prototype, 'command').callsFake((command, cb) => {
           if ('watch-project' === command[0]) {
             cb(null, {watch: 'a watcher instance'});
           } else {
@@ -179,7 +179,7 @@ describe('watch', () => {
     describe('subscribe error', () => {
 
       beforeEach(() => {
-        stub(Client.prototype, 'command', (command, cb) => {
+        stub(Client.prototype, 'command').callsFake((command, cb) => {
           if ('watch-project' === command[0]) {
             cb(null, {watch: 'a watcher instance', relative_path: 'relative path'});
           } else if ('clock' === command[0]) {
@@ -209,7 +209,7 @@ describe('watch', () => {
     describe('command success', () => {
 
       beforeEach(() => {
-        stub(Client.prototype, 'command', (command, cb) => {
+        stub(Client.prototype, 'command').callsFake((command, cb) => {
           if ('watch-project' === command[0]) {
             cb(null, {watch: 'a watcher instance'});
           } else if ('clock' === command[0]) {

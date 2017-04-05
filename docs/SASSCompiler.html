@@ -53,7 +53,7 @@
 
     
 
-    <h4 class="name" id="SASSCompiler"><span class="type-signature"></span>new SASSCompiler<span class="signature">(compress<span class="signature-attributes">opt</span>, includePaths<span class="signature-attributes">opt</span>, importOnceOptions<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SASSCompiler"><span class="type-signature"></span>new SASSCompiler<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -65,7 +65,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line21">line 21</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -173,92 +173,13 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
 
         <tr>
             
-                <td class="name"><code>compress</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>if true <code>Compiler#save</code> will gzip compress the data in production
-                                                    mode</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>includePaths</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>[]</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>an array of additional include paths</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>importOnceOptions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ImportOnceOptions">ImportOnceOptions</a></span>
+<span class="param-type"><a href="global.html#SASSCompilerConfig">SASSCompilerConfig</a></span>
 
 
             
@@ -284,8 +205,7 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
                 </td>
             
 
-            <td class="description last"><p>an object that lets you override default importOnce resolver
-                                                    configuration</p></td>
+            <td class="description last"><p>configuration object</p></td>
         </tr>
 
     
@@ -353,7 +273,7 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line96">line 96</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -520,7 +440,7 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line136">line 136</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -743,7 +663,7 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line111">line 111</a>
+        <a href="SASSCompiler.js.html">SASSCompiler.js</a>, <a href="SASSCompiler.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -922,7 +842,7 @@ compiler.fe(join(scssDir, 'style.scss'), join(cssDir, 'style.css'));</code></pre
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line170">line 170</a>
+        <a href="Compiler.js.html">Compiler.js</a>, <a href="Compiler.js.html#line174">line 174</a>
     </li></ul></dd>
     
 

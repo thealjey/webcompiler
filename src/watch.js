@@ -40,25 +40,23 @@ export function watch(dir: string, type: string, callback: WatchCallback) {
       return logError(capabilityErr);
     }
 
-    client.command(['watch-project', dir], (watchErr, watchResp) => {
-      const {watch: watcher, relative_path: relative_root} = watchResp;
-
+    client.command(['watch-project', dir], (watchErr, {watch: watcher, relative_path: relative_root, warning}) => {
       if (watchErr) {
         return logError(watchErr);
       }
 
-      if (watchResp.warning) {
-        log(yellow('Warning: ', watchResp.warning));
+      if (warning) {
+        log(yellow('Warning: ', warning));
       }
 
-      client.command(['clock', watcher], (clockErr, clockResp) => {
+      client.command(['clock', watcher], (clockErr, {clock: since}) => {
         if (clockErr) {
           return logError(clockErr);
         }
 
         client.command(['subscribe', watcher, subscription, {
           expression: ['suffix', type],
-          since: clockResp.clock,
+          since,
           relative_root
         }], subscribeErr => {
           if (subscribeErr) {

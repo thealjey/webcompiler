@@ -12,6 +12,7 @@ type Stub = {
   throws(err: Error): any;
   callsArg(i: number): any;
   callsArgWith(i: number, ...args: any[]): any;
+  callsFake(cb: Function): any;
 };
 
 declare module 'sinon' {

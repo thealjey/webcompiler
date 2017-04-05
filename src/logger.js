@@ -349,8 +349,8 @@ export function logError(error: Error) {
  * });
  */
 export function logPostCSSWarnings(warnings: PostCSSWarning[]) {
-  forEach(warnings, ({text, plugin, node, line, column}) => {
-    log(formatErrorMarker('Warning'), ': ', ...formatLine(`${text}(${plugin})`, node.source.input.file, line, column));
+  forEach(warnings, ({text, plugin, node: {source: {input: {file}}}, line, column}) => {
+    log(formatErrorMarker('Warning'), ': ', ...formatLine(`${text}(${plugin})`, file, line, column));
   });
   log('PostCSS warnings: ', warnings.length);
 }

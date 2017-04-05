@@ -120,9 +120,8 @@ export class Message {
    */
   styles: string[] = [];
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(style: ConsoleStyleConfig) {
-    /* eslint-enable require-jsdoc */
     this.style = style;
   }
 
@@ -389,8 +388,8 @@ export function logError(error: Error) {
  * });
  */
 export function logPostCSSWarnings(warnings: PostCSSWarning[]) {
-  forEach(warnings, ({text, plugin, node, line, column}) => {
-    log(formatErrorMarker('Warning'), ': ', ...formatLine(`${text}(${plugin})`, node.source.input.file, line, column));
+  forEach(warnings, ({text, plugin, node: {source: {input: {file}}}, line, column}) => {
+    log(formatErrorMarker('Warning'), ': ', ...formatLine(`${text}(${plugin})`, file, line, column));
   });
   log('PostCSS warnings: ', warnings.length);
 }
