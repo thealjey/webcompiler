@@ -78,10 +78,7 @@ export class JS {
       if (error) {
         return logError(error);
       }
-      flow.run((flowErr, stdout) => {
-        if (flowErr) {
-          return logError(flowErr);
-        }
+      flow.run((_, stdout) => {
         if (!JSON.parse(stdout).passed) {
           return flow.run(noop, [], {stdio: 'inherit'});
         }
