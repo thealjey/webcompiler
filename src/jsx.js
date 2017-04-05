@@ -9,6 +9,10 @@ import has from 'lodash/has';
 import flattenDeep from 'lodash/flattenDeep';
 import isString from 'lodash/isString';
 import trim from 'lodash/trim';
+import replace from 'lodash/replace';
+import toUpper from 'lodash/toUpper';
+import toLower from 'lodash/toLower';
+import split from 'lodash/split';
 
 /**
  * Useful utilities for working with JSX.
@@ -43,7 +47,7 @@ export function parseHTML(html: string): Object {
  * @return {string} JSX style key
  */
 export function toJSXKey(key: string): string {
-  return (/^-ms-/.test(key) ? key.substr(1) : key).replace(/-(.)/g, (match, chr) => chr.toUpperCase());
+  return replace(/^-ms-/.test(key) ? key.substr(1) : key, /-(.)/g, (match, chr) => toUpper(chr));
 }
 
 /**
@@ -56,12 +60,12 @@ export function toJSXKey(key: string): string {
  */
 export function transformStyle(object: Object) {
   if (has(object, 'style')) {
-    object.style = transform(object.style.split(';'), (result, style) => {
+    object.style = transform(split(object.style, ';'), (result, style) => {
       const firstColon = style.indexOf(':'),
-        key = style.substr(0, firstColon).trim();
+        key = trim(style.substr(0, firstColon));
 
       if (key) {
-        result[toJSXKey(key.toLowerCase())] = style.substr(firstColon + 1).trim();
+        result[toJSXKey(toLower(key))] = trim(style.substr(firstColon + 1));
       }
     }, {});
   }

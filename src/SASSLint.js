@@ -3,6 +3,7 @@
 import type {LintCallback} from './typedef';
 import {join} from 'path';
 import forEach from 'lodash/forEach';
+import replace from 'lodash/replace';
 import {lint} from 'stylelint';
 import {logError} from './logger';
 
@@ -69,7 +70,7 @@ export class SASSLint {
 
       forEach(results, ({source: file, warnings}) => {
         forEach(warnings, ({line, column, text, rule}) => {
-          errors.push({file, line, column, message: text.replace(new RegExp(`\\s*\\(${rule}\\)$`), ''), rule});
+          errors.push({file, line, column, message: replace(text, new RegExp(`\\s*\\(${rule}\\)$`), ''), rule});
         });
       });
       callback(errors.length ? errors : null);
