@@ -1,3 +1,14 @@
+v7.0.0 - Wed, 05 Apr 2017 15:24:54 GMT
+--------------------------------------
+
+- [f29f23d](../../commit/f29f23d) [fixed] favor lodash over native methods
+- [41c8c95](../../commit/41c8c95) [fixed] favor `eslint-disable-next-line` over disabling and then re-enabling a rule manually
+- [a30d433](../../commit/a30d433) [fixed] `JS.typecheck` to disregard the contents of stderr when executing the flow typechecker, because it prints errors to stdout
+- [5488581](../../commit/5488581) [fixed] the type signature of the `Documentation` constructor `options` argument
+- [e0e030a](../../commit/e0e030a) [changed] constructor signatures of `Compiler`, `JSCompiler`, `SASSCompiler`, `JS` and `SASS` to allow for additional options to be passed more easily; `JSCompiler` now supports the `"library"` and `"libraryTarget"` options from webpack
+
+
+
 v6.8.4 - Mon, 13 Mar 2017 16:35:32 GMT
 --------------------------------------
 
