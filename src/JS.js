@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {JSCompilerConfig} from './typedef';
 import {JSCompiler} from './JSCompiler';
 import type {NativeProcess} from './NativeProcess';
 import {JSLint} from './JSLint';
@@ -13,9 +14,8 @@ import {findBinary} from './findBinary';
  * Wraps {@link JSCompiler} to add static analysis and linting. If you don't want that, use {@link JSCompiler} directly.
  *
  * @class JS
- * @param {boolean} [compress=true]                           - if true `Compiler#save` will gzip compress the data in
- *                                                              production mode
- * @param {string}  [configFile="webcompiler/.eslintrc.yaml"] - path to the ESLint configuration file
+ * @param {JSCompilerConfig} [options={}]                              - configuration object
+ * @param {string}           [configFile="webcompiler/.eslintrc.yaml"] - path to the ESLint configuration file
  * @example
  * import {JS} from 'webcompiler';
  * // or - import {JS} from 'webcompiler/lib/JS';
@@ -59,10 +59,9 @@ export class JS {
    */
   linter: JSLint;
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, configFile?: string) {
-    /* eslint-enable require-jsdoc */
-    this.compiler = new JSCompiler(compress);
+  // eslint-disable-next-line require-jsdoc
+  constructor(options?: JSCompilerConfig, configFile?: string) {
+    this.compiler = new JSCompiler(options);
     this.linter = new JSLint(configFile);
   }
 

@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback} from './typedef';
+import type {ProgramData, ProgramDataCallback, CompilerConfig} from './typedef';
 import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 import {writeFile, readFile} from 'fs';
@@ -8,29 +8,33 @@ import {gzip, gunzip} from 'zlib';
 import {isProduction} from './util';
 import {logError, logSequentialSuccessMessage} from './logger';
 
+const defaultOptions = {
+  compress: isProduction
+};
+
 /**
  * The base compiler class
  *
  * @class Compiler
  * @abstract
- * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
+ * @protected
+ * @param {CompilerConfig} [options={}] - configuration object
  */
 export class Compiler {
 
   /**
-   * if true `Compiler#save` will gzip compress the data
+   * configured options
    *
-   * @member {boolean} compress
+   * @member {CompilerConfig} options
    * @memberof Compiler
    * @private
    * @instance
    */
-  compress: boolean;
+  options: Object;
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true) {
-    /* eslint-enable require-jsdoc */
-    this.compress = isProduction && compress;
+  // eslint-disable-next-line require-jsdoc
+  constructor(options: CompilerConfig = {}) {
+    this.options = {...defaultOptions, ...options};
   }
 
   /**
@@ -156,7 +160,7 @@ export class Compiler {
       readFile(`${path}.map`, 'utf8', (mapErr, mapData) => {
         const map = mapErr ? '' : mapData;
 
-        if (!this.compress) {
+        if (!this.options.compress) {
           return callback({code: scriptData.toString('utf8'), map});
         }
 
@@ -192,7 +196,7 @@ export class Compiler {
         map: oldData.map === data.map ? '' : data.map
       };
 
-      if (!this.compress) {
+      if (!this.options.compress) {
         Compiler.writeAndCallDone(inPath, outPath, newData, callback);
 
         return;

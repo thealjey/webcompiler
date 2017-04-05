@@ -1,23 +1,6 @@
 /* @flow */
 
 /**
- * `node-sass-import-once` options
- *
- * @typedef {Object} ImportOnceOptions
- * @property {boolean} [index=true]  - allows folders to contain an index file (index.scss, index.sass, _index.scss,
- *                                     _index.sass) that will automatically be imported if just the folder name is
- *                                     imported
- * @property {boolean} [css=false]   - allows a CSS file to be imported directly into your Sass files. Simply don't
- *                                     include a file extension, and if it's available as a CSS file it'll be imported
- * @property {boolean} [bower=false] - automatically parses your Bower directory for the files you've requested
- */
-export type ImportOnceOptions = {
-  index?: boolean;
-  css?: boolean;
-  bower?: boolean;
-};
-
-/**
  * Processed application code with source maps
  *
  * @typedef {Object} ProgramData
@@ -145,6 +128,61 @@ export type DevServerConfig = {
  * @property {string} [jsdocConfig="<webcompiler root>/config/jsdoc.json"] - a full system path to a JSDoc3
  *                                                                           configuration file
  */
+export type DocumentationConfig = {
+  inputDir?: string;
+  outputDir?: string;
+  readMe?: string;
+  template?: string;
+  jsdocConfig?: string;
+};
+
+/**
+ * Base compiler configuration object
+ *
+ * @typedef {Object} CompilerConfig
+ * @property {boolean} [compress] - if true {@link Compiler#save} will gzip compress the data
+ *                                  (defaults to true in a production mode)
+ */
+export type CompilerConfig = {
+  compress?: boolean;
+};
+
+/**
+ * Base compiler configuration object
+ *
+ * @typedef {Object} JSCompilerConfig
+ * @property {boolean} [compress]            - if true {@link Compiler#save} will gzip compress the data
+ *                                             (defaults to true in a production mode)
+ * @property {string}  [library]             - serves the same purpose as the option with the same name in webpack
+ * @property {string}  [libraryTarget="var"] - serves the same purpose as the option with the same name in webpack
+ */
+export type JSCompilerConfig = {
+  compress?: boolean;
+  library?: string;
+  libraryTarget?: string;
+};
+
+/**
+ * Base compiler configuration object
+ *
+ * @typedef {Object} SASSCompilerConfig
+ * @property {boolean}  [compress]        - if true {@link Compiler#save} will gzip compress the data
+ *                                          (defaults to true in a production mode)
+ * @property {string[]} [includePaths=[]] - add additional include paths (by default includes
+ *                                          `'node_modules/bootstrap-sass/assets/stylesheets'`,
+ *                                          `'node_modules/font-awesome/scss'`, `'node_modules'` and
+ *                                          `'node_modules/bootswatch'`)
+ * @property {Object}   [importOnce={index: true, css: false, bower: false}] - import once plugin options
+ */
+export type SASSCompilerConfig = {
+  compress?: boolean;
+  includePaths?: string[];
+  importOnce?: {
+    index?: boolean;
+    css?: boolean;
+    bower?: boolean;
+  };
+};
 
 /**
  * @callback ProgramDataCallback

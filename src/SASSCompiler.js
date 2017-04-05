@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ProgramData, ProgramDataCallback, ImportOnceOptions} from './typedef';
+import type {ProgramData, ProgramDataCallback, SASSCompilerConfig} from './typedef';
 import {Compiler} from './Compiler';
 import {render} from 'node-sass';
 import importer from 'node-sass-import-once';
@@ -16,7 +16,11 @@ const precision = 8,
     'node_modules/font-awesome/scss',
     'node_modules',
     'node_modules/bootswatch'
-  ];
+  ],
+  defaultOptions = {
+    includePaths: [],
+    importOnce: {}
+  };
 
 /**
  * A SASS compiler
@@ -33,11 +37,7 @@ const precision = 8,
  *
  * @class SASSCompiler
  * @extends Compiler
- * @param {boolean}           [compress=true]        - if true `Compiler#save` will gzip compress the data in production
- *                                                     mode
- * @param {Array<string>}     [includePaths=[]]      - an array of additional include paths
- * @param {ImportOnceOptions} [importOnceOptions={}] - an object that lets you override default importOnce resolver
- *                                                     configuration
+ * @param {SASSCompilerConfig} [options={}] - configuration object
  * @example
  * import {SASSCompiler} from 'webcompiler';
  * // or - import {SASSCompiler} from 'webcompiler/lib/SASSCompiler';
@@ -56,26 +56,6 @@ const precision = 8,
 export class SASSCompiler extends Compiler {
 
   /**
-   * an array of paths to search for an scss file in if it's not found in cwd
-   *
-   * @member {Array<string>} includePaths
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  includePaths: string[];
-
-  /**
-   * importOnce resolver configuration
-   *
-   * @member {ImportOnceOptions} importOnce
-   * @memberof SASSCompiler
-   * @private
-   * @instance
-   */
-  importOnce: ImportOnceOptions;
-
-  /**
    * postcss plugins
    *
    * @member {Array<*>} postcssPlugins
@@ -85,12 +65,15 @@ export class SASSCompiler extends Compiler {
    */
   postcssPlugins: any[] = [autoprefixer];
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: string[] = [], importOnceOptions: ImportOnceOptions = {}) {
-    /* eslint-enable require-jsdoc */
-    super(compress);
-    this.includePaths = defaultIncludePaths.concat(includePaths);
-    this.importOnce = {...importOnceDefaults, ...importOnceOptions};
+  // eslint-disable-next-line require-jsdoc
+  constructor(options: SASSCompilerConfig = {}) {
+    const {includePaths, importOnce, ...rest} = {...defaultOptions, ...options};
+
+    super({
+      includePaths: defaultIncludePaths.concat(includePaths),
+      importOnce: {...importOnceDefaults, ...importOnce},
+      ...rest
+    });
   }
 
   /**
@@ -144,13 +127,15 @@ export class SASSCompiler extends Compiler {
    * @param {Function} [callback=function () {}] - a callback function
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
+    const {importOnce, includePaths} = this.options;
+
     render({
       file: inPath,
       outFile: outPath,
       importer,
       precision,
-      importOnce: this.importOnce,
-      includePaths: this.includePaths,
+      importOnce,
+      includePaths,
       sourceMap: true,
       sourceMapContents: true,
       outputStyle: 'compressed'

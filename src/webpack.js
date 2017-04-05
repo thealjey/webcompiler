@@ -1,5 +1,6 @@
 /* @flow */
 
+import type {JSCompilerConfig} from './typedef';
 import webpack from 'webpack';
 import {dirname, basename} from 'path';
 import WebpackDevServer from 'webpack-dev-server';
@@ -11,8 +12,7 @@ import {isProduction, babelFEOptions} from './util';
 
 const cache = {},
   fakeFS = new MemoryFS(),
-  {optimize, DefinePlugin, HotModuleReplacementPlugin} = webpack,
-  {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin} = optimize,
+  {optimize: {OccurrenceOrderPlugin, DedupePlugin, UglifyJsPlugin}, DefinePlugin, HotModuleReplacementPlugin} = webpack,
   productionPlugins = [
     new DefinePlugin({'process.env': {NODE_ENV: JSON.stringify('production')}}),
     new OccurrenceOrderPlugin(),
@@ -82,16 +82,17 @@ export function getConfig(react: boolean): Object {
  * @memberof module:webpack
  * @private
  * @method getCompiler
- * @param {string} inPath  - the path to an input file
- * @param {string} outPath - the path to an output file
+ * @param {string}           inPath  - the path to an input file
+ * @param {string}           outPath - the path to an output file
+ * @param {JSCompilerConfig} options - configuration object
  * @return {Object} webpack Compiler instance
  */
-export function getCompiler(inPath: string, outPath: string): Object {
+export function getCompiler(inPath: string, outPath: string, {library, libraryTarget}: JSCompilerConfig): Object {
   const compiler = webpack({
     ...getConfig(false),
     devtool: isProduction ? 'source-map' : 'eval-source-map',
     entry: ['babel-polyfill', inPath],
-    output: {path: dirname(outPath), filename: basename(outPath), publicPath: '/'},
+    output: {path: dirname(outPath), filename: basename(outPath), publicPath: '/', library, libraryTarget},
     plugins: isProduction ? productionPlugins : []
   });
 
@@ -110,9 +111,7 @@ export function getCompiler(inPath: string, outPath: string): Object {
  * @param {DevServerConfig} options - a config object
  * @return {Object} an instance of the webpack development server
  */
-export function getServer(inPath: string, options: Object) {
-  const {react, port, contentBase, configureApplication} = options;
-
+export function getServer(inPath: string, {react, port, contentBase, configureApplication}: DevServerConfig) {
   const server = new WebpackDevServer(webpack({
     ...getConfig(react),
     devtool: 'eval-source-map',

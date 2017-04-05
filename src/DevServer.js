@@ -64,16 +64,15 @@ export class DevServer {
   /**
    * optional configuration
    *
-   * @member {Object} options
+   * @member {DevServerConfig} options
    * @memberof DevServer
    * @private
    * @instance
    */
   options: Object;
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(script: string, options: DevServerConfig = {}) {
-    /* eslint-enable require-jsdoc */
     this.script = script;
     this.options = {...defaultOptions, ...options};
   }
@@ -122,7 +121,7 @@ export class DevServer {
       return;
     }
 
-    const sass = new SASSCompiler(false),
+    const sass = new SASSCompiler({compress: false}),
       lr = livereload(),
       compileSASS = sass.fe.bind(sass, style, join(contentBase, 'style.css'), () => {
         lr('/style.css');

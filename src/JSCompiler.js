@@ -19,7 +19,7 @@ const {yellow, red} = consoleStyles;
  *
  * @class JSCompiler
  * @extends Compiler
- * @param {boolean} [compress=true] - if true `Compiler#save` will gzip compress the data in production mode
+ * @param {JSCompilerConfig} [options={}] - configuration object
  * @example
  * import {JSCompiler} from 'webcompiler';
  * // or - import {JSCompiler} from 'webcompiler/lib/JSCompiler';
@@ -178,7 +178,7 @@ export class JSCompiler extends Compiler {
    * @param {Function} [callback=function () {}] - a callback function
    */
   fe(inPath: string, outPath: string, callback: () => void = noop) {
-    const compiler = getCompiler(inPath, outPath);
+    const compiler = getCompiler(inPath, outPath, this.options);
 
     compiler.run((err, stats) => {
       if (err) {

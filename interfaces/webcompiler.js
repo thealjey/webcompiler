@@ -1,7 +1,8 @@
 /* @flow */
 
 import type {ProgramData, ProgramDataCallback, StringOrErrorCallback, ResultOrErrorCallback, LiveReloadTrigger,
-  ObjectOrErrorCallback, DevServerConfig, LintError, LintCallback, PostCSSWarning, NodeSassError} from '../src/typedef';
+  ObjectOrErrorCallback, DevServerConfig, LintError, LintCallback, PostCSSWarning, NodeSassError,
+  WatchCallback, JSCompilerConfig, SASSCompilerConfig} from '../src/typedef';
 
 declare module 'webcompiler' {
 
@@ -28,7 +29,7 @@ declare module 'webcompiler' {
   declare function highlightArray(code: ?string): Array<string | Object>;
   declare function highlightJSX(code: ?string): string;
 
-  declare function watch(dir: string, type: string, callback: () => void): void;
+  declare function watch(dir: string, type: string, callback: WatchCallback): void;
   declare function yaml(filename: string, callback: ObjectOrErrorCallback): void;
   declare function findBinary(name: string, callback: ResultOrErrorCallback): void;
   declare function livereload(): LiveReloadTrigger;
@@ -81,7 +82,7 @@ declare module 'webcompiler' {
   }
 
   declare class JSCompiler {
-    constructor(compress: ?boolean): void;
+    constructor(options: ?JSCompilerConfig): void;
     be(inPath: string, outPath: string, callback: ?() => void): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
   }
@@ -92,7 +93,7 @@ declare module 'webcompiler' {
   }
 
   declare class SASSCompiler {
-    constructor(compress: ?boolean, includePaths: ?string[], importOnceOptions: ?Object): void;
+    constructor(options: ?SASSCompilerConfig): void;
     addPostcssPlugins(...plugins: any[]): SASSCompiler;
     postcss(path: string, data: ProgramData, callback: ProgramDataCallback): void;
     fe(inPath: string, outPath: string, callback: ?() => void): void;
@@ -100,7 +101,7 @@ declare module 'webcompiler' {
 
   declare class JS {
     compiler: JSCompiler;
-    constructor(compress: ?boolean, configFile: ?string): void;
+    constructor(options: ?JSCompilerConfig, configFile: ?string): void;
     typecheck(callback: () => void): void;
     lint(paths: string[], callback: () => void): void;
     be(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
@@ -109,7 +110,7 @@ declare module 'webcompiler' {
 
   declare class SASS {
     compiler: SASSCompiler;
-    constructor(compress: ?boolean, includePaths: ?string[], configFile: ?string, importOnceOptions: ?Object): void;
+    constructor(options: ?SASSCompilerConfig, configFile: ?string): void;
     lint(paths: string[], callback: () => void): void;
     fe(inPath: string, outPath: string, lintPaths: ?string[], callback: ?() => void): void;
   }

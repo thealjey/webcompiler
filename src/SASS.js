@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ImportOnceOptions} from './typedef';
+import type {SASSCompilerConfig} from './typedef';
 import {SASSCompiler} from './SASSCompiler';
 import {SASSLint} from './SASSLint';
 import noop from 'lodash/noop';
@@ -22,12 +22,8 @@ import {logLintingErrors} from './logger';
  * the module in JavaScript).
  *
  * @class SASS
- * @param {boolean}           [compress=true]                              - if true `Compiler#save` will gzip compress
- *                                                                           the data in production mode
- * @param {Array<string>}     [includePaths=[]]                            - an array of additional include paths
- * @param {string}            [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
- * @param {ImportOnceOptions} [importOnceOptions={}]                       - an object that lets you override default
- *                                                                           importOnce resolver configuration
+ * @param {SASSCompilerConfig} [options={}]                                 - configuration object
+ * @param {string}             [configFile="webcompiler/.stylelintrc.yaml"] - path to the stylelint configuration file
  * @example
  * import {SASS} from 'webcompiler';
  * // or - import {SASS} from 'webcompiler/lib/SASS';
@@ -65,11 +61,9 @@ export class SASS {
    */
   linter: SASSLint;
 
-  /* eslint-disable require-jsdoc */
-  constructor(compress: boolean = true, includePaths: string[] = [], configFile?: string,
-              importOnceOptions: ImportOnceOptions = {}) {
-    /* eslint-enable require-jsdoc */
-    this.compiler = new SASSCompiler(compress, includePaths, importOnceOptions);
+  // eslint-disable-next-line require-jsdoc
+  constructor(options?: SASSCompilerConfig, configFile?: string) {
+    this.compiler = new SASSCompiler(options);
     this.linter = new SASSLint(configFile);
   }
 
