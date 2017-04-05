@@ -42,9 +42,8 @@ export class NativeProcess {
    */
   proc: any;
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(task: string) {
-    /* eslint-enable require-jsdoc */
     this.task = task;
   }
 

@@ -81,9 +81,8 @@ export class Message {
    */
   styles: string[] = [];
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(style: ConsoleStyleConfig) {
-    /* eslint-enable require-jsdoc */
     this.style = style;
   }
 

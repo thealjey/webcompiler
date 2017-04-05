@@ -35,9 +35,8 @@ export class JSLint {
    */
   linter: CLIEngine;
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(configFile: string = defaultConfigFile) {
-    /* eslint-enable require-jsdoc */
     this.linter = new CLIEngine({configFile});
   }
 

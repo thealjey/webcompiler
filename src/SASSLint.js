@@ -36,9 +36,8 @@ export class SASSLint {
    */
   configFile: string;
 
-  /* eslint-disable require-jsdoc */
+  // eslint-disable-next-line require-jsdoc
   constructor(configFile: string = defaultConfigFile) {
-    /* eslint-enable require-jsdoc */
     this.configFile = configFile;
   }
 

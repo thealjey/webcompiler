@@ -49,10 +49,8 @@ export function highlight(value: string): {dom: any; lines: any} {
   const dom = load(el.innerHTML),
     lines = dom('.CodeMirror-line');
 
-  /* eslint-disable lodash/prefer-lodash-method */
+  // eslint-disable-next-line lodash/prefer-lodash-method
   lines.find('> span').removeAttr('style');
-
-  /* eslint-enable lodash/prefer-lodash-method */
 
   return {dom, lines};
 }
