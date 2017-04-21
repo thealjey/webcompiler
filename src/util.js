@@ -19,7 +19,7 @@
  * // or - var isNode = require('webcompiler').isNode;
  * // or - var isNode = require('webcompiler/lib/util').isNode;
  */
-export const isNode = 'undefined' !== typeof process && 'node' === process.release.name;
+export const isNode = 'undefined' !== typeof process && process.release && 'node' === process.release.name;
 
 /**
  * `true` if the `NODE_ENV` environment variable is set to `"production"`
