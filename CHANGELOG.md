@@ -1,3 +1,11 @@
+v7.0.1 - Fri, 21 Apr 2017 09:37:20 GMT
+--------------------------------------
+
+- [2e7d0ba](../../commit/2e7d0ba) [fixed] `React.PropTypes` is deprecated in favor of the `"prop-types"` module
+- [edaa3ef](../../commit/edaa3ef) [fixed] the `isNode` check for when the `process` variable exists in the browser
+
+
+
 v7.0.0 - Wed, 05 Apr 2017 15:24:54 GMT
 --------------------------------------
 
