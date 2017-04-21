@@ -2,7 +2,16 @@
 
 declare module 'react' {
   declare function createElement(type: any, props?: Object, ...children: any[]): void;
-  declare var PropTypes: {
+  declare class Component {}
+  declare class PureComponent {}
+}
+
+declare module 'react/lib/shallowCompare' {
+  declare function exports(component: any, props: Object, state: Object): boolean;
+}
+
+declare module 'prop-types' {
+  declare var exports: {
     instanceOf(obj: any): void;
     arrayOf(obj: any): void;
     oneOfType(types: any[]): void;
@@ -14,10 +23,4 @@ declare module 'react' {
     number: {isRequired: void};
     func: {isRequired: void};
   };
-  declare class Component {}
-  declare class PureComponent {}
-}
-
-declare module 'react/lib/shallowCompare' {
-  declare function exports(component: any, props: Object, state: Object): boolean;
 }
