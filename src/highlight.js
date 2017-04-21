@@ -17,13 +17,15 @@ import {isNode} from './util';
 if (isNode) {
   global.window = jsdom().defaultView;
   global.navigator = window.navigator;
-  window.document.createRange = constant({
+  global.document = window.document;
+
+  /* @flowignore */
+  document.createRange = constant({
     setEnd: noop,
     setStart: noop,
     getBoundingClientRect: constant({}),
     getClientRects: constant([])
   });
-  global.document = window.document;
 }
 
 // we have to use normal requires because of the import hoisting
